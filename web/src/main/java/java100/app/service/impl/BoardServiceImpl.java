@@ -18,7 +18,6 @@ public class BoardServiceImpl implements BoardService {
     @Autowired BoardDao boardDao;
     @Autowired FileDao fileDao;
     
-
     @Override
     public List<Board> list(int pageNo, int pageSize, Map<String, Object> options) {
         // TODO Auto-generated method stub
@@ -28,8 +27,6 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public Board get(int no) {
         boardDao.updateViewCount(no);
-        
-        Board board = boardDao.findByNo2(no);
         
         Board board = boardDao.findByNo2(no);
            
