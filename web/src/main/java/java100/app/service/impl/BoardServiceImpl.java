@@ -50,8 +50,12 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public int add(Board board) {
-        // TODO Auto-generated method stub
-        return 0;
+		int count = boardDao.insert(board);
+		
+		this.addFiles(board.getFiles(), board.getNo());
+
+
+		return count;
     }
 
     @Override
