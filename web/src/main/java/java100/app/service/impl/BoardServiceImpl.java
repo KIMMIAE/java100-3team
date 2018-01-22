@@ -21,7 +21,7 @@ public class BoardServiceImpl implements BoardService {
     
     @Override
     public List<Board> list(int pageNo, int pageSize, Map<String, Object> options) {
-        
+       
         HashMap<String,Object> params = new HashMap<>();
         params.put("startIndex", (pageNo - 1) * pageSize);
         params.put("size", pageSize);
@@ -44,15 +44,22 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public int getTotalCount() {
-        // TODO Auto-generated method stub
-        return 0;
+        return boardDao.countAll();
     }
 
     @Override
     public int add(Board board) {
         int count = boardDao.insert(board);
+<<<<<<< HEAD
         this.addFiles(board.getFiles(), board.getNo());
         return count;
+=======
+        
+        this.addFiles(board.getFiles(), board.getNo());
+        
+        return count;
+
+>>>>>>> branch 'master' of https://github.com/sorryisme/java100-3team.git
     }
 
     @Override
@@ -78,9 +85,16 @@ public class BoardServiceImpl implements BoardService {
         for (UploadFile file : files) {
             file.setBoardNo(boardNo);
             fileDao.insert(file);
+<<<<<<< HEAD
         }
+=======
+        }        
+>>>>>>> branch 'master' of https://github.com/sorryisme/java100-3team.git
     }
 
+ 
+    
+    
 }
 
 
