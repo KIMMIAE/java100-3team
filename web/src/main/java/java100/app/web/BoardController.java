@@ -148,7 +148,7 @@ public class BoardController {
         
         return "redirect:list";
     }
- 
+
     @RequestMapping("delete")
     public String delete(int no) throws Exception {
 

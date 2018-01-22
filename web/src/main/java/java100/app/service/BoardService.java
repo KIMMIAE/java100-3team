@@ -1,8 +1,10 @@
 package java100.app.service;
 
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import java100.app.domain.Board;
+import java100.app.domain.UploadFile;
 
 //=> "역할"을 강조할 때는 "객체(object)"라는 말보다는 
 //"컴포넌트(component)"라는 말을 사용한다.
@@ -14,7 +16,6 @@ import java100.app.domain.Board;
 //가능한 업무 용어를 사용한다.
 //
 public interface BoardService {
-<<<<<<< HEAD
     List<Board> list(int pageNo, int pageSize, Map<String,Object> options);
     Board get(int no);
     int getTotalCount();
@@ -23,20 +24,6 @@ public interface BoardService {
     int updateViewCount(int no);
     int delete(int no);
     void addFiles(List<UploadFile> files, int boardNo);
-=======
-
-	int getTotalCount();
-
-	Board list(int pageNo, int pageSize, HashMap<String, Object> options);
-
-	Board get(int no);
-
-	int add(Board board);
-
-	int update(Board board);
-
-	int delete(int no);
->>>>>>> branch 'master' of https://github.com/sorryisme/java100-3team.git
 }
 
 
