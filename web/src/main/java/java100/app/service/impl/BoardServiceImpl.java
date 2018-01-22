@@ -69,19 +69,11 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public int delete(int no) {
         
-        
-        return boardDao.delete(no);
-        
-        
         return boardDao.delete(no);
     }
 
     @Override
     public void addFiles(List<UploadFile> files, int boardNo) {
-        for (UploadFile file : files) {
-            file.setBoardNo(boardNo);
-            fileDao.insert(file);
-        }
     }
 
  
