@@ -30,7 +30,7 @@ public class BoardServiceImpl implements BoardService {
         boardDao.updateViewCount(no); 
         
         Board board = boardDao.findByNo2(no);
-        
+         
         return board;
     }
 
