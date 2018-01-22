@@ -17,9 +17,15 @@ public interface BoardService {
 
 	int getTotalCount();
 
-	Object list(int pageNo, int pageSize, HashMap<String, Object> options);
+	Board list(int pageNo, int pageSize, HashMap<String, Object> options);
 
 	Board get(int no);
+
+	int add(Board board);
+
+	int update(Board board);
+
+	int delete(int no);
 }
 
 
