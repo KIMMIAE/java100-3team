@@ -12,7 +12,7 @@ public interface BoardDao {
     int countAll();
     int updateViewCount(int no);
     int insert(Board board);
-    int update(Board board);
+    int update(Board board); 
     int delete(int no);
 }
 

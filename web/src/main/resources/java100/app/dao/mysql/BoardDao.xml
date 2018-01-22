@@ -19,7 +19,7 @@
             <id     column="m_no"       property="no"/>
             <result column="m_name"     property="name"/>
         </association>
-        
+         
         <!-- 첨부파일 정보를 담을 수 있도록 설정한다. -->
         <collection property="files"  ofType="uploadFile">
             <id     column="f_no"       property="no"/>
