@@ -1,5 +1,6 @@
 package java100.app.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,19 +14,31 @@ import java100.app.service.BoardService;
 
 @Service
 public class BoardServiceImpl implements BoardService {
-
+    
     @Autowired BoardDao boardDao;
+    @Autowired FileDao fileDao;
     
     @Override
     public List<Board> list(int pageNo, int pageSize, Map<String, Object> options) {
-        // TODO Auto-generated method stub
-        return null;
+        
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("startIndex", (pageNo - 1) * pageSize);
+        params.put("size", pageSize);
+        
+        if (options != null) {
+            params.putAll(options);
+        }
+        
+        return boardDao.findAll(params);
     }
 
     @Override
     public Board get(int no) {
-        // TODO Auto-generated method stub
-        return null;
+        boardDao.updateViewCount(no);
+        
+        Board board = boardDao.findByNo2(no);
+           
+        return board;
     }
 
     @Override
