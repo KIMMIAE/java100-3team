@@ -71,6 +71,9 @@ public class BoardServiceImpl implements BoardService {
         
         
         return boardDao.delete(no);
+        
+        
+        return boardDao.delete(no);
     }
 
     @Override
