@@ -24,7 +24,7 @@ import java100.app.service.BoardService;
 
 @Controller
 @RequestMapping("/board")
-// @SessionAttributes("loginUser")
+@SessionAttributes("loginUser")
 public class BoardController {
     
     @Autowired ServletContext servletContext;
@@ -87,8 +87,8 @@ public class BoardController {
     @RequestMapping("add")
     public String add(
             Board board,
-            MultipartFile[] file/*,
-            @ModelAttribute(value="loginUser") Member loginUser*/) throws Exception {
+            MultipartFile[] file,
+            @ModelAttribute(value="loginUser") Member loginUser) throws Exception {
         
         // 업로드 파일을 저장할 폴더 위치를 가져온다.
         String uploadDir = servletContext.getRealPath("/download");
