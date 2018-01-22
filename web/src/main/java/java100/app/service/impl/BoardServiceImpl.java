@@ -16,22 +16,64 @@ import java100.app.service.BoardService;
 @Service
 public class BoardServiceImpl implements BoardService {
 
-    @Override
-    public int getTotalCount() {
-        return 0;
-    }
 
     @Override
-    public Object list(int pageNo, int pageSize, HashMap<String, Object> options) {
+    public List<Board> list(int pageNo, int pageSize, Map<String, Object> options) {
+        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Board get(int no) {
+        // TODO Auto-generated method stub
         return null;
     }
- 
+
+    @Override
+    public int getTotalCount() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int add(Board board) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int update(Board board) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int updateViewCount(int no) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int delete(int no) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void addFiles(List<UploadFile> files, int boardNo) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }
+
+
+
+
+
+
+
+
 
 
 
