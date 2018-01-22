@@ -46,9 +46,7 @@ public class BoardServiceImpl implements BoardService {
 		int count = boardDao.insert(board);
 		
 		this.addFiles(board.getFiles(), board.getNo());
-
-
-		return count;
+		return count; 
     }
 
     @Override
