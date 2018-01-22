@@ -9,7 +9,7 @@ public class Board {
     protected String content;
     protected Date regDate;
     protected int viewCount;
-    protected Member writer;
+//    protected Member writer;
     protected List<UploadFile> files;
     
     public int getNo() {
@@ -52,13 +52,13 @@ public class Board {
         this.viewCount = viewCount;
     }
 
-    public Member getWriter() {
-        return writer;
-    }
-
-    public void setWriter(Member writer) {
-        this.writer = writer;
-    }
+//    public Member getWriter() {
+//        return writer;
+//    }
+//
+//    public void setWriter(Member writer) {
+//        this.writer = writer;
+//    }
 
     public List<UploadFile> getFiles() {
         return files;
