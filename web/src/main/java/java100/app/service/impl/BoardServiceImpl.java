@@ -56,14 +56,10 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public int update(Board board) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int updateViewCount(int no) {
-        // TODO Auto-generated method stub
-        return 0;
+        int count = boardDao.update(board);
+        fileDao.deleteAllByBoardNo(board.getNo());
+        addFiles(board.getFiles(), board.getNo());
+        return count;
     }
 
     @Override
@@ -78,6 +74,10 @@ public class BoardServiceImpl implements BoardService {
             file.setBoardNo(boardNo);
             fileDao.insert(file);
         }
+    }
+
+    public int updateViewCount(int no) {
+        return boardDao.updateViewCount(no);
     }
 
  
