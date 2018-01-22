@@ -14,6 +14,16 @@ import java100.app.domain.Board;
 //가능한 업무 용어를 사용한다.
 //
 public interface BoardService {
+<<<<<<< HEAD
+    List<Board> list(int pageNo, int pageSize, Map<String,Object> options);
+    Board get(int no);
+    int getTotalCount();
+    int add(Board board);
+    int update(Board board);
+    int updateViewCount(int no);
+    int delete(int no);
+    void addFiles(List<UploadFile> files, int boardNo);
+=======
 
 	int getTotalCount();
 
@@ -26,6 +36,7 @@ public interface BoardService {
 	int update(Board board);
 
 	int delete(int no);
+>>>>>>> branch 'master' of https://github.com/sorryisme/java100-3team.git
 }
 
 
