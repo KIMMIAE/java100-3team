@@ -56,6 +56,7 @@ public class LoginController {
         
         model.addAttribute("loginUser", member);
         
+
         return "redirect:../board/list";
     }
     
