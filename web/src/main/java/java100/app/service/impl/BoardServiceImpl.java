@@ -15,13 +15,13 @@ import java100.app.service.BoardService;
 
 @Service
 public class BoardServiceImpl implements BoardService {
-     
+    
     @Autowired BoardDao boardDao;
     @Autowired FileDao fileDao;
     
     @Override
     public List<Board> list(int pageNo, int pageSize, Map<String, Object> options) {
-        
+       
         HashMap<String,Object> params = new HashMap<>();
         params.put("startIndex", (pageNo - 1) * pageSize);
         params.put("size", pageSize);
@@ -31,7 +31,7 @@ public class BoardServiceImpl implements BoardService {
         }
         
         return boardDao.findAll(params);
-    }  
+    }
 
     @Override
     public Board get(int no) {
@@ -50,12 +50,9 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public int add(Board board) {
-		int count = boardDao.insert(board);
-		
-		this.addFiles(board.getFiles(), board.getNo());
-
-
-		return count;
+        int count = boardDao.insert(board);
+        this.addFiles(board.getFiles(), board.getNo());
+        return count;
     }
 
     @Override
@@ -72,8 +69,8 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public int delete(int no) {
-        // TODO Auto-generated method stub
-        return 0;
+        
+        return boardDao.delete(no);
     }
 
     @Override
@@ -84,6 +81,9 @@ public class BoardServiceImpl implements BoardService {
         }
     }
 
+ 
+    
+    
 }
 
 
