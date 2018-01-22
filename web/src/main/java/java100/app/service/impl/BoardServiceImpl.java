@@ -50,16 +50,8 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public int add(Board board) {
         int count = boardDao.insert(board);
-<<<<<<< HEAD
         this.addFiles(board.getFiles(), board.getNo());
         return count;
-=======
-        
-        this.addFiles(board.getFiles(), board.getNo());
-        
-        return count;
-
->>>>>>> branch 'master' of https://github.com/sorryisme/java100-3team.git
     }
 
     @Override
@@ -85,11 +77,7 @@ public class BoardServiceImpl implements BoardService {
         for (UploadFile file : files) {
             file.setBoardNo(boardNo);
             fileDao.insert(file);
-<<<<<<< HEAD
         }
-=======
-        }        
->>>>>>> branch 'master' of https://github.com/sorryisme/java100-3team.git
     }
 
  
