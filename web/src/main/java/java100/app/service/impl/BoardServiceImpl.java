@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java100.app.dao.BoardDao;
 import java100.app.dao.FileDao;
 import java100.app.domain.Board;
-import java100.app.domain.UploadFile;
 import java100.app.service.BoardService;
 
 @Service
@@ -32,51 +31,16 @@ public class BoardServiceImpl implements BoardService {
         
         return boardDao.findAll(params);
     }
-        // TODO Auto-generated method stub
-        return null;
-    }  
 
     @Override
     public Board get(int no) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public int getTotalCount() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int add(Board board) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int update(Board board) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int updateViewCount(int no) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int delete(int no) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public void addFiles(List<UploadFile> files, int boardNo) {
-        // TODO Auto-generated method stub
+        boardDao.updateViewCount(no);
         
+        Board board = boardDao.findByNo2(no);
+           
+        return board;
     }
+
 
 }
 
