@@ -10,7 +10,6 @@ import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,13 +17,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import java100.app.domain.Board;
-import java100.app.domain.Member;
+//import java100.app.domain.Member;
 import java100.app.domain.UploadFile;
 import java100.app.service.BoardService;
 
 @Controller
 @RequestMapping("/board")
-@SessionAttributes("loginUser")
+// @SessionAttributes("loginUser")
 public class BoardController {
     
     @Autowired ServletContext servletContext;
@@ -84,7 +83,7 @@ public class BoardController {
     
     // XML 설정으로 트랜잭션을 조정한다면 @Transactional 애노테이션은 필요없다.
     //@Transactional
-    @RequestMapping("add")
+   /* @RequestMapping("add")
     public String add(
             Board board,
             MultipartFile[] file,
@@ -117,7 +116,7 @@ public class BoardController {
         boardService.add(board);
         
         return "redirect:list";
-    }
+    }*/
     
     @RequestMapping("update")
     public String update(
