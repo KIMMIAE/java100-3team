@@ -117,7 +117,7 @@ public class BoardController {
         boardService.add(board);
         
         return "redirect:list";
-    } 
+    }
     
     @RequestMapping("update")
     public String update(

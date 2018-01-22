@@ -16,12 +16,11 @@ import java100.app.service.BoardService;
 @Service
 public class BoardServiceImpl implements BoardService {
 
-
     @Override
     public List<Board> list(int pageNo, int pageSize, Map<String, Object> options) {
         // TODO Auto-generated method stub
         return null;
-    }
+    } 
 
     @Override
     public Board get(int no) {
