@@ -27,7 +27,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Board get(int no) {
-        boardDao.updateViewCount(no);
+        boardDao.updateViewCount(no); 
         
         Board board = boardDao.findByNo2(no);
         
