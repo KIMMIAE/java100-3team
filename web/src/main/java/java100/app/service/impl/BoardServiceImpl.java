@@ -32,6 +32,9 @@ public class BoardServiceImpl implements BoardService {
         
         return boardDao.findAll(params);
     }
+        // TODO Auto-generated method stub
+        return null;
+    }  
 
     @Override
     public Board get(int no) {
