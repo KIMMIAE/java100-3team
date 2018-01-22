@@ -16,72 +16,75 @@ import java100.app.service.BoardService;
 @Service
 public class BoardServiceImpl implements BoardService {
 
+    @Autowired
+    BoardDao boardDao;
+    @Autowired
+    FileDao fileDao;
+
     @Override
     public List<Board> list(int pageNo, int pageSize, Map<String, Object> options) {
-        // TODO Auto-generated method stub
-        return null;
-    } 
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("startIndex", (pageNo - 1) * pageSize);
+        params.put("size", pageSize);
+
+        if (options != null) {
+            params.putAll(options);
+        }
+
+        return boardDao.findAll(params);
+    }
 
     @Override
     public Board get(int no) {
-        // TODO Auto-generated method stub
-        return null;
+        boardDao.updateViewCount(no);
+
+        Board board = boardDao.findByNo2(no);
+
+        return board;
     }
 
     @Override
     public int getTotalCount() {
-        // TODO Auto-generated method stub
-        return 0;
+        return boardDao.countAll();
     }
 
     @Override
     public int add(Board board) {
-        // TODO Auto-generated method stub
-        return 0;
+        int count = boardDao.insert(board);
+
+        this.addFiles(board.getFiles(), board.getNo());
+
+        return count;
     }
 
     @Override
     public int update(Board board) {
-        // TODO Auto-generated method stub
-        return 0;
+        
+        int count = boardDao.update(board);
+        
+        fileDao.deleteAllByBoardNo(board.getNo());
+        
+        addFiles(board.getFiles(), board.getNo());
+        return count;
     }
 
     @Override
     public int updateViewCount(int no) {
-        // TODO Auto-generated method stub
-        return 0;
+        return boardDao.updateViewCount(no);
     }
+    
 
     @Override
     public int delete(int no) {
-        // TODO Auto-generated method stub
-        return 0;
+        return boardDao.delete(no);
     }
 
     @Override
     public void addFiles(List<UploadFile> files, int boardNo) {
-        // TODO Auto-generated method stub
-        
+        for (UploadFile file : files) {
+            file.setBoardNo(boardNo);
+            fileDao.insert(file);
+        }
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
