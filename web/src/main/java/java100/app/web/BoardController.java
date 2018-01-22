@@ -10,21 +10,19 @@ import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import java100.app.domain.Board;
-import java100.app.domain.Member;
+//import java100.app.domain.Member;
 import java100.app.domain.UploadFile;
 import java100.app.service.BoardService;
 
 @Controller
 @RequestMapping("/board")
-@SessionAttributes("loginUser")
+//@SessionAttributes("loginUser")
 public class BoardController {
     
     @Autowired ServletContext servletContext;
@@ -87,8 +85,8 @@ public class BoardController {
     @RequestMapping("add")
     public String add(
             Board board,
-            MultipartFile[] file,
-            @ModelAttribute(value="loginUser") Member loginUser) throws Exception {
+            MultipartFile[] file/*,
+            @ModelAttribute(value="loginUser") Member loginUser*/) throws Exception {
         
         // 업로드 파일을 저장할 폴더 위치를 가져온다.
         String uploadDir = servletContext.getRealPath("/download");
@@ -111,7 +109,7 @@ public class BoardController {
         board.setFiles(uploadFiles);
 
         // 게시글 작성자는 로그인 사용자이다. 
-        board.setWriter(loginUser);
+        //board.setWriter(loginUser);
         
         // 게시글 등록
         boardService.add(board);
