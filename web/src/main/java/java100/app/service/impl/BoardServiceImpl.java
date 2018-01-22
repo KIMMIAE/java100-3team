@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java100.app.dao.BoardDao;
+import java100.app.dao.FileDao;
 import java100.app.domain.Board;
 import java100.app.domain.UploadFile;
 import java100.app.service.BoardService;
