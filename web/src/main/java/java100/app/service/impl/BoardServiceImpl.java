@@ -21,37 +21,18 @@ public class BoardServiceImpl implements BoardService {
     
     @Override
     public List<Board> list(int pageNo, int pageSize, Map<String, Object> options) {
-       
-        HashMap<String,Object> params = new HashMap<>();
-        params.put("startIndex", (pageNo - 1) * pageSize);
-        params.put("size", pageSize);
-        
-        if (options != null) {
-            params.putAll(options);
-        }
-        
-        return boardDao.findAll(params);
     }
 
     @Override
     public Board get(int no) {
-        boardDao.updateViewCount(no);
-        
-        Board board = boardDao.findByNo2(no);
-           
-        return board;
     }
 
     @Override
     public int getTotalCount() {
-        return boardDao.countAll();
     }
 
     @Override
     public int add(Board board) {
-        int count = boardDao.insert(board);
-        this.addFiles(board.getFiles(), board.getNo());
-        return count;
     }
 
     @Override
@@ -68,16 +49,10 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public int delete(int no) {
-        
-        return boardDao.delete(no);
     }
 
     @Override
     public void addFiles(List<UploadFile> files, int boardNo) {
-        for (UploadFile file : files) {
-            file.setBoardNo(boardNo);
-            fileDao.insert(file);
-        }
     }
 
  
