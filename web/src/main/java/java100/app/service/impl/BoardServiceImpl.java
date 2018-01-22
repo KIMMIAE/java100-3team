@@ -21,7 +21,7 @@ public class BoardServiceImpl implements BoardService {
     
     @Override
     public List<Board> list(int pageNo, int pageSize, Map<String, Object> options) {
-       
+        
         HashMap<String,Object> params = new HashMap<>();
         params.put("startIndex", (pageNo - 1) * pageSize);
         params.put("size", pageSize);
