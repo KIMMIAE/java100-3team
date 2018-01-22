@@ -78,7 +78,6 @@ public class BoardServiceImpl implements BoardService {
 
     public int updateViewCount(int no) {
         return boardDao.updateViewCount(no); 
-        
     }
 
  
