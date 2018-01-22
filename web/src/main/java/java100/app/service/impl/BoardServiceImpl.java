@@ -74,8 +74,10 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void addFiles(List<UploadFile> files, int boardNo) {
-        // TODO Auto-generated method stub
-        
+        for (UploadFile file : files) {
+            file.setBoardNo(boardNo);
+            fileDao.insert(file);
+        }
     }
 
 }
