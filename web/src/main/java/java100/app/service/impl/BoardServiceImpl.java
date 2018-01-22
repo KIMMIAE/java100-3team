@@ -20,7 +20,7 @@ public class BoardServiceImpl implements BoardService {
     public List<Board> list(int pageNo, int pageSize, Map<String, Object> options) {
         // TODO Auto-generated method stub
         return null;
-    }
+    }  
 
     @Override
     public Board get(int no) {

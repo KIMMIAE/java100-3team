@@ -23,7 +23,7 @@ public interface BoardService {
     int update(Board board);
     int updateViewCount(int no);
     int delete(int no);
-    void addFiles(List<UploadFile> files, int boardNo);
+    void addFiles(List<UploadFile> files, int boardNo); 
 }
 
 
