@@ -1,3 +1,4 @@
+
 package java100.app.service.impl;
 
 import java.util.HashMap;
@@ -76,10 +77,6 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void addFiles(List<UploadFile> files, int boardNo) {
-        for (UploadFile file : files) {
-            file.setBoardNo(boardNo);
-            fileDao.insert(file);
-        }
     }
 
     public int updateViewCount(int no) {
