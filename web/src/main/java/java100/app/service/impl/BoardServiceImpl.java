@@ -78,12 +78,6 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void addFiles(List<UploadFile> files, int boardNo) {
     }
-
-    public int updateViewCount(int no) {
-        return boardDao.updateViewCount(no); 
-    }
-
- 
     
     
 }
