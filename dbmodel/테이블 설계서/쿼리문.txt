@@ -1,0 +1,751 @@
+-- 회원정보
+DROP TABLE IF EXISTS tb_memb RESTRICT;
+
+-- 공연정보
+DROP TABLE IF EXISTS tb_prfrminfo RESTRICT;
+
+-- 공연요청
+DROP TABLE IF EXISTS tb_prfrmrequest RESTRICT;
+
+-- 청포도
+DROP TABLE IF EXISTS tb_greengrape RESTRICT;
+
+-- 후원내역
+DROP TABLE IF EXISTS tb_spnshstry RESTRICT;
+
+-- 공연후기
+DROP TABLE IF EXISTS tb_prfrmrvw RESTRICT;
+
+-- 공연찜정보
+DROP TABLE IF EXISTS tb_jjiminfo RESTRICT;
+
+-- 평점
+DROP TABLE IF EXISTS tb_rating RESTRICT;
+
+-- 팔로우
+DROP TABLE IF EXISTS tb_followInfo RESTRICT;
+
+-- 아티스트
+DROP TABLE IF EXISTS tb_artist RESTRICT;
+
+-- 관심지역
+DROP TABLE IF EXISTS tb_intrarea RESTRICT;
+
+-- 관심장르
+DROP TABLE IF EXISTS tb_intrgenre RESTRICT;
+
+-- 장르코드
+DROP TABLE IF EXISTS tb_genrecode RESTRICT;
+
+-- 지역코드
+DROP TABLE IF EXISTS tb_areacode RESTRICT;
+
+-- 댓글
+DROP TABLE IF EXISTS tb_ripple RESTRICT;
+
+-- 공연파일
+DROP TABLE IF EXISTS tb_prfrmfile RESTRICT;
+
+-- 후기파일
+DROP TABLE IF EXISTS tb_rvwfile RESTRICT;
+
+-- 공지사항
+DROP TABLE IF EXISTS tb_notice RESTRICT;
+
+-- 회원정보
+CREATE TABLE tb_memb (
+	mmbno    INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
+	photo    VARCHAR(255) NULL     COMMENT '사진', -- 사진
+	email    VARCHAR(40)  NOT NULL COMMENT '가입이메일', -- 가입이메일
+	pwd      VARCHAR(100) NOT NULL COMMENT '비밀번호', -- 비밀번호
+	type     VARCHAR(5)   NULL     COMMENT '회원유형', -- 회원유형
+	nicknm   VARCHAR(50)  NOT NULL COMMENT '닉네임', -- 닉네임
+	msgfl    CHAR(1)      NOT NULL COMMENT '메세지 수신', -- 메세지 수신
+	msgid    VARCHAR(50)  NULL     COMMENT '메세지 수신 아이디', -- 메세지 수신 아이디
+	cancelfl CHAR(1)      NOT NULL COMMENT '해지여부', -- 해지여부
+	regdt    DATETIME     NOT NULL COMMENT '가입날짜' -- 가입날짜
+)
+COMMENT '회원정보';
+
+-- 회원정보
+ALTER TABLE tb_memb
+	ADD CONSTRAINT PK_tb_memb -- 회원정보 기본키
+		PRIMARY KEY (
+			mmbno -- 회원번호
+		);
+
+-- 회원정보 유니크 인덱스
+CREATE UNIQUE INDEX UIX_tb_memb
+	ON tb_memb ( -- 회원정보
+		email ASC -- 가입이메일
+	);
+
+-- 회원정보 유니크 인덱스2
+CREATE UNIQUE INDEX UIX_tb_memb2
+	ON tb_memb ( -- 회원정보
+		nicknm ASC -- 닉네임
+	);
+
+ALTER TABLE tb_memb
+	MODIFY COLUMN mmbno INTEGER NOT NULL AUTO_INCREMENT COMMENT '회원번호';
+
+-- 공연정보
+CREATE TABLE tb_prfrminfo (
+	pfmno    INTEGER      NOT NULL COMMENT '공연정보번호', -- 공연정보번호
+	artno    INTEGER      NOT NULL COMMENT '아티스트번호', -- 아티스트번호
+	pfmnm    VARCHAR(50)  NOT NULL COMMENT '공연명', -- 공연명
+	pfmgnr   VARCHAR(20)  NOT NULL COMMENT '공연장르', -- 공연장르
+	pfmdt    DATETIME     NOT NULL COMMENT '공연날짜', -- 공연날짜
+	pfmloc   VARCHAR(255) NOT NULL COMMENT '공연장소', -- 공연장소
+	pfmdesc  TEXT         NOT NULL COMMENT '공연내용', -- 공연내용
+	spcldesc VARCHAR(50)  NULL     COMMENT '특이사항', -- 특이사항
+	viewcnt  INTEGER      NULL     COMMENT '조회수', -- 조회수
+	regdt    DATETIME     NOT NULL COMMENT '등록날짜' -- 등록날짜
+)
+COMMENT '공연정보';
+
+-- 공연정보
+ALTER TABLE tb_prfrminfo
+	ADD CONSTRAINT PK_tb_prfrminfo -- 공연정보 기본키
+		PRIMARY KEY (
+			pfmno -- 공연정보번호
+		);
+
+-- 공연정보 인덱스
+CREATE INDEX IX_tb_prfrminfo
+	ON tb_prfrminfo( -- 공연정보
+		artno ASC -- 아티스트번호
+	);
+
+ALTER TABLE tb_prfrminfo
+	MODIFY COLUMN pfmno INTEGER NOT NULL AUTO_INCREMENT COMMENT '공연정보번호';
+
+-- 공연요청
+CREATE TABLE tb_prfrmrequest (
+	reqno    INTEGER      NOT NULL COMMENT '공연요청번호', -- 공연요청번호
+	mmbno    INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
+	pfmdesc  TEXT         NOT NULL COMMENT '공연요청내용', -- 공연요청내용
+	pfmgnr   VARCHAR(20)  NOT NULL COMMENT '공연장르', -- 공연장르
+	pfmdt    DATETIME     NOT NULL COMMENT '공연날짜', -- 공연날짜
+	pfmloc   VARCHAR(255) NOT NULL COMMENT '공연장소', -- 공연장소
+	spcldesc VARCHAR(255) NULL     COMMENT '특이사항', -- 특이사항
+	viewcnt  INTEGER      NULL     COMMENT '조회수', -- 조회수
+	regdt    DATETIME     NOT NULL COMMENT '등록날짜' -- 등록날짜
+)
+COMMENT '공연요청';
+
+-- 공연요청
+ALTER TABLE tb_prfrmrequest
+	ADD CONSTRAINT PK_tb_prfrmrequest -- 공연요청 기본키
+		PRIMARY KEY (
+			reqno -- 공연요청번호
+		);
+
+-- 공연요청 인덱스
+CREATE INDEX IX_tb_prfrmrequest
+	ON tb_prfrmrequest( -- 공연요청
+		mmbno ASC -- 회원번호
+	);
+
+ALTER TABLE tb_prfrmrequest
+	MODIFY COLUMN reqno INTEGER NOT NULL AUTO_INCREMENT COMMENT '공연요청번호';
+
+-- 청포도
+CREATE TABLE tb_greengrape (
+	ggno     INTEGER     NOT NULL COMMENT '청포도번호', -- 청포도번호
+	mmbno    INTEGER     NOT NULL COMMENT '회원번호', -- 회원번호
+	chrgcnt  INTEGER     NOT NULL COMMENT '충전갯수', -- 충전갯수
+	chrgamt  INTEGER     NOT NULL COMMENT '충전금액', -- 충전금액
+	chrgmthd VARCHAR(20) NOT NULL COMMENT '충전수단', -- 충전수단
+	chrgdt   DATETIME    NOT NULL COMMENT '충전날짜' -- 충전날짜
+)
+COMMENT '청포도';
+
+-- 청포도
+ALTER TABLE tb_greengrape
+	ADD CONSTRAINT PK_tb_greengrape -- 청포도 기본키
+		PRIMARY KEY (
+			ggno -- 청포도번호
+		);
+
+-- 청포도 인덱스
+CREATE INDEX IX_tb_greengrape
+	ON tb_greengrape( -- 청포도
+		mmbno ASC -- 회원번호
+	);
+
+ALTER TABLE tb_greengrape
+	MODIFY COLUMN ggno INTEGER NOT NULL AUTO_INCREMENT COMMENT '청포도번호';
+
+-- 후원내역
+CREATE TABLE tb_spnshstry (
+	spnsno   INTEGER      NOT NULL COMMENT '후원번호', -- 후원번호
+	mmbno    INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
+	pfmno    INTEGER      NOT NULL COMMENT '공연정보번호', -- 공연정보번호
+	ggcnt    INTEGER      NOT NULL COMMENT '청포도갯수', -- 청포도갯수
+	spnsdesc VARCHAR(255) NULL     COMMENT '후원내용', -- 후원내용
+	spnsdt   DATETIME     NOT NULL COMMENT '후원날짜' -- 후원날짜
+)
+COMMENT '후원내역';
+
+-- 후원내역
+ALTER TABLE tb_spnshstry
+	ADD CONSTRAINT PK_tb_spnshstry -- 후원내역 기본키
+		PRIMARY KEY (
+			spnsno -- 후원번호
+		);
+
+ALTER TABLE tb_spnshstry
+	MODIFY COLUMN spnsno INTEGER NOT NULL AUTO_INCREMENT COMMENT '후원번호';
+
+-- 공연후기
+CREATE TABLE tb_prfrmrvw (
+	rvwno   INTEGER  NOT NULL COMMENT '공연후기번호', -- 공연후기번호
+	pfmno   INTEGER  NOT NULL COMMENT '공연정보번호', -- 공연정보번호
+	mmbno   INTEGER  NOT NULL COMMENT '회원번호', -- 회원번호
+	rvwdesc TEXT     NOT NULL COMMENT '후기내용', -- 후기내용
+	viewcnt INTEGER  NULL     COMMENT '조회수', -- 조회수
+	regdt   DATETIME NOT NULL COMMENT '등록 날짜' -- 등록 날짜
+)
+COMMENT '공연후기';
+
+-- 공연후기
+ALTER TABLE tb_prfrmrvw
+	ADD CONSTRAINT PK_tb_prfrmrvw -- 공연후기 기본키
+		PRIMARY KEY (
+			rvwno -- 공연후기번호
+		);
+
+-- 공연후기 유니크 인덱스
+CREATE UNIQUE INDEX UIX_tb_prfrmrvw
+	ON tb_prfrmrvw ( -- 공연후기
+		pfmno ASC, -- 공연정보번호
+		mmbno ASC  -- 회원번호
+	);
+
+-- 공연후기 인덱스
+CREATE INDEX IX_tb_prfrmrvw
+	ON tb_prfrmrvw( -- 공연후기
+		pfmno ASC, -- 공연정보번호
+		mmbno ASC  -- 회원번호
+	);
+
+ALTER TABLE tb_prfrmrvw
+	MODIFY COLUMN rvwno INTEGER NOT NULL AUTO_INCREMENT COMMENT '공연후기번호';
+
+-- 공연찜정보
+CREATE TABLE tb_jjiminfo (
+	pfmno INTEGER  NOT NULL COMMENT '공연정보번호', -- 공연정보번호
+	mmbno INTEGER  NOT NULL COMMENT '회원번호', -- 회원번호
+	regdt DATETIME NOT NULL COMMENT '등록날짜' -- 등록날짜
+)
+COMMENT '공연찜정보';
+
+-- 공연찜정보
+ALTER TABLE tb_jjiminfo
+	ADD CONSTRAINT PK_tb_jjiminfo -- 공연찜정보 기본키
+		PRIMARY KEY (
+			pfmno, -- 공연정보번호
+			mmbno  -- 회원번호
+		);
+
+-- 공연찜정보 인덱스
+CREATE INDEX IX_tb_jjiminfo
+	ON tb_jjiminfo( -- 공연찜정보
+		pfmno ASC, -- 공연정보번호
+		mmbno ASC  -- 회원번호
+	);
+
+ALTER TABLE tb_jjiminfo
+	MODIFY COLUMN pfmno INTEGER NOT NULL AUTO_INCREMENT COMMENT '공연정보번호';
+
+-- 평점
+CREATE TABLE tb_rating (
+	pfmno  INTEGER  NOT NULL COMMENT '공연정보번호', -- 공연정보번호
+	mmbno  INTEGER  NOT NULL COMMENT '회원번호', -- 회원번호
+	rating INTEGER  NOT NULL COMMENT '평점', -- 평점
+	regdt  DATETIME NOT NULL COMMENT '등록날짜' -- 등록날짜
+)
+COMMENT '평점';
+
+-- 평점
+ALTER TABLE tb_rating
+	ADD CONSTRAINT PK_tb_rating -- 평점 기본키
+		PRIMARY KEY (
+			pfmno, -- 공연정보번호
+			mmbno  -- 회원번호
+		);
+
+-- 평점 인덱스
+CREATE INDEX IX_tb_rating
+	ON tb_rating( -- 평점
+		pfmno ASC, -- 공연정보번호
+		mmbno ASC  -- 회원번호
+	);
+
+-- 팔로우
+CREATE TABLE tb_followInfo (
+	mmbno INTEGER  NOT NULL COMMENT '회원번호', -- 회원번호
+	artno INTEGER  NOT NULL COMMENT '아티스트번호', -- 아티스트번호
+	regdt DATETIME NOT NULL COMMENT '등록날짜' -- 등록날짜
+)
+COMMENT '팔로우';
+
+-- 팔로우
+ALTER TABLE tb_followInfo
+	ADD CONSTRAINT PK_tb_followInfo -- 팔로우 기본키
+		PRIMARY KEY (
+			mmbno, -- 회원번호
+			artno  -- 아티스트번호
+		);
+
+-- 팔로우 인덱스
+CREATE INDEX IX_tb_followInfo
+	ON tb_followInfo( -- 팔로우
+		mmbno ASC, -- 회원번호
+		artno ASC  -- 아티스트번호
+	);
+
+ALTER TABLE tb_followInfo
+	MODIFY COLUMN mmbno INTEGER NOT NULL AUTO_INCREMENT COMMENT '회원번호';
+
+-- 아티스트
+CREATE TABLE tb_artist (
+	artno   INTEGER      NOT NULL COMMENT '아티스트번호', -- 아티스트번호
+	artnm   VARCHAR(50)  NOT NULL COMMENT '아티스트명/팀명', -- 아티스트명/팀명
+	artmmb  VARCHAR(255) NOT NULL COMMENT '팀구성원', -- 팀구성원
+	profile TEXT         NULL     COMMENT '프로필', -- 프로필
+	joindt  DATETIME     NOT NULL COMMENT '팀결성날짜' -- 팀결성날짜
+)
+COMMENT '아티스트';
+
+-- 아티스트
+ALTER TABLE tb_artist
+	ADD CONSTRAINT PK_tb_artist -- 아티스트 기본키
+		PRIMARY KEY (
+			artno -- 아티스트번호
+		);
+
+-- 아티스트 유니크 인덱스
+CREATE UNIQUE INDEX UIX_tb_artist
+	ON tb_artist ( -- 아티스트
+		artnm ASC -- 아티스트명/팀명
+	);
+
+ALTER TABLE tb_artist
+	MODIFY COLUMN artno INTEGER NOT NULL AUTO_INCREMENT COMMENT '아티스트번호';
+
+-- 관심지역
+CREATE TABLE tb_intrarea (
+	areano INTEGER NOT NULL COMMENT '지역번호', -- 지역번호
+	mmbno  INTEGER NOT NULL COMMENT '회원번호' -- 회원번호
+)
+COMMENT '관심지역';
+
+-- 관심지역
+ALTER TABLE tb_intrarea
+	ADD CONSTRAINT PK_tb_intrarea -- 관심지역 기본키
+		PRIMARY KEY (
+			areano, -- 지역번호
+			mmbno   -- 회원번호
+		);
+
+-- 관심지역 인덱스
+CREATE INDEX IX_tb_intrarea
+	ON tb_intrarea( -- 관심지역
+		mmbno ASC -- 회원번호
+	);
+
+ALTER TABLE tb_intrarea
+	MODIFY COLUMN mmbno INTEGER NOT NULL AUTO_INCREMENT COMMENT '회원번호';
+
+-- 관심장르
+CREATE TABLE tb_intrgenre (
+	gnrno INTEGER NOT NULL COMMENT '장르번호', -- 장르번호
+	mmbno INTEGER NOT NULL COMMENT '회원번호' -- 회원번호
+)
+COMMENT '관심장르';
+
+-- 관심장르
+ALTER TABLE tb_intrgenre
+	ADD CONSTRAINT PK_tb_intrgenre -- 관심장르 기본키
+		PRIMARY KEY (
+			gnrno, -- 장르번호
+			mmbno  -- 회원번호
+		);
+
+-- 관심장르 인덱스
+CREATE INDEX IX_tb_intrgenre
+	ON tb_intrgenre( -- 관심장르
+		mmbno ASC -- 회원번호
+	);
+
+ALTER TABLE tb_intrgenre
+	MODIFY COLUMN mmbno INTEGER NOT NULL AUTO_INCREMENT COMMENT '회원번호';
+
+-- 장르코드
+CREATE TABLE tb_genrecode (
+	gnrno INTEGER     NOT NULL COMMENT '장르번호', -- 장르번호
+	gnrcd VARCHAR(5)  NOT NULL COMMENT '장르코드', -- 장르코드
+	gnrnm VARCHAR(50) NOT NULL COMMENT '장르명' -- 장르명
+)
+COMMENT '장르코드';
+
+-- 장르코드
+ALTER TABLE tb_genrecode
+	ADD CONSTRAINT PK_tb_genrecode -- 장르코드 기본키
+		PRIMARY KEY (
+			gnrno -- 장르번호
+		);
+
+-- 장르코드 유니크 인덱스
+CREATE UNIQUE INDEX UIX_tb_genrecode
+	ON tb_genrecode ( -- 장르코드
+		gnrcd ASC -- 장르코드
+	);
+
+ALTER TABLE tb_genrecode
+	MODIFY COLUMN gnrno INTEGER NOT NULL AUTO_INCREMENT COMMENT '장르번호';
+
+-- 지역코드
+CREATE TABLE tb_areacode (
+	areano INTEGER     NOT NULL COMMENT '지역번호', -- 지역번호
+	areacd VARCHAR(5)  NOT NULL COMMENT '지역코드', -- 지역코드
+	areanm VARCHAR(50) NOT NULL COMMENT '지역명' -- 지역명
+)
+COMMENT '지역코드';
+
+-- 지역코드
+ALTER TABLE tb_areacode
+	ADD CONSTRAINT PK_tb_areacode -- 지역코드 기본키
+		PRIMARY KEY (
+			areano -- 지역번호
+		);
+
+-- 지역코드 유니크 인덱스
+CREATE UNIQUE INDEX UIX_tb_areacode
+	ON tb_areacode ( -- 지역코드
+		areacd ASC -- 지역코드
+	);
+
+ALTER TABLE tb_areacode
+	MODIFY COLUMN areano INTEGER NOT NULL AUTO_INCREMENT COMMENT '지역번호';
+
+-- 댓글
+CREATE TABLE tb_ripple (
+	rippleno INTEGER  NOT NULL COMMENT '댓글번호', -- 댓글번호
+	pfmno    INTEGER  NOT NULL COMMENT '공연정보번호', -- 공연정보번호
+	mmbno    INTEGER  NOT NULL COMMENT '회원번호', -- 회원번호
+	ripple   TEXT     NOT NULL COMMENT '댓글', -- 댓글
+	regdt    DATETIME NOT NULL COMMENT '등록날짜' -- 등록날짜
+)
+COMMENT '댓글';
+
+-- 댓글
+ALTER TABLE tb_ripple
+	ADD CONSTRAINT PK_tb_ripple -- 댓글 기본키
+		PRIMARY KEY (
+			rippleno -- 댓글번호
+		);
+
+ALTER TABLE tb_ripple
+	MODIFY COLUMN rippleno INTEGER NOT NULL AUTO_INCREMENT COMMENT '댓글번호';
+
+-- 공연파일
+CREATE TABLE tb_prfrmfile (
+	fileno INTEGER      NOT NULL COMMENT '공연파일번호', -- 공연파일번호
+	pfmno  INTEGER      NOT NULL COMMENT '공연정보번호', -- 공연정보번호
+	filenm VARCHAR(255) NOT NULL COMMENT '공연파일명' -- 공연파일명
+)
+COMMENT '공연파일';
+
+-- 공연파일
+ALTER TABLE tb_prfrmfile
+	ADD CONSTRAINT PK_tb_prfrmfile -- 공연파일 기본키
+		PRIMARY KEY (
+			fileno -- 공연파일번호
+		);
+
+-- 공연파일 인덱스
+CREATE INDEX IX_tb_prfrmfile
+	ON tb_prfrmfile( -- 공연파일
+		pfmno ASC -- 공연정보번호
+	);
+
+ALTER TABLE tb_prfrmfile
+	MODIFY COLUMN fileno INTEGER NOT NULL AUTO_INCREMENT COMMENT '공연파일번호';
+
+-- 후기파일
+CREATE TABLE tb_rvwfile (
+	fileno INTEGER      NOT NULL COMMENT '후기파일번호', -- 후기파일번호
+	rvwno  INTEGER      NOT NULL COMMENT '공연후기번호', -- 공연후기번호
+	filenm VARCHAR(255) NOT NULL COMMENT '후기파일명' -- 후기파일명
+)
+COMMENT '후기파일';
+
+-- 후기파일
+ALTER TABLE tb_rvwfile
+	ADD CONSTRAINT PK_tb_rvwfile -- 후기파일 기본키
+		PRIMARY KEY (
+			fileno -- 후기파일번호
+		);
+
+-- 후기파일 인덱스
+CREATE INDEX IX_tb_rvwfile
+	ON tb_rvwfile( -- 후기파일
+		rvwno ASC -- 공연후기번호
+	);
+
+ALTER TABLE tb_rvwfile
+	MODIFY COLUMN fileno INTEGER NOT NULL AUTO_INCREMENT COMMENT '후기파일번호';
+
+-- 공지사항
+CREATE TABLE tb_notice (
+	ntcno    INTEGER      NOT NULL COMMENT '공지번호', -- 공지번호
+	mmbno    INTEGER      NULL     COMMENT '회원번호', -- 회원번호
+	ntctitle VARCHAR(255) NULL     COMMENT '공지제목', -- 공지제목
+	ntcdesc  TEXT         NULL     COMMENT '공지내용', -- 공지내용
+	viewcnt  INTEGER      NULL     COMMENT '조회수', -- 조회수
+	ntcdt    DATETIME     NULL     COMMENT '공지날짜' -- 공지날짜
+)
+COMMENT '공지사항';
+
+-- 공지사항
+ALTER TABLE tb_notice
+	ADD CONSTRAINT PK_tb_notice -- 공지사항 기본키
+		PRIMARY KEY (
+			ntcno -- 공지번호
+		);
+
+ALTER TABLE tb_notice
+	MODIFY COLUMN ntcno INTEGER NOT NULL AUTO_INCREMENT COMMENT '공지번호';
+
+-- 공연정보
+ALTER TABLE tb_prfrminfo
+	ADD CONSTRAINT FK_tb_artist_TO_tb_prfrminfo -- 아티스트 -> 공연정보
+		FOREIGN KEY (
+			artno -- 아티스트번호
+		)
+		REFERENCES tb_artist ( -- 아티스트
+			artno -- 아티스트번호
+		);
+
+-- 공연요청
+ALTER TABLE tb_prfrmrequest
+	ADD CONSTRAINT FK_tb_memb_TO_tb_prfrmrequest -- 회원정보 -> 공연요청
+		FOREIGN KEY (
+			mmbno -- 회원번호
+		)
+		REFERENCES tb_memb ( -- 회원정보
+			mmbno -- 회원번호
+		);
+
+-- 청포도
+ALTER TABLE tb_greengrape
+	ADD CONSTRAINT FK_tb_memb_TO_tb_greengrape -- 회원정보 -> 청포도
+		FOREIGN KEY (
+			mmbno -- 회원번호
+		)
+		REFERENCES tb_memb ( -- 회원정보
+			mmbno -- 회원번호
+		);
+
+-- 후원내역
+ALTER TABLE tb_spnshstry
+	ADD CONSTRAINT FK_tb_memb_TO_tb_spnshstry -- 회원정보 -> 후원내역
+		FOREIGN KEY (
+			mmbno -- 회원번호
+		)
+		REFERENCES tb_memb ( -- 회원정보
+			mmbno -- 회원번호
+		);
+
+-- 후원내역
+ALTER TABLE tb_spnshstry
+	ADD CONSTRAINT FK_tb_prfrminfo_TO_tb_spnshstry -- 공연정보 -> 후원내역
+		FOREIGN KEY (
+			pfmno -- 공연정보번호
+		)
+		REFERENCES tb_prfrminfo ( -- 공연정보
+			pfmno -- 공연정보번호
+		);
+
+-- 공연후기
+ALTER TABLE tb_prfrmrvw
+	ADD CONSTRAINT FK_tb_memb_TO_tb_prfrmrvw -- 회원정보 -> 공연후기
+		FOREIGN KEY (
+			mmbno -- 회원번호
+		)
+		REFERENCES tb_memb ( -- 회원정보
+			mmbno -- 회원번호
+		);
+
+-- 공연후기
+ALTER TABLE tb_prfrmrvw
+	ADD CONSTRAINT FK_tb_prfrminfo_TO_tb_prfrmrvw -- 공연정보 -> 공연후기
+		FOREIGN KEY (
+			pfmno -- 공연정보번호
+		)
+		REFERENCES tb_prfrminfo ( -- 공연정보
+			pfmno -- 공연정보번호
+		);
+
+-- 공연찜정보
+ALTER TABLE tb_jjiminfo
+	ADD CONSTRAINT FK_tb_prfrminfo_TO_tb_jjiminfo -- 공연정보 -> 공연찜정보
+		FOREIGN KEY (
+			pfmno -- 공연정보번호
+		)
+		REFERENCES tb_prfrminfo ( -- 공연정보
+			pfmno -- 공연정보번호
+		);
+
+-- 공연찜정보
+ALTER TABLE tb_jjiminfo
+	ADD CONSTRAINT FK_tb_memb_TO_tb_jjiminfo -- 회원정보 -> 공연찜정보
+		FOREIGN KEY (
+			mmbno -- 회원번호
+		)
+		REFERENCES tb_memb ( -- 회원정보
+			mmbno -- 회원번호
+		);
+
+-- 평점
+ALTER TABLE tb_rating
+	ADD CONSTRAINT FK_tb_prfrminfo_TO_tb_rating -- 공연정보 -> 평점
+		FOREIGN KEY (
+			pfmno -- 공연정보번호
+		)
+		REFERENCES tb_prfrminfo ( -- 공연정보
+			pfmno -- 공연정보번호
+		);
+
+-- 평점
+ALTER TABLE tb_rating
+	ADD CONSTRAINT FK_tb_memb_TO_tb_rating -- 회원정보 -> 평점
+		FOREIGN KEY (
+			mmbno -- 회원번호
+		)
+		REFERENCES tb_memb ( -- 회원정보
+			mmbno -- 회원번호
+		);
+
+-- 팔로우
+ALTER TABLE tb_followInfo
+	ADD CONSTRAINT FK_tb_artist_TO_tb_followInfo -- 아티스트 -> 팔로우
+		FOREIGN KEY (
+			artno -- 아티스트번호
+		)
+		REFERENCES tb_artist ( -- 아티스트
+			artno -- 아티스트번호
+		);
+
+-- 팔로우
+ALTER TABLE tb_followInfo
+	ADD CONSTRAINT FK_tb_memb_TO_tb_followInfo -- 회원정보 -> 팔로우
+		FOREIGN KEY (
+			mmbno -- 회원번호
+		)
+		REFERENCES tb_memb ( -- 회원정보
+			mmbno -- 회원번호
+		);
+
+-- 아티스트
+ALTER TABLE tb_artist
+	ADD CONSTRAINT FK_tb_memb_TO_tb_artist -- 회원정보 -> 아티스트
+		FOREIGN KEY (
+			artno -- 아티스트번호
+		)
+		REFERENCES tb_memb ( -- 회원정보
+			mmbno -- 회원번호
+		);
+
+-- 관심지역
+ALTER TABLE tb_intrarea
+	ADD CONSTRAINT FK_tb_memb_TO_tb_intrarea -- 회원정보 -> 관심지역
+		FOREIGN KEY (
+			mmbno -- 회원번호
+		)
+		REFERENCES tb_memb ( -- 회원정보
+			mmbno -- 회원번호
+		);
+
+-- 관심지역
+ALTER TABLE tb_intrarea
+	ADD CONSTRAINT FK_tb_areacode_TO_tb_intrarea -- 지역코드 -> 관심지역
+		FOREIGN KEY (
+			areano -- 지역번호
+		)
+		REFERENCES tb_areacode ( -- 지역코드
+			areano -- 지역번호
+		);
+
+-- 관심장르
+ALTER TABLE tb_intrgenre
+	ADD CONSTRAINT FK_tb_memb_TO_tb_intrgenre -- 회원정보 -> 관심장르
+		FOREIGN KEY (
+			mmbno -- 회원번호
+		)
+		REFERENCES tb_memb ( -- 회원정보
+			mmbno -- 회원번호
+		);
+
+-- 관심장르
+ALTER TABLE tb_intrgenre
+	ADD CONSTRAINT FK_tb_genrecode_TO_tb_intrgenre -- 장르코드 -> 관심장르
+		FOREIGN KEY (
+			gnrno -- 장르번호
+		)
+		REFERENCES tb_genrecode ( -- 장르코드
+			gnrno -- 장르번호
+		);
+
+-- 댓글
+ALTER TABLE tb_ripple
+	ADD CONSTRAINT FK_tb_prfrminfo_TO_tb_ripple -- 공연정보 -> 댓글
+		FOREIGN KEY (
+			pfmno -- 공연정보번호
+		)
+		REFERENCES tb_prfrminfo ( -- 공연정보
+			pfmno -- 공연정보번호
+		);
+
+-- 댓글
+ALTER TABLE tb_ripple
+	ADD CONSTRAINT FK_tb_memb_TO_tb_ripple -- 회원정보 -> 댓글
+		FOREIGN KEY (
+			mmbno -- 회원번호
+		)
+		REFERENCES tb_memb ( -- 회원정보
+			mmbno -- 회원번호
+		);
+
+-- 공연파일
+ALTER TABLE tb_prfrmfile
+	ADD CONSTRAINT FK_tb_prfrminfo_TO_tb_prfrmfile -- 공연정보 -> 공연파일
+		FOREIGN KEY (
+			pfmno -- 공연정보번호
+		)
+		REFERENCES tb_prfrminfo ( -- 공연정보
+			pfmno -- 공연정보번호
+		);
+
+-- 후기파일
+ALTER TABLE tb_rvwfile
+	ADD CONSTRAINT FK_tb_prfrmrvw_TO_tb_rvwfile -- 공연후기 -> 후기파일
+		FOREIGN KEY (
+			rvwno -- 공연후기번호
+		)
+		REFERENCES tb_prfrmrvw ( -- 공연후기
+			rvwno -- 공연후기번호
+		);
+
+-- 공지사항
+ALTER TABLE tb_notice
+	ADD CONSTRAINT FK_tb_memb_TO_tb_notice -- 회원정보 -> 공지사항
+		FOREIGN KEY (
+			mmbno -- 회원번호
+		)
+		REFERENCES tb_memb ( -- 회원정보
+			mmbno -- 회원번호
+		);
