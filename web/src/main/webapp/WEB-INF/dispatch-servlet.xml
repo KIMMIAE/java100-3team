@@ -65,10 +65,29 @@
              맵퍼 파일의 위치를 따로 설정하지 않아도 된다.
              그러나 SQL 맵퍼 파일이 다른 패키지에 있다면,
              반드시 설정해야 한다. -->
-        <property name="mapperLocations" value="classpath*:java100/app/dao/mysql/*/*Dao.xml"/>
+        <!-- <property name="mapperLocations" value="classpath*:java100/app/dao/mysql/*Dao.xml"/>
+        <property name="typeAliasesPackage" value="java100.app.domain"/> -->
         
-        <property name="typeAliasesPackage" value="java100.app.domain"/> 
-    </bean>    
+        <property name="mapperLocations" value="classpath*:java100/app/dao/mysql/**/*Dao.xml"/>
+        <property name="typeAliasesPackage" value="java100.app.domain.member"/>
+    </bean>
+    
+    <!-- DAO 객체를 자동생성해주는 공장 준비 
+         => 다음 객체는 지정된 패키지에서 인터페이스를 찾는다.
+         => 그리고 그 인터페이스와 대응하는 SQL Mapper를 찾아 
+            DAO 객체를 자동으로 생성한다.
+            이때 SQL Mapper 파일의 namespace는 
+            인터페이스의 이름(패키지명 포함)과 일치해야 한다.
+        -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+      <!-- <property name="basePackage" value="java100.app.dao.*" /> -->
+      <property name="basePackage" value="java100.app.dao.**.*" />
+    </bean>
+    
+    
+    <!-- 이 설정 파일에서 사용할 값이 들어 있는 
+         프로퍼티 파일을 로딩하는 객체 등록 -->
+    <context:property-placeholder location="classpath*:java100/app/jdbc.properties"/>
     
     <!-- DB 커넥션 풀 역할을 수행할 DataSource 객체 -->
     <bean id="dataSource" 
@@ -85,21 +104,6 @@
 	      class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 	  <property name="dataSource" ref="dataSource"/>
 	</bean>
-    
-    <!-- 이 설정 파일에서 사용할 값이 들어 있는 
-         프로퍼티 파일을 로딩하는 객체 등록 -->
-    <context:property-placeholder location="classpath*:java100/app/jdbc.properties"/>
-    
-    <!-- DAO 객체를 자동생성해주는 공장 준비 
-         => 다음 객체는 지정된 패키지에서 인터페이스를 찾는다.
-         => 그리고 그 인터페이스와 대응하는 SQL Mapper를 찾아 
-            DAO 객체를 자동으로 생성한다.
-            이때 SQL Mapper 파일의 namespace는 
-            인터페이스의 이름(패키지명 포함)과 일치해야 한다.
-        -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-      <property name="basePackage" value="java100.app.dao.*" />
-    </bean>
     
     <!-- 인터셉터를 등록한다. -->
 

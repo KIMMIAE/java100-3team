@@ -5,7 +5,7 @@
 
 <!-- DAO 객체를 자동으로 생성하려면,
      namespace의 값이 인터페이스 이름과 같아야 한다. -->
-<mapper namespace="java100.app.dao.AreaCodeDao">
+<mapper namespace="java100.app.dao.member.AreaCodeDao">
 
     <resultMap type="areaCode" id="areaCodeMap">
         <id column="areano" property="no"/>
