@@ -1,8 +1,8 @@
-package java100.app.dao;
+package java100.app.dao.member;
 
 import java.util.List;
 
-import java100.app.domain.InterestArea;
+import java100.app.domain.member.InterestArea;
 
 public interface InterestAreaDao {
     List<InterestArea> findByMemberNo(int no);

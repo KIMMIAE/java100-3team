@@ -1,6 +1,6 @@
-package java100.app.dao;
+package java100.app.dao.member;
 
-import java100.app.domain.AreaCode;
+import java100.app.domain.member.AreaCode;
 
 public interface AreaCodeDao {
 

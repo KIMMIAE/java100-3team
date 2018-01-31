@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import java100.app.domain.Member;
+import java100.app.domain.member.Member;
 import java100.app.service.MemberService;
 
 @Controller

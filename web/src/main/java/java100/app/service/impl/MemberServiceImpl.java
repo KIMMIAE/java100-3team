@@ -7,15 +7,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java100.app.dao.AreaCodeDao;
-import java100.app.dao.ArtistDao;
-import java100.app.dao.GenreCodeDao;
-import java100.app.dao.InterestAreaDao;
-import java100.app.dao.InterestGenreDao;
-import java100.app.dao.MemberDao;
-import java100.app.domain.InterestArea;
-import java100.app.domain.InterestGenre;
-import java100.app.domain.Member;
+import java100.app.dao.member.AreaCodeDao;
+import java100.app.dao.member.ArtistDao;
+import java100.app.dao.member.GenreCodeDao;
+import java100.app.dao.member.InterestAreaDao;
+import java100.app.dao.member.InterestGenreDao;
+import java100.app.dao.member.MemberDao;
+import java100.app.domain.member.InterestArea;
+import java100.app.domain.member.InterestGenre;
+import java100.app.domain.member.Member;
 import java100.app.service.MemberService;
 
 @Service

@@ -1,6 +1,6 @@
-package java100.app.dao;
+package java100.app.dao.member;
 
-import java100.app.domain.Artist;
+import java100.app.domain.member.Artist;
 
 public interface ArtistDao {
     int findMemberNo(int no);

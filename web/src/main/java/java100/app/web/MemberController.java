@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java100.app.domain.InterestArea;
-import java100.app.domain.InterestGenre;
-import java100.app.domain.Member;
+import java100.app.domain.member.InterestArea;
+import java100.app.domain.member.InterestGenre;
+import java100.app.domain.member.Member;
 import java100.app.service.MemberService;
 
 @Controller

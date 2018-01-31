@@ -1,4 +1,4 @@
-package java100.app.domain;
+package java100.app.domain.member;
 
 public class GenreCode {
 

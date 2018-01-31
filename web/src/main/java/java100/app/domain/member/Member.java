@@ -1,4 +1,4 @@
-package java100.app.domain;
+package java100.app.domain.member;
 
 import java.sql.Date;
 import java.util.List;

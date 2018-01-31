@@ -1,9 +1,9 @@
-package java100.app.dao;
+package java100.app.dao.member;
 
 import java.util.List;
 import java.util.Map;
 
-import java100.app.domain.Member;
+import java100.app.domain.member.Member;
 
 public interface MemberDao {
     List<Member> findAll(Map<String,Object> params);

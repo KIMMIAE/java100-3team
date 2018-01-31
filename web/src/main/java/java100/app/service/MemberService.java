@@ -3,9 +3,9 @@ package java100.app.service;
 import java.util.List;
 import java.util.Map;
 
-import java100.app.domain.InterestArea;
-import java100.app.domain.InterestGenre;
-import java100.app.domain.Member;
+import java100.app.domain.member.InterestArea;
+import java100.app.domain.member.InterestGenre;
+import java100.app.domain.member.Member;
 
 // => "역할"을 강조할 때는 "객체(object)"라는 말보다는 
 //    "컴포넌트(component)"라는 말을 사용한다.

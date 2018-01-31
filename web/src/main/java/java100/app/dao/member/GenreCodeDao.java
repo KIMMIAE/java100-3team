@@ -1,6 +1,6 @@
-package java100.app.dao;
+package java100.app.dao.member;
 
-import java100.app.domain.GenreCode;
+import java100.app.domain.member.GenreCode;
 
 public interface GenreCodeDao {
 

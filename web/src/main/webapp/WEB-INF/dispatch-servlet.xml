@@ -65,7 +65,7 @@
              맵퍼 파일의 위치를 따로 설정하지 않아도 된다.
              그러나 SQL 맵퍼 파일이 다른 패키지에 있다면,
              반드시 설정해야 한다. -->
-        <property name="mapperLocations" value="classpath*:java100/app/dao/mysql/*Dao.xml"/>
+        <property name="mapperLocations" value="classpath*:java100/app/dao/mysql/*/*Dao.xml"/>
         
         <property name="typeAliasesPackage" value="java100.app.domain"/> 
     </bean>    
@@ -98,7 +98,7 @@
             인터페이스의 이름(패키지명 포함)과 일치해야 한다.
         -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-      <property name="basePackage" value="java100.app.dao" />
+      <property name="basePackage" value="java100.app.dao.*" />
     </bean>
     
     <!-- 인터셉터를 등록한다. -->
