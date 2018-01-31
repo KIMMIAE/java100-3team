@@ -3,6 +3,8 @@ package java100.app.service;
 import java.util.List;
 import java.util.Map;
 
+import java100.app.domain.InterestArea;
+import java100.app.domain.InterestGenre;
 import java100.app.domain.Member;
 
 // => "역할"을 강조할 때는 "객체(object)"라는 말보다는 
@@ -17,11 +19,18 @@ import java100.app.domain.Member;
 public interface MemberService {
     List<Member> list(int pageNo, int pageSize, Map<String,Object> options);
     Member get(int no);
+    String getPhoto(int no);
+    int getAreaCnt(int no);
+    List<InterestArea> getInterestArea(int no);
+    int getGenreCnt(int no);
+    List<InterestGenre> getInterestGenre(int no);
     Member get(String email, String password);
     int getTotalCount();
-    int add(Member score);
-    int update(Member score);
+    int add(Member member);
+    int update(Member member);
     int delete(int no);
+    public void addInterestAreas(int memberNo, List<InterestArea> areas);
+    public void addInterestGenres(int memberNo, List<InterestGenre> genres);
 }
 
 

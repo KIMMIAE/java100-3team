@@ -1,27 +1,43 @@
 package java100.app.domain;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Member {
     
     protected int no;
-    protected String name;
+    protected String photo;
     protected String email;
     protected String password;
-    protected Date createdDate;
+    protected String nickName;
+    protected String type;
+    protected String messageFlag;
+    protected String messageId;
+    protected String cancelFlag;
+    protected Date regDate;
+    protected Artist artist;
+    protected List<InterestArea> interestAreas;
+    protected List<InterestGenre> interestGenres;
     
     public Member() {}
     
-    public Member(int no, String name, String email) {
+    public Member(int no, String nickName, String email) {
         this.no = no;
-        this.name = name;
+        this.nickName = nickName;
         this.email = email;
+        this.artist.setNo(no);
+    }
+
+    public void setArtistNo(int no) {
+        this.artist.setNo(no);
     }
 
     @Override
     public String toString() {
-        return "Member [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", createdDate="
-                + createdDate + "]";
+        return "Member [no=" + no + ", photo=" + photo + ", email=" + email + ", password=" + password + ", nickName="
+                + nickName + ", type=" + type + ", messageFlag=" + messageFlag + ", messageId=" + messageId
+                + ", cancelFlag=" + cancelFlag + ", regDate=" + regDate + ", artist=" + artist + ", interestAreas="
+                + interestAreas + ", interestGenres=" + interestGenres + "]";
     }
 
     public int getNo() {
@@ -32,20 +48,12 @@ public class Member {
         this.no = no;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getEmail() {
@@ -63,6 +71,80 @@ public class Member {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getMessageFlag() {
+        return messageFlag;
+    }
+
+    public void setMessageFlag(String messageFlag) {
+        this.messageFlag = messageFlag;
+    }
+
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
+
+    public String getCancelFlag() {
+        return cancelFlag;
+    }
+
+    public void setCancelFlag(String cancelFlag) {
+        this.cancelFlag = cancelFlag;
+    }
+
+    public Date getRegDate() {
+        return regDate;
+    }
+
+    public void setRegDate(Date regDate) {
+        this.regDate = regDate;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public List<InterestArea> getInterestAreas() {
+        return interestAreas;
+    }
+
+    public void setInterestAreas(List<InterestArea> interestAreas) {
+        this.interestAreas = interestAreas;
+    }
+
+    public List<InterestGenre> getInterestGenres() {
+        return interestGenres;
+    }
+
+    public void setInterestGenres(List<InterestGenre> interestGenres) {
+        this.interestGenres = interestGenres;
+    }
+    
+    
     
 }
 

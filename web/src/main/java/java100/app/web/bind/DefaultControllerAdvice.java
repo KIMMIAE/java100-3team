@@ -1,6 +1,7 @@
 // 클라이언트가 보낸 문자열 데이터를 다른 타입으로 변환하기
 package java100.app.web.bind;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -41,6 +42,21 @@ public class DefaultControllerAdvice {
                 Date.class, // 문자열을 어떤 타입으로 바꿀지 설정한다 
                 new CustomDateEditor( // 문자열을 java.util.Date 객체로 만들어 준다.
                         dateFormat, // 실제로는 그 작업을 SimpleDateFormat이 한다. 
-                        false)); // 문자열 값이 비어 있는 것을 허락할 것인지 여부!
+                        true)); // 문자열 값이 비어 있는 것을 허락할 것인지 여부!
+
+        @SuppressWarnings("serial")
+        SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd") {
+            @Override
+            public java.util.Date parse(String source) throws ParseException {
+               java.util.Date date = super.parse(source);
+                return new java.sql.Date(date.getTime());
+            }
+        };
+        
+        dateFormat2.setLenient(false);
+        
+        binder.registerCustomEditor(
+                java.sql.Date.class, 
+                new CustomDateEditor(dateFormat2, true));
     }
 }
