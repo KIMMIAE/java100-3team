@@ -69,7 +69,7 @@
         <property name="typeAliasesPackage" value="java100.app.domain"/> -->
         
         <property name="mapperLocations" value="classpath*:java100/app/dao/mysql/**/*Dao.xml"/>
-        <property name="typeAliasesPackage" value="java100.app.domain.member"/>
+        <property name="typeAliasesPackage" value="java100.app.domain"/>
     </bean>
     
     <!-- DAO 객체를 자동생성해주는 공장 준비 
@@ -106,14 +106,13 @@
 	</bean>
     
     <!-- 인터셉터를 등록한다. -->
-
-    <!-- <mvc:interceptors>
+    <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/auth/**"/>
             <bean class="java100.app.web.interceptor.AuthInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors> -->
+    </mvc:interceptors>
     
     
     <!-- 트랜잭션 작업을 수행할 advice 객체 등록 

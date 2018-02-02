@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO 객체를 자동으로 생성하려면,
+     namespace의 값이 인터페이스 이름과 같아야 한다. -->
+<mapper namespace="java100.app.dao.performance.PerformanceDao">
+
+    <resultMap type="performance" id="performanceMap">
+        <id      column="pfmno"      property="no"/>
+        <result column="pfmnm"      property="name"/>
+        <result column="pfmgnr"     property="genre"/>
+        <result column="pfmdt"      property="entryDate"/>
+        <result column="pfmloc"     property="location"/>
+        <result column="pfmdesc"    property="detailDesc"/>
+        <result column="spcldesc"   property="specialDesc"/>
+        <result column="viewcnt"    property="viewCount"/>
+        <result column="regdt"      property="regDate"/>
+        
+        <association property="writer" javaType="member">
+            <id     column="mmbno"       property="no"/>
+            <result column="nicknm"     property="nickName"/>
+        </association>
+        
+        <association property="artist" javaType="artist">
+            <id     column="artno"       property="no"/>
+            <result column="artnm"     property="artistName"/>
+        </association>
+        
+        <collection property="files"  ofType="performanceFile">
+            <id     column="fileno"    property="no"/>
+            <result column="filenm"   property="filename"/>
+        </collection>
+    </resultMap>
+    
+    <insert id="insert" parameterType="performance"
+        useGeneratedKeys="true" keyColumn="no" keyProperty="no">
+        insert into tb_prfrminfo(artno, pfmnm, pfmgnr, pfmdt, pfmloc, pfmdesc, spcldesc, viewcnt, regdt)
+        values(#{writer.no}, #{name}, #{genre}, #{entryDate}, #{location}, #{detailDesc}, #{specialDesc}, 0, now())
+    </insert>
+
+    <sql id="select1">
+        select 
+            pfmno,
+            artno,
+            pfmnm,
+            pfmgnr,
+            pfmdt,
+            pfmloc,
+            pfmdesc,
+            spcldesc,
+            viewcnt,
+            regdt
+    </sql>
+
+    <select id="findAll" resultMap="performanceMap" parameterType="map">
+        select 
+            t001.pfmno,
+            t001.artno,
+            t002.nicknm,
+            t003.artnm,
+            t001.pfmnm,
+            t001.pfmgnr,
+            t001.pfmdt,
+            t001.pfmloc,
+            t001.pfmdesc,
+            t001.spcldesc,
+            t001.viewcnt,
+            t001.regdt,
+            t004.filenm
+        from tb_prfrminfo t001
+        left join tb_memb t002 on t001.artno=t002.mmbno
+        left join tb_artist t003 on t001.artno=t003.artno
+        left join tb_prfrmfile t004 on t001.pfmno=t004.pfmno
+
+        <if test="words != null">
+	        <where>
+	            <foreach collection="words" item="word">
+	                or pfmnm like '%${word}%'
+	            </foreach>
+	        </where>
+        </if>
+        
+        <!-- 정렬 조건에 따라 SQL문을 변경한다.-->
+        order by 
+        <choose>
+            <when test="orderColumn == 'regdt' and align == 'desc'">
+                regdt desc
+            </when>
+            <when test="orderColumn == 'regdt' and align == 'asc'">
+                regdt asc
+            </when>
+            <when test="orderColumn == 'viewcnt' and align == 'desc'">
+                viewcnt desc
+            </when>
+            <when test="orderColumn == 'viewcnt' and align == 'asc'">
+                viewcnt asc
+            </when>
+            <otherwise>
+                pfmno desc
+            </otherwise>
+        </choose>
+        
+        <!-- 페이지징 처리 -->
+        limit #{startIndex}, #{size}
+    </select>
+    
+    <select id="findByNo" resultMap="performanceMap" parameterType="int">
+        <include refid="select1"/>
+          ,conts
+        from tb_prfrminfo
+        where no=#{value}
+    </select>
+    
+    <select id="findByNo2" resultMap="performanceMap" parameterType="int">
+        select 
+		    b.no, 
+		    b.title, 
+		    b.conts, 
+		    b.regdt, 
+		    b.vwcnt, 
+		    m.no as m_no, 
+		    m.name, 
+		    m.email,
+		    f.no as f_no,
+		    f.filename
+		from 
+		    tb_prfrminfo as b 
+		    join ex_memb as m on b.mno=m.no
+		    left join ex_file as f on b.no=f.bno
+        where b.no=#{value}
+    </select>
+    
+    <select id="countAll" resultType="int">
+        select count(*) from tb_prfrminfo
+    </select>
+    
+    <update id="update" parameterType="performance">
+        update tb_prfrminfo set 
+            title=#{title}, 
+            conts=#{content}
+        where no=#{no}
+    </update>
+
+    <update id="updateViewCount" parameterType="int">
+        update tb_prfrminfo set 
+            viewcnt=viewcnt + 1
+        where pfmno=#{value}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from tb_prfrminfo
+        where pfmno=#{value}
+    </delete>
+    
+</mapper>
+
+
+
+
+
+
+
+
+

@@ -57,7 +57,7 @@ public class LoginController {
         model.addAttribute("loginUser", member);
         
 
-        return "redirect:../board/list";
+        return "redirect:../performance/list";
     }
     
     @RequestMapping("logout")

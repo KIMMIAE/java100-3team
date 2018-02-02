@@ -40,6 +40,7 @@
             mmbno,
             email,
             pwd,
+            nicknm
     </sql>
 
     <select id="findAll" resultMap="memberMap" parameterType="map">
@@ -88,7 +89,7 @@
             <when test="orderColumn == 'regdt' and align == 'desc'">
                 t001.regdt desc
             </when>
-            <when test="orderColumn == 'name' and align == 'desc'">
+            <when test="orderColumn == 'nicknm' and align == 'desc'">
                 t001.nicknm desc
             </when>
             <otherwise>

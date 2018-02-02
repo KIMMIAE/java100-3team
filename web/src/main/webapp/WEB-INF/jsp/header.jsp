@@ -18,22 +18,22 @@
 <div class='collapse navbar-collapse' id='navbarNav'>
 <ul class='navbar-nav mr-auto'>
   <li class='nav-item'>
-    <a class='nav-link' href='../score/list'>성적</a>
+    <a class='nav-link' href='../member/list'>회원정보</a>
   </li>
   <li class='nav-item'>
-    <a class='nav-link' href='../member/list'>회원</a>
+    <a class='nav-link' href='../performance/list'>공연정보</a>
   </li>
   <li class='nav-item'>
-    <a class='nav-link' href='../board/list'>게시판</a>
+    <a class='nav-link' href='../request/list'>공연요청</a>
   </li>
   <li class='nav-item'>
-    <a class='nav-link' href='../room/list'>강의실</a>
+    <a class='nav-link' href='../sponsor/list'>공연후원</a>
   </li>
 </ul>
 
 <c:choose>
     <c:when test="${sessionScope.loginUser != null}">
-        ${sessionScope.loginUser.name}
+        ${sessionScope.loginUser.nickName}
         <a href="${contextPath}/app/auth/logout" 
            class='btn btn-light btn-sm'>로그아웃</a>
     </c:when>
