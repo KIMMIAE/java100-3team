@@ -20,7 +20,6 @@ public class PerformanceServiceImpl implements PerformanceService {
     
     @Override
     public List<Performance> list(int pageNo, int pageSize, Map<String, Object> options) {
-
         HashMap<String,Object> params = new HashMap<>();
         params.put("startIndex", (pageNo - 1) * pageSize);
         params.put("size", pageSize);
@@ -28,7 +27,6 @@ public class PerformanceServiceImpl implements PerformanceService {
         if (options != null) {
             params.putAll(options);
         }
-        
         return performanceDao.findAll(params);
     }
 
@@ -38,6 +36,11 @@ public class PerformanceServiceImpl implements PerformanceService {
         Performance performance = performanceDao.findByNo2(no);
         
         return performance;
+    }
+
+    @Override
+    public List<PerformanceFile> getMedias(int no) {
+        return performanceFileDao.findByPerformanceNo(no);
     }
     
     @Override
@@ -49,32 +52,40 @@ public class PerformanceServiceImpl implements PerformanceService {
     //@Transactional // XML 설정으로 대체한다.
     public int add(Performance performance) {
         int count = performanceDao.insert(performance);
-        this.addFiles(performance.getFiles(), performance.getNo());
+        this.addFiles(performance.getMedias(), performance.getNo());
         
         return count;
     }
 
     @Override
     public int update(Performance performance) {
-        
         int count = performanceDao.update(performance);
-        performanceFileDao.deleteAllByPerformanceNo(performance.getNo());
-        addFiles(performance.getFiles(), performance.getNo());
+        
+        System.out.println(count + " <= PerformanceServiceImpl");
+        System.out.println(performance.toString() + " <= PerformanceServiceImpl");
+        //System.out.println(performance.getMedias().get(0).getFilename() + " <= PerformanceServiceImpl");
+        if (performance.getMedias() != null) {
+            System.out.println(count + " <= PerformanceServiceImpl");
+            performanceFileDao.deleteAllByPerformanceNo(performance.getNo());
+            addFiles(performance.getMedias(), performance.getNo());
+        }
         
         return count;
     }
 
     @Override
     public int delete(int no) {
-        return performanceDao.delete(no);
+        //return performanceDao.delete(no);
+        return 0;
     }
     
     @Override
     //@Transactional // XML 설정으로 대체
-    public void addFiles(List<PerformanceFile> files, int performanceNo) {
-        for (PerformanceFile file : files) {
-            file.setPerformanceNo(performanceNo);
-            performanceFileDao.insert(file);
+    public void addFiles(List<PerformanceFile> medias, int performanceNo) {
+        for (PerformanceFile media : medias) {
+            System.out.println(media.toString());
+            media.setPerformanceNo(performanceNo);
+            performanceFileDao.insert(media);
         }
     }
 
