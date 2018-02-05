@@ -28,17 +28,12 @@
             <result column="artnm"     property="artistName"/>
         </association>
         
-        <collection property="files"  ofType="performanceFile">
-            <id     column="fileno"    property="no"/>
-            <result column="filenm"   property="filename"/>
+        <collection property="medias"  ofType="performanceFile">
+            <id     column="fileno"     property="no"/>
+            <result column="filenm"    property="filename"/>
+            <result column="pfmno"     property="performanceNo"/>
         </collection>
     </resultMap>
-    
-    <insert id="insert" parameterType="performance"
-        useGeneratedKeys="true" keyColumn="no" keyProperty="no">
-        insert into tb_prfrminfo(artno, pfmnm, pfmgnr, pfmdt, pfmloc, pfmdesc, spcldesc, viewcnt, regdt)
-        values(#{writer.no}, #{name}, #{genre}, #{entryDate}, #{location}, #{detailDesc}, #{specialDesc}, 0, now())
-    </insert>
 
     <sql id="select1">
         select 
@@ -70,9 +65,9 @@
             t001.regdt,
             t004.filenm
         from tb_prfrminfo t001
-        left join tb_memb t002 on t001.artno=t002.mmbno
-        left join tb_artist t003 on t001.artno=t003.artno
-        left join tb_prfrmfile t004 on t001.pfmno=t004.pfmno
+             left join tb_memb t002 on t001.artno=t002.mmbno
+             left join tb_artist t003 on t001.artno=t003.artno
+             left join tb_prfrmfile t004 on t001.pfmno=t004.pfmno
 
         <if test="words != null">
 	        <where>
@@ -115,32 +110,46 @@
     
     <select id="findByNo2" resultMap="performanceMap" parameterType="int">
         select 
-		    b.no, 
-		    b.title, 
-		    b.conts, 
-		    b.regdt, 
-		    b.vwcnt, 
-		    m.no as m_no, 
-		    m.name, 
-		    m.email,
-		    f.no as f_no,
-		    f.filename
-		from 
-		    tb_prfrminfo as b 
-		    join ex_memb as m on b.mno=m.no
-		    left join ex_file as f on b.no=f.bno
-        where b.no=#{value}
+            t001.pfmno,
+            t001.artno,
+            t002.nicknm,
+            t003.artnm,
+            t001.pfmnm,
+            t001.pfmgnr,
+            t001.pfmdt,
+            t001.pfmloc,
+            t001.pfmdesc,
+            t001.spcldesc,
+            t001.viewcnt,
+            t001.regdt,
+            t004.filenm
+        from tb_prfrminfo t001
+             left join tb_memb t002 on t001.artno=t002.mmbno
+             left join tb_artist t003 on t001.artno=t003.artno
+             left join tb_prfrmfile t004 on t001.pfmno=t004.pfmno
+        where t001.pfmno=#{value}
     </select>
     
     <select id="countAll" resultType="int">
         select count(*) from tb_prfrminfo
     </select>
     
+    <insert id="insert" parameterType="performance"
+        useGeneratedKeys="true" keyColumn="no" keyProperty="no">
+        insert into tb_prfrminfo(artno, pfmnm, pfmgnr, pfmdt, pfmloc, pfmdesc, spcldesc, viewcnt, regdt)
+        values(#{writer.no}, #{name}, #{genre}, #{entryDate}, #{location}, #{detailDesc}, #{specialDesc}, 0, now())
+    </insert>
+    
     <update id="update" parameterType="performance">
-        update tb_prfrminfo set 
-            title=#{title}, 
-            conts=#{content}
-        where no=#{no}
+        update tb_prfrminfo set
+            pfmnm=#{name},
+            pfmgnr=#{genre},
+            pfmdt=#{entryDate},
+            pfmloc=#{location},
+            pfmdesc=#{detailDesc},
+            spcldesc=#{specialDesc},
+            regdt=now()
+        where pfmno=#{no}
     </update>
 
     <update id="updateViewCount" parameterType="int">

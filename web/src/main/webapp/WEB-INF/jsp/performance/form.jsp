@@ -64,21 +64,21 @@
 <div class='form-group row'>
 <label for='file1' class='col-sm-2 col-form-label'>공연사진/영상</label>
 <div class='col-sm-10'>
-<input type="file" class="form-control-file" id="file1" name="file">
+<input type="file" class="form-control-file" id="file1" name="files">
 </div>
 </div>
 
 <div class='form-group row'>
 <label for='file2' class='col-sm-2 col-form-label'>공연사진/영상</label>
 <div class='col-sm-10'>
-<input type="file" class="form-control-file" id="file2" name="file">
+<input type="file" class="form-control-file" id="file2" name="files">
 </div>
 </div>
 
 <div class='form-group row'>
 <label for='file3' class='col-sm-2 col-form-label'>공연사진/영상</label>
 <div class='col-sm-10'>
-<input type="file" class="form-control-file" id="file3" name="file">
+<input type="file" class="form-control-file" id="file3" name="files">
 </div>
 </div>
 
