@@ -29,6 +29,12 @@
   <li class='nav-item'>
     <a class='nav-link' href='../sponsor/list'>공연후원</a>
   </li>
+    <li class='nav-item'>
+    <a class='nav-link' href='../notice/list'>공지사항</a>
+  </li>
+  
+  
+  
 </ul>
 
 <c:choose>

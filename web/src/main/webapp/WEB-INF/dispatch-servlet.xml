@@ -112,8 +112,7 @@
             <mvc:exclude-mapping path="/auth/**"/>
             <bean class="java100.app.web.interceptor.AuthInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>
-    
+    </mvc:interceptors>  
     
     <!-- 트랜잭션 작업을 수행할 advice 객체 등록 
          등록된 트랜잭션 관리자의 id가 'transactionManager'이 아니라면,

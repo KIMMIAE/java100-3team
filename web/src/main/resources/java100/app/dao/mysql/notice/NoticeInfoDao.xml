@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO 객체를 자동으로 생성하려면,
+     namespace의 값이 인터페이스 이름과 같아야 한다. -->
+<mapper namespace="java100.app.dao.notice.NoticeInfoDao">
+
+    <resultMap type="noticeInfo" id="noticeInfoMap">
+        <id column="ntcno" property="no"/>
+        <result column="ntctitle" property="noticeTitle"/>
+        <result column="ntcdesc" property="noticeDescription"/>
+        <result column="viewcnt" property="viewCount"/>
+        <result column="ntcdt" property="noticeDate"/>
+        
+    <association property="member" javaType="member">
+      <id     column="mmno"     property="no"/>
+      <result column="nicknm"     property="nickName"/>
+    </association>
+    </resultMap>
+    
+    <select id="findAll" resultMap="noticeInfoMap" parameterType="map">
+   
+      select 
+            m.mmbno,
+            m.nicknm,
+            n.ntcno,
+            n.ntctitle,
+            n.ntcdesc,
+            n.viewcnt,
+            n.ntcdt
+            from tb_notice n left join tb_memb m
+            on m.mmbno = n.mmbno
+            
+            
+       <if test="words != null">
+            <where>
+                n.ntctitle in 
+                <foreach collection="words" item="word" 
+                         open="(" close=")" separator=",">
+                    #{word}
+                </foreach>
+            </where>
+        </if> 
+        
+         <!-- 정렬 조건에 따라 SQL문을 변경한다.-->
+        order by 
+        <choose>
+          <!--   <when test="orderColumn == 'ntcdt' and align == 'desc'">
+                ntcdt desc
+            </when>
+            <when test="orderColumn == 'ntcdt' and align == 'asc'">
+                ntcdt asc
+            </when>
+            <when test="orderColumn == 'viewcnt' and align == 'desc'">
+                viewcnt desc
+            </when>
+            <when test="orderColumn == 'viewcnt' and align == 'asc'">
+                viewcnt asc
+            </when> -->
+            <otherwise>
+                ntcno desc
+            </otherwise>
+        </choose>
+      
+        <!-- 페이지징 처리 -->
+         limit #{startIndex}, #{size}
+    </select>
+
+    <select id="findByNo" resultMap="noticeInfoMap" parameterType="int">
+       select 
+            m.mmbno,
+            m.nicknm,
+            n.ntcno,
+            n.ntctitle,
+            n.ntcdesc,
+            n.viewcnt,
+            n.ntcdt
+            from tb_notice
+            from tb_notice n left join tb_memb m
+            on m.mmbno = n.mmbno
+        where no = #{value}
+    </select>
+    
+    <select id="findByNo2" resultMap="noticeInfoMap" parameterType="int">
+          select 
+            m.mmbno,
+            m.nicknm,
+            n.ntcno,
+            n.ntctitle,
+            n.ntcdesc,
+            n.viewcnt,
+            n.ntcdt
+            from tb_notice n left join tb_memb m
+            on m.mmbno = n.mmbno
+        where n.ntcno = #{value}
+    </select>
+    
+    <select id="countAll" resultType="int">
+        select count(*) from tb_notice
+    </select>
+    
+    <insert id="insert" parameterType="noticeInfo">
+        insert into tb_notice(ntctitle, ntcdesc, viewcnt, ntcdt, mmbno)
+        values(#{noticeTitle}, #{noticeDescription}, 0, now(), #{member.no})
+    </insert>
+
+    <update id="update" parameterType="noticeInfo">
+        update tb_notice set 
+            ntctitle=#{noticeTitle},
+            ntcdesc=#{noticeDescription}
+        where ntcno=#{no}
+    </update>
+
+   <delete id="delete" parameterType="int">
+        delete from tb_notice
+        where ntcno=#{value}
+    </delete>
+    
+    <update id="updateViewCount" parameterType="int">
+        update tb_notice set 
+            viewcnt=viewcnt + 1
+        where ntcno=#{value}
+    </update>
+    
+    
+</mapper>  
+
+
+
+
+
+
+
+
+
