@@ -19,9 +19,9 @@
 <form action="add" method='post' enctype="multipart/form-data">
 
 <div class='form-group row'>
-<label for='performance.no' class='col-sm-2 col-form-label'>공연정보</label>
+<label for='performance' class='col-sm-2 col-form-label'>공연정보</label>
 <div class='col-sm-10'>
-<input class='form-control' id='performance.no' type='number' name='performance.no'>
+<input class='form-control' id='performance' type="number" name='performance.no'>
 </div>
 </div>
 

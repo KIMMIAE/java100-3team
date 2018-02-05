@@ -6,7 +6,7 @@ import java100.app.domain.member.Member;
 
 public class PerformanceReview {
 	
-	protected int no;
+	protected int reviewNo;
 	protected Performance performance;
 	protected Member writer;
 	protected String reviewDescription;
@@ -20,22 +20,20 @@ public class PerformanceReview {
 	
 	
 
-	@Override
-	public String toString() {
-		return "PerformanceReview [no=" + no + ", performance=" + performance + ", writer=" + writer
-				+ ", reviewDescription=" + reviewDescription + ", viewCount=" + viewCount + ", regDate=" + regDate
-				+ "]";
-	}
 
-	public int getNo() {
-		return no;
+	public int getReviewNo() {
+		return reviewNo;
 	}
 
 
 
-	public void setNo(int no) {
-		this.no = no;
+
+
+	public void setReviewNo(int reviewNo) {
+		this.reviewNo = reviewNo;
 	}
+
+
 
 
 

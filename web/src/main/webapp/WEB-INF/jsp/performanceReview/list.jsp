@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>공연 정보</title>
+<title>공연 후기</title>
 <link rel='stylesheet' href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link rel='stylesheet' href='../../css/common.css'>
 </head>
@@ -17,31 +17,28 @@
 
 <jsp:include page="../header.jsp"/>
 
-<h1>공연 목록</h1>
+<h1>공연 후기</h1>
 
 <jsp:include page="../listToolbar.jsp"/>
 
 <table class='table table-hover'>
 <thead>
 <tr>
-<th>번호</th><th>아티스트명</th><th>공연명</th><th>공연장르</th><th>공연날짜</th><th>공연장소</th><th>등록자</th><th>조회수</th>
+<th>번호</th><th>닉네임</th><th>후기내용</th><th>조회수</th><th>등록일</th>
 </tr>
 </thead>
 <tbody>
 
-<c:forEach items="${list}" var="performance">
-    <c:set var="title" value="${fn:length(performance.name) == 0 ? 
-           '(공연명이 없습니다.)' : performance.name}"/>
+<c:forEach items="${list}" var="performanceReview">
+    <c:set var="title" value="${fn:length(performanceReview.reviewDescription) == 0 ? 
+           '(등록된 글이 없습니다.)' : performanceReview.reviewDescription}"/>
     <tr>
-    <td>${performance.no}</td>
-    <td>${performance.artist.artistName}</td>
-    <td><a href='${performance.no}'><span class="d-inline-block text-truncate" 
+    <td>${performanceReview.reviewNo}</td>
+    <td>${performanceReview.writer.nickName}</td>
+    <td><a href='${performanceReview.reviewNo}'><span class="d-inline-block text-truncate" 
            style="max-width: 300px;">${title}</span></a></td>
-    <td>${performance.genre}</td>
-    <td>${performance.entryDate}</td>
-    <td>${performance.location}</td>
-    <td>${performance.writer.nickName}</td>
-    <td>${performance.viewCount}</td>
+    <td>${performanceReview.viewCount}</td>
+    <td>${performanceReview.regDate}</td>
     </tr>
 </c:forEach>
 

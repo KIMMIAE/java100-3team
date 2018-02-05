@@ -24,6 +24,9 @@
     <a class='nav-link' href='../performance/list'>공연정보</a>
   </li>
   <li class='nav-item'>
+    <a class='nav-link' href='../performanceReview/list'>공연후기</a>
+  </li>
+  <li class='nav-item'>
     <a class='nav-link' href='../request/list'>공연요청</a>
   </li>
   <li class='nav-item'>

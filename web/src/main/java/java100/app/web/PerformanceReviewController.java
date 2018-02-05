@@ -1,14 +1,22 @@
 package java100.app.web;
 
+import java.util.HashMap;
+
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import java100.app.domain.member.Member;
+import java100.app.domain.performance.Performance;
+import java100.app.domain.performance.PerformanceFile;
 import java100.app.domain.performance.PerformanceReview;
 import java100.app.service.PerformanceReviewService;
 
@@ -19,7 +27,7 @@ public class PerformanceReviewController {
     
     @Autowired ServletContext servletContext;
     @Autowired PerformanceReviewService performanceReviewService;
-    /*
+    
     @RequestMapping("list")
     public String list(
             @RequestParam(value="pn", defaultValue="1") int pageNo,
@@ -46,7 +54,7 @@ public class PerformanceReviewController {
         options.put("orderColumn", orderColumn);
         options.put("align", align);
         
-        int totalCount = performanceService.getTotalCount();
+        int totalCount = performanceReviewService.getTotalCount();
         int lastPageNo = totalCount / pageSize;
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;
@@ -55,17 +63,18 @@ public class PerformanceReviewController {
         // view 컴포넌트가 사용할 값을 Model에 담는다.
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("lastPageNo", lastPageNo);
-        model.addAttribute("list", performanceService.list(pageNo, pageSize, options));
-        return "performance/list";
+        model.addAttribute("list", performanceReviewService.list(pageNo, pageSize, options));
+        return "performanceReview/list";
     }
 
     @RequestMapping("{no}")
     public String view(@PathVariable int no, Model model) throws Exception {
         
-        model.addAttribute("performance", performanceService.get(no));
-        return "performance/view";
+        model.addAttribute("performanceReview", performanceReviewService.get(no));
+        /*System.out.println(performanceReviewService.get(no));*/
+        return "performanceReview/view";
     }
-    */
+
     @RequestMapping("form")
     public String form() throws Exception {
         return "performanceReview/form";
@@ -77,65 +86,30 @@ public class PerformanceReviewController {
     @RequestMapping("add")
     public String add(
             PerformanceReview performanceReview,
-           /* MultipartFile[] files,*/
             @ModelAttribute(value="loginUser") Member loginUser) throws Exception {
-       /* 
-        String saveDir = servletContext.getRealPath("/download");
-        ArrayList<PerformanceFile> performanceFiles = new ArrayList<>();
-        for (MultipartFile file : files) {
-            if (file.isEmpty()) continue;
-            
-            String filename = this.writePerformanceFile(file, saveDir);
-            
-            performanceFiles.add(new PerformanceFile(filename));
-        }
-        
-        performance.setFiles(performanceFiles);
-        */
+    	
+    	
         performanceReview.setWriter(loginUser);
-        
         performanceReviewService.add(performanceReview);
         
         return "redirect:list";
     }
-   /*
+    
     @RequestMapping("update")
     public String update(
-            Performance performance, 
-            MultipartFile[] file) throws Exception {
-     */   
-        // 업로드 파일을 저장할 폴더 위치를 가져온다.
-       // String uploadDir = servletContext.getRealPath("/download");
-
-        // 업로드 파일 정보를 저장할 List 객체 준비
-        //ArrayList<PerformanceFile> performanceFiles = new ArrayList<>();
-        
-        // 클라이언트가 보낸 파일을 저장하고, 
-        // 그 파일명(저장할 때 사용한 파일명)을 목록에 추가한다.
-    /*
-        for (MultipartFile part : file) {
-            if (part.isEmpty())
-                continue;
-            
-            String filename = this.writePerformanceFile(part, uploadDir);
-            
-            performanceFiles.add(new PerformanceFile(filename));
+            PerformanceReview performanceReview,Performance performance,String nickName) throws Exception {
+    	
+    	performanceReviewService.update(performanceReview);
+        System.out.println(performanceReview/*.getPerformance().getNo()*/ + "<= update");
+        return "redirect:list";
         }
-        */
-        // Performance 객체에 저장한 파일명을 등록한다. 
-        //performance.setFiles(performanceFiles);
 
-       // performanceService.update(performance);
-        
-       // return "redirect:list";
-    //}
-
-    /*@RequestMapping("delete")
+    @RequestMapping("delete")
     public String delete(int no) throws Exception {
 
-        performanceService.delete(no);
+        performanceReviewService.delete(no);
         return "redirect:list";
-    }*/
+    }
     
     //long prevMillis = 0;
     //int count = 0;
