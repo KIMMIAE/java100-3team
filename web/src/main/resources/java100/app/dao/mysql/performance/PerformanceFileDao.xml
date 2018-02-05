@@ -6,14 +6,20 @@
   
 <mapper namespace="java100.app.dao.performance.PerformanceFileDao">
 
-    <select id="findByPerformanceNo" resultType="PerformanceFile" parameterType="int">
-        select no, filename
+    <resultMap type="performanceFile" id="performanceFileMap">
+        <id      column="fileno"      property="no"/>
+        <result column="filenm"     property="filename"/>
+        <result column="pfmno"     property="performanceNo"/>
+    </resultMap>
+    
+    <select id="findByPerformanceNo" resultType="performanceFile" parameterType="int">
+        select fileno, filenm, pfmno
         from tb_prfrmfile
         where pfmno=#{value}
     </select>
     
-    <insert id="insert" parameterType="PerformanceFile">
-        insert into tb_prfrmfile(filename, pfmno) 
+    <insert id="insert" parameterType="performanceFile">
+        insert into tb_prfrmfile(filenm, pfmno) 
         values(#{filename}, #{performanceNo})
     </insert>
     
