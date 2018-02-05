@@ -18,14 +18,14 @@ public class Performance {
     protected int viewCount;
     protected Member writer;
     protected Artist artist;
-    protected List<PerformanceFile> files;
+    protected List<PerformanceFile> medias;
     protected Date regDate;
     
     @Override
     public String toString() {
         return "Performance [no=" + no + ", name=" + name + ", genre=" + genre + ", entryDate=" + entryDate
                 + ", location=" + location + ", detailDesc=" + detailDesc + ", specialDesc=" + specialDesc
-                + ", viewCount=" + viewCount + ", writer=" + writer + ", artist=" + artist + ", files=" + files
+                + ", viewCount=" + viewCount + ", writer=" + writer + ", artist=" + artist + ", medias=" + medias
                 + ", regDate=" + regDate + "]";
     }
 
@@ -109,12 +109,12 @@ public class Performance {
         this.artist = artist;
     }
 
-    public List<PerformanceFile> getFiles() {
-        return files;
+    public List<PerformanceFile> getMedias() {
+        return medias;
     }
 
-    public void setFiles(List<PerformanceFile> files) {
-        this.files = files;
+    public void setMedias(List<PerformanceFile> medias) {
+        this.medias = medias;
     }
 
     public Date getRegDate() {
@@ -124,8 +124,6 @@ public class Performance {
     public void setRegDate(Date regDate) {
         this.regDate = regDate;
     }
-    
-    
     
 
 }

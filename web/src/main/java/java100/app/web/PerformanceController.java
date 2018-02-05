@@ -92,17 +92,16 @@ public class PerformanceController {
         
         String saveDir = servletContext.getRealPath("/download");
         ArrayList<PerformanceFile> performanceFiles = new ArrayList<>();
+        
         for (MultipartFile file : files) {
             if (file.isEmpty()) continue;
             
             String filename = this.writePerformanceFile(file, saveDir);
-            
             performanceFiles.add(new PerformanceFile(filename));
         }
         
-        performance.setFiles(performanceFiles);
+        performance.setMedias(performanceFiles);
         performance.setWriter(loginUser);
-        
         performanceService.add(performance);
         
         return "redirect:list";
@@ -111,28 +110,20 @@ public class PerformanceController {
     @RequestMapping("update")
     public String update(
             Performance performance, 
-            MultipartFile[] file) throws Exception {
+            MultipartFile[] files) throws Exception {
         
-        // 업로드 파일을 저장할 폴더 위치를 가져온다.
-        String uploadDir = servletContext.getRealPath("/download");
-
-        // 업로드 파일 정보를 저장할 List 객체 준비
         ArrayList<PerformanceFile> performanceFiles = new ArrayList<>();
-        
-        // 클라이언트가 보낸 파일을 저장하고, 
-        // 그 파일명(저장할 때 사용한 파일명)을 목록에 추가한다.
-        for (MultipartFile part : file) {
-            if (part.isEmpty())
-                continue;
+        if (!files[0].isEmpty()) {
+            String uploadDir = servletContext.getRealPath("/download");
             
-            String filename = this.writePerformanceFile(part, uploadDir);
-            
-            performanceFiles.add(new PerformanceFile(filename));
+            for (MultipartFile file : files) {
+                if (file.isEmpty()) continue;
+                
+                String filename = this.writePerformanceFile(file, uploadDir);
+                performanceFiles.add(new PerformanceFile(filename));
+            }
+            performance.setMedias(performanceFiles);
         }
-        
-        // Performance 객체에 저장한 파일명을 등록한다. 
-        performance.setFiles(performanceFiles);
-
         performanceService.update(performance);
         
         return "redirect:list";

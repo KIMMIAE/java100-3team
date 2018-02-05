@@ -86,13 +86,9 @@ public class MemberController {
     
     @RequestMapping(value="add", method=RequestMethod.POST)
     public String add(Member member, 
-                       MultipartFile file, 
-                       //Date joinDate,
+                       MultipartFile file,
                        @RequestParam(value="areas",required=false) String[] areas,
                        @RequestParam(value="genres",required=false) String[] genres) throws Exception {
-
-        System.out.println(member.toString() + "  <= MemberController");
-        System.out.println(member.getArtist().toString() + "  <= MemberController");
         
         if (!file.isEmpty()) {
             String uploadDir = servletContext.getRealPath("/download");
@@ -132,7 +128,6 @@ public class MemberController {
                           @RequestParam(value="areas",required=false) String[] areas,
                           @RequestParam(value="genres",required=false) String[] genres) throws Exception {
 
-        System.out.println(member.toString() + "  <= MemberController");
         
         if (!file.isEmpty()) {
             String uploadDir = servletContext.getRealPath("/download");
@@ -146,7 +141,6 @@ public class MemberController {
             ArrayList<InterestArea> interestAreas = new ArrayList<>();
             for (String area : areas) {
                 if (area.isEmpty()) continue;
-                System.out.println(area + "  <= MemberController");
                 interestAreas.add(new InterestArea(area));
             }
             member.setInterestAreas(interestAreas);
@@ -156,7 +150,6 @@ public class MemberController {
             ArrayList<InterestGenre> interestGenres = new ArrayList<>();
             for (String genre : genres) {
                 if (genre.isEmpty()) continue;
-                System.out.println(genre + "  <= MemberController");
                 interestGenres.add(new InterestGenre(genre));
             }
             member.setInterestGenres(interestGenres);
