@@ -63,6 +63,36 @@
         </div>
         
         <div class='form-group row'>
+        <label class='col-sm-2 col-form-label'>첨부파일</label>
+        <div class='col-sm-10'>
+        <c:forEach items="${performanceReview.reviewFiles}" var="file">
+          <a href="${contextPath}/download/${file.reviewFilename}">${file.reviewFilename}</a><br>
+        </c:forEach>
+        </div>
+        </div>
+        
+        <div class='form-group row'>
+        <label for='file1' class='col-sm-2 col-form-label'>파일1</label>
+        <div class='col-sm-10'>
+        <input type="file" class="form-control-file" id="file1" name="file">
+        </div>
+        </div>
+        
+        <div class='form-group row'>
+        <label for='file2' class='col-sm-2 col-form-label'>파일2</label>
+        <div class='col-sm-10'>
+        <input type="file" class="form-control-file" id="file2" name="file">
+        </div>
+        </div>
+        
+        <div class='form-group row'>
+        <label for='file3' class='col-sm-2 col-form-label'>파일3</label>
+        <div class='col-sm-10'>
+        <input type="file" class="form-control-file" id="file3" name="file">
+        </div>
+        </div>
+        
+        <div class='form-group row'>
         <label for='reviewDescription' class='col-sm-2 col-form-label'>후기내용</label>
         <div class='col-sm-10'>
         <textarea class='form-control' id='reviewDescription'
@@ -84,37 +114,6 @@
                 value='${performanceReview.viewCount}'>
         </div>
         </div>
-        <!-- 
-        <div class='form-group row'>
-        <label class='col-sm-2 col-form-label'>첨부파일</label>
-        <div class='col-sm-10'>
-        <c:forEach items="${performance.files}" var="file">
-          <a href="${contextPath}/download/${file.filename}">${file.filename}</a><br>
-        </c:forEach>
-        </div>
-        </div>
-        
-        <div class='form-group row'>
-		<label for='file1' class='col-sm-2 col-form-label'>파일1</label>
-		<div class='col-sm-10'>
-		<input type="file" class="form-control-file" id="file1" name="file">
-		</div>
-		</div>
-		
-		<div class='form-group row'>
-		<label for='file2' class='col-sm-2 col-form-label'>파일2</label>
-		<div class='col-sm-10'>
-		<input type="file" class="form-control-file" id="file2" name="file">
-		</div>
-		</div>
-		
-		<div class='form-group row'>
-		<label for='file3' class='col-sm-2 col-form-label'>파일3</label>
-		<div class='col-sm-10'>
-		<input type="file" class="form-control-file" id="file3" name="file">
-		</div>
-		</div>
-         -->
         
         <div class='form-group row'>
         <div class='col-sm-10'>

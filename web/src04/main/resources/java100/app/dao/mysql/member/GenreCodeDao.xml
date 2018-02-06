@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO 객체를 자동으로 생성하려면,
+     namespace의 값이 인터페이스 이름과 같아야 한다. -->
+<mapper namespace="java100.app.dao.member.GenreCodeDao">
+
+    <resultMap type="genreCode" id="genreCodeMap">
+        <id column="gnrno" property="no"/>
+        <result column="gnrcd" property="genreCode"/>
+        <result column="gnrnm" property="genreName"/>
+    </resultMap>
+
+    <select id="findByGenreName" resultType="int" parameterType="String">
+        select 
+            gnrno
+        from tb_genrecode
+        where gnrnm=#{value}
+    </select>
+    
+    <insert id="insert" parameterType="genreCode">
+        insert into tb_genrecode(gnrno, mmbno)
+        values(#{genreCode},#{memberNo})
+    </insert>
+
+    <update id="update" parameterType="genreCode">
+        update tb_genrecode set 
+            gnrnm=#{genreName},
+            gnrcd=#{genreCode}
+        where gnrno=#{no}
+    </update>
+
+    <delete id="deleteAllByMemberNo" parameterType="int">
+        delete from tb_genrecode
+        where no=#{value}
+    </delete>
+    
+</mapper>  
+
+
+
+
+
+
+
+
+

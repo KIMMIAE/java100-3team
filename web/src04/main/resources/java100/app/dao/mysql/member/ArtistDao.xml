@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO 객체를 자동으로 생성하려면,
+     namespace의 값이 인터페이스 이름과 같아야 한다. -->
+<mapper namespace="java100.app.dao.member.ArtistDao">
+
+    <resultMap type="artist" id="artistMap">
+        <id column="artno" property="no"/>
+        <result column="artnm" property="artistName"/>
+        <result column="artmmb" property="artistMember"/>
+        <result column="profile" property="profile"/>
+        <result column="joindt" property="joinDate"/>
+    </resultMap>
+    
+    <select id="findMemberNo" resultType="int" parameterType="int">
+        select count(*) from tb_artist
+        where artno = #{value}
+    </select>
+    
+    <insert id="insert" parameterType="artist">
+        insert into tb_artist(artno, artnm,artmmb,profile,joindt)
+        values(#{no},#{artistName},#{artistMember},#{profile},#{joinDate})
+    </insert>
+
+    <update id="update" parameterType="artist">
+        update tb_artist set 
+            artnm=#{artistName},
+            artmmb=#{artistMember},
+            profile=#{profile},
+            joindt=#{joinDate}
+        where artno=#{no}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from tb_artist
+        where artno=#{value}
+    </delete>
+    
+</mapper>  
+
+
+
+
+
+
+
+
+

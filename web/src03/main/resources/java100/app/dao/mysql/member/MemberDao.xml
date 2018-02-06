@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO 객체를 자동으로 생성하려면,
+     namespace의 값이 인터페이스 이름과 같아야 한다. -->
+<mapper namespace="java100.app.dao.member.MemberDao">
+
+    <resultMap type="member" id="memberMap">
+        <id     column="mmbno"      property="no"/>
+        <result column="photo"      property="photo"/>
+        <result column="email"      property="email"/>
+        <result column="pwd"        property="password"/>
+        <result column="type"       property="type"/>
+        <result column="nicknm"     property="nickName"/>
+        <result column="msgfl"      property="messageFlag"/>
+        <result column="msgid"      property="messageId"/>
+        <result column="cancelfl"   property="cancelFlag"/>
+        <result column="regdt"      property="regDate"/>
+        
+        <association property="artist" javaType="artist">
+            <id     column="artno"     property="no"/>
+	        <result column="artnm"     property="artistName"/>
+	        <result column="artmmb"    property="artistMember"/>
+	        <result column="profile"   property="profile"/>
+	        <result column="joindt"    property="joinDate"/>
+        </association>
+        
+        <collection property="interestAreas"  ofType="interestArea">
+            <id     column="areano"       property="areaNo"/>
+            <result column="areanm"   property="areaName"/>
+            <result column="areaall"   property="areaAll"/>
+        </collection>
+        
+    </resultMap>
+    
+    <sql id="select1">
+        select 
+            mmbno,
+            email,
+            pwd,
+            nicknm
+    </sql>
+
+    <select id="findAll" resultMap="memberMap" parameterType="map">
+        select 
+            t001.mmbno,
+            t001.nicknm,
+            t001.email,
+            t001.type,
+            t001.msgfl,
+            t001.msgid,
+            t002.artnm,
+            t002.artmmb,
+            t002.joindt,
+            t001.cancelfl,
+            t001.regdt
+        from tb_memb t001 left join tb_artist t002
+        on t001.mmbno = t002.artno
+
+        <if test="words != null">
+	        <where>
+	            t001.nicknm in 
+	            <foreach collection="words" item="word" 
+	                     open="(" close=")" separator=",">
+	                #{word}
+	            </foreach>
+	            or t001.email in 
+                <foreach collection="words" item="word" 
+                         open="(" close=")" separator=",">
+                    #{word}
+                </foreach>
+	        </where>
+        </if>
+        
+        <!-- 정렬 조건에 따라 SQL문을 변경한다.-->
+        order by 
+        <choose>
+            <when test="orderColumn == 'email' and align == 'asc'">
+                t001.email asc
+            </when>
+            <when test="orderColumn == 'email' and align == 'desc'">
+                t001.email desc
+            </when>
+            <when test="orderColumn == 'regdt' and align == 'asc'">
+                t001.regdt asc
+            </when>
+            <when test="orderColumn == 'regdt' and align == 'desc'">
+                t001.regdt desc
+            </when>
+            <when test="orderColumn == 'nicknm' and align == 'desc'">
+                t001.nicknm desc
+            </when>
+            <otherwise>
+                t001.mmbno desc
+            </otherwise>
+        </choose>
+        
+        <!-- 페이지징 처리 -->
+        limit #{startIndex}, #{size}
+    </select>
+    
+    <select id="findByNo" resultMap="memberMap" parameterType="int">
+        select 
+            t001.photo,
+            t001.mmbno,
+            t001.email,
+            t001.pwd,
+            t001.type,
+            t001.nicknm,
+            t001.msgfl,
+            t001.msgid,
+            t001.cancelfl,
+            t001.regdt,
+            t002.artnm,
+            t002.artmmb,
+            t002.profile,
+            t002.joindt,
+            t003.areano,
+            t004.areanm
+        from tb_memb t001 
+            left join tb_artist t002 on t001.mmbno = t002.artno
+            left join tb_intrarea t003 on t001.mmbno = t003.mmbno
+            left join tb_areacode t004 on t003.areano = t004.areano
+        where t001.mmbno = #{value}
+        order by t003.areano asc;
+    </select>
+    
+    <select id="findPhotoByMemberNo" resultType="String" parameterType="int">
+        select 
+            photo
+        from tb_memb
+        where mmbno = #{value}
+    </select>
+    
+    <select id="findByEmailAndPassword" resultMap="memberMap" parameterType="map">
+        <include refid="select1"/>
+        from tb_memb
+        where email=#{email} and pwd=password(#{password})
+    </select>
+    
+    <select id="countAll" resultType="int">
+        select count(*) from tb_memb
+    </select>
+    
+    <insert id="insert" parameterType="member" useGeneratedKeys="true" keyColumn="no" keyProperty="no">
+        insert into tb_memb(photo,email,pwd,nicknm,type,msgfl,msgid,cancelfl,regdt)
+        values(#{photo},#{email},password(#{password}),#{nickName},#{type},#{messageFlag},#{messageId},'0',now())
+    </insert>
+
+    <update id="update" parameterType="member">
+        update tb_memb set 
+            photo=#{photo},
+            email=#{email},
+            msgfl=#{messageFlag},
+            msgid=#{messageId},
+            pwd=password(#{password}),
+            nicknm=#{nickName},
+            type=#{type}
+        where mmbno=#{no}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        update tb_memb set 
+            cancelfl='1'
+        where mmbno=#{no}
+        <!-- delete from tb_memb
+        where mmbno=#{value} -->
+    </delete>
+    
+</mapper>
+

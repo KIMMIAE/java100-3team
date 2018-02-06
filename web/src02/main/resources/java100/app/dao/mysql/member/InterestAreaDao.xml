@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO 객체를 자동으로 생성하려면,
+     namespace의 값이 인터페이스 이름과 같아야 한다. -->
+<mapper namespace="java100.app.dao.member.InterestAreaDao">
+
+    <resultMap type="interestArea" id="interestAreaMap">
+        <id column="areano" property="areaNo"/>
+        <result column="areanm" property="areaName"/>
+        <result column="mmbno" property="memberNo"/>
+    </resultMap>
+    
+    <select id="findByMemberNo" resultMap="interestAreaMap" parameterType="int">
+        select 
+            t001.mmbno,
+            t002.areano,
+            t003.areanm as areanm
+        from tb_memb t001 
+            left join tb_intrarea t002 on t001.mmbno = t002.mmbno
+            left join tb_areacode t003 on t002.areano = t003.areano
+        where t001.mmbno = #{value}
+        order by t002.areano asc;
+    </select>
+    
+    <select id="countByMemberNo" resultType="int" parameterType="int">
+        select count(*) from tb_intrarea
+        where mmbno = #{value}
+    </select>
+    
+    <insert id="insert" parameterType="interestArea">
+        insert into tb_intrarea(areano, mmbno)
+        values(#{areaNo},#{memberNo})
+    </insert>
+
+    <update id="update" parameterType="interestArea">
+        update tb_intrarea set 
+            areano=#{areaNo}
+        where no=#{no}
+    </update>
+
+    <delete id="deleteAllByMemberNo" parameterType="int">
+        delete from tb_intrarea
+        where mmbno=#{value}
+    </delete>
+    
+</mapper>  
+
+
+
+
+
+
+
+
+
