@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO 객체를 자동으로 생성하려면,
+     namespace의 값이 인터페이스 이름과 같아야 한다. -->
+<mapper namespace="java100.app.dao.request.RequestDao">
+
+    <resultMap type="request" id="requestMap">
+        <id column="reqno"        property="no"/>
+        <result column="pfmtitle" property="title"/>
+        <result column="pfmdesc"    property="detailDesc"/>
+        <result column="pfmgnr"    property="genre"/>
+        <result column="pfmdt"    property="entryDate"/>
+        <result column="pfmloc"    property="location"/>
+        <result column="spcldesc"    property="specialDesc"/>
+        <result column="regdt"    property="regDate"/>
+        <result column="viewcnt"    property="viewCount"/>
+        
+        <!-- 게시글 작성자 정보를 담을 수 있도록 설정한다. -->
+        <association property="writer" javaType="member">
+            <id     column="m_no"       property="no"/>
+            <result column="m_nicknm"   property="nickName"/>
+            <result column="m_email"    property="email"/>
+        </association>
+        
+    </resultMap>
+
+    <select id="findAll" resultMap="requestMap" parameterType="map">
+        select 
+            pr.reqno,
+            pr.pfmtitle,
+            pr.regdt,
+            pr.viewcnt,
+            m.mmbno as m_no,
+            m.nicknm as m_nicknm
+        from tb_prfrmrequest as pr join tb_memb as m on pr.mmbno=m.mmbno
+
+        <if test="words != null">
+	        <where>
+	            <foreach collection="words" item="word">
+	                or pfmtitle like '%${word}%'
+	            </foreach>
+	        </where>
+        </if>
+        
+        <!-- 정렬 조건에 따라 SQL문을 변경한다. -->
+        order by 
+        <choose>
+            <when test="orderColumn == 'regdt' and align == 'desc'">
+                regdt desc
+            </when>
+            <when test="orderColumn == 'regdt' and align == 'asc'">
+                regdt asc
+            </when>
+            <when test="orderColumn == 'vwcnt' and align == 'desc'">
+                viewcnt desc
+            </when>
+            <when test="orderColumn == 'vwcnt' and align == 'asc'">
+                viewcnt asc
+            </when>
+            <otherwise>
+                reqno desc
+            </otherwise>
+        </choose>
+        
+        <!-- 페이지징 처리 -->
+        limit #{startIndex}, #{size}
+    </select>
+
+
+     <select id="findByNo" resultMap="requestMap" parameterType="int">
+        select
+            pr.reqno,
+            pr.pfmtitle,
+            pr.pfmdesc,
+            pr.pfmgnr,
+            pr.pfmdt,
+            pr.pfmloc,
+            pr.spcldesc,
+            pr.regdt,
+            pr.viewcnt,
+            m.mmbno as m_no,
+            m.nicknm as m_nicknm
+        from tb_prfrmrequest as pr join tb_memb as m on pr.mmbno=m.mmbno
+        where reqno=#{value}
+    </select>
+
+    <select id="countAll" resultType="int">
+        select count(*) from tb_prfrmrequest
+    </select>
+    
+    <!-- insert를 수행한 후 자동 증간된 PK 값을 받고 싶다면,
+         useGeneratedKeys 속성 값을 true설정 해야 한다.
+         또한 PK 컬럼과 그 PK 컬럼 값을 저정할 property 이름을 알려줘야 한다. -->
+         
+    <insert id="insert" parameterType="request"
+        useGeneratedKeys="true" keyColumn="reqno" keyProperty="no">
+        insert into tb_prfrmrequest(
+            mmbno,
+            pfmtitle,
+            pfmdesc,
+            pfmgnr,
+            pfmdt,
+            pfmloc,
+            spcldesc,
+            viewcnt,
+            regdt)
+        
+        values(
+            #{writer.no},
+            #{title},
+            #{detailDesc},
+            #{genre},
+            #{entryDate},
+            #{location},
+            #{specialDesc},
+            0,
+            now())
+    </insert>
+    
+
+    <update id="update" parameterType="request">
+        update tb_prfrmrequest set
+            pfmtitle=#{title}, 
+            pfmdesc=#{detailDesc},
+            pfmgnr=#{genre},
+            pfmdt=#{entryDate},
+            pfmloc=#{location},
+            spcldesc=#{specialDesc}
+        where reqno=#{no}
+    </update>
+
+
+     <update id="updateViewCount" parameterType="int">
+        update tb_prfrmrequest set 
+            viewcnt=viewcnt + 1
+        where reqno=#{value}
+    </update> 
+
+
+    <delete id="delete" parameterType="int">
+        delete from tb_prfrmrequest
+        where reqno=#{value}
+    </delete>
+
+</mapper>
