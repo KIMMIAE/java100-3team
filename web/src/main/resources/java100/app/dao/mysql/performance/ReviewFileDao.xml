@@ -14,13 +14,11 @@
     </resultMap>
 
 
-<!-- 
-    <select id="findByPerformanceNo" resultType="performanceFile" parameterType="int">
-        select fileno, filenm, pfmno
-        from tb_prfrmfile
-        where pfmno=#{value}
+    <select id="findByPerformanceReviewNo" resultType="reviewFile" parameterType="int">
+        select fileno, filenm, rvwno
+        from tb_rvwfile
+        where rvwno=#{value}
     </select>
- -->    
 
     
     <insert id="insert" parameterType="reviewFile">
@@ -28,10 +26,9 @@
         values(#{reviewFilename}, #{reviewNo})
     </insert>
     
-    <!-- 
-    <delete id="deleteAllByPerformanceNo" parameterType="int">
-        delete from tb_prfrmfile
-        where pfmno=#{value}
+    <delete id="deleteAllByReviewNo" parameterType="int">
+        delete from tb_rvwfile
+        where rvwno=#{value}
     </delete>
-     -->
+    
 </mapper>

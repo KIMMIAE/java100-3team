@@ -118,19 +118,41 @@ public class PerformanceReviewController {
 
 	@RequestMapping("update")
     public String update(
-            PerformanceReview performanceReview,Performance performance,String nickName) throws Exception {
-    	
-    	performanceReviewService.update(performanceReview);
-        System.out.println(performanceReview/*.getPerformance().getNo()*/ + "<= update");
-        return "redirect:list";
-        }
+            PerformanceReview performanceReview,Performance performance,String nickName, MultipartFile[] files) throws Exception {
+	     
+	     String uploadDir = servletContext.getRealPath("/download");
+
+	        // 업로드 파일 정보를 저장할 List 객체 준비
+	        ArrayList<ReviewFile> reviewUploadFile = new ArrayList<>();
+	        
+	        // 클라이언트가 보낸 파일을 저장하고, 
+	        // 그 파일명(저장할 때 사용한 파일명)을 목록에 추가한다.
+	        for (MultipartFile part : files) {
+	            if (part.isEmpty())
+	                continue;
+	            
+	            String filename = this.writeUploadFile(part, uploadDir);
+	            
+	            reviewUploadFile.add(new ReviewFile(filename));
+	        }
+	        
+	        // Board 객체에 저장한 파일명을 등록한다. 
+	        performanceReview.setReviewFiles(reviewUploadFile);
+
+	        performanceReviewService.update(performanceReview);
+	        return "redirect:list";
+	    }
 
     @RequestMapping("delete")
     public String delete(int no) throws Exception {
-
+    	
         performanceReviewService.delete(no);
+        
+        
         return "redirect:list";
     }
+    
+    
     long prevMillis = 0;
     int count = 0;
     

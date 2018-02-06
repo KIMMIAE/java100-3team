@@ -8,6 +8,7 @@ public interface ReviewFileDao {
 
 	List<ReviewFile> findByPerformanceReviewNo(int reviewFileNo);
 	void insert(ReviewFile media);
+	void deleteAllByReviewNo(int no);
 
 
 

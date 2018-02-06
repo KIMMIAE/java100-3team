@@ -64,12 +64,22 @@ public class PerformanceReviewServiceImpl implements PerformanceReviewService {
 
 	@Override
 	public int update(PerformanceReview performanceReview) {
-        return performanceReviewDao.update(performanceReview);
+        int count = performanceReviewDao.update(performanceReview);
+        
+        // 기존의 게시물 첨부파일은 모두 지운다. 
+        reviewFileDao.deleteAllByReviewNo(performanceReview.getReviewNo());
+        
+        // 다시 게시물 첨부파일을 저장한다.
+        addReviewFiles(performanceReview.getReviewFiles(), performanceReview.getReviewNo());
+        
+        return count;
 	}
 
 	@Override
 	public int delete(int no) {
-        return performanceReviewDao.delete(no);
+		reviewFileDao.deleteAllByReviewNo(no);
+		
+		return performanceReviewDao.delete(no);
 	}
 
 
