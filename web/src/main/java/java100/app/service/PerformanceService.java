@@ -14,7 +14,7 @@ public interface PerformanceService {
     int add(Performance performance);
     int update(Performance performance);
     int delete(int no);
-    void addFiles(List<PerformanceFile> midias, int performanceNo);
+    void addFiles(List<PerformanceFile> files, int performanceNo);
 }
 
 
