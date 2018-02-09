@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO 객체를 자동으로 생성하려면,
+     namespace의 값이 인터페이스 이름과 같아야 한다. -->
+<mapper namespace="java100.app.dao.performance.PerformanceReviewDao">
+
+    <resultMap type="PerformanceReview" id="PerformanceReviewMap">
+        <id      column="rvwno"      property="reviewNo"/>
+        <result column="rvwdesc"      property="reviewDescription"/>
+        <result column="viewcnt"     property="viewCount"/>
+        <result column="regdt"      property="regDate"/>
+        
+        <association property="writer" javaType="member">
+            <id     column="m_no"       property="no"/>
+            <result column="nicknm"     property="nickName"/>
+        </association>
+        
+        <association property="performance" javaType="performance">
+            <id     column="p_no"       property="no"/>
+            <result column="pfmnm"     property="name"/>
+            <result column="pfmgnr"     property="genre"/>
+            <result column="pfmdt"     property="entryDate"/>
+            <result column="pfmloc"     property="location"/>
+            <result column="artno"     property="artist.no"/>
+        </association>
+
+        <collection property="reviewFiles"  ofType="reviewFile">
+            <id     column="r_no"    property="reviewFileNo"/>
+            <result column="filenm"   property="reviewFilename"/>
+            <result column="rvwno"   property="reviewNo"/>
+        </collection>
+
+    </resultMap>
+
+
+
+    <insert id="insert" parameterType="performanceReview" 
+    useGeneratedKeys="true" keyColumn="rvwno" keyProperty="reviewNo">
+        insert into tb_prfrmrvw(mmbno, pfmno, rvwdesc, viewcnt, regdt)
+        values(#{writer.no}, #{performance.no}, #{reviewDescription}, 0, now())
+    </insert>
+    
+    <sql id="select1">
+        select 
+            mmbno,
+            rvwdesc,
+            viewcnt,
+            regdt
+    </sql>
+    
+    <select id="findAll" resultMap="PerformanceReviewMap" parameterType="map">
+        select 
+            r001.rvwno,
+            r002.nicknm,
+            r001.rvwdesc,
+            r001.viewcnt,
+            r001.regdt,
+            r002.mmbno as m_no
+        from tb_prfrmrvw r001
+        left join tb_memb r002 on r001.mmbno=r002.mmbno
+        
+
+        <if test="words != null">
+            <where>
+                <foreach collection="words" item="word">
+                    or rvwdesc like '%${word}%'
+                </foreach>
+            </where>
+        </if>
+        
+        <!-- 정렬 조건에 따라 SQL문을 변경한다.-->
+        order by 
+        <choose>
+            <when test="orderColumn == 'regdt' and align == 'desc'">
+                regdt desc
+            </when>
+            <when test="orderColumn == 'regdt' and align == 'asc'">
+                regdt asc
+            </when>
+            <when test="orderColumn == 'viewcnt' and align == 'desc'">
+                viewcnt desc
+            </when>
+            <when test="orderColumn == 'viewcnt' and align == 'asc'">
+                viewcnt asc
+            </when>
+            <otherwise>
+                rvwno desc
+            </otherwise>
+        </choose>
+        
+        <!-- 페이지징 처리 -->
+        limit #{startIndex}, #{size}
+    </select>
+    
+    <select id="countAll" resultType="int">
+        select count(*) from tb_prfrmrvw
+    </select>
+    
+    <!-- 
+    <select id="findByNo" resultMap="performanceMap" parameterType="int">
+        <include refid="select1"/>
+          ,conts
+        from tb_prfrminfo
+        where no=#{value}
+    </select>
+    
+ -->
+ 
+     <select id="findByNo2" resultMap="PerformanceReviewMap" parameterType="int">
+        select 
+            r001.rvwno,
+            r002.nicknm,
+            r003.pfmnm,
+            r003.pfmloc,
+            r003.pfmgnr,
+            r003.pfmdt,
+            r001.rvwdesc,
+            r001.viewcnt,
+            r001.regdt,
+            r002.mmbno as m_no,
+            r003.pfmno as p_no,
+            r004.rvwno as r_no,
+            r004.filenm
+        from tb_prfrmrvw r001
+             left join tb_memb r002 on r001.mmbno=r002.mmbno
+             left join tb_prfrminfo r003 on r001.pfmno=r003.pfmno
+             left join tb_rvwfile r004 on r001.rvwno=r004.rvwno
+        where r001.rvwno=#{value}
+    </select>
+    
+    <update id="update" parameterType="performanceReview">
+        update tb_prfrmrvw set 
+            rvwdesc=#{reviewDescription}
+        where rvwno=#{reviewNo}
+    </update>
+
+    <update id="updateViewCount" parameterType="int">
+        update tb_prfrmrvw set 
+            viewcnt=viewcnt + 1
+        where rvwno=#{value}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        delete from tb_prfrmrvw
+        where rvwno=#{value}
+    </delete>
+    
+</mapper>
+
+
+
+
+
+
+
+
+

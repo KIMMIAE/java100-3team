@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO 객체를 자동으로 생성하려면,
+     namespace의 값이 인터페이스 이름과 같아야 한다. -->
+<mapper namespace="java100.app.dao.member.InterestGenreDao">
+
+    <resultMap type="interestGenre" id="interestGenreMap">
+        <id column="gnrno" property="genreNo"/>
+        <result column="gnrnm" property="genreName"/>
+        <result column="mmbno" property="memberNo"/>
+    </resultMap>
+    
+    <select id="findByMemberNo" resultMap="interestGenreMap" parameterType="int">
+        select 
+            t001.mmbno,
+            t002.gnrno,
+            t003.gnrnm as gnrnm
+        from tb_memb t001 
+            left join tb_intrgenre t002 on t001.mmbno = t002.mmbno
+            left join tb_genrecode t003 on t002.gnrno = t003.gnrno
+        where t001.mmbno = #{value}
+        order by t002.gnrno asc;
+    </select>
+    
+    <select id="countByMemberNo" resultType="int" parameterType="int">
+        select count(*) from tb_intrgenre
+        where mmbno = #{value}
+    </select>
+    
+    <insert id="insert" parameterType="interestGenre">
+        insert into tb_intrgenre(gnrno, mmbno)
+        values(#{genreNo},#{memberNo})
+    </insert>
+
+    <update id="update" parameterType="interestGenre">
+        update tb_intrgenre set 
+            gnrno=#{genreNo}
+        where no=#{no}
+    </update>
+
+    <delete id="deleteAllByMemberNo" parameterType="int">
+        delete from tb_intrgenre
+        where mmbno=#{value}
+    </delete>
+    
+</mapper>  
+
+
+
+
+
+
+
+
+

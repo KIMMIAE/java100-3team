@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="java100.app.dao.performance.PerformanceFileDao">
+
+    <resultMap type="performanceFile" id="performanceFileMap">
+        <id      column="fileno"      property="no"/>
+        <result column="filenm"     property="filename"/>
+        <result column="pfmno"     property="performanceNo"/>
+    </resultMap>
+    
+    <select id="findByPerformanceNo" resultType="performanceFile" parameterType="int">
+        select fileno, filenm, pfmno
+        from tb_prfrmfile
+        where pfmno=#{value}
+    </select>
+    
+    <insert id="insert" parameterType="performanceFile">
+        insert into tb_prfrmfile(filenm, pfmno) 
+        values(#{filename}, #{performanceNo})
+    </insert>
+    
+    <delete id="deleteAllByPerformanceNo" parameterType="int">
+        delete from tb_prfrmfile
+        where pfmno=#{value}
+    </delete>
+</mapper>
