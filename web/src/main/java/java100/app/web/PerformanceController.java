@@ -1,3 +1,4 @@
+
 package java100.app.web;
 
 import java.io.File;
@@ -109,8 +110,13 @@ public class PerformanceController {
     
     @RequestMapping("update")
     public String update(
-            Performance performance, 
+            Performance performance,
+            /*Jjim jjim,
+            Ripple ripple,
+            Rating rating,*/
             MultipartFile[] files) throws Exception {
+        
+        System.out.println(performance.toString());
         
         ArrayList<PerformanceFile> performanceFiles = new ArrayList<>();
         if (!files[0].isEmpty()) {
