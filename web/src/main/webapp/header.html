@@ -14,13 +14,16 @@
 <div class="clearfix"></div>
 
 <script type="text/javascript">
+// var loginUser = {}; 전역변수
+
 $.getJSON('../json/auth/loginUser', function(result) {
     if (result.status == 'fail') {
         location.href = '../auth/loginform.html';
         return;
     }
     
-    $('#username').html(result.member.nickName);
+    loginUser = result.loginUser;
+    $('#username').html(result.loginUser.nickName);
 });
 
 $('#logoutBtn').click(() => {

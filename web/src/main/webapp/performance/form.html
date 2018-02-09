@@ -157,7 +157,8 @@
 
 <script type="text/javascript">
 
-var addBtn = $('#addBtn'),
+var //loginUser = {},
+    addBtn = $('#addBtn'),
     updateBtn = $('#updateBtn'),
     deleteBtn = $('#deleteBtn'),
     rippleBtn = $('#rippleBtn'),
@@ -186,6 +187,11 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
     var qs = location.href.substr(index + 1);
     var arr = qs.split('=');
     $('.my-new').css('display', 'none');
+    
+    console.log(loginUser.nickName);
+    if (loginUser.type == '일반회원') {
+        $('.my-view').css('display', 'none');
+    }
     
     $(() => {
         
