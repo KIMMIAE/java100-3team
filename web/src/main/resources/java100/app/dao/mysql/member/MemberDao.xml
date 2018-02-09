@@ -58,7 +58,7 @@
             t001.regdt
         from tb_memb t001 left join tb_artist t002
         on t001.mmbno = t002.artno
-
+        where t001.cancelfl = '0'
         <if test="words != null">
 	        <where>
 	            t001.nicknm in 
