@@ -16,17 +16,24 @@
 <form id='formData' enctype="multipart/form-data">
 
 
-<div class='form-group row my-view'>
+<div class='form-group row my-view' hidden="hidden">
 <label for='no' class='col-sm-2 col-form-label'>번호</label>
 <div class='col-sm-10'>
 <input class='form-control' readonly id='no' type='number' name='no' value='0'>
 </div>
 </div>
 
-<div class='form-group row my-view'>
+<div class='form-group row my-view' hidden="hidden">
 <label for='memberNo' class='col-sm-2 col-form-label'>회원번호</label>
 <div class='col-sm-10'>
 <input class='form-control' readonly id='memberNo' type='number' name='memberNo' value='0'>
+</div>
+</div>
+
+
+<div class='form-group row'>
+<label class='col-sm-2 col-form-label'>공연사진/영상</label>
+<div class='col-sm-10' id='medias' value=''>
 </div>
 </div>
 
@@ -82,13 +89,6 @@
 <input class='form-control' id='specialDesc' type='text' name='specialDesc' value=''>
 </div>
 </div>
-        
-<div class='form-group row'>
-<label class='col-sm-2 col-form-label'>공연사진/영상</label>
-<div class='col-sm-10' id='medias' value=''>
-</div>
-</div>
-
 
 <div class='form-group row'>
 <label for='file1' class='col-sm-2 col-form-label'>파일1</label>
@@ -176,9 +176,7 @@ var addBtn = $('#addBtn'),
     ratingItem = $('#rating'),
     rippleItem = $('#ripple');
 
-$('header').load('../header.html', () => {
-    load();
-});
+$('header').load('../header.html');
 
 $('footer').load('../footer.html');
 
@@ -196,21 +194,22 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
             dataType: 'json',
             async : false,
             success: (result) => {
-                noItem.val(result.data.no);
-                memberNoItem.val(result.data.writer.no);
+                
+                //for (var i = 0; i < result.data.medias.length; i++) {
+                for (var data of result.data.medias) {
+                    if (data.filename != null) {
+                        mediasItem.append("<img src='../download/" + data.filename + "' height=100>");
+                        //mediasItem.append("<a href='/download/" + data.filename + "'>" + data.filename + "</a><br>");
+                    }
+                };
+                //noItem.val(result.data.no);
+                //memberNoItem.val(result.data.writer.no);
                 nameItem.val(result.data.name);
                 genreItem.append('<option selected>' + result.data.genre + '</option>')
                 entryDateItem.val(formatDate(result.data.entryDate));
                 locationItem.val(result.data.location);
                 detailDescItem.val(result.data.detailDesc);
                 specialDescItem.val(result.data.specialDesc);
-                
-                //for (var i = 0; i < result.data.medias.length; i++) {
-                for (var data of result.data.medias) {
-                    if (data.filename != null) {
-                        mediasItem.append("<a href='/download/" + data.filename + "'>" + data.filename + "</a><br>");
-                    }
-                };
             },
             error: () => {
                 window.alert('view 서버 실행 오류!');

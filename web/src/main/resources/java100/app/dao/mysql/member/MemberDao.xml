@@ -39,6 +39,7 @@
         select 
             mmbno,
             email,
+            type,
             pwd,
             nicknm
     </sql>
