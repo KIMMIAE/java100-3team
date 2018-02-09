@@ -54,9 +54,9 @@ public class PerformanceReviewServiceImpl implements PerformanceReviewService {
         int count = performanceReviewDao.insert(performanceReview);
         System.out.println(performanceReview.getReviewNo());
         
-        this.addReviewFiles(performanceReview.getReviewFiles(), performanceReview.getReviewNo());
-        System.out.println(count + " <= PerformanceServiceImpl");
-        System.out.println(performanceReview.toString() + " <= PerformanceServiceImpl");
+        //this.addReviewFiles(performanceReview.getReviewFiles(), performanceReview.getReviewNo());
+        //System.out.println(count + " <= PerformanceServiceImpl");
+        //System.out.println(performanceReview.toString() + " <= PerformanceServiceImpl");
         
         return count;
 	}
