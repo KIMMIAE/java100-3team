@@ -80,7 +80,7 @@ public class LoginController {
         
         if (member != null) {
             result.put("status", "success");
-            result.put("member", member);
+            result.put("loginUser", member);
         } else {
             result.put("status", "fail");
         }

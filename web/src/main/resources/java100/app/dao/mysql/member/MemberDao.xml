@@ -136,9 +136,28 @@
     </select>
     
     <select id="findByEmailAndPassword" resultMap="memberMap" parameterType="map">
-        <include refid="select1"/>
-        from tb_memb
-        where email=#{email} and pwd=password(#{password})
+        select 
+            t001.photo,
+            t001.mmbno,
+            t001.email,
+            t001.pwd,
+            t001.type,
+            t001.nicknm,
+            t001.msgfl,
+            t001.msgid,
+            t001.cancelfl,
+            t001.regdt,
+            t002.artnm,
+            t002.artmmb,
+            t002.profile,
+            t002.joindt,
+            t003.areano,
+            t004.areanm
+        from tb_memb t001 
+            left join tb_artist t002 on t001.mmbno = t002.artno
+            left join tb_intrarea t003 on t001.mmbno = t003.mmbno
+            left join tb_areacode t004 on t003.areano = t004.areano
+        where t001.email='test01' and t001.pwd=password('test01')
     </select>
     
     <select id="countAll" resultType="int">
