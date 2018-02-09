@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="java100.app.dao.performance.RatingDao">
+
+    <resultMap type="rating" id="ratingMap">
+        <id      column="pfmno"      property="performanceNo"/>
+        <result column="mmbno"     property="memberNo"/>
+        <result column="rating"     property="score"/>
+        <result column="regdt"     property="regDate"/>
+    </resultMap>
+    
+    <select id="getRating" resultType="rating" parameterType="int">
+        select sum(rating)
+        from tb_rating
+        where pfmno=#{value}
+        group by pfmno
+    </select>
+    
+    <insert id="insert" parameterType="rating">
+        insert into tb_rating(pfmno, mmbno, rating, regdt) 
+        values(#{performanceNo}, #{memberNo},#{score}, now())
+    </insert>
+    
+    <delete id="delete" parameterType="int">
+        delete from tb_rating
+        where pfmno=#{value}
+    </delete>
+</mapper>
