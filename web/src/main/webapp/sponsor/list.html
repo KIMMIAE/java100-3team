@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Busking busking</title>
+    <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+    <link rel="stylesheet" type="text/css" href="../css/style1.css">
+    <style>
+        body{
+            font-family: Noto Sans KR;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class='container'>
+<header></header>
+
+<h1>후원정보 (회원입장)</h1>
+
+<nav class="navbar navbar-light justify-content-between">
+	  <a href='form.html' class='btn btn-primary btn-sm'>추가</a>
+  <form class="form-inline">
+    <input id="words" name="words"
+           class="form-control form-control-sm mr-sm-2" type="search" 
+           placeholder="검색" aria-label="Search">
+    <button id="searchBtn" class="btn btn-sm btn-outline-success my-2 my-sm-0" 
+            type="button">Search</button>
+  </form>
+</nav>
+
+<table id="list" class='table table-hover'>
+<thead>
+<tr>
+   <th>스폰서번호</th><th>공연번호</th><th>후원갯수</th><th>후원내용</th><th>후원일자</th>
+</tr>
+</thead>
+<tbody></tbody>
+
+</table>
+
+<form>
+포도 남은 갯수 :  <input type="text" readonly id='grapeSum'>
+</form>
+
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+        <a id="prevBtn" class="page-link" tabindex="-1">이전</a></li>
+        
+    <li class="page-item">
+        <a id="currBtn" class="page-link" href="#">1</a></li>
+    
+    <li class="page-item ">
+        <a id="nextBtn" class="page-link" tabindex="0">다음</a></li>
+  </ul>
+</nav> 
+
+<footer>
+</footer>
+</div>
+
+<script src='../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+
+<script type="text/javascript">
+var words = $('#words'),
+prevBtn = $('#prevBtn'),
+currBtn = $('#currBtn'),
+nextBtn = $('#nextBtn'),
+tbody = $('#list > tbody'),
+currPageNo = 1,
+member = null;
+
+
+$('header').load('../header.html', () => {
+load(1);
+});
+
+$('footer').load('../footer.html');
+
+
+$('#searchBtn').click(() => {
+//event.preventDefault();
+load(1, {
+    "words": words.value
+})
+});
+
+prevBtn.click(() => {
+load(currPageNo - 1)
+});
+
+nextBtn.click(() => {
+load(currPageNo + 1)
+});
+
+function formatDate(jason) {
+var jasondate = new Date(jason) 
+return jasondate.getFullYear() + '년 ' + 
+  (jasondate.getMonth() + 1) + '월 ' + 
+  jasondate.getDate() + '일 '  
+}
+
+function load(pageNo, options) {
+	if (options == undefined) options = {};
+	options.pn = pageNo;
+
+    $.ajax('../json/sponsor/list', {
+        /*method: 'GET',*/
+        dataType: 'json',
+        success: (result) => {
+        	
+            tbody.html(""); // <tbody> 콘텐츠를 지운다.
+            
+            for (var data of result.list) {
+                $('<tr>')
+                    .html(  
+	                    "<td>" + data.sponsorNo + "</td>" + 
+	                    "<td><a href='../performance/" + data.performNo + "'>" + data.performNo+ "</a></td>" + 
+	                    "<td>" + data.ggcnt + "</td>" +
+	                    "<td>" + data.sponsDesc + "</td>" +
+	                    "<td>" + formatDate(data.sponsDate)+ "</td>")
+                    .appendTo(tbody);
+                }
+            
+               $('#grapeSum').val(result.sum)
+            
+            
+	      /*       currPageNo = result.pageNo;
+	            currBtn.html(currPageNo);
+	            
+	            if (result.pageNo == 1) {
+	                $(prevBtn.parent()).addClass("disabled");
+	            } else {
+	                $(prevBtn.parent()).removeClass("disabled");
+	            }
+	            
+	            if (result.lastPageNo == result.pageNo) {
+	                $(nextBtn.parent()).addClass("disabled");
+	            } else {
+	                $(nextBtn.parent()).removeClass("disabled");
+	            } */
+            },
+            error: () => {
+                window.alert('서버 실행 오류!');
+            }
+    });
+}
+
+</script>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

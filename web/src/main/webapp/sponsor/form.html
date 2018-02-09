@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>청포도 충전</title>
+<link rel='stylesheet'
+	href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../css/style1.css'>
+</head>
+<body>
+	<div class='container'>
+		<header></header>
+
+		<h1>청포도 충전</h1>
+
+		<form>
+
+			<div class='form-group row'>
+				<label for='performNo' class='col-sm-2 col-form-label'>공연번호</label>
+				<div class='col-sm-10'>
+					<input type="text" class='form-control' id='performNo'
+						name='performNo'>
+				</div>
+			</div>
+            
+            <div class='form-group row'>
+                <label for='name' class='col-sm-2 col-form-label'>공연명</label>
+                <div class='col-sm-10'>
+                    <input class='form-control' readonly id='name' type='text'
+                        name='name'>
+                </div>
+            </div>
+            
+            <div class='form-group row'>
+                <label for='entryDate' class='col-sm-2 col-form-label'>공연날짜</label>
+                <div class='col-sm-10'>
+                    <input class='form-control' readonly id='entryDate' type='date'
+                        name='entryDate'>
+                </div>
+            </div>
+            
+			<div class='form-group row'>
+				<label for='ggcnt' class='col-sm-2 col-form-label'>후원갯수</label>
+				<div class='col-sm-10'>
+					<input class='form-control' id='ggcnt' type='text'
+						name='ggcnt'>
+				</div>
+			</div>
+
+			<div class='form-group row'>
+				<label for='sponsDesc' class='col-sm-2 col-form-label'>후원내용</label>
+				<div class='col-sm-10'>
+					<input class='form-control' id='sponsDesc' type='text'
+						name='sponsDesc'>
+				</div>
+			</div>
+
+			<div class='form-group row'>
+				<div class='col-sm-10'>
+					<button id="addBtn" type="button"
+						class='btn btn-primary btn-sm my-new'>등록</button>
+					
+					<button id="findBtn" type="button"
+                        class='btn btn-primary btn-sm my-new'>찾기</button>
+				</div>
+			</div>
+			
+		</form>
+		<footer></footer>
+	</div>
+
+
+	<script src='../node_modules/jquery/dist/jquery.min.js'></script>
+	<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+	<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+
+	<script type="text/javascript">
+var addBtn = $('#addBtn'),
+    findBtn = $('#findBtn'),
+    memberItem = $('#memberNo'),
+    performNoItem = $('#performNo'),
+    ggcntItem = $('#ggcnt'),
+    sponsDescItem = $('#sponsDesc');    
+
+$('header').load('../header.html', () => {
+load();
+});
+
+$('footer').load('../footer.html');
+
+
+
+
+
+
+function load() {
+
+/* var index = location.href.indexOf('?');
+if (index != -1) { // 기존 데이터를 조회할 경우,
+    var qs = location.href.substr(index + 1);
+    var arr = qs.split('=');
+    $('.my-new').css('display', 'none');
+    $(() => {
+        $.ajax('../json/grape/' + arr[1], {
+            dataType: 'json',
+            success: (result) => {
+                noItem.val(result.data.no);
+                nameItem.val(result.data.name);
+                korItem.val(result.data.kor);
+                engItem.val(result.data.eng);
+                mathItem.val(result.data.math);
+                sumItem.val(result.data.sum);
+                averItem.val(result.data.aver);
+            },
+            error: () => {
+                window.alert('서버 실행 오류!');
+            }
+        });
+    });
+}  */
+
+
+
+}
+
+
+addBtn.click(() => {
+    $.ajax('../json/sponsor/add', {
+        data: {
+            performNo: $('#performNo').val(),
+            ggcnt: $('#ggcnt').val(),
+            sponsDesc: $('#sponsDesc').val(),
+            sponsDes: $('#sponsDesc').val()
+        },
+        dataType: 'json',
+        method: 'POST',
+        success: (result) => {
+            location.href = "list.html";
+        },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
+    });
+});
+
+findBtn.click(() => {
+    if (performNoItem.val() == undefined) {
+        return alert('공연정보를 입력하세요');
+    }
+    $.ajax('../../json/performance/' + performNoItem.val(), {
+    	
+        dataType: 'json',
+        success: (result) => {
+            $('#name').val(result.data.name),
+            
+            $('#entryDate').val(formatDate(result.data.entryDate))
+            },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
+    });
+});
+
+
+function formatDate(jason) {
+var jasondate = new Date(jason),
+    yyyy=jasondate.getFullYear().toString(),
+    mm = (jasondate.getMonth() + 1).toString(),
+    dd = jasondate.getDate().toString();
+    
+return yyyy +"-"+(mm[1] ? mm : '0'+mm[0])+"-"+(dd[1] ? dd : '0'+dd[0]);
+}
+
+</script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

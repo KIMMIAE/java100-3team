@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO 객체를 자동으로 생성하려면,
+     namespace의 값이 인터페이스 이름과 같아야 한다. -->
+<mapper namespace="java100.app.dao.sponsor.GreenGrapeDao">
+
+    <resultMap type="GreenGrape" id="greenGrapeMap">
+        <id column="mmbno" property="memberNo"/>
+        <result column="ggno" property="greenGrapeNo"/>
+        <result column="chrgcnt" property="chrCount"/>
+        <result column="chrgamt" property="chrAmount"/>
+        <result column="chrgmthd" property="chrMethod"/>
+        <result column="chrgdt" property="chrDate"/>
+        
+    </resultMap>
+
+    <select id="findByGrapeNo" resultMap="greenGrapeMap" parameterType="int">
+        select * 
+        from tb_greengrape
+        where ggno=#{value}
+    </select>
+    
+    
+    <select id="findAll" resultMap="greenGrapeMap" parameterType="map">
+        select mmbno,ggno,chrgcnt,chrgamt,chrgmthd,chrgdt 
+        from tb_greengrape
+        where mmbno=#{memberGetNo}
+        
+         <if test="words != null">
+            <where>
+                chrgmthd in 
+                <foreach collection="words" item="word" 
+                         open="(" close=")" separator=",">
+                    #{word}
+                </foreach>
+            </where>
+        </if>
+        
+        <!-- 정렬 조건에 따라 SQL문을 변경한다.-->
+        order by 
+        <choose>
+            <when test="orderColumn == 'ggno' and align == 'asc'">
+                ggno asc
+            </when>
+            <when test="orderColumn == 'ggno' and align == 'desc'">
+                ggno desc
+            </when>
+            <when test="orderColumn == 'chrgcnt' and align == 'asc'">
+                chrgcnt asc
+            </when>
+            <when test="orderColumn == 'chrgcnt' and align == 'desc'">
+                chrgcnt desc
+            </when>
+            <when test="orderColumn == 'chrgdt' and align == 'desc'">
+                chrgdt desc
+            </when>
+            <otherwise>
+                chrgdt desc
+            </otherwise>
+        </choose>
+        
+        <!-- 페이지징 처리 -->
+        limit #{startIndex}, #{size}
+        
+    </select>
+    
+    <select id="findSum" resultType="int" parameterType="int">
+    select 
+    chrgsum - spnssum
+    from 
+    (select mmbno,sum(chrgcnt) as chrgsum from tb_greengrape where mmbno=#{value} group by mmbno)
+    as t001 
+    join
+    (select mmbno,sum(ggcnt) as spnssum from tb_spnshstry where mmbno=#{value} group by mmbno) 
+    as t002 
+    on t001.mmbno = t002.mmbno;
+       
+    </select>
+    
+    <insert id="insert" parameterType="greenGrape">
+       insert into tb_greengrape(mmbno, chrgcnt,chrgamt, chrgmthd, chrgdt)
+        values(#{memberNo},#{chrCount},#{chrAmount},#{chrMethod},now())
+    </insert>
+    
+
+    <select id="countAll" resultType="int">
+        select count(*) from tb_greengrape
+    </select>
+
+    
+</mapper>  
+
+
+
+
+
+
+
+
+

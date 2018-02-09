@@ -1,0 +1,231 @@
+@charset "utf-8";
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+
+*{margin:0;padding:0;}
+a { text-decoration: none; color: #222;}
+body { 
+    background-color: #fff; 
+    font-family: 'Roboto Condensed', sans-serif;
+	color: #222;
+    font-size: 12px;
+}
+.main-nav{
+    clear:both;
+    border-bottom: 1px solid lightgray;
+    height: 60px;    
+}
+.main-nav img {
+    width: 30px;
+    margin-top:10px;
+    margin-left:10px;
+    float: left;
+}
+.main-nav {
+    margin: 10px;
+}
+.nav-right{
+    width:100px;
+    padding:10px;
+    padding-left: 100px;
+    margin-top:20px;
+    float: right;
+    text-align:right;
+}
+
+.main-nav div{
+    margin: auto;
+    width: 600px;
+    padding-top: 20px;
+}
+.main-nav div a{
+    font-size: 17px;
+    padding: 0 10px;
+}
+
+.main-nav div a:hover{
+	color:crimson;
+}
+
+.notice{
+    padding-top: 20px;
+    padding-bottom: 10px;
+    background-color: #fafafa;
+    text-align: center;
+    font-size: 20px;
+    height: 70px;
+}
+.video-bg{
+    height: 700px;
+    clear: both;
+    position:relative;
+    background-image: url(../index-image/main-poster-1.jpg);
+    background-position: center;
+    background-size:cover;
+}
+.video-bg video{
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -10;
+}
+/*.video-bg img{
+    z-index: 10;
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+}*/
+.slogan{
+    text-align: center;
+    padding: 80px;
+    
+}
+.slogan h1{
+    font-size: 40px;
+    margin-top:10px;
+}
+.slogan p{
+    margin-top:-7px;
+    padding-bottom: 10px;
+}
+.slogan a{
+    margin: 10px;
+}
+.main-img1 div, .main-img2 div{
+    float:left;
+    width: 50%;
+    height: 900px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.main-img1 div:nth-child(1){
+    background-image: url(../index-image/bottom-img1.jpg);
+    background-position: center;
+    background-size:cover;
+}
+.main-img1 div:nth-child(2){
+    padding-top:350px;
+    box-sizing: border-box;
+    background-color: #242424;
+    color:white;
+}
+.main-img2 div:nth-child(2){
+    background-image: url(../index-image/bottom-img2.jpg);
+    background-position: center;
+    background-size:cover;
+}
+.main-img2 div:nth-child(1){
+    padding-top:350px;
+    box-sizing: border-box;
+    color:white;
+    background-color:crimson;
+    
+}
+
+.nike-air h4 {
+    border-top: 1px solid lightgray;
+    margin: 0 1%;
+    padding-top: 10px;
+    font-size: 28px;
+}
+
+.items figure img{
+    width: 100%;   
+    height:500px;
+}
+.items figure{
+ 
+    width: 23%;
+    margin: 1%;
+    float:left;
+}
+.items figure figcaption{
+    text-align: center;
+}
+
+.items figure a{
+    display: block;
+    font-size: 10px;
+}
+.items figure img{
+    transition: all 0.5s ease-in-out;    
+}
+.items figure img:hover{
+    transform: scale(0.9);
+}    
+
+/* 푸터 */
+footer {
+    background-color: #191919;
+    color: gray;
+    width:100%;
+    padding: 60px;
+    height:70px;
+}
+.footer-box {
+    width: 1100px;
+    margin: auto;
+}
+.branch-link {
+    float: left;
+}
+.branch-link a {
+    color: #fff;
+    display: inline-block;
+    font-weight: bold;
+    margin-right: 30px;
+}
+.branch-link a:hover {
+    color: gray;
+}
+.link-sns {
+    overflow: hidden;
+    border-bottom: 1px solid gray;
+    padding-bottom: 20px;
+}
+.sns {
+    float: right;
+}
+.sns a {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    background-color: dimgray;
+    border-radius: 50%;
+    font-size: 14px;
+    margin: 0 5px;
+}
+.sns a:hover {
+    background-color: lightgray;
+}
+.sns i {
+    padding-top: 3px;
+}
+.copyright {
+    margin-top: 10px; 
+}
+.copyright div:nth-child(1) {
+    float: left;
+    margin-top: 10px;
+}
+.copyright div:nth-child(2) {
+    float: right;
+    margin-top: 10px;
+}
+.copyright div:nth-child(1) a {
+    color: #fff
+}
+.copyright div:nth-child(2) a {
+    color: gray;
+    font-size: 11px;
+    display: inline-block;
+    margin: 0 5px;
+    
+}
+.copyright div:nth-child(2) a:hover {
+    color: #fff;
+}

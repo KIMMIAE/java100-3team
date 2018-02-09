@@ -52,11 +52,11 @@ public class PerformanceReviewServiceImpl implements PerformanceReviewService {
     @Override
 	public int add(PerformanceReview performanceReview) {
         int count = performanceReviewDao.insert(performanceReview);
-        System.out.println(performanceReview.getReviewNo());
+      /*  System.out.println(performanceReview.getReviewNo());
         
         this.addReviewFiles(performanceReview.getReviewFiles(), performanceReview.getReviewNo());
         System.out.println(count + " <= PerformanceServiceImpl");
-        System.out.println(performanceReview.toString() + " <= PerformanceServiceImpl");
+        System.out.println(performanceReview.toString() + " <= PerformanceServiceImpl");*/
         
         return count;
 	}

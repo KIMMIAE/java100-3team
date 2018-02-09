@@ -1,13 +1,110 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>웹프로젝트</title>
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+        body{
+            font-family: Noto Sans KR;
+        }
+    </style>
 </head>
 <body>
-
-<h1>프로젝트 시작!</h1>
-
+    <div class="container">
+       <header></header>
+       
+        <section class="notice">
+            <h2>Notice</h2>
+                <span>공연 Staff 모집 안내</span>
+        </section>
+        <section class="video-bg">
+        <div></div>
+        </section>
+        <section class="slogan">
+            <h1>혹시 아티스트 이신가요?</h1>
+            <p>노래,악기,마술,마법,차력등 당시만의 매력을 많은 사람들에게 보여주세요</p>
+            <a href="">아티스트 등록하러 가기</a>
+        </section>
+        <section class="nike-air">
+            <h4>인기있는 공연 리스트</h4>
+            <div class="items">
+                <figure>
+                    <img src="index-image/config1%20(1).jpg">
+                    <figcaption>
+                       홍대입구 3번출구 22:00
+                       <a href="">공연정보 확인하기</a>
+                    </figcaption>
+                </figure>
+                <figure>
+                    <img src="index-image/config1%20(2).jpg">
+                    <figcaption>
+                        건국대 소극장 11:00 
+                       <a href="">공연정보 확인하기</a>
+                    </figcaption>
+                </figure>
+                <figure>
+                    <img src="index-image/config1%20(3).jpg">
+                    <figcaption>
+                        부천시장 포장마차 14:00
+                       <a href="">공연정보 확인하기</a>
+                    </figcaption>
+                </figure>
+                <figure>
+                    <img src="index-image/config1%20(4).jpg">
+                    <figcaption>
+                        제주도 한라산 정상 06:00
+                       <a href="">공연정보 확인하기</a>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+        <section class="main-img1">
+            <div></div>            
+            <div>
+            
+            <h1>이달의 아티스트 : 제이슨</h1>
+                <span>공연장르 : R & B</span>
+                <br>
+                <span>공연일정 : 28일 11시 30분</span>
+                <br>
+                <span>공연장소 : 서울대입구</span>
+           </div>            
+        </section>
+        <section class="blank">
+            <img src="index-image/blank.png">
+        </section>
+        <section class="main-img2">
+            <div>
+            <h1>이번주 앨범</h1>
+            <span>앨범명: AJAX</span>
+            <br>
+            <span>가 수: 나쁜사람</span>
+            <br>
+            <span>금 액: 13,200</span>
+            </div>
+            <div></div>
+        </section>
+        <section class="blank">
+            <img src="index-image/blank.png">
+        </section>
+        <footer class="clearfix">
+        </footer>  
+    </div>
 </body>
+<script src='../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script type="text/javascript">
+$('header').load('header.html', () => {
+load();
+});
+
+$('footer').load('../footer.html');
+
+
+
+</script>
+
+
 </html>
