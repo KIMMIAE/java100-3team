@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -86,7 +86,7 @@ public class PerformanceController {
     public Object add(
             Performance performance,
             MultipartFile[] files,
-            /*@ModelAttribute(value="loginUser")*/ Member loginUser) throws Exception {
+            HttpSession session) throws Exception {
         
         //System.out.println("Controller.add =>  " + performance.toString());
         
@@ -101,8 +101,8 @@ public class PerformanceController {
         }
         
         performance.setMedias(performanceFiles);
-        loginUser.setNo(56);
-        performance.setWriter(loginUser);;
+        Member member = (Member)session.getAttribute("loginUser");
+        performance.setWriter(member);
         System.out.println("Controller.add =>  " + performance.toString());
         
         performanceService.add(performance);

@@ -4,45 +4,14 @@
 <meta charset="UTF-8">
 <title>공연정보</title>
 <link rel='stylesheet' href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../../css/common.css'>
+<link rel='stylesheet' href='../../css/style1.css'>
 
 </head>
 <body>
 <div class='container'>
+<header></header>
 
-<header>
-<nav class='navbar navbar-expand-lg navbar-light bg-light'>
-<a class='navbar-brand' href='../index.html'>
-  <img src='/images/bootstrap-solid.svg' width='30' height='30' class='d-inline-block align-top' alt=''>
-  비트캠프
-</a>
-
-<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation'>
-  <span class='navbar-toggler-icon'></span>
-</button>
-<div class='collapse navbar-collapse' id='navbarNav'>
-<ul class='navbar-nav mr-auto'>
-  <li class='nav-item'>
-    <a class='nav-link' href='../member/list.html'>회원정보</a>
-  </li>
-  <li class='nav-item'>
-    <a class='nav-link' href='../performance/list.html'>공연정보</a>
-  </li>
-  <li class='nav-item'>
-    <a class='nav-link' href='../request/list.html'>공연요청</a>
-  </li>
-  <li class='nav-item'>
-    <a class='nav-link' href='../sponsor/list.html'>공연후원</a>
-  </li>
-</ul>
-
-1111<a href="/app/auth/logout" 
-           class='btn btn-light btn-sm'>로그아웃</a>
-    </div>
-</nav>
-</header>
-
-<h1>공연 정보</h1>
+<h1>공연 등록</h1>
 
 <form id='formData' enctype="multipart/form-data">
 
@@ -175,9 +144,7 @@
 </div>
 </form>
 
-<footer>
-    비트캠프 자바100기@2017
-</footer>
+<footer></footer>
 </div>
  
 
@@ -208,6 +175,12 @@ var addBtn = $('#addBtn'),
     jjimItem = $('#jjim'),
     ratingItem = $('#rating'),
     rippleItem = $('#ripple');
+
+$('header').load('../header.html', () => {
+    load();
+});
+
+$('footer').load('../footer.html');
 
 
 var index = location.href.indexOf('?');

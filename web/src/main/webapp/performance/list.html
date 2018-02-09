@@ -4,42 +4,11 @@
 <meta charset="UTF-8">
 <title>공연 정보</title>
 <link rel='stylesheet' href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../../css/common.css'>
+<link rel='stylesheet' href='../../css/style1.css'>
 </head>
 <body>
 <div class='container'>
-
-<header>
-<nav class='navbar navbar-expand-lg navbar-light bg-light'>
-<a class='navbar-brand' href='../index.html'>
-  <img src='/images/bootstrap-solid.svg' width='30' height='30' class='d-inline-block align-top' alt=''>
-  비트캠프
-</a>
-
-<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation'>
-  <span class='navbar-toggler-icon'></span>
-</button>
-<div class='collapse navbar-collapse' id='navbarNav'>
-<ul class='navbar-nav mr-auto'>
-  <li class='nav-item'>
-    <a class='nav-link' href='../member/list.html'>회원정보</a>
-  </li>
-  <li class='nav-item'>
-    <a class='nav-link' href='../performance/list.html'>공연정보</a>
-  </li>
-  <li class='nav-item'>
-    <a class='nav-link' href='../request/list.html'>공연요청</a>
-  </li>
-  <li class='nav-item'>
-    <a class='nav-link' href='../sponsor/list.html'>공연후원</a>
-  </li>
-</ul>
-
-1111<a href="/app/auth/logout" 
-           class='btn btn-light btn-sm'>로그아웃</a>
-    </div>
-</nav>
-</header>
+<header></header>
 
 <h1>공연 목록</h1>
 
@@ -57,7 +26,7 @@
 <table id="list" class='table table-hover'>
 <thead>
 <tr>
-<th>번호</th><th>아티스트명</th><th>공연명</th><th>공연장르</th><th>공연날짜</th><th>공연장소</th><th>등록자</th><th>조회수</th>
+<th>번호</th><th>공연명</th><th>아티스트명</th><th>공연장르</th><th>공연날짜</th><th>공연장소</th><th>등록자</th><th>조회수</th>
 </tr>
 </thead>
 <tbody></tbody>
@@ -76,9 +45,7 @@
   </ul>
 </nav>
 
-<footer>
-    비트캠프 자바100기@2017
-</footer>
+<footer></footer>
 </div>
 
 <script src='../node_modules/jquery/dist/jquery.min.js'></script>
@@ -95,7 +62,12 @@ var words = $('#words'),
     tbody = $('#list > tbody'),
     currPageNo = 1;
 
-load(1);
+$('header').load('../header.html', () => {
+    load(1);
+});
+
+$('footer').load('../footer.html');
+
 
 searchBtn.click (() => {
     //event.preventDefault();
@@ -125,12 +97,23 @@ function load(pageNo, options) {
             
             tbody.html("");
             
+            var filename;
             for (var data of result.list) {
+                for(var media of data.medias) {
+                    //filename = media.filename;
+                    if (media.filename == null) {
+                        filename = 'no_img.jpg';
+                    } else {
+                        filename = media.filename;
+                    }
+                }
                 $('<tr>').
                     html(
-                        "<td>" + data.no + "</td>" + 
-                        "<td><a href='form.html?no=" + data.no + "'>" + data.artist.artistName + "</a></td>" +
-                        "<td>" + data.name + "</td>" +
+                        "<td>" + data.no + "</td>" +
+                        "<td><a href='form.html?no=" + data.no + "'>" + 
+                            "<img src='../download/" + filename + "' height=50>" + 
+                            "<div>" + data.name + "</a></td>" +
+                        "<td>" + data.artist.artistName + "</td>" +
                         "<td>" + data.genre + "</td>" +
                         "<td>" + formatDate(data.entryDate) + "</td>" +
                         "<td>" + data.location + "</td>" +
