@@ -23,16 +23,16 @@
 <div class='collapse navbar-collapse' id='navbarNav'>
 <ul class='navbar-nav mr-auto'>
   <li class='nav-item'>
-    <a class='nav-link' href='../member/list'>회원정보</a>
+    <a class='nav-link' href='../member/list.html'>회원정보</a>
   </li>
   <li class='nav-item'>
-    <a class='nav-link' href='../performance/list'>공연정보</a>
+    <a class='nav-link' href='../performance/list.html'>공연정보</a>
   </li>
   <li class='nav-item'>
-    <a class='nav-link' href='../request/list'>공연요청</a>
+    <a class='nav-link' href='../request/list.html'>공연요청</a>
   </li>
   <li class='nav-item'>
-    <a class='nav-link' href='../sponsor/list'>공연후원</a>
+    <a class='nav-link' href='../sponsor/list.html'>공연후원</a>
   </li>
 </ul>
 
@@ -50,14 +50,14 @@
 <div class='form-group row my-view'>
 <label for='no' class='col-sm-2 col-form-label'>번호</label>
 <div class='col-sm-10'>
-<input class='form-control' readonly id='no' type='number' name='no' value=''>
+<input class='form-control' readonly id='no' type='number' name='no' value='0'>
 </div>
 </div>
 
 <div class='form-group row my-view'>
 <label for='memberNo' class='col-sm-2 col-form-label'>회원번호</label>
 <div class='col-sm-10'>
-<input class='form-control' readonly id='memberNo' type='number' name='memberNo' value=''>
+<input class='form-control' readonly id='memberNo' type='number' name='memberNo' value='0'>
 </div>
 </div>
 
@@ -120,7 +120,7 @@
 </div>
 </div>
 
- 
+
 <div class='form-group row'>
 <label for='file1' class='col-sm-2 col-form-label'>파일1</label>
 <div class='col-sm-10'>
@@ -142,18 +142,16 @@
 </div>
 </div>
 
+<!-- 
 <div class='form-group row'>
 <label for='jjim' class='col-sm-2 col-form-label'>찜</label>
 <div class='col-sm-10'>
     <input type='checkbox' id='jjim' name='jjim' value=''>
-    <label for='jjim'class='col-sm-4 col-form-label' >찜</label>
+    <label for='jjim'class='col-sm-4 col-form-label'>찜</label>
     
-
     <label for='rating' class='col-sm-2 col-form-label'>평가</label>
-<!-- <div class='col-sm-10'> -->
     <input class='col-sm-2' type='number' min="-10" max="100" id='rating' name='rating' value=''>
     <button id="ratingBtn"type="button" class='btn btn-primary btn-sm'>점수주기</button>
-<!-- </div> -->
     
 </div>
 </div>
@@ -166,7 +164,7 @@
 <button id="rippleBtn"type="button" class='btn btn-primary btn-sm'>등록</button>
 </div>
 </div>
-
+ -->
 
 <div class='form-group row'>
 <div class='col-sm-10'>
@@ -242,10 +240,11 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
                 };
             },
             error: () => {
-                window.alert('서버 실행 오류!');
+                window.alert('view 서버 실행 오류!');
             }
         });
         
+        // 찜 정보
         $.ajax('../json/performance/viewjjim', {
             data: {
                 performanceNo: noItem.val(),
@@ -257,16 +256,47 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
                 if (result.jjim == 1) {
                     jjimItem.prop("checked", true);
                 } else {
-                    jjimItem.checked = false;
+                    jjimItem.prop("checked", false);
+                }
+            },
+            error: () => {
+                window.alert('viewjjim 서버 실행 오류!');
+            }
+        });
+        
+        // 리플
+        /* $.ajax('../json/performance/viewripple', {
+            data: {
+                performanceNo: noItem.val(),
+                memberNo: memberNoItem.val()
+            },
+            dataType: 'json',
+            method: 'POST',
+            success: (result) => {
+                
+                tbody.html("");
+                
+                for (var data of result.list) {
+                    $('<tr>').
+                        html(
+                            "<td>" + data.no + "</td>" + 
+                            "<td><a href='form.html?no=" + data.no + "'>" + data.artist.artistName + "</a></td>" +
+                            "<td>" + data.name + "</td>" +
+                            "<td>" + data.genre + "</td>" +
+                            "<td>" + formatDate(data.entryDate) + "</td>" +
+                            "<td>" + data.location + "</td>" +
+                            "<td>" + data.writer.nickName + "</td>" +
+                            "<td>" + data.viewCount + "</td>")
+                        .appendTo(tbody);
                 }
             },
             error: () => {
                 window.alert('서버 실행 오류!');
             }
-        });
+        }); */
 
-        
-        $.ajax('../json/performance/viewripple', {
+        // 찜 정보
+        /* $.ajax('../json/performance/viewripple', {
             data: {
                 performanceNo: noItem.val(),
                 memberNo: memberNoItem.val()
@@ -277,28 +307,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
                 rippleItem.val(result.ripple);
             },
             error: () => {
-                window.alert('서버 실행 오류!');
-            }
-        });
-        
-        // 찜정보
-        /* if (options == undefined) options = {};
-        options.performanceNo = 10; //noItem.val();
-        options.memberNo = 56; //memberNoItem.val();
-        
-        $.ajax('../json/performance/viewjjim', {
-            data: options,
-            dataType: 'json',
-            success: (result) => {
-                window.alert('서버 실행 성공!');
-                if (result.jjimFlag == 1) {
-                    jjimItem.checked = true;
-                } else {
-                    jjimItem.checked = false;
-                }
-            },
-            error: () => {
-                window.alert('서버 실행 오류!');
+                window.alert('viewripple 서버 실행 오류!');
             }
         }); */
     });

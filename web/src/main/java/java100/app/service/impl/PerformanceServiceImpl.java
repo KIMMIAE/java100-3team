@@ -101,9 +101,9 @@ public class PerformanceServiceImpl implements PerformanceService {
     @Override
     public void jjimHagi(Jjim jjim) {
         if (jjim.getJjimFlag().equals("1")) {
-           jjimDao.insert(jjim);
+            jjimDao.insert(jjim);
         } else {
-           jjimDao.delete(jjim);
+            jjimDao.delete(jjim);
         }
     }
 
@@ -114,17 +114,17 @@ public class PerformanceServiceImpl implements PerformanceService {
     
     @Override
     public void addRating(Rating rating) {
-           ratingDao.insert(rating);
+        ratingDao.insert(rating);
     }
     
     @Override
     public void addRipple(Ripple ripple) {
-           rippleDao.insert(ripple);
+        rippleDao.insert(ripple);
     }
     
     @Override
     public String getRipple(Ripple ripple) {
-           return rippleDao.getRipple(ripple);
+        return rippleDao.getRipple(ripple);
     }
 
 }

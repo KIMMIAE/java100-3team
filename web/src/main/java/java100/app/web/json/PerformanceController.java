@@ -86,9 +86,9 @@ public class PerformanceController {
     public Object add(
             Performance performance,
             MultipartFile[] files,
-            @ModelAttribute(value="loginUser") Member loginUser) throws Exception {
+            /*@ModelAttribute(value="loginUser")*/ Member loginUser) throws Exception {
         
-        System.out.println("Controller.add =>  " + performance.toString());
+        //System.out.println("Controller.add =>  " + performance.toString());
         
         String saveDir = servletContext.getRealPath("/download");
         ArrayList<PerformanceFile> performanceFiles = new ArrayList<>();
@@ -102,7 +102,8 @@ public class PerformanceController {
         
         performance.setMedias(performanceFiles);
         loginUser.setNo(56);
-        performance.setWriter(loginUser);
+        performance.setWriter(loginUser);;
+        System.out.println("Controller.add =>  " + performance.toString());
         
         performanceService.add(performance);
         
