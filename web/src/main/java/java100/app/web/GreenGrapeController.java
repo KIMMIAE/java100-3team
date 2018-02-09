@@ -27,7 +27,7 @@ public class GreenGrapeController {
     @Autowired GreenGrapeService greenGrapeService;
     
   
-    
+     
     @RequestMapping("form")
     public String form(HttpSession session,Model model) throws Exception {
         Member member= (Member) session.getAttribute("loginUser");
@@ -41,6 +41,7 @@ public class GreenGrapeController {
         greenGrapeService.add(greenGrape);
         return "redirect:list";
     }
+    
     
     @RequestMapping("{greenGrapeNo}")
     public String view(@PathVariable int greenGrapeNo, Model model) throws Exception {
