@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="java100.app.dao.performance.JjimDao">
+
+    <resultMap type="jjim" id="jjimMap">
+        <id      column="pfmno"     property="performanceNo"/>
+        <result column="mmbno"     property="memberNo"/>
+        <result column="regdt"     property="regDate"/>
+    </resultMap>
+    
+    <select id="findByMemberNo" resultType="int" parameterType="jjim">
+        select count(*)
+        from tb_jjiminfo
+        where pfmno=#{performanceNo}
+          and mmbno=#{memberNo}
+    </select>
+    
+    <select id="getJjim" resultType="int" parameterType="jjim">
+        select 
+            count(*) 
+        from tb_jjiminfo
+        where pfmno=#{performanceNo}
+          and mmbno=#{memberNo}
+    </select>
+    
+    <insert id="insert" parameterType="jjim">
+        insert into tb_jjiminfo(pfmno, mmbno, regdt) 
+        values(#{performanceNo}, #{memberNo}, now())
+    </insert>
+    
+    <insert id="update" parameterType="jjim">
+        update tb_jjiminfo set
+            mmbno=#{memberNo}
+        where pfmno=#{performanceNo}
+    </insert>
+    
+    <delete id="delete" parameterType="jjim">
+        delete from tb_jjiminfo
+        where pfmno=#{performanceNo}
+          and mmbno=#{memberNo}
+    </delete>
+</mapper>

@@ -6,10 +6,16 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java100.app.dao.performance.JjimDao;
 import java100.app.dao.performance.PerformanceDao;
 import java100.app.dao.performance.PerformanceFileDao;
+import java100.app.dao.performance.RatingDao;
+import java100.app.dao.performance.RippleDao;
+import java100.app.domain.performance.Jjim;
 import java100.app.domain.performance.Performance;
 import java100.app.domain.performance.PerformanceFile;
+import java100.app.domain.performance.Rating;
+import java100.app.domain.performance.Ripple;
 import java100.app.service.PerformanceService;
 
 @Service
@@ -17,6 +23,9 @@ public class PerformanceServiceImpl implements PerformanceService {
 
     @Autowired PerformanceDao performanceDao;
     @Autowired PerformanceFileDao performanceFileDao;
+    @Autowired JjimDao jjimDao;
+    @Autowired RatingDao ratingDao;
+    @Autowired RippleDao rippleDao;
     
     @Override
     public List<Performance> list(int pageNo, int pageSize, Map<String, Object> options) {
@@ -52,7 +61,10 @@ public class PerformanceServiceImpl implements PerformanceService {
     //@Transactional // XML 설정으로 대체한다.
     public int add(Performance performance) {
         int count = performanceDao.insert(performance);
-        this.addFiles(performance.getMedias(), performance.getNo());
+        
+        if (performance.getMedias() != null) {
+            this.addFiles(performance.getMedias(), performance.getNo());
+        }
         
         return count;
     }
@@ -61,16 +73,23 @@ public class PerformanceServiceImpl implements PerformanceService {
     public int update(Performance performance) {
         int count = performanceDao.update(performance);
         
-        System.out.println(count + " <= PerformanceServiceImpl");
-        System.out.println(performance.toString() + " <= PerformanceServiceImpl");
-        //System.out.println(performance.getMedias().get(0).getFilename() + " <= PerformanceServiceImpl");
         if (performance.getMedias() != null) {
-            System.out.println(count + " <= PerformanceServiceImpl");
             performanceFileDao.deleteAllByPerformanceNo(performance.getNo());
             addFiles(performance.getMedias(), performance.getNo());
         }
         
         return count;
+    }
+    
+    @Override
+    //@Transactional // XML 설정으로 대체
+    public void addFiles(List<PerformanceFile> medias, int performanceNo) {
+        for (PerformanceFile media : medias) {
+            media.setPerformanceNo(performanceNo);
+            performanceFileDao.insert(media);
+            
+            System.out.println("ServiceImpl.addFiles =>  " + media.toString());
+        }
     }
 
     @Override
@@ -80,13 +99,32 @@ public class PerformanceServiceImpl implements PerformanceService {
     }
     
     @Override
-    //@Transactional // XML 설정으로 대체
-    public void addFiles(List<PerformanceFile> medias, int performanceNo) {
-        for (PerformanceFile media : medias) {
-            System.out.println(media.toString());
-            media.setPerformanceNo(performanceNo);
-            performanceFileDao.insert(media);
+    public void jjimHagi(Jjim jjim) {
+        if (jjim.getJjimFlag().equals("1")) {
+           jjimDao.insert(jjim);
+        } else {
+           jjimDao.delete(jjim);
         }
+    }
+
+    @Override
+    public int getJjim(Jjim jjim) {
+        return jjimDao.getJjim(jjim);
+    }
+    
+    @Override
+    public void addRating(Rating rating) {
+           ratingDao.insert(rating);
+    }
+    
+    @Override
+    public void addRipple(Ripple ripple) {
+           rippleDao.insert(ripple);
+    }
+    
+    @Override
+    public String getRipple(Ripple ripple) {
+           return rippleDao.getRipple(ripple);
     }
 
 }

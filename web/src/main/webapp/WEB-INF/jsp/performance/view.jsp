@@ -30,6 +30,14 @@
         </div>
         
         <div class='form-group row'>
+        <label for='memberNo' class='col-sm-2 col-form-label'>회원번호</label>
+        <div class='col-sm-10'>
+        <input class='form-control' readonly id='memberNo' type='number' 
+                name='memberNo' value='${performance.artist.no}'>
+        </div>
+        </div>
+        
+        <div class='form-group row'>
         <label for='name' class='col-sm-2 col-form-label'>공연명</label>
         <div class='col-sm-10'>
         <input class='form-control' id='name' type='text' 
@@ -37,11 +45,32 @@
         </div>
         </div>
         
-        <div class='form-group row'>
+        <%-- <div class='form-group row'>
         <label for='genre' class='col-sm-2 col-form-label'>공연장르</label>
         <div class='col-sm-10'>
         <input class='form-control' id='genre' type='text'
                 name='genre' value='${performance.genre}'>
+        </div>
+        </div> --%>
+
+        <div class='form-group row'>
+        <label for='genre' class='col-sm-2 col-form-label'>공연장르</label>
+        <div class='col-sm-10'>
+        <!-- <div class="input-group mb-3"> -->
+          <select class="custom-select" id="inputGroupSelect02" name="genre">
+            <option selected>${performance.genre}</option>
+            <option value='솔로'>솔로</option>
+            <option value='그룹'>그룹</option>
+            <option value='발라드'>발라드</option>
+            <option value='R & B'>R & B</option>
+            <option value='락'>락</option>
+            <option value='랩'>랩</option>
+            <option value='개그'>개그</option>
+            <option value='마술'>마술</option>
+          </select>
+          <!-- <div class="input-group-append">
+            <label class="input-group-text" for="inputGroupSelect02">Options</label>
+          </div> -->
         </div>
         </div>
         
@@ -106,6 +135,41 @@
         <input type="file" class="form-control-file" id="file3" name="files">
         </div>
         </div>
+        
+        
+        
+        <div class='form-group row'>
+        <label for='jjimFlag' class='col-sm-2 col-form-label'>관심 지역</label>
+        <div class='col-sm-10'>
+            <input type='checkbox' id='jjimFlag' name='jjimFlag'>
+            <label for='jjimFlag'>찜</label>
+        </div>
+        </div>
+        
+        
+        <%-- <div class='form-group row'>
+        <label for='jjimFlag' class='col-sm-2 col-form-label'>공연 찜</label>
+        <div class='col-sm-10'>
+            <input type="radio" id="jjimFlag" name="jjimFlag" value="${performance.jjim.jjimFlag}">
+            <label for="jjimFlag">찜</label>
+        </div>
+        </div> --%>
+        
+        <!-- <div class='form-group row'>
+        <label for='ripple' class='col-sm-2 col-form-label'>리플</label>
+        <div class='col-sm-10'>
+        <input class='form-control' id='ripple' type='text' 
+                name='ripple'>
+        </div>
+        </div>
+        
+        <div class='form-group row'>
+        <label for='rating' class='col-sm-2 col-form-label'>평점</label>
+        <div class='col-sm-10'>
+        <input class='form-control' id='rating' type='text' 
+                name='rating'>
+        </div>
+        </div> -->
         
         <!-- 
         <div class='form-group row'>
@@ -210,6 +274,15 @@
 </div>
 
 <jsp:include page="../jslib.jsp"/>
+
+
+
+
+<script src='../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<!-- <script src='../js/bit.js'></script> -->
+
 
 </body>
 </html>

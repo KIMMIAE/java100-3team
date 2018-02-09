@@ -53,6 +53,7 @@
         select 
             t001.pfmno,
             t001.artno,
+            t002.mmbno,
             t002.nicknm,
             t003.artnm,
             t001.pfmnm,
@@ -112,6 +113,7 @@
         select 
             t001.pfmno,
             t001.artno,
+            t002.mmbno,
             t002.nicknm,
             t003.artnm,
             t001.pfmnm,

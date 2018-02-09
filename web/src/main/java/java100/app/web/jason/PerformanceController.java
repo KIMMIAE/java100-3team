@@ -1,4 +1,4 @@
-package java100.app.web;
+package java100.app.web.jason;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,21 +8,24 @@ import java.util.HashMap;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import java100.app.domain.member.Member;
+import java100.app.domain.performance.Jjim;
 import java100.app.domain.performance.Performance;
 import java100.app.domain.performance.PerformanceFile;
+import java100.app.domain.performance.Rating;
+import java100.app.domain.performance.Ripple;
 import java100.app.service.PerformanceService;
 
-@Controller
+@RestController
 @RequestMapping("/performance")
 @SessionAttributes("loginUser")
 public class PerformanceController {
@@ -31,16 +34,13 @@ public class PerformanceController {
     @Autowired PerformanceService performanceService;
     
     @RequestMapping("list")
-    public String list(
+    public Object list(
             @RequestParam(value="pn", defaultValue="1") int pageNo,
             @RequestParam(value="ps", defaultValue="5") int pageSize,
             @RequestParam(value="words", required=false) String[] words,
             @RequestParam(value="oc", required=false) String orderColumn,
-            @RequestParam(value="al", required=false) String align,
-            Model model) throws Exception {
+            @RequestParam(value="al", required=false) String align) throws Exception {
 
-        // UI 제어와 관련된 코드는 이렇게 페이지 컨트롤러에 두어야 한다.
-        //
         if (pageNo < 1) {
             pageNo = 1;
         }
@@ -62,33 +62,33 @@ public class PerformanceController {
             lastPageNo++;
         }
         
-        // view 컴포넌트가 사용할 값을 Model에 담는다.
-        model.addAttribute("pageNo", pageNo);
-        model.addAttribute("lastPageNo", lastPageNo);
-        model.addAttribute("list", performanceService.list(pageNo, pageSize, options));
-        return "performance/list";
+        HashMap<String,Object> result = new HashMap<>();
+        
+        result.put("pageNo", pageNo);
+        result.put("lastPageNo", lastPageNo);
+        result.put("list", performanceService.list(pageNo, pageSize, options));
+        
+        return result;
     }
 
     @RequestMapping("{no}")
-    public String view(@PathVariable int no, Model model) throws Exception {
+    public Object view(@PathVariable int no) throws Exception {
         
-        model.addAttribute("performance", performanceService.get(no));
-        return "performance/view";
-    }
-    
-    @RequestMapping("form")
-    public String form() throws Exception {
-        return "performance/form";
-        
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("data",  performanceService.get(no));
+        System.out.println("Controller.view =>  " + performanceService.get(no).toString());
+        return result;
     }
     
     // XML 설정으로 트랜잭션을 조정한다면 @Transactional 애노테이션은 필요없다.
     //@Transactional
-    @RequestMapping("add")
-    public String add(
+    @RequestMapping(value="add", method = RequestMethod.POST)
+    public Object add(
             Performance performance,
             MultipartFile[] files,
             @ModelAttribute(value="loginUser") Member loginUser) throws Exception {
+        
+        System.out.println("Controller.add =>  " + performance.toString());
         
         String saveDir = servletContext.getRealPath("/download");
         ArrayList<PerformanceFile> performanceFiles = new ArrayList<>();
@@ -101,21 +101,23 @@ public class PerformanceController {
         }
         
         performance.setMedias(performanceFiles);
+        loginUser.setNo(56);
         performance.setWriter(loginUser);
+        
         performanceService.add(performance);
         
-        return "redirect:list";
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("status", "success");
+        
+        return result;
     }
     
     @RequestMapping("update")
-    public String update(
+    public Object update(
             Performance performance,
-            /*Jjim jjim,
-            Ripple ripple,
-            Rating rating,*/
             MultipartFile[] files) throws Exception {
         
-        System.out.println(performance.toString());
+        System.out.println("Controller.update =>  " + performance.toString());
         
         ArrayList<PerformanceFile> performanceFiles = new ArrayList<>();
         if (!files[0].isEmpty()) {
@@ -129,9 +131,13 @@ public class PerformanceController {
             }
             performance.setMedias(performanceFiles);
         }
+        
         performanceService.update(performance);
         
-        return "redirect:list";
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("status", "success");
+        
+        return result;
     }
 
     /*@RequestMapping("delete")
@@ -140,6 +146,64 @@ public class PerformanceController {
         performanceService.delete(no);
         return "redirect:list";
     }*/
+
+    @RequestMapping("jjim")
+    public Object jjim(Jjim jjim) throws Exception {
+        
+        System.out.println("Controller.jjim =>  " + jjim.toString());
+
+        performanceService.jjimHagi(jjim);
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("status", "success");
+        
+        return result;
+    }
+    
+    @RequestMapping("viewjjim")
+    public Object viewJjim(Jjim jjim) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+
+        result.put("jjim",  performanceService.getJjim(jjim));
+        return result;
+    }
+
+    @RequestMapping("addrating")
+    public Object addRating(Rating rating) throws Exception {
+        
+        System.out.println("Controller.addRating =>  " + rating.toString());
+
+        performanceService.addRating(rating);
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("status", "success");
+        
+        return result;
+    }
+
+    @RequestMapping("addripple")
+    public Object addRipple(Ripple ripple) throws Exception {
+        
+        System.out.println("Controller.jjim =>  " + ripple.toString());
+
+        performanceService.addRipple(ripple);
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("status", "success");
+        
+        return result;
+    }
+    
+    @RequestMapping("viewripple")
+    public Object viewRipple(Ripple ripple) throws Exception {
+        
+        System.out.println("Controller.viewRipple =>  " + ripple.toString());
+        
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("ripple",  performanceService.getRipple(ripple));
+        System.out.println("Controller.viewRipple =>  " + performanceService.getRipple(ripple));
+        return result;
+    }
     
     long prevMillis = 0;
     int count = 0;

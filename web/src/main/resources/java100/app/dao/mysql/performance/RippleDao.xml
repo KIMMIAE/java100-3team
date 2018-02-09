@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="java100.app.dao.performance.RippleDao">
+
+    <resultMap type="ripple" id="rippleMap">
+        <id      column="rippleno"   property="no"/>
+        <result column="pfmno"       property="performanceNo"/>
+        <result column="mmbno"       property="memberNo"/>
+        <result column="ripple"      property="ripple"/>
+        <result column="regdt"       property="regDate"/>
+    </resultMap>
+    
+    <select id="getRipple" resultType="String" parameterType="ripple">
+        select 
+            ripple
+        from tb_ripple
+        where pfmno=#{performanceNo}
+    </select>
+    
+    <insert id="insert" parameterType="ripple">
+        insert into tb_ripple (pfmno, mmbno, ripple, regdt) 
+        values (#{performanceNo}, #{memberNo}, #{ripple}, now())
+    </insert>
+    
+    <delete id="delete" parameterType="ripple">
+        delete from tb_ripple
+        where rippleno=#{no}
+          and pfmno=#{performanceNo}
+          and mmbno=#{memberNo}
+    </delete>
+</mapper>

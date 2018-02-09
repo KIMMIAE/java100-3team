@@ -26,10 +26,31 @@
 </div>
 </div>
 
-<div class='form-group row'>
+<!-- <div class='form-group row'>
 <label for='genre' class='col-sm-2 col-form-label'>공연장르</label>
 <div class='col-sm-10'>
 <input class='form-control' id='genre' type='text' name='genre'>
+</div>
+</div> -->
+
+<div class='form-group row'>
+<label for='genre' class='col-sm-2 col-form-label'>공연장르</label>
+<div class='col-sm-10'>
+<!-- <div class="input-group mb-3"> -->
+  <select class="custom-select" id="inputGroupSelect02" name="genre">
+    <option selected>Choose...</option>
+    <option value='솔로'>솔로</option>
+    <option value='그룹'>그룹</option>
+    <option value='발라드'>발라드</option>
+    <option value='R & B'>R & B</option>
+    <option value='락'>락</option>
+    <option value='랩'>랩</option>
+    <option value='개그'>개그</option>
+    <option value='마술'>마술</option>
+  </select>
+  <!-- <div class="input-group-append">
+    <label class="input-group-text" for="inputGroupSelect02">Options</label>
+  </div> -->
 </div>
 </div>
 
