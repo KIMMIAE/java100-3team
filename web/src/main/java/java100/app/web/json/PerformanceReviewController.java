@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java100.app.domain.member.Member;
-import java100.app.domain.performance.Performance;
 import java100.app.domain.performance.PerformanceReview;
 import java100.app.service.PerformanceReviewService;
 
