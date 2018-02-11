@@ -52,10 +52,10 @@ public class PerformanceReviewServiceImpl implements PerformanceReviewService {
     @Override
 	public int add(PerformanceReview performanceReview) {
         int count = performanceReviewDao.insert(performanceReview);
-        System.out.println(performanceReview.getReviewNo());
-
         
-        //this.addReviewFiles(performanceReview.getReviewFiles(), performanceReview.getReviewNo());
+        if (performanceReview.getReviewFiles() != null) {
+        this.addReviewFiles(performanceReview.getReviewFiles(), performanceReview.getReviewNo());
+        }
         //System.out.println(count + " <= PerformanceServiceImpl");
         //System.out.println(performanceReview.toString() + " <= PerformanceServiceImpl");
         
@@ -64,15 +64,20 @@ public class PerformanceReviewServiceImpl implements PerformanceReviewService {
 
 	@Override
 	public int update(PerformanceReview performanceReview) {
-        int count = performanceReviewDao.update(performanceReview);
+		int count = performanceReviewDao.update(performanceReview);
+        System.out.println(performanceReview.getReviewFiles() + " files");
+        System.out.println(performanceReview.getReviewNo() + " <= no");
+        System.out.println("--------------------------------");
         
-        // 기존의 게시물 첨부파일은 모두 지운다. 
-        reviewFileDao.deleteAllByReviewNo(performanceReview.getReviewNo());
+/*        // 기존의 게시물 첨부파일은 모두 지운다. 
+        reviewFileDao.deleteAllByReviewNo(performanceReview.getReviewNo());*/
         
-        // 다시 게시물 첨부파일을 저장한다.
-        addReviewFiles(performanceReview.getReviewFiles(), performanceReview.getReviewNo());
+       // 다시 게시물 첨부파일을 저장한다.
+		if (performanceReview.getReviewFiles() != null) {
+			addReviewFiles(performanceReview.getReviewFiles(), performanceReview.getReviewNo());
+		}
         
-        return count;
+		return count;
 	}
 
 	@Override

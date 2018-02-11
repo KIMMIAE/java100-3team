@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java100.app.domain.member.Member;
+import java100.app.domain.performance.Performance;
 import java100.app.domain.performance.PerformanceReview;
 import java100.app.service.PerformanceReviewService;
 
@@ -94,7 +95,7 @@ public class PerformanceReviewController {
     	performanceReview.setWriter(new Member());
     	performanceReview.getWriter().setNo(member.getNo());
 */    	
-    	performanceReview.toString();
+    	System.out.println(performanceReview);
     	performanceReviewService.add(performanceReview);
         
         HashMap<String,Object> result = new HashMap<>();
@@ -120,18 +121,15 @@ public class PerformanceReviewController {
     	return result;
     }
 
-    /*
 	@RequestMapping("update")
-    public String update(
-            PerformanceReview performanceReview,Performance performance,String nickName, MultipartFile[] files) throws Exception {
-	     
+    public Object update(
+            PerformanceReview performanceReview/*, Performance performance,String nickName, MultipartFile[] files*/) throws Exception {
+	    
+		/*
 	     String uploadDir = servletContext.getRealPath("/download");
 
-	        // 업로드 파일 정보를 저장할 List 객체 준비
 	        ArrayList<ReviewFile> reviewUploadFile = new ArrayList<>();
 	        
-	        // 클라이언트가 보낸 파일을 저장하고, 
-	        // 그 파일명(저장할 때 사용한 파일명)을 목록에 추가한다.
 	        for (MultipartFile part : files) {
 	            if (part.isEmpty())
 	                continue;
@@ -141,11 +139,19 @@ public class PerformanceReviewController {
 	            reviewUploadFile.add(new ReviewFile(filename));
 	        }
 	        
-	        // Board 객체에 저장한 파일명을 등록한다. 
 	        performanceReview.setReviewFiles(reviewUploadFile);
+		*/
+		
+System.out.println(performanceReview + "<= 리뷰//");
+/*System.out.println(performance + "<= 공연//");
+System.out.println(nickName + "<= 닉네임//");*/
 
 	        performanceReviewService.update(performanceReview);
-	        return "redirect:list";
+	        
+	        HashMap<String, Object> result = new HashMap<>();
+	        result.put("status", "succes");
+	        
+	        return result;
 	    }
 
     @RequestMapping("delete")
@@ -157,6 +163,7 @@ public class PerformanceReviewController {
         return "redirect:list";
     }
     
+    /*
     
     long prevMillis = 0;
     int count = 0;
