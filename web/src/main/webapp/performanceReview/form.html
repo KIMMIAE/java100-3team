@@ -185,28 +185,6 @@ function load() {
         var qs = location.href.substr(index + 1);
         var arr = qs.split('=');
         $('.my-new').css('display', 'none');
-        
-        $(() => {
-            $.ajax('../json/performanceReview/' + arr[1], {
-                dataType: 'json',
-                success: (result) => {
-                    noItem.val(result.performanceReview.reviewNo);
-                    performanceNoItem.val(result.performanceReview.performance.no);
-                    memberNoItem.val(result.performanceReview.writer.no);
-                    prfrmNameItem.val(result.performanceReview.performance.name);
-                    locationItem.val(result.performanceReview.performance.location);
-                    genreItem.val(result.performanceReview.performance.genre);
-                    entryDateItem.val(formatDate(result.performanceReview.performance.entryDate));
-                    rvwDescItem.val(result.performanceReview.reviewDescription);
-                    viewcntItem.val(result.performanceReview.viewCount);
-                    regdateItem.val(formatDate(result.performanceReview.regDate));
-                },
-                error: () => {
-                    window.alert('서버 실행 오류!');
-                }
-            });
-        });
-        
     } else { // 신규 데이터 입력일 경우,
         $('.my-view').css('display', 'none');
     }
