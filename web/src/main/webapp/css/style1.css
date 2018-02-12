@@ -23,7 +23,7 @@ body {
     height: 60px;    
 }
 .main-nav img {
-    width: 30px;
+    width: 100px;
     margin-top:10px;
     margin-left:10px;
     float: left;
@@ -52,6 +52,7 @@ body {
 
 
 /* 푸터 */
+/* 
 footer {
 	position:absolute;
     bottom: 0;
@@ -127,3 +128,4 @@ footer {
 .copyright div:nth-child(2) a:hover {
     color: #fff;
 }
+*/
