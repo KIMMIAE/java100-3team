@@ -14,7 +14,8 @@
 <div class="clearfix"></div>
 
 <script type="text/javascript">
-// var loginUser = {}; 전역변수
+
+var loginUser = {};
 
 $.getJSON('../json/auth/loginUser', function(result) {
     if (result.status == 'fail') {
@@ -22,8 +23,11 @@ $.getJSON('../json/auth/loginUser', function(result) {
         return;
     }
     
-    loginUser = result.loginUser;
     $('#username').html(result.loginUser.nickName);
+    
+    loginUser = result.loginUser;
+    
+    $(document.body).trigger('login', {'status': 'success'});
 });
 
 $('#logoutBtn').click(() => {
