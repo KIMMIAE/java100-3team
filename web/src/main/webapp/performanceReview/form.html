@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -301,3 +302,308 @@ function load() {
 
 
 
+=======
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>공연 정보</title>
+<link rel='stylesheet'
+    href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../../css/style1.css'>
+</head>
+<body>
+    <div class='container'>
+
+        <header></header>
+
+        <h1>공연 등록</h1>
+
+        <form>
+
+            <div class='form-group row my-view'>
+                <label for='reviewNo' class='col-sm-2 col-form-label'>번호</label>
+                <div class='col-sm-10'>
+                    <input class='form-control' readonly id='reviewNo' type='number'
+                        name='reviewNo'>
+                </div>
+            </div>
+            
+                     <div class='form-group row my-view'>
+                <label for='no' class='col-sm-2 col-form-label'>회원번호</label>
+                <div class='col-sm-10'>
+                    <input class='form-control' readonly id='memberNo' type='number'
+                        name='writer.no'>
+                </div>
+            </div>
+            
+            <div class='form-group row'>
+                <label for='nickName' class='col-sm-2 col-form-label'>닉네임</label>
+                <div class='col-sm-10'>
+                    <input class='form-control' readonly id='nickName' type='text'
+                        name='writer.nickName'>
+                </div>
+            </div>
+
+            <div class='form-group row'>
+                <label for='name' class='col-sm-2 col-form-label'>공연명</label>
+                <div class='col-sm-10'>
+                    <input class='form-control' readonly id='name' type='text'
+                        name='name'>
+                </div>
+            </div>
+
+            <div class='form-group row'>
+                <label for='location' class='col-sm-2 col-form-label'>공연장소</label>
+                <div class='col-sm-10'>
+                    <input class='form-control' readonly id='location' type='text'
+                        name='location'>
+                </div>
+            </div>
+
+            <div class='form-group row'>
+                <label for='genre' class='col-sm-2 col-form-label'>공연장르</label>
+                <div class='col-sm-10'>
+                    <input class='form-control' readonly id='genre' type='text'
+                        name='genre'>
+                </div>
+            </div>
+
+            <div class='form-group row'>
+                <label for='entryDate' class='col-sm-2 col-form-label'>공연날짜</label>
+                <div class='col-sm-10'>
+                    <input class='form-control' readonly id='entryDate' type='date'
+                        name='entryDate'>
+                </div>
+            </div>
+
+            <div class='form-group row my-new'>
+                <label for='performance' class='col-sm-2 col-form-label'>공연정보</label>
+                <div class='col-sm-10'>
+                    <input class='form-control data-reset' id='performance'
+                        type="number" placeholder="공연 번호를 입력하세요" name='performance'>
+                </div>
+            </div>
+
+            <div class='form-group row'>
+                <label for='reviewDescription' class='col-sm-2 col-form-label'>후기내용</label>
+                <div class='col-sm-10'>
+                    <input class='form-control data-reset' id='reviewDescription'
+                        type='text' placeholder="내용을 입력하세요" name='reviewDescription'>
+                </div>
+            </div>
+
+<div class='form-group row'>
+<label for='reviewFiles1' class='col-sm-2 col-form-label'>공연후기사진/영상</label>
+<div id=fileDiv class='col-sm-10'>
+<input type="file" class="form-control-file" id="reviewFiles1" name="files">
+</div>
+</div>
+
+<div class='form-group row'>
+<label for='reviewFiles2' class='col-sm-2 col-form-label'>공연후기사진/영상</label>
+<div id=fileDiv class='col-sm-10'>
+<input type="file" class="form-control-file" id="reviewFiles2" name="files">
+</div>
+</div>
+
+<div class='form-group row'>
+<label for='reviewFiles3' class='col-sm-2 col-form-label'>공연후기사진/영상</label>
+<div id=fileDiv class='col-sm-10'>
+<input type="file" class="form-control-file" id="reviewFiles3" name="files">
+</div>
+</div>
+
+
+            <div class='form-group row my-view'>
+                <label for='viewcnt' class='col-sm-2 col-form-label'>조회수</label>
+                <div class='col-sm-10'>
+                    <input class='form-control' readonly id='viewcnt' type="number"
+                        name='viewcnt'>
+                </div>
+            </div>
+
+            <div class='form-group row my-view'>
+                <label for='regdate' class='col-sm-2 col-form-label'>등록일</label>
+                <div class='col-sm-10'>
+                    <input class='form-control' readonly id='regdate' type="date"
+                        name='regdate'>
+                </div>
+            </div>
+
+            <div class='form-group row'>
+                <div class='col-sm-10'>
+                    <button id="addBtn" type="button"
+                        class='btn btn-primary btn-sm my-new'>추가</button>
+                    <button id="updateBtn" type="button"
+                        class='btn btn-primary btn-sm my-view'>변경</button>
+                    <button id="deleteBtn" type="button"
+                        class='btn btn-primary btn-sm my-view'>삭제</button>
+                    <button id="findBtn" type="button"
+                        class='btn btn-primary btn-sm my-new'>찾기</button>
+                </div>
+            </div>
+        </form>
+
+        <footer></footer>
+    </div>
+
+    <script src='../node_modules/jquery/dist/jquery.min.js'></script>
+    <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+    <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+
+    <script type="text/javascript">
+
+var addBtn = $('#addBtn'),
+    findBtn = $('#findBtn'),
+    updateBtn = $('#updateBtn'),
+    deleteBtn = $('#deleteBtn'),
+    noItem = $('#reviewNo'),
+    memberNoItem = $('#memberNo'),
+    nickNameItem = $('#nickName'),
+    prfrmNameItem = $('#name'),
+    locationItem = $('#location'),
+    genreItem = $('#genre'),
+    entryDateItem = $('#entryDate'),
+    performanceNoItem = $('#performance'),
+    rvwDescItem = $('#reviewDescription'),
+    viewcntItem = $('#viewcnt'),
+    regdateItem = $('#regdate');
+//    fileItem = $('#reviewFiles');
+//    filedivItem = $('#fileDiv');
+    
+$('header').load('../header.html', () => {
+    load();
+});
+
+/* $('footer').load('../footer.html');
+ */
+function load() {
+    $.getJSON('../../json/performanceReview/form', function(result) {
+        $('#memberNo').val(result.loginUser.no),
+        $('#nickName').val(result.loginUser.nickName);
+        
+});
+    
+    var index = location.href.indexOf('?');
+    if (index != -1) { // 기존 데이터를 조회할 경우,
+        var qs = location.href.substr(index + 1);
+        var arr = qs.split('=');
+        $('.my-new').css('display', 'none');
+    } else { // 신규 데이터 입력일 경우,
+        $('.my-view').css('display', 'none');
+    }
+
+
+    
+    
+}
+    addBtn.click(() => {
+        
+        if (performanceNoItem.val() == 0) {
+            return alert('공연정보를 입력하세요');
+        }
+        var formData = new FormData($('#formData')[0]);
+        $.ajax('../../json/performanceReview/add', {
+            data: {
+                'writer.no': memberNoItem.val(),
+                'performance.no': performanceNoItem.val(),
+                reviewDescription: rvwDescItem.val(),
+                regdate: regdateItem.val()
+                
+                /* viewCount: viewcntItem.val() */
+            },
+            dataType: 'json',
+            method: 'POST',
+            success: () => {
+                location.href='list.html';
+                },
+            error: () => {
+                window.alert('서버 실행 오류!');
+            }
+        });
+    });
+    
+    findBtn.click(() => {
+        
+        if (performanceNoItem.val() == undefined) {
+            return alert('공연정보를 입력하세요');
+        }
+        $.ajax('../../json/performance/' + performanceNoItem.val(), {
+            dataType: 'json',
+            success: (result) => {
+                $('#name').val(result.data.name),
+                $('#location').val(result.data.location),
+                $('#genre').val(result.data.genre),
+                $('#entryDate').val(formatDate(result.data.entryDate))
+                },
+            error: () => {
+                window.alert('서버 실행 오류!');
+            }
+        });
+    });
+    
+    
+    
+    
+    
+    updateBtn.click(() => {
+        var formData = new FormData($('#formData')[0]);
+        $.ajax('../../json/performanceReview/update', {
+            data: {
+                reviewDescription: rvwDescItem.val(),
+                reviewNo: $('#reviewNo').val()
+                /*
+                viewCount: viewcntItem.val()
+                */
+            },
+            dataType: 'json',
+            method: 'POST',
+            success: () => {
+                location.href='list.html';
+                },
+            error: () => {
+                window.alert('서버 실행 오류!');
+            }
+        });
+    });
+
+    
+    deleteBtn.click(() => {
+        $.ajax('../json/performanceReview/delete', {
+            data: {
+                no: noItem.val()
+            },
+            dataType: 'json',
+            success: (result) => {
+                location.href = "list.html";
+            },
+            error: () => {
+                window.alert('삭제 중 서버 실행 오류!');
+            }
+        });
+    });
+    
+    
+
+    function formatDate(jason) {
+        var jasondate = new Date(jason),
+            yyyy=jasondate.getFullYear().toString(),
+            mm = (jasondate.getMonth() + 1).toString(),
+            dd = jasondate.getDate().toString();
+            
+        return yyyy +"-"+(mm[1] ? mm : '0'+mm[0])+"-"+(dd[1] ? dd : '0'+dd[0]);
+     }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+>>>>>>> branch 'master' of https://github.com/sorryisme/java100-3team.git
