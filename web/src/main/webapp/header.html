@@ -18,6 +18,7 @@
 var loginUser = {};
 
 $.getJSON('../json/auth/loginUser', function(result) {
+    
     if (result.status == 'fail') {
         location.href = '../auth/loginform.html';
         return;
@@ -27,7 +28,7 @@ $.getJSON('../json/auth/loginUser', function(result) {
     
     loginUser = result.loginUser;
     
-    $(document.body).trigger('login', {'status': 'success'});
+    $(document.body).trigger('login', {'status': loginUser});
 });
 
 $('#logoutBtn').click(() => {
