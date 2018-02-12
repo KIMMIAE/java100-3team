@@ -73,29 +73,29 @@ public class PerformanceReviewController {
             PerformanceReview performanceReview,
             /*MultipartFile[] files,*/
             HttpSession session) throws Exception {
-    	/*
-    	String uploadDir = servletContext.getRealPath("/download");
-    	ArrayList<ReviewFile> reviewFileList = new ArrayList<>();
+        /*
+        String uploadDir = servletContext.getRealPath("/download");
+        ArrayList<ReviewFile> reviewFileList = new ArrayList<>();
 
-		for (MultipartFile parts : files) {
-			if (parts.isEmpty())
-				continue;
+        for (MultipartFile parts : files) {
+            if (parts.isEmpty())
+                continue;
 
-			String filename = this.writeUploadFile(parts, uploadDir);
-			reviewFileList.add(new ReviewFile(filename));
+            String filename = this.writeUploadFile(parts, uploadDir);
+            reviewFileList.add(new ReviewFile(filename));
 
-		}
+        }
         performanceReview.setWriter(loginUser);
         performanceReview.setReviewFiles(reviewFileList);
         */
-//    	performanceReview.getWriter().setNo(loginUser.getNo());
-    	
-    	/*Member member = (Member)session.getAttribute("loginUser");
-    	performanceReview.setWriter(new Member());
-    	performanceReview.getWriter().setNo(member.getNo());
-*/    	
-    	performanceReview.toString();
-    	performanceReviewService.add(performanceReview);
+//      performanceReview.getWriter().setNo(loginUser.getNo());
+        
+        /*Member member = (Member)session.getAttribute("loginUser");
+        performanceReview.setWriter(new Member());
+        performanceReview.getWriter().setNo(member.getNo());
+*/      
+        System.out.println(performanceReview);
+        performanceReviewService.add(performanceReview);
         
         HashMap<String,Object> result = new HashMap<>();
         result.put("status", "success");
@@ -106,85 +106,91 @@ public class PerformanceReviewController {
     
     @RequestMapping("{no}")
     public Object view(@PathVariable int no) throws Exception {
-    	
-    	HashMap<String, Object> result = new HashMap<>();
-    	result.put("performanceReview", performanceReviewService.get(no));
-    	return result;
+        
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("performanceReview", performanceReviewService.get(no));
+        return result;
     }
     
     @RequestMapping("form")
     public Object form(HttpSession session) throws Exception {
-    	Member member = (Member)session.getAttribute("loginUser");
-    	HashMap<String, Object> result = new HashMap<>();
-    	result.put("loginUser", member);
-    	return result;
+        Member member = (Member)session.getAttribute("loginUser");
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("loginUser", member);
+        return result;
     }
 
-    /*
-	@RequestMapping("update")
-    public String update(
-            PerformanceReview performanceReview,Performance performance,String nickName, MultipartFile[] files) throws Exception {
-	     
-	     String uploadDir = servletContext.getRealPath("/download");
+    @RequestMapping("update")
+    public Object update(
+            PerformanceReview performanceReview/*, Performance performance,String nickName, MultipartFile[] files*/) throws Exception {
+        
+        /*
+         String uploadDir = servletContext.getRealPath("/download");
 
-	        // 업로드 파일 정보를 저장할 List 객체 준비
-	        ArrayList<ReviewFile> reviewUploadFile = new ArrayList<>();
-	        
-	        // 클라이언트가 보낸 파일을 저장하고, 
-	        // 그 파일명(저장할 때 사용한 파일명)을 목록에 추가한다.
-	        for (MultipartFile part : files) {
-	            if (part.isEmpty())
-	                continue;
-	            
-	            String filename = this.writeUploadFile(part, uploadDir);
-	            
-	            reviewUploadFile.add(new ReviewFile(filename));
-	        }
-	        
-	        // Board 객체에 저장한 파일명을 등록한다. 
-	        performanceReview.setReviewFiles(reviewUploadFile);
+            ArrayList<ReviewFile> reviewUploadFile = new ArrayList<>();
+            
+            for (MultipartFile part : files) {
+                if (part.isEmpty())
+                    continue;
+                
+                String filename = this.writeUploadFile(part, uploadDir);
+                
+                reviewUploadFile.add(new ReviewFile(filename));
+            }
+            
+            performanceReview.setReviewFiles(reviewUploadFile);
+        */
+        
+System.out.println(performanceReview + "<= 리뷰//");
+/*System.out.println(performance + "<= 공연//");
+System.out.println(nickName + "<= 닉네임//");*/
 
-	        performanceReviewService.update(performanceReview);
-	        return "redirect:list";
-	    }
+            performanceReviewService.update(performanceReview);
+            
+            HashMap<String, Object> result = new HashMap<>();
+            result.put("status", "succes");
+            
+            return result;
+        }
 
     @RequestMapping("delete")
     public String delete(int no) throws Exception {
-    	
+        
         performanceReviewService.delete(no);
         
         
         return "redirect:list";
     }
     
+    /*
     
     long prevMillis = 0;
     int count = 0;
     
     synchronized private String getNewFilename(String originalFilename) {
-    	long currMillis = System.currentTimeMillis();
-    	if (prevMillis != currMillis) {
-    		count = 0;
-    		prevMillis = currMillis;
-    	}
-    	return System.currentTimeMillis() + "_" + count++ + extractFileExtName(originalFilename);
+        long currMillis = System.currentTimeMillis();
+        if (prevMillis != currMillis) {
+            count = 0;
+            prevMillis = currMillis;
+        }
+        return System.currentTimeMillis() + "_" + count++ + extractFileExtName(originalFilename);
     }
     
     
     
     private String extractFileExtName(String originalFilename) {
-    	int dotposition = originalFilename.lastIndexOf(".");
-    	if (dotposition == -1)
-    		return "";
-    	
-    	return originalFilename.substring(dotposition);
+        int dotposition = originalFilename.lastIndexOf(".");
+        if (dotposition == -1)
+            return "";
+        
+        return originalFilename.substring(dotposition);
     }
     
     private String writeUploadFile(MultipartFile parts, String route) throws IOException {
-    	String filename = getNewFilename(parts.getOriginalFilename());
-    	parts.transferTo(new File(route + "/" + filename));
-    	
-    	return filename;
+        String filename = getNewFilename(parts.getOriginalFilename());
+        parts.transferTo(new File(route + "/" + filename));
+        
+        return filename;
     }
     */
     
