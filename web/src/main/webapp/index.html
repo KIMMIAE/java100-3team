@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
     <style>
         body{
             font-family: Noto Sans KR;
@@ -96,9 +96,12 @@
 <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script type="text/javascript">
-$('header').load('header.html');
+$('header').load('header.html', () => {
+load();
+});
 
 $('footer').load('../footer.html');
+
 
 
 </script>

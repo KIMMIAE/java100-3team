@@ -19,7 +19,7 @@
     <input id="words" name="words"
            class="form-control form-control-sm mr-sm-2" type="search" 
            placeholder="검색" aria-label="Search">
-    <button id="searchBtn" class="btn btn-sm btn-outline-success my-2 my-sm-0" 
+    <button id="searchBtn" class="searchBtn btn-sm btn-outline-success my-2 my-sm-0" 
             type="button">Search</button>
   </form>
 </nav>
@@ -76,7 +76,6 @@ $('footer').load('../footer.html');
 
 
 addBtn.click (() => {
-    console.log('로그인 정보 가져오기:', loginUser.type);
     if (loginUser.type == '아티스트') {
         location.href = "form.html";
     } else {
@@ -113,7 +112,7 @@ function load(pageNo, options) {
             
             tbody.html("");
             
-            //loginUser = result.loginUser;
+            loginUser = result.loginUser;
             
             var filename;
             for (var data of result.list) {

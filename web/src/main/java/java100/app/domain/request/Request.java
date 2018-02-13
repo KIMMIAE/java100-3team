@@ -16,6 +16,15 @@ public class Request {
     protected Date regDate;
 
     protected Member writer;
+    
+
+
+    @Override
+    public String toString() {
+        return "Request [no=" + no + ", title=" + title + ", detailDesc=" + detailDesc + ", genre=" + genre
+                + ", entryDate=" + entryDate + ", location=" + location + ", specialDesc=" + specialDesc
+                + ", viewCount=" + viewCount + ", regDate=" + regDate + ", writer=" + writer + "]";
+    }
 
     public int getNo() {
         return no;
@@ -52,7 +61,7 @@ public class Request {
     }
 
     public Date getEntryDate() {
-        System.out.println(entryDate + "=> getEntryDate");
+        /*System.out.println(entryDate + "=> getEntryDate");*/
         return entryDate;
     }
 
