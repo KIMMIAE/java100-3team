@@ -1,3 +1,4 @@
+
 <div class="main-nav">
 <img src="../index-image/play-button.png">
 <div class="nav-right"><span id="username"></span>님
@@ -14,6 +15,9 @@
 <div class="clearfix"></div>
 
 <script type="text/javascript">
+
+var loginUser = {};
+
 $.getJSON('../json/auth/loginUser', function(result) {
     if (result.status == 'fail') {
         location.href = '../auth/loginform.html';
@@ -21,6 +25,10 @@ $.getJSON('../json/auth/loginUser', function(result) {
     }
     
     $('#username').html(result.loginUser.nickName);
+    
+    loginUser = result.loginUser;
+    
+    $(document.body).trigger('login', {'status': 'success'});
 });
 
 $('#logoutBtn').click(() => {

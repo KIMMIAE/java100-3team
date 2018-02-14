@@ -115,8 +115,6 @@ public class LoginController {
         
         Member member = (Member)session.getAttribute("loginUser");
         
-        System.out.println(member);
-        
         HashMap<String,Object> result = new HashMap<>();
         
         if (member != null) {
