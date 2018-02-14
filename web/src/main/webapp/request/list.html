@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -11,7 +11,7 @@
 
 <header></header>
 
-<h1>공연 요청 게시물 목록</h1>
+<h1>공연 요청 목록</h1>
 
 <nav class="navbar navbar-light justify-content-between">
   <a href='form.html' class='btn btn-primary btn-sm'>추가</a>
@@ -57,6 +57,7 @@
 
 <script type="text/javascript">
 var words = $('#words'),
+    searchBtn = $('#searchBtn'),
     prevBtn = $('#prevBtn'),
     currBtn = $('#currBtn'),
     nextBtn = $('#nextBtn'),
@@ -72,6 +73,13 @@ $('footer').load('../footer.html');
 
 
 $('#searchBtn').click(() => {
+    //event.preventDefault();
+    load(1, {
+        "words": words.value
+    })
+});
+
+searchBtn.click(() => {
     //event.preventDefault();
     load(1, {
         "words": words.value

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지관리</title>
+<title>공지 게시판</title>
 <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link rel='stylesheet' href='../css/common.css'>
 </head>
@@ -57,6 +57,7 @@
 
 <script type="text/javascript">
 var words = $('#words'),
+    searchBtn = $('#searchBtn'),
     prevBtn = $('#prevBtn'),
     currBtn = $('#currBtn'),
     nextBtn = $('#nextBtn'),
@@ -71,7 +72,7 @@ $('header').load('../header.html', () => {
 $('footer').load('../footer.html');
 
 
-$('#searchBtn').click(() => {
+searchBtn.click(() => {
     //event.preventDefault();
     load(1, {
         "words": words.value
@@ -88,14 +89,16 @@ nextBtn.click(() => {
 
 
 function load(pageNo, options) {
-    
     if (options == undefined) options = {};
     options.pn = pageNo;
-    
+    $.getJSON('../json/auth/loginUser', function(result) {
+        loginUser = result.loginUser;
+    });
     $.ajax('../json/notice/list', {
         /* method: 'GET', */
         data: options,
         dataType: 'json',
+        
         success: (result) => {
             
             tbody.html(""); // <tbody> 콘텐츠를 지운다.
@@ -140,6 +143,8 @@ function load(pageNo, options) {
         }
     
 }
+
+
 
 
 </script>

@@ -8,31 +8,62 @@
 </head>
 <body>
 <div class='container'>
+<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<a class="navbar-brand" href="http://localhost:9999/app/index.html">
+  <img src="../images/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+  비트캠프
+</a>
 
-<header></header>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav mr-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="http://localhost:9999/app/member/list">회원정보</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="http://localhost:9999/app/performance/list">공연정보</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="http://localhost:9999/app/request/list">공연요청</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="http://localhost:9999/app/sponsor/list">공연후원</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link" href="http://localhost:9999/app/notice/list">공지사항</a>
+  </li>
+</ul>
+
+admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm">로그아웃</a>
+    </div>
+</nav>
+</header>
 
 <h1>공지등록</h1>
 
 <form>
 
 <div class='form-group row'>
-<label for='noticeTitle' class='col-sm-2 col-form-label'>번호</label>
+<label for='no' class='col-sm-2 col-form-label'>번호</label>
 <div class='col-sm-10'>
-<input class='form-control' readonly id='no' type='number' name='noticeTitle'>
+<input class='form-control' readonly id='no' type='number' name='no'>
 </div>
 </div>
 
 <div class='form-group row'>
 <label for='noticeTitle' class='col-sm-2 col-form-label'>공지제목</label>
 <div class='col-sm-10'>
-<input class='form-control' id='title' type='text' name='noticeTitle'>
+<input class='form-control' id='noticeTitle' type='text' name='noticeTitle'>
 </div>
 </div>
 
 <div class='form-group row'>
-<label for='no' class='col-sm-2 col-form-label'>공지내용</label>
+<label for='noticeDescription' class='col-sm-2 col-form-label'>공지내용</label>
 <div class='col-sm-10'>
-<input class='form-control' id='description' type='text' name='no'>
+<input class='form-control' id='noticeDescription' type='text' name='noticeDescription'>
 </div>
 </div>
 
@@ -50,13 +81,12 @@
 </div>
 </div>
 
-<!-- 
-<div class='form-group row'>
+<!-- <div class='form-group row'>
 <label for='noticeDate' class='col-sm-2 col-form-label'>공지날짜</label>
 <div class='col-sm-10'>
 <input class='form-control' id='date' type='date' name='noticeDate'>
 </div>
-</div> -->
+</div>  -->
 
 <div class='form-group row'>
 <div class='col-sm-10'>
@@ -67,10 +97,12 @@
 </div>
 </form>
 
-<footer></footer>
+<footer>
+    비트캠프 자바100기@2017
+</footer>
 </div>
 
-<script src='../node_modules/jquery/dist/jquery.slim.min.js'></script>
+<script src='../node_modules/jquery/dist/jquery.min.js'></script>
 <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 
@@ -83,11 +115,11 @@ var addBtn = $('#addBtn'),
     noticeDateItem = $('#noticeDate'),
     memberItem = $('#member'),
     noticeTitleItem = $('#noticeTitle'),
-    noticeDescriptionItem = $('#noticeDescription');
-    /* noticeDateItem = $('#noticeDate') */
-
+    noticeDescriptionItem = $('#noticeDescription'),
+    noticeDateItem = $('#noticeDate')
+/* 
 $('header').load('../header.html');
-$('footer').load('../footer.html');
+$('footer').load('../footer.html'); */
 
 var index = location.href.indexOf('?');
 if (index != -1) { // 기존 데이터를 조회할 경우,
@@ -102,9 +134,8 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
                 noticeTitleItem.val(result.data.noticeTitle);
                 noticeDescriptionItem.val(result.data.noticeDescription);
                 viewCountItem.val(result.data.viewCount);
-                noticeDateItem.val(result.data.noticeDate);
+                noticeDateItem.val(formatDate(result.data.noticeDate));
                 memberItem.val(result.data.member);
-                
             },
             error: () => {
                 window.alert('서버 실행 오류!');
@@ -116,15 +147,14 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
     $('.my-view').css('display', 'none');
 }
 
-
 addBtn.click(() => {
     $.ajax('../json/notice/add', {
         data: {
-            noItem.val(),
-            noticeTitleItem.val(),
-            noticeDescriptionItem.val(),
-            viewCountItem.val(),
-            noticeDateItem.val()
+           /*  no : noItem.val(), */
+            noticeTitle : noticeTitleItem.val(),
+            noticeDescription : noticeDescriptionItem.val()
+          /*   viewCount : viewCountItem.val(),
+            noticeDate :noticeDateItem.val() */
         },
         dataType: 'json',
         method: 'POST',
@@ -132,7 +162,7 @@ addBtn.click(() => {
             location.href = "list.html";
         },
         error: () => {
-            window.alert('서버 실행 오류!');
+            window.alert('공지사항 추가 실행 오류!');
         }
     });
 });
@@ -140,19 +170,19 @@ addBtn.click(() => {
 updateBtn.click(() => {
     $.ajax('../json/notice/update', {
         data: {
-            noItem.val(),
-            noticeTitleItem.val(),
-            noticeDescriptionItem.val(),
-            viewCountItem.val(),
-            noticeDateItem.val()
+            no : noItem.val(),
+            noticeTitle : noticeTitleItem.val(),
+            noticeDescription : noticeDescriptionItem.val(),
+            viewCount : viewCountItem.val(),
+            noticeDate : noticeDateItem.val()
         },
         dataType: 'json',
         method: 'POST',
         success: (result) => {
-            location.href = "list.html";
+             location.href = "list.html"; 
         },
         error: () => {
-            window.alert('서버 실행 오류!');
+            window.alert('공지사항 변경 실행 오류!');
         }
     });
 });
@@ -160,17 +190,38 @@ updateBtn.click(() => {
 deleteBtn.click(() => {
     $.ajax('../json/notice/delete', {
         data: {
-            no: noItem.val()
+            no : noItem.val()
         },
         dataType: 'json',
         success: (result) => {
             location.href = "list.html";
         },
         error: () => {
-            window.alert('서버 실행 오류!');
+            window.alert('공지사항 삭제 실행 오류!');
         }
     });
-});
+}); 
+
+function formatDate(jason) {
+    var jasondate = new Date(jason),
+        yyyy=jasondate.getFullYear().toString(),
+        mm = (jasondate.getMonth() + 1).toString(),
+        dd = jasondate.getDate().toString();
+        
+    return yyyy +"-"+(mm[1] ? mm : '0'+mm[0])+"-"+(dd[1] ? dd : '0'+dd[0]);
+ }
+ 
+function load(pageNo, options) {
+    
+    if (options == undefined) options = {};
+    options.pn = pageNo;
+    
+$.getJSON('../json/auth/loginUser', function(result) {
+        loginUser = result.loginUser;
+    });
+}
+
+
 
 
 

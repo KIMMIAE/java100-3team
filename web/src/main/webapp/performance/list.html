@@ -55,7 +55,7 @@
 
 
 <script type="text/javascript">
-var loginUser = {},
+var //loginUser = {},
     words = $('#words'),
     addBtn = $('#addBtn'),
     searchBtn = $('#searchBtn'),
@@ -65,17 +65,18 @@ var loginUser = {},
     tbody = $('#list > tbody'),
     currPageNo = 1;
 
-$('header').load('../header.html', () => {
+$(document.body).on('login', (event, obj) => {
+    console.log('로그인 정보 가져오기:', loginUser.type);
     load(1);
 });
+
+$('header').load('../header.html');
 
 $('footer').load('../footer.html');
 
 
 addBtn.click (() => {
-    console.log(loginUser.type);
     if (loginUser.type == '아티스트') {
-        alert("아티스트 입니다.");
         location.href = "form.html";
     } else {
         alert("아티스트가 아닙니다.");

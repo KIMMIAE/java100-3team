@@ -35,7 +35,6 @@ public class PerformanceController {
     
     @RequestMapping("list")
     public Object list(
-            HttpSession session,
             @RequestParam(value="pn", defaultValue="1") int pageNo,
             @RequestParam(value="ps", defaultValue="5") int pageSize,
             @RequestParam(value="words", required=false) String[] words,
@@ -64,12 +63,9 @@ public class PerformanceController {
         }
         
         HashMap<String,Object> result = new HashMap<>();
-        Member member = new Member();
-        member = (Member) session.getAttribute("loginUser");
         result.put("pageNo", pageNo);
         result.put("lastPageNo", lastPageNo);
         result.put("list", performanceService.list(pageNo, pageSize, options));
-        result.put("loginUser", member);
         
         return result;
     }
