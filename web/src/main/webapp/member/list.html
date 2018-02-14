@@ -2,46 +2,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>성적관리</title>
+<title>회원관리</title>
 <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../css/common.css'>
+<link rel='stylesheet' href='../css/style1.css'>
 </head>
 <body>
 <div class='container'>
 
-<header>
-<nav class='navbar navbar-expand-lg navbar-light bg-light'>
-<a class='navbar-brand' href='../index.html'>
-  <img src='../images/bootstrap-solid.svg' width='30' height='30' class='d-inline-block align-top' alt=''>
-  비트캠프
-</a>
+<header></header>
 
-<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation'>
-  <span class='navbar-toggler-icon'></span>
-</button>
-<div class='collapse navbar-collapse' id='navbarNav'>
-<ul class='navbar-nav mr-auto'>
-  <li class='nav-item'>
-    <a class='nav-link' href='../score/list.html'>성적</a>
-  </li>
-  <li class='nav-item'>
-    <a class='nav-link' href='../member/list.html'>회원</a>
-  </li>
-  <li class='nav-item'>
-    <a class='nav-link' href='../board/list.html'>게시판</a>
-  </li>
-  <li class='nav-item'>
-    <a class='nav-link' href='../room/list.html'>강의실</a>
-  </li>
-</ul>
-
-홍길동<a href="../app/auth/logout" 
-           class='btn btn-light btn-sm'>로그아웃</a>
-    </div>
-</nav>
-</header>
-
-<h1>성적 목록</h1>
+<h3>회원 목록</h3>
 
 <nav class="navbar navbar-light justify-content-between">
   <a href='form.html' class='btn btn-primary btn-sm'>추가</a>
@@ -77,9 +47,7 @@
   </ul>
 </nav>
 
-<footer>
-    비트캠프 자바100기@2017
-</footer>
+<footer></footer>
 </div>
 
 <script src='../node_modules/jquery/dist/jquery.min.js'></script>
@@ -94,6 +62,12 @@ var words = $('#words'),
     nextBtn = $('#nextBtn'),
     tbody = $('#list > tbody'),
     currPageNo = 1;
+
+$('header').load('../header.html', () => {
+    load(1);
+});
+
+$('footer').load('../footer.html');
 
 // 서버에서 목록 데이터를 가져온다.
 load(1);
@@ -112,17 +86,12 @@ prevBtn.click(() => {
 nextBtn.click(() => {
     load(currPageNo + 1)
 });
-
-
 function formatDate(jason) {
 var jasondate = new Date(jason) 
-
 return jasondate.getFullYear() + '년 ' + 
   (jasondate.getMonth() + 1) + '월 ' + 
   jasondate.getDate() + '일 '  
 }
-
-
 function load(pageNo, options) {
     
     if (options == undefined) options = {};
@@ -139,16 +108,20 @@ function load(pageNo, options) {
             console.log(result.list)
             
             for (var data of result.list) {
-                var check = (data.type == "일반회원" ? "미입력" : data.artist.artistName)
+                if (data.type == "관리자") {
+                	continue;
+                }
+            	/* var check = (data.type == "관리자" || "일반회원" ? "미입력" : data.artist.artistName) */
+                var check = (data.type == "아티스트" ? data.artist.artistName : "미입력")
                 
                 $('<tr>')
                     .html(  
-	                    "<td>" + data.no + "</td>" + 
-	                    "<td><a href='form.html?no=" + data.no + "'>" + data.nickName + "</a></td>" + 
-	                    "<td>" + data.email + "</td>" +
-	                    "<td>" + data.type + "</td>" +
-	                    "<td>" + check + "</td>" +
-	                   /*  "<td>" + data.regDate + "</td>") */
+                        "<td>" + data.no + "</td>" + 
+                        "<td><a href='form.html?no=" + data.no + "'>" + data.nickName + "</a></td>" + 
+                        "<td>" + data.email + "</td>" +
+                        "<td>" + data.type + "</td>" +
+                        "<td>" + check + "</td>" +
+                       /*  "<td>" + data.regDate + "</td>") */
                         "<td>" + formatDate(data.regDate) + "</td>")
                     .appendTo(tbody);
             }
@@ -173,22 +146,9 @@ function load(pageNo, options) {
         }
     });
 }
-
-
 </script>
 
 
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-

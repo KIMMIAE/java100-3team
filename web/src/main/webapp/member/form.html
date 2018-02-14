@@ -6,6 +6,8 @@
 <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link rel='stylesheet' href='../css/common.css'>
 </head>
+<body>
+
 <div class='container'>
 
 <header>
@@ -21,19 +23,19 @@
 <div class="collapse navbar-collapse" id="navbarNav">
 <ul class="navbar-nav mr-auto">
   <li class="nav-item">
-    <a class="nav-link" href="http://localhost:9999/app/member/list">회원정보</a>
+    <a class="nav-link" href="../member/list.html">회원정보</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="http://localhost:9999/app/performance/list">공연정보</a>
+    <a class="nav-link" href="../performance/list.html">공연정보</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="http://localhost:9999/app/request/list">공연요청</a>
+    <a class="nav-link" href="../request/list.html">공연요청</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="http://localhost:9999/app/sponsor/list">공연후원</a>
+    <a class="nav-link" href="../sponsor/list.html">공연후원</a>
   </li>
     <li class="nav-item">
-    <a class="nav-link" href="http://localhost:9999/app/notice/list">공지사항</a>
+    <a class="nav-link" href="../notice/list.html">공지사항</a>
   </li>
 </ul>
 
@@ -41,9 +43,11 @@ admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm
     </div>
 </nav>
 </header>
-<h3>회원 상세 정보</h3>
 
+<h3 class="my-new">회원 등록</h3>
+<h3 class="my-view">회원 정보 수정</h3>
 <form id='formData'>
+
 <div class='form-group row'>
 <label for='file' class='col-sm-2 col-form-label'>사진</label>
 <div class='col-sm-10'>
@@ -211,9 +215,7 @@ admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm
 </div>
 </form>
 
-<footer>
-    비트캠프 자바100기@2017
-</footer>
+<footer></footer>
 </div>
 
 <script src='../node_modules/jquery/dist/jquery.min.js'></script>
@@ -237,10 +239,17 @@ var addBtn = $('#addBtn'),
     artistNameItem = $('#artistName'),
     artistMemberItem = $('#artistMember'),
     profileItem = $('#profile'),
-    joinDateItem = $('#joinDate');/*,
+    joinDateItem = $('#joinDate'),
+    loginUser = {};/*,
     interestAreasItem = $("input:checkbox[name=checkParam]:checked");
     interestgenresItem = []; */
 
+    $('footer').load('../footer.html');
+    
+    $.getJSON('../json/auth/loginUser', function(result) {
+            loginUser = result.loginUser;
+    });
+    
 $("#messageIdDiv").hide();
 
 $("#messageFlag1").click(function(){
@@ -265,7 +274,6 @@ var index = location.href.indexOf('?');
 if (index != -1) { // 기존 데이터를 조회할 경우,
     var qs = location.href.substr(index + 1);
     var arr = qs.split('=');
-   
     
     $('.my-new').css('display', 'none');
     $(() => {
@@ -289,6 +297,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
                 
                 if (result.member.type == "아티스트") {
                     type2Item.prop("checked", true);
+                    
                     $("#artistInfoDiv").show(); 
                     artistNameItem.val(result.member.artist.artistName);
                     artistMemberItem.val(result.member.artist.artistMember);
@@ -421,7 +430,7 @@ if ($("input[name='type']:checked").val() == '아티스트') {
 }
 
 if ($("input[name='areas']:checked").val() == null || 
-		$("input[name='genres']:checked").val() == null) {
+       $("input[name='genres']:checked").val() == null) {
    alert("관심 장르와 지역은 반드시 1개 이상 체크해주세요.")
    return;
 }
@@ -540,6 +549,7 @@ deleteBtn.click(() => {
     });
 });
 </script>
+</body>
 </html>
 
 

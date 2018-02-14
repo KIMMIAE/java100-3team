@@ -1,0 +1,61 @@
+@charset "utf-8";
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
+@import url('https://fonts.googleapis.com/css?family=Roboto');  
+
+
+*{margin:auto; padding:0;}
+a { text-decoration: none; color: #222;}
+body { 
+    background-color: #fff; 
+    font-family: 'Nanum Gothic', 'Roboto';
+    color: #222;
+    font-size: 14px;
+    line-height: 25px;
+}
+.container {
+    width: 1200px;
+    margin: auto;
+    margin-top: 100px;
+}
+.main-nav > li{
+    font-size: 25px;
+    padding-bottom: 10px;
+    
+}
+.left-nav li{
+    list-style: none;
+    padding-left: 15px;
+}
+hr{
+    width: 700px;
+    margin: auto;
+}
+/* left */
+.left-nav{
+    border-bottom: 1px solid lightgray;
+}
+
+.sub-nav{
+    padding-left: 15px;
+}
+
+.left-nav{
+    float:left;
+    width:150px;
+}
+/* right */
+.right-content{
+    width:1050px;
+    padding-left:50px;
+}
+
+.form-group{
+    width:700px;
+    margin: auto;
+}
+
+.form-control{
+    width:700px;
+    margin: 5px;
+}

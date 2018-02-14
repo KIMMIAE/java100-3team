@@ -25,6 +25,7 @@ public interface MemberService {
     int getGenreCnt(int no);
     List<InterestGenre> getInterestGenre(int no);
     Member get(String email, String password);
+    public Member get(String email);
     int getTotalCount();
     int add(Member member);
     int update(Member member);

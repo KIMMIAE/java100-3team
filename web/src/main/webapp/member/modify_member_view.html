@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>마이 페이지</title>
+<link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+<link rel='stylesheet' href='../css/member.css'>
+</head>
+<body>
+	<div class="container">
+     <header></header>
+	    <div class="left-nav">
+            <ul class="main-nav">
+                <li>청포도 정보</li>
+                    <ul class="sub-nav">
+                        <li><a href="../grape/form.html" >청보도 충전</a></li>
+                        <li><a href="../grape/grape.html" onclick="">충전/후원 내역</a></li>
+                    </ul>
+            </ul>
+        </div>
+        
+<div class="right-content">
+<form id='formData'>
+<!-- <h3 class="form-group my-new">회원 등록</h3> -->
+<h3 class="form-group my-view">회원 정보 수정</h3>
+
+<div class='form-group row'>
+<label for='file' class='col-sm-2 col-form-label'>사진</label>
+<div class='col-sm-10'>
+<input type="file" class="form-control-file" name="file">
+</div>
+</div>
+
+<div class='form-group row my-view'>
+<label for='no' class='col-sm-2 col-form-label'>번호</label>
+<div class='col-sm-10'>
+<input class='form-control' readonly id='no' type='number' 
+       name='no'> 
+</div>
+</div>
+
+<div class='form-group row'>
+<label for='email' class='col-sm-2 col-form-label'>이메일</label>
+<div class='col-sm-10'>
+<input class='form-control' id='email' type='text' name='email'>
+</div>
+</div>
+
+<div class='form-group row'>
+<label for='password' class='col-sm-2 col-form-label'>암호</label>
+<div class='col-sm-10'>
+<input class='form-control' id='password' type='password' name='password'>
+</div>
+</div>
+
+<div class='form-group row'>
+<label for='nickName' class='col-sm-2 col-form-label'>닉네임</label>
+<div class='col-sm-10'>
+<input class='form-control' id='nickName' type='text' name='nickName'>
+</div>
+</div>
+
+<div class='form-group row'>
+<label for='messageFlag' class='col-sm-2 col-form-label'>메세지 수신</label>
+<div class='col-sm-10' id='messageFlag'>
+    <input type="radio" id="messageFlag1" name="messageFlag" value="1">
+    <label for="messageFlag">수신</label>
+    <input type="radio" id="messageFlag2" name="messageFlag" value="0">
+    <label for="messageFlag">거부</label>
+</div>
+</div>
+
+<div class='form-group row' id='messageIdDiv'>
+<label for='messageId' class='col-sm-2 col-form-label'>메세지 수신 아이디</label>
+<div class='col-sm-10'>
+<input class='form-control' id='messageId' type='text' name='messageId' value="">
+</div>
+</div>
+
+<div class='form-group row'>
+<label for='type' class='col-sm-2 col-form-label'>가입자 유형</label>
+<div class='col-sm-10'>
+    <input type="radio" id="type1" name="type" value="일반회원" >
+    <label for="type">일반회원</label>
+
+    <input type="radio" id="type2" name="type" value="아티스트" >
+    <label for="type">아티스트</label>
+</div>
+</div>
+
+<!-- 아티스트 회원 정보 -->
+<div id='artistInfoDiv'>
+<div class='form-group row'>
+<label for='artistName' class='col-sm-2 col-form-label'>아티스트/팀명</label>
+<div class='col-sm-10'>
+<input class='form-control' id='artistName' type='text' name='artist.artistName' value="">
+</div>
+</div>
+
+<div class='form-group row'>
+<label for='artistMember' class='col-sm-2 col-form-label'>팀구성원</label>
+<div class='col-sm-10'>
+<input class='form-control' id='artistMember' type='text' name='artist.artistMember' value="">
+</div>
+</div>
+
+<div class='form-group row'>
+<label for='profile' class='col-sm-2 col-form-label'>프로필</label>
+<div class='col-sm-10'>
+<input class='form-control' id='profile' type='text' name='artist.profile' value="">
+</div>
+</div>
+
+<div class='form-group row'>
+<label for='joinDate' class='col-sm-2 col-form-label'>팀결성날짜</label>
+<div class='col-sm-10'>
+<input class='form-control' id='joinDate' type='date' name='artist.joinDate' value="">
+</div>
+</div>
+</div>
+<!-- 아티스트 회원 정보 끝 -->
+
+
+<div class='form-group row'>
+<label for='interestArea' class='col-sm-2 col-form-label'>관심 지역</label>
+
+<div class='col-sm-10'>
+    
+    <input type='checkbox' id='areas1' name='areas' value='홍대'>
+    <label for='areas'>홍대</label>
+    
+    <input type='checkbox' id='areas2' name='areas' value='대학로'>
+    <label for='areas'>대학로</label>
+    
+    <input type='checkbox' id='areas3' name='areas' value='신촌'>
+    <label for='areas'>신촌</label>
+    
+    <input type='checkbox' id='areas4' name='areas' value='건대'>
+    <label for='areas'>건대</label>
+    
+    <input type='checkbox' id='areas5' name='areas' value='한강공원'>
+    <label for='areas'>한강공원</label>
+    
+    <input type='checkbox' id='areas6' name='areas' value='뚝섬유원지'>
+    <label for='areas'>뚝섬유원지</label>
+    
+    <input type='checkbox' id='areas7' name='areas' value='보라매'>
+    <label for='areas'>보라매</label>
+    
+    <input type='checkbox' id='areas8' name='areas' value='신림역'>
+    <label for='areas'>신림역</label>
+</div>
+</div>
+
+<div class='form-group row'>
+<label for='interestgenres' class='col-sm-2 col-form-label'>관심 장르</label>
+
+<div class='col-sm-10'>
+    <input type='checkbox' id='genre1' name='genres' value='솔로'>
+    <label for='genres'>솔로</label>
+    
+    <input type='checkbox' id='genre2' name='genres' value='그룹'>
+    <label for='genres'>그룹</label>
+    
+    <input type='checkbox' id='genre3' name='genres' value='발라드'>
+    <label for='genres'>발라드</label>
+    
+    <input type='checkbox' id='genre4' name='genres' value='R & B'>
+    <label for='genres'>R & B</label>
+    
+    <input type='checkbox' id='genre5' name='genres' value='락'>
+    <label for='genres'>락</label>
+    
+    <input type='checkbox' id='genre6' name='genres' value='랩'>
+    <label for='genres'>랩</label>
+    
+    <input type='checkbox' id='genre7' name='genres' value='개그'>
+    <label for='genres'>개그</label>
+    
+    <input type='checkbox' id='genre8' name='genres' value='마술'>
+    <label for='genres'>마술</label>
+</div>
+</div>
+
+
+<div class='form-group row'>
+<div class='col-sm-10'>
+<button id="addBtn" type="button" class='btn btn-primary btn-sm my-new'>추가</button>
+<button id="updateBtn" type="button" class='btn btn-primary btn-sm my-view'>변경</button>
+<button id="deleteBtn" type="button" class='btn btn-primary btn-sm my-view'>삭제</button>
+</div>
+</div>
+</form>
+
+</div> <!-- /right-content -->
+
+<footer></footer>
+</div>
+
+
+<script src='../node_modules/handlebars/dist/handlebars.min.js'></script>
+<script src='../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script id="template1" type="text/x-handlebars-template">
+{{#each list}}
+<tr>
+  <td><a href="form.html?no={{greenGrapeNo}}">{{greenGrapeNo}}</a></td>
+  <td>{{chrCount}}</td>
+  <td>{{chrAmount}}</td>
+   <td>{{chrMethod}}</td>
+   <td>{{prettifyDate chrDate}}</td>
+</tr>
+
+
+{{/each}}
+
+</script>
+<script type="text/javascript">
+var words = $('#words'),
+prevBtn = $('#prevBtn'),
+currBtn = $('#currBtn'),
+nextBtn = $('#nextBtn'),
+tbody = $('#list > tbody'),
+currPageNo = 1, 
+template1Src = $('#template1').html(),
+template1Engine = Handlebars.compile(template1Src);
+
+Handlebars.registerHelper("prettifyDate", function(timestamp) {
+var timestamp = new Date(timestamp);
+return timestamp.getFullYear() + '년 ' + 
+(timestamp.getMonth() + 1) + '월 ' + 
+timestamp.getDate() + '일 '  
+});
+
+
+
+load(1);
+
+prevBtn.click(() => {
+load(currPageNo - 1)
+});
+
+nextBtn.click(() => {
+load(currPageNo + 1)
+});
+
+
+function load(pageNo, options) {
+    if (options == undefined) options = {};
+    options.pn = pageNo;
+
+ 
+    $.ajax('../json/grape/list', {
+        method: 'GET',
+        dataType: 'json',
+        success: (result) => {
+            tbody.html(template1Engine(result));
+             $('#grapeSum').val(result.sum) 
+            
+            
+                currPageNo = result.pageNo;
+                currBtn.html(currPageNo);
+                
+                if (result.pageNo == 1) {
+                    $(prevBtn.parent()).addClass("disabled");
+                } else {
+                    $(prevBtn.parent()).removeClass("disabled");
+                }
+                
+                if (result.lastPageNo == result.pageNo) {
+                    $(nextBtn.parent()).addClass("disabled");
+                } else {
+                    $(nextBtn.parent()).removeClass("disabled");
+                }
+            },
+            error: () => {
+                /*window.alert('서버 실행 오류!');*/
+            }
+    });
+}
+
+
+var addBtn = $('#addBtn'),
+updateBtn = $('#updateBtn'),
+deleteBtn = $('#deleteBtn'),
+noItem = $('#no'),
+emailItem = $('#email'),
+passwordItem = $('#password'),
+nickNameItem = $('#nickName'),
+messageFlag1Item = $('#messageFlag1'),
+messageFlag2Item = $('#messageFlag2'),
+messageIdItem = $('#messageId'),
+type1Item = $("#type1"),
+type2Item = $("#type2"),
+artistNameItem = $('#artistName'),
+artistMemberItem = $('#artistMember'),
+profileItem = $('#profile'),
+joinDateItem = $('#joinDate'),
+loginUser = {};/*,
+interestAreasItem = $("input:checkbox[name=checkParam]:checked");
+interestgenresItem = []; */
+
+$('footer').load('../footer.html');
+
+$.getJSON('../json/auth/loginUser', function(result) {
+        loginUser = result.loginUser;
+});
+
+$("#messageIdDiv").hide();
+
+$("#messageFlag1").click(function(){
+$("#messageIdDiv").show();
+});
+
+$("#messageFlag2").click(function(){
+$("#messageIdDiv").hide();
+});
+
+$("#artistInfoDiv").hide();
+
+$("#type1").click(function(){
+$("#artistInfoDiv").hide();
+});
+
+$("#type2").click(function(){
+$("#artistInfoDiv").show();
+});
+
+var index = location.href.indexOf('?');
+if (index != -1) { // 기존 데이터를 조회할 경우,
+var qs = location.href.substr(index + 1);
+var arr = qs.split('=');
+
+$('.my-new').css('display', 'none');
+$(() => {
+    $.ajax('../json/member/' + arr[1], {
+        dataType: 'json',
+        success: (result) => {
+
+            noItem.val(result.member.no);
+            emailItem.val(result.member.email);
+            passwordItem.val(result.member.password);
+            nickNameItem.val(result.member.nickName);
+            
+            if (result.member.messageFlag == '1') {
+                messageFlag1Item.attr('checked', 'checked');
+                $("#messageIdDiv").show();
+            } else {
+                messageFlag2Item.attr('checked', 'checked');
+            }
+            
+            messageIdItem.val(result.member.messageId);
+            
+            if (result.member.type == "아티스트") {
+                type2Item.prop("checked", true);
+                
+                $("#artistInfoDiv").show(); 
+                artistNameItem.val(result.member.artist.artistName);
+                artistMemberItem.val(result.member.artist.artistMember);
+                profileItem.val(result.member.artist.profile);
+                joinDateItem.val(formatDate(result.member.artist.joinDate));
+                
+            } else {
+                
+                type1Item.prop("checked", true);
+            
+            }
+            
+                
+        var areas = [];
+        var i = 0;
+        for (var info of result.arealist) {
+            areas[i++] = info.areaName;
+            
+            var objAreas = document.getElementsByName("areas");
+            for (i=0; i < objAreas.length; i++) {
+                for (j=0; j < areas.length; j++) {
+                    if (objAreas[i].value == "홍대" && areas[j] == "홍대") {
+                        objAreas[i].checked = true;
+                    }
+                    if (objAreas[i].value == "대학로" && areas[j] == "대학로") {
+                        objAreas[i].checked = true;
+                    }
+                    if (objAreas[i].value == "신촌" && areas[j] == "신촌") {
+                        objAreas[i].checked = true;
+                    }
+                    if (objAreas[i].value == "건대" && areas[j] == "건대") {
+                        objAreas[i].checked = true;
+                    }
+                    if (objAreas[i].value == "한강공원" && areas[j] == "한강공원") {
+                        objAreas[i].checked = true;
+                    }
+                    if (objAreas[i].value == "뚝섬유원지" && areas[j] == "뚝섬유원지") {
+                        objAreas[i].checked = true;
+                    }
+                    if (objAreas[i].value == "보라매" && areas[j] == "보라매") {
+                        objAreas[i].checked = true;
+                    }
+                    if (objAreas[i].value == "신림역" && areas[j] == "신림역") {
+                        objAreas[i].checked = true;
+                    }
+                }
+            }
+
+        }
+
+        var genres = [];
+        i = 0;
+        for (var info of result.genrelist) {
+            genres[i++] = info.genreName;
+
+        var objGenre = document.getElementsByName("genres");
+        for (i=0; i < objGenre.length; i++) {
+            for (j=0; j < genres.length; j++) {
+                if (objGenre[i].value == "솔로" && genres[j] == "솔로") {
+                    objGenre[i].checked = true;
+                }
+                if (objGenre[i].value == "그룹" && genres[j] == "그룹") {
+                    objGenre[i].checked = true;
+                }
+                if (objGenre[i].value == "발라드" && genres[j] == "발라드") {
+                    objGenre[i].checked = true;
+                }
+                if (objGenre[i].value == "R & B" && genres[j] == "R & B") {
+                    objGenre[i].checked = true;
+                }
+                if (objGenre[i].value == "락" && genres[j] == "락") {
+                    objGenre[i].checked = true;
+                }
+                if (objGenre[i].value == "랩" && genres[j] == "랩") {
+                    objGenre[i].checked = true;
+                }
+                if (objGenre[i].value == "개그" && genres[j] == "개그") {
+                    objGenre[i].checked = true;
+                }
+                if (objGenre[i].value == "마술" && genres[j] == "마술") {
+                    objGenre[i].checked = true;
+                }
+            }
+        }
+        }
+
+        },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
+    });
+});
+
+} else { // 신규 데이터 입력일 경우,
+$('.my-view').css('display', 'none');
+}
+
+function formatDate(jason) {
+var jasondate = new Date(jason);
+        
+return jasondate.getFullYear() + '-' +
+pad((jasondate.getMonth() + 1), 2) + '-' +
+pad(jasondate.getDate(), 2);
+}
+
+function pad(n, width) {
+n = n + '';
+return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+}
+
+addBtn.click(() => {
+
+noItem = $('#no')
+
+noItem.removeAttr('name');
+
+if ($("input[name='messageFlag']:checked").val() == '1') {
+if (messageIdItem.val() == "") {
+alert("메시지 수신 아이디를 입력해주세요.")
+return;
+}
+}
+
+if ($("input[name='type']:checked").val() == '아티스트') {
+ if (artistNameItem.val() == "" || artistMemberItem.val() == ""
+    || profileItem.val() == "" || joinDateItem.val() == "") {
+alert("아티스트의 회원의 *표시 항목은 필수 입력입니다.")
+return;
+}
+}
+
+if ($("input[name='areas']:checked").val() == null || 
+   $("input[name='genres']:checked").val() == null) {
+alert("관심 장르와 지역은 반드시 1개 이상 체크해주세요.")
+return;
+}
+
+var formData = new FormData($('#formData')[0]);
+
+$.ajax('../json/member/add', {
+    data: formData,
+    dataType: 'json',
+    method: 'POST',
+    processData: false,
+    contentType: false,
+    success: () => {
+        location.href='list.html';
+    },
+    error: () => {
+        alert("서버 입력 오류!");
+    }
+});
+});
+
+/* formData 사용 전 
+addBtn.click(() => {
+var AreaArray = [];
+
+$("input[name=areas]:checked").each(function(i){
+    AreaArray.push($(this).val());
+      });
+
+var genreArray = [];
+
+$("input[name=genres]:checked").each(function(i){
+    genreArray.push($(this).val());
+      });
+
+$.ajax('../json/member/add', {
+    data:{
+        'email' : emailItem.val(),
+        'password' : passwordItem.val(),
+        'nickName' : nickNameItem.val(),
+        'messageFlag' : $('input[name=messageFlag]:checked').val(),
+        'messageId' : messageIdItem.val(),
+        'type' : $('input[name=type]:checked').val(),
+        'artist.artistName': artistNameItem.val(), 
+        'artist.artistMember': artistMemberItem.val(),
+        'artist.profile': profileItem.val(),
+        'artist.joinDate':joinDateItem.val(),
+        'areas[]' : AreaArray,
+        'genres[]' : genreArray
+    } formData,
+    dataType: 'json',
+    method: 'POST',
+    success: (result) => {
+        location.href = "list.html";
+    },
+    error: () => {
+        window.alert('서버 실행 오류!');
+    }
+});
+}); */
+
+
+updateBtn.click(() => {
+
+if ($("input[name='messageFlag']:checked").val() == '1') {
+if (messageIdItem.val() == "") {
+alert("메시지 수신 아이디를 입력해주세요.")
+return;
+}
+}
+
+if ($("input[name='type']:checked").val() == '아티스트') {
+ if (artistNameItem.val() == "" || artistMemberItem.val() == ""
+    || profileItem.val() == "" || joinDateItem.val() == "") {
+alert("아티스트의 회원의 *표시 항목은 필수 입력입니다.")
+return;
+}
+}
+
+if ($("input[name='areas']:checked").val() == null || 
+    $("input[name='genres']:checked").val() == null) {
+alert("관심 장르와 지역은 반드시 1개 이상 체크해주세요.")
+return;
+}
+
+var formData = new FormData($('#formData')[0]);
+
+$.ajax('../json/member/update', {
+    data: formData,
+    dataType: 'json',
+    method: 'POST',
+    processData: false,
+    contentType: false,
+    success: () => {
+        location.href='list.html';
+    },
+    error: () => {
+        alert("회원 정보 변경 중 서버 입력 오류!");
+    }
+});
+});
+
+
+deleteBtn.click(() => {
+$.ajax('../json/member/delete', {
+    data: {
+        no: noItem.val()
+    },
+    dataType: 'json',
+    success: (result) => {
+        location.href = "list.html";
+    },
+    error: () => {
+        window.alert('삭제 중 서버 실행 오류!');
+    }
+});
+});
+</script>
+
+
+
+
+</body>
+</html>
+
+

@@ -20,7 +20,7 @@ $.getJSON('../json/auth/loginUser', function(result) {
         return;
     }
     
-    $('#username').html(result.member.nickName);
+    $('#username').html(result.loginUser.nickName);
 });
 
 $('#logoutBtn').click(() => {

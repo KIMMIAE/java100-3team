@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO 객체를 자동으로 생성하려면,
+     namespace의 값이 인터페이스 이름과 같아야 한다. -->
+<mapper namespace="java100.app.dao.sponsor.SponsorDao">
+
+    <resultMap type="Sponsor" id="sponsorMap">
+        <id column="spnsno" property="sponsorNo"/>
+        <result column="mmbno" property="memberNo"/>
+        <result column="pfmno" property="performNo"/>
+        <result column="ggcnt" property="ggcnt"/>
+        <result column="spnsdesc" property="sponsDesc"/>
+        <result column="spnsdt" property="sponsDate"/>
+        
+    </resultMap>
+    
+    <select id="findAll" resultMap="sponsorMap" parameterType="int">
+        select * from tb_spnshstry where mmbno=#{value}
+    </select>
+    
+
+    <select id="findBySponNo" resultMap="sponsorMap" parameterType="int">
+        select * from tb_spnshstry where spnsno=#{value}
+    </select>
+    
+    <insert id="insert" parameterType="Sponsor">
+       insert into tb_spnshstry(mmbno,pfmno,ggcnt,spnsdesc,spnsdt) 
+       values(#{memberNo},#{performNo},#{ggcnt},#{sponsDesc},now());
+    </insert>
+
+<!-- 
+    <delete id="deleteAllByMemberNo" parameterType="int">
+        delete from tb_genrecode
+        where no=#{value}
+    </delete> -->
+    
+</mapper>  
+
+
+
+
+
+
+
+
+
