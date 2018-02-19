@@ -9,16 +9,16 @@ public class Request {
     protected String title;
     protected String detailDesc;
     protected String genre;
-    protected Date entryDate;
+    /*protected Date entryDate;*/
+    protected String entryDate;
     protected String location;
     protected String specialDesc;
     protected int viewCount;
     protected Date regDate;
 
     protected Member writer;
+
     
-
-
     @Override
     public String toString() {
         return "Request [no=" + no + ", title=" + title + ", detailDesc=" + detailDesc + ", genre=" + genre
@@ -35,12 +35,10 @@ public class Request {
     }
 
     public String getTitle() {
-        /*System.out.println(title + " ==> getTitle");*/
         return title;
     }
 
     public void setTitle(String title) {
-        /*System.out.println(title + " ==> setTitle");*/
         this.title = title;
     }
 
