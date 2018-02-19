@@ -4,50 +4,34 @@
 <meta charset="UTF-8">
 <title>회원정보</title>
 <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../css/common.css'>
+<link rel='stylesheet' href='../css/style1.css'>
 </head>
-<body>
-
 <div class='container'>
 
 <header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-<a class="navbar-brand" href="http://localhost:9999/app/index.html">
-  <img src="../images/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-  비트캠프
-</a>
-
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
-<div class="collapse navbar-collapse" id="navbarNav">
-<ul class="navbar-nav mr-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../member/list.html">회원정보</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="../performance/list.html">공연정보</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="../request/list.html">공연요청</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="../sponsor/list.html">공연후원</a>
-  </li>
-    <li class="nav-item">
-    <a class="nav-link" href="../notice/list.html">공지사항</a>
-  </li>
-</ul>
-
-admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm">로그아웃</a>
-    </div>
-</nav>
+<div class="main-nav">
+<img src="../index-image/play-button.png">
+<div class="nav-right"><span id="username"></span>님
+<button id="logoutBtn" type="button">로그아웃</button></div>
+<div class="nav-text">
+    <a href="../performance/list.html">공연정보</a>
+    <a href="../performance/form.html">공연등록</a>
+    <a href="../sponsor/list.html">후원정보</a>
+    <a href="../grape/list.html">청포도</a>
+    <a href="../performanceReview/list.html">공연후기</a>
+    <a href="../request/form.html">공연요청</a>
+</div>
+</div>
+<div class="clearfix"></div>
 </header>
 
-<h3 class="my-new">회원 등록</h3>
-<h3 class="my-view">회원 정보 수정</h3>
-<form id='formData'>
+<h3>회원 상세 정보</h3>
+<hr>
+<div>
+<font color="red">*</font> 표시된 항목은 필수 입력입니다.
+</div>
 
+<form id='formData'>
 <div class='form-group row'>
 <label for='file' class='col-sm-2 col-form-label'>사진</label>
 <div class='col-sm-10'>
@@ -59,35 +43,35 @@ admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm
 <label for='no' class='col-sm-2 col-form-label'>번호</label>
 <div class='col-sm-10'>
 <input class='form-control' readonly id='no' type='number' 
-       name='no'> 
+       name='no' value="0"> 
 </div>
 </div>
 
 <div class='form-group row'>
-<label for='email' class='col-sm-2 col-form-label'>이메일</label>
+<label for='email' class='col-sm-2 col-form-label'>이메일<font color="red">*</font></label>
 <div class='col-sm-10'>
 <input class='form-control' id='email' type='text' name='email'>
 </div>
 </div>
 
 <div class='form-group row'>
-<label for='password' class='col-sm-2 col-form-label'>암호</label>
+<label for='password' class='col-sm-2 col-form-label'>비밀번호<font color="red">*</font></label>
 <div class='col-sm-10'>
 <input class='form-control' id='password' type='password' name='password'>
 </div>
 </div>
 
 <div class='form-group row'>
-<label for='nickName' class='col-sm-2 col-form-label'>닉네임</label>
+<label for='nickName' class='col-sm-2 col-form-label'>닉네임<font color="red">*</font></label>
 <div class='col-sm-10'>
 <input class='form-control' id='nickName' type='text' name='nickName'>
 </div>
 </div>
 
 <div class='form-group row'>
-<label for='messageFlag' class='col-sm-2 col-form-label'>메세지 수신</label>
+<label for='messageFlag' class='col-sm-2 col-form-label'>메세지 수신<font color="red">*</font></label>
 <div class='col-sm-10' id='messageFlag'>
-    <input type="radio" id="messageFlag1" name="messageFlag" value="1">
+    <input type="radio" id="messageFlag1" name="messageFlag" value="1" checked="checked">
     <label for="messageFlag">수신</label>
     <input type="radio" id="messageFlag2" name="messageFlag" value="0">
     <label for="messageFlag">거부</label>
@@ -97,14 +81,14 @@ admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm
 <div class='form-group row' id='messageIdDiv'>
 <label for='messageId' class='col-sm-2 col-form-label'>메세지 수신 아이디</label>
 <div class='col-sm-10'>
-<input class='form-control' id='messageId' type='text' name='messageId' value="">
+<input class='form-control' id='messageId' type='text' name='messageId'>
 </div>
 </div>
 
 <div class='form-group row'>
-<label for='type' class='col-sm-2 col-form-label'>가입자 유형</label>
+<label for='type' class='col-sm-2 col-form-label'>가입자 유형<font color="red">*</font></label>
 <div class='col-sm-10'>
-    <input type="radio" id="type1" name="type" value="일반회원" >
+    <input type="radio" id="type1" name="type" value="일반회원" checked="checked">
     <label for="type">일반회원</label>
 
     <input type="radio" id="type2" name="type" value="아티스트" >
@@ -117,31 +101,32 @@ admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm
 <div class='form-group row'>
 <label for='artistName' class='col-sm-2 col-form-label'>아티스트/팀명</label>
 <div class='col-sm-10'>
-<input class='form-control' id='artistName' type='text' name='artist.artistName' value="">
+<input class='form-control' id='artistName' type='text' name='artist.artistName'>
 </div>
 </div>
 
 <div class='form-group row'>
 <label for='artistMember' class='col-sm-2 col-form-label'>팀구성원</label>
 <div class='col-sm-10'>
-<input class='form-control' id='artistMember' type='text' name='artist.artistMember' value="">
+<input class='form-control' id='artistMember' type='text' name='artist.artistMember'>
 </div>
 </div>
 
 <div class='form-group row'>
 <label for='profile' class='col-sm-2 col-form-label'>프로필</label>
 <div class='col-sm-10'>
-<input class='form-control' id='profile' type='text' name='artist.profile' value="">
+<input class='form-control' id='profile' type='text' name='artist.profile'>
 </div>
 </div>
 
 <div class='form-group row'>
 <label for='joinDate' class='col-sm-2 col-form-label'>팀결성날짜</label>
 <div class='col-sm-10'>
-<input class='form-control' id='joinDate' type='date' name='artist.joinDate' value="">
+<input class='form-control' id='joinDate' type='date' name='artist.joinDate'>
 </div>
 </div>
-</div> <!-- 아티스트 회원 정보 끝 -->
+</div>
+<!-- 아티스트 회원 정보 끝 -->
 
 
 <div class='form-group row'>
@@ -223,7 +208,6 @@ admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm
 <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 
 <script type="text/javascript">
-
 var addBtn = $('#addBtn'),
     updateBtn = $('#updateBtn'),
     deleteBtn = $('#deleteBtn'),
@@ -239,23 +223,16 @@ var addBtn = $('#addBtn'),
     artistNameItem = $('#artistName'),
     artistMemberItem = $('#artistMember'),
     profileItem = $('#profile'),
-    joinDateItem = $('#joinDate'),
-    loginUser = {};/*,
+    joinDateItem = $('#joinDate');/*,
     interestAreasItem = $("input:checkbox[name=checkParam]:checked");
     interestgenresItem = []; */
-
-    $('footer').load('../footer.html');
     
-    $.getJSON('../json/auth/loginUser', function(result) {
-            loginUser = result.loginUser;
-    });
+$('footer').load('../footer.html');
     
-$("#messageIdDiv").hide();
-
 $("#messageFlag1").click(function(){
     $("#messageIdDiv").show();
 });
-
+    
 $("#messageFlag2").click(function(){
     $("#messageIdDiv").hide();
 });
@@ -271,16 +248,17 @@ $("#type2").click(function(){
 });
 
 var index = location.href.indexOf('?');
+
 if (index != -1) { // 기존 데이터를 조회할 경우,
     var qs = location.href.substr(index + 1);
     var arr = qs.split('=');
+   
     
     $('.my-new').css('display', 'none');
     $(() => {
         $.ajax('../json/member/' + arr[1], {
             dataType: 'json',
             success: (result) => {
-
                 noItem.val(result.member.no);
                 emailItem.val(result.member.email);
                 passwordItem.val(result.member.password);
@@ -290,14 +268,13 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
                     messageFlag1Item.attr('checked', 'checked');
                     $("#messageIdDiv").show();
                 } else {
-                	messageFlag2Item.attr('checked', 'checked');
+                    messageFlag2Item.attr('checked', 'checked');
                 }
                 
                 messageIdItem.val(result.member.messageId);
                 
                 if (result.member.type == "아티스트") {
                     type2Item.prop("checked", true);
-                    
                     $("#artistInfoDiv").show(); 
                     artistNameItem.val(result.member.artist.artistName);
                     artistMemberItem.val(result.member.artist.artistMember);
@@ -314,9 +291,9 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
             var areas = [];
             var i = 0;
             for (var info of result.arealist) {
-            	areas[i++] = info.areaName;
-            	
-            	var objAreas = document.getElementsByName("areas");
+                areas[i++] = info.areaName;
+                
+                var objAreas = document.getElementsByName("areas");
                 for (i=0; i < objAreas.length; i++) {
                     for (j=0; j < areas.length; j++) {
                         if (objAreas[i].value == "홍대" && areas[j] == "홍대") {
@@ -345,14 +322,11 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
                         }
                     }
                 }
-
             }
-
             var genres = [];
             i = 0;
             for (var info of result.genrelist) {
                 genres[i++] = info.genreName;
-
             var objGenre = document.getElementsByName("genres");
             for (i=0; i < objGenre.length; i++) {
                 for (j=0; j < genres.length; j++) {
@@ -383,7 +357,6 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
                 }
             }
             }
-
             },
             error: () => {
                 window.alert('서버 실행 오류!');
@@ -394,7 +367,6 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
 } else { // 신규 데이터 입력일 경우,
     $('.my-view').css('display', 'none');
 }
-
 function formatDate(jason) {
     var jasondate = new Date(jason);
             
@@ -402,18 +374,18 @@ function formatDate(jason) {
     pad((jasondate.getMonth() + 1), 2) + '-' +
     pad(jasondate.getDate(), 2);
 }
-
 function pad(n, width) {
     n = n + '';
     return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
 }
-
 addBtn.click(() => {
-
-noItem = $('#no')
-
-noItem.removeAttr('name');
-
+	
+if (emailItem.val() == "" || 
+        passwordItem.val() == "" || 
+            nickNameItem.val() == "") {
+    alert("이메일, 비밀번호, 닉네임은 필수 입력 항목입니다.")
+}
+	
 if ($("input[name='messageFlag']:checked").val() == '1') {
     if (messageIdItem.val() == "") {
     alert("메시지 수신 아이디를 입력해주세요.")
@@ -421,85 +393,11 @@ if ($("input[name='messageFlag']:checked").val() == '1') {
    }
 }
 
-if ($("input[name='type']:checked").val() == '아티스트') {
-     if (artistNameItem.val() == "" || artistMemberItem.val() == ""
-        || profileItem.val() == "" || joinDateItem.val() == "") {
-    alert("아티스트의 회원의 *표시 항목은 필수 입력입니다.")
-    return;
-    }
-}
-
-if ($("input[name='areas']:checked").val() == null || 
-       $("input[name='genres']:checked").val() == null) {
-   alert("관심 장르와 지역은 반드시 1개 이상 체크해주세요.")
-   return;
-}
-
-var formData = new FormData($('#formData')[0]);
-
-    $.ajax('../json/member/add', {
-        data: formData,
-        dataType: 'json',
-        method: 'POST',
-        processData: false,
-        contentType: false,
-        success: () => {
-            location.href='list.html';
-        },
-        error: () => {
-            alert("서버 입력 오류!");
-        }
-    });
-});
-
-/* formData 사용 전 
- addBtn.click(() => {
-    var AreaArray = [];
-    
-    $("input[name=areas]:checked").each(function(i){
-        AreaArray.push($(this).val());
-          });
-    
-    var genreArray = [];
-    
-    $("input[name=genres]:checked").each(function(i){
-        genreArray.push($(this).val());
-          });
-    
-    $.ajax('../json/member/add', {
-        data:{
-            'email' : emailItem.val(),
-            'password' : passwordItem.val(),
-            'nickName' : nickNameItem.val(),
-            'messageFlag' : $('input[name=messageFlag]:checked').val(),
-            'messageId' : messageIdItem.val(),
-            'type' : $('input[name=type]:checked').val(),
-            'artist.artistName': artistNameItem.val(), 
-            'artist.artistMember': artistMemberItem.val(),
-            'artist.profile': profileItem.val(),
-            'artist.joinDate':joinDateItem.val(),
-            'areas[]' : AreaArray,
-            'genres[]' : genreArray
-        } formData,
-        dataType: 'json',
-        method: 'POST',
-        success: (result) => {
-            location.href = "list.html";
-        },
-        error: () => {
-            window.alert('서버 실행 오류!');
-        }
-    });
-}); */
-
-
-updateBtn.click(() => {
-
-if ($("input[name='messageFlag']:checked").val() == '1') {
-    if (messageIdItem.val() == "") {
-    alert("메시지 수신 아이디를 입력해주세요.")
-   return;
-   }
+if ($("input[name='type']:checked").val() == '일반회원') {
+	artistNameItem.removeAttr('name');
+	artistMemberItem.removeAttr('name');
+	profileItem.removeAttr('name');
+	joinDateItem.removeAttr('name');
 }
 
 if ($("input[name='type']:checked").val() == '아티스트') {
@@ -517,7 +415,55 @@ if ($("input[name='areas']:checked").val() == null ||
 }
 
 var formData = new FormData($('#formData')[0]);
+    $.ajax('../json/member/add', {
+        data: formData,
+        dataType: 'json',
+        method: 'POST',
+        processData: false,
+        contentType: false,
+        success: () => {
+            location.href='list.html';
+        },
+        error: () => {
+            alert("서버 입력 오류!");
+        }
+    });
+});
 
+updateBtn.click(() => {
+
+if (emailItem.val() == "" || 
+        passwordItem.val() == "" || 
+            nickNameItem.val() == "") {
+    alert("이메일, 비밀번호, 닉네임은 필수 입력 항목입니다.")
+}
+
+if ($("input[name='messageFlag']:checked").val() == '1') {
+    if (messageIdItem.val() == "") {
+    alert("메시지 수신 아이디를 입력해주세요.")
+   return;
+   }
+}
+
+if ($("input[name='type']:checked").val() == '일반회원') {
+    joinDateItem.removeAttr('name');
+}
+
+if ($("input[name='type']:checked").val() == '아티스트') {
+     if (artistNameItem.val() == "" || artistMemberItem.val() == ""
+        || profileItem.val() == "" || joinDateItem.val() == "") {
+    alert("아티스트의 회원의 *표시 항목은 필수 입력입니다.")
+    return;
+    }
+}
+
+if ($("input[name='areas']:checked").val() == null || 
+        $("input[name='genres']:checked").val() == null) {
+   alert("관심 장르와 지역은 반드시 1개 이상 체크해주세요.")
+   return;
+}
+
+var formData = new FormData($('#formData')[0]);
     $.ajax('../json/member/update', {
         data: formData,
         dataType: 'json',
@@ -533,7 +479,6 @@ var formData = new FormData($('#formData')[0]);
     });
 });
 
-
 deleteBtn.click(() => {
     $.ajax('../json/member/delete', {
         data: {
@@ -548,28 +493,46 @@ deleteBtn.click(() => {
         }
     });
 });
+
+/* formData 사용 전 
+addBtn.click(() => {
+   var AreaArray = [];
+   
+   $("input[name=areas]:checked").each(function(i){
+       AreaArray.push($(this).val());
+         });
+   
+   var genreArray = [];
+   
+   $("input[name=genres]:checked").each(function(i){
+       genreArray.push($(this).val());
+         });
+   
+   $.ajax('../json/member/add', {
+       data:{
+           'email' : emailItem.val(),
+           'password' : passwordItem.val(),
+           'nickName' : nickNameItem.val(),
+           'messageFlag' : $('input[name=messageFlag]:checked').val(),
+           'messageId' : messageIdItem.val(),
+           'type' : $('input[name=type]:checked').val(),
+           'artist.artistName': artistNameItem.val(), 
+           'artist.artistMember': artistMemberItem.val(),
+           'artist.profile': profileItem.val(),
+           'artist.joinDate':joinDateItem.val(),
+           'areas[]' : AreaArray,
+           'genres[]' : genreArray
+       } formData,
+       dataType: 'json',
+       method: 'POST',
+       success: (result) => {
+           location.href = "list.html";
+       },
+       error: () => {
+           window.alert('서버 실행 오류!');
+       }
+   });
+}); */
 </script>
-</body>
 </html>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
