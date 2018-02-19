@@ -27,6 +27,7 @@ public class LoginController {
     @Autowired MemberService memberService;
     @Autowired FacebookService facebookService; 
     
+    
     @RequestMapping(value="login", method=RequestMethod.POST)
     public Object login(
             String email, 
@@ -60,7 +61,7 @@ public class LoginController {
         return result;
     }
     
-    @RequestMapping(value="facebooklogin")
+    @RequestMapping(value="facebookLogin")
     public Object facebookLogin(
             String accessToken, 
             HttpSession session,
@@ -72,14 +73,17 @@ public class LoginController {
         
             Member member = memberService.get((String)userInfo.get("email"));
         
-        
-        
             if (member == null) {
                 member = new Member();
-                member.setNickName((String)userInfo.get("name"));
                 member.setEmail((String)userInfo.get("email"));
                 member.setPassword("1111");
+                member.setNickName((String)userInfo.get("name"));
+                member.setType("페이스북");
+                member.setMessageFlag("1");
+                member.setMessageId((String)userInfo.get("name"));
+                
                 memberService.add(member);
+                
             }
         
             // 회원 정보를 세션에 저장하여 자동 로그인 처리를 한다.

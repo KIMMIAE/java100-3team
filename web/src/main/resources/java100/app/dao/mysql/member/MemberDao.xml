@@ -59,7 +59,6 @@
             t001.regdt
         from tb_memb t001 left join tb_artist t002
         on t001.mmbno = t002.artno
-        <!-- where t001.cancelfl = '0' -->
         <if test="words != null">
 	        <where>
 	            t001.nicknm in
@@ -130,7 +129,7 @@
             left join tb_intrarea t003 on t001.mmbno = t003.mmbno
             left join tb_areacode t004 on t003.areano = t004.areano
         where t001.mmbno = #{value}
-        order by t003.areano asc;
+        order by t003.areano asc
     </select>
     
     <select id="findPhotoByMemberNo" resultType="String" parameterType="int">
@@ -162,32 +161,24 @@
             left join tb_artist t002 on t001.mmbno = t002.artno
             left join tb_intrarea t003 on t001.mmbno = t003.mmbno
             left join tb_areacode t004 on t003.areano = t004.areano
-        where t001.email=#{email} and t001.pwd=password(#{password})
+        where t001.email=#{email} and t001.pwd=password(#{password}) and cancelfl = '0'
     </select>
     
+    <!-- 페이스북 로그인 SQL문 -->
     <select id="findByEmail" resultMap="memberMap" parameterType="string">
         select 
-            t001.photo,
-            t001.mmbno,
-            t001.email,
-            t001.pwd,
-            t001.type,
-            t001.nicknm,
-            t001.msgfl,
-            t001.msgid,
-            t001.cancelfl,
-            t001.regdt,
-            t002.artnm,
-            t002.artmmb,
-            t002.profile,
-            t002.joindt,
-            t003.areano,
-            t004.areanm
-        from tb_memb t001 
-            left join tb_artist t002 on t001.mmbno = t002.artno
-            left join tb_intrarea t003 on t001.mmbno = t003.mmbno
-            left join tb_areacode t004 on t003.areano = t004.areano
-        where t001.email=#{email}
+            photo,
+            mmbno,
+            email,
+            pwd,
+            type,
+            nicknm,
+            msgfl,
+            msgid,
+            cancelfl,
+            regdt
+        from tb_memb 
+        where email=#{email} and cancelfl = '0'
     </select>
     
     <select id="countAll" resultType="int">
