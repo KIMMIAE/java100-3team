@@ -58,12 +58,11 @@ public class Request {
         this.genre = genre;
     }
 
-    public Date getEntryDate() {
-        /*System.out.println(entryDate + "=> getEntryDate");*/
+    public String getEntryDate() {
         return entryDate;
     }
 
-    public void setEntryDate(Date entryDate) {
+    public void setEntryDate(String entryDate) {
         this.entryDate = entryDate;
     }
 
@@ -84,12 +83,10 @@ public class Request {
     }
 
     public int getViewCount() {
-        /*System.out.println(viewCount + " ==> getViewCount");*/
         return viewCount;
     }
 
     public void setViewCount(int viewCount) {
-        /*System.out.println(viewCount + " ==> setViewCount");*/
         this.viewCount = viewCount;
     }
 
@@ -108,6 +105,9 @@ public class Request {
     public void setWriter(Member writer) {
         this.writer = writer;
     }
+    
+
+
 
 }
 
