@@ -1,5 +1,8 @@
 package java100.app.web.json;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletContext;
@@ -8,12 +11,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import java100.app.domain.member.Member;
+import java100.app.domain.performance.Performance;
 import java100.app.domain.performance.PerformanceReview;
+import java100.app.domain.performance.ReviewFile;
 import java100.app.service.PerformanceReviewService;
 
 @RestController
@@ -64,16 +71,18 @@ public class PerformanceReviewController {
         // view 컴포넌트가 사용할 값을 Model에 담는다.
         return result;
     }
-
-    
+        
     // XML 설정으로 트랜잭션을 조정한다면 @Transactional 애노테이션은 필요없다.
     //@Transactional
-    @RequestMapping("add")
+    @RequestMapping(value="add", method=RequestMethod.POST)
     public Object add(
             PerformanceReview performanceReview,
-            /*MultipartFile[] files,*/
+            MultipartFile[] files,
             HttpSession session) throws Exception {
-       /*
+       
+    	System.out.println(files);
+    	System.out.println(performanceReview);
+    	
        String uploadDir = servletContext.getRealPath("/download");
        ArrayList<ReviewFile> reviewFileList = new ArrayList<>();
 
@@ -85,16 +94,14 @@ public class PerformanceReviewController {
          reviewFileList.add(new ReviewFile(filename));
 
       }
-        performanceReview.setWriter(loginUser);
-        performanceReview.setReviewFiles(reviewFileList);
-        */
-//       performanceReview.getWriter().setNo(loginUser.getNo());
+      
+       performanceReview.setReviewFiles(reviewFileList);
        
-       /*Member member = (Member)session.getAttribute("loginUser");
-       performanceReview.setWriter(new Member());
-       performanceReview.getWriter().setNo(member.getNo());
-*/       
-       System.out.println(performanceReview);
+   	Member member = (Member)session.getAttribute("loginUser");
+   	performanceReview.setWriter(new Member());
+   	performanceReview.getWriter().setNo(member.getNo());
+       
+       performanceReview.toString();
        performanceReviewService.add(performanceReview);
         
         HashMap<String,Object> result = new HashMap<>();
@@ -122,24 +129,22 @@ public class PerformanceReviewController {
 
    @RequestMapping("update")
     public Object update(
-            PerformanceReview performanceReview/*, Performance performance,String nickName, MultipartFile[] files*/) throws Exception {
+            PerformanceReview performanceReview, Performance performance,String nickName, MultipartFile[] files) throws Exception {
        
-      /*
-        String uploadDir = servletContext.getRealPath("/download");
+      
 
            ArrayList<ReviewFile> reviewUploadFile = new ArrayList<>();
+           if (!files[0].isEmpty()) {
+               String uploadDir = servletContext.getRealPath("/download");
            
-           for (MultipartFile part : files) {
-               if (part.isEmpty())
-                   continue;
+               for (MultipartFile part : files) {
+                   if (part.isEmpty()) continue;
                
                String filename = this.writeUploadFile(part, uploadDir);
-               
                reviewUploadFile.add(new ReviewFile(filename));
            }
-           
            performanceReview.setReviewFiles(reviewUploadFile);
-      */
+       }
       
 System.out.println(performanceReview + "<= 리뷰//");
 /*System.out.println(performance + "<= 공연//");
@@ -162,7 +167,7 @@ System.out.println(nickName + "<= 닉네임//");*/
         return "redirect:list";
     }
     
-    /*
+    
     
     long prevMillis = 0;
     int count = 0;
@@ -173,7 +178,7 @@ System.out.println(nickName + "<= 닉네임//");*/
           count = 0;
           prevMillis = currMillis;
        }
-       return System.currentTimeMillis() + "_" + count++ + extractFileExtName(originalFilename);
+       return  currMillis + "_" + count++ + extractFileExtName(originalFilename); 
     }
     
     
@@ -192,7 +197,7 @@ System.out.println(nickName + "<= 닉네임//");*/
        
        return filename;
     }
-    */
+    
     
     //
     //int count = 0;
