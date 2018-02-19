@@ -269,9 +269,11 @@ function formatDate(jason) {
     var jasondate = new Date(jason),
         yyyy=jasondate.getFullYear().toString(),
         mm = (jasondate.getMonth() + 1).toString(),
-        dd = jasondate.getDate().toString();
+        dd = jasondate.getDate().toString(),
+        hh = jasondate.getHours().toString(),
+        minmin = jasondate.getMinutes().toString();
         
-    return yyyy +"-"+(mm[1] ? mm : '0'+mm[0])+"-"+(dd[1] ? dd : '0'+dd[0]);
+    return yyyy +"-"+(mm[1] ? mm : '0'+mm[0])+"-"+(dd[1] ? dd : '0'+dd[0])+" "+(hh[1] ? hh : '0'+hh[0])+"시"+(minmin[1] ? minmin : '0'+minmin[0])+"분";
  }
 
 /* function initMap() {
