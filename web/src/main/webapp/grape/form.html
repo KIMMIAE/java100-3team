@@ -3,102 +3,173 @@
 <head>
 <meta charset="UTF-8">
 <title>청포도 충전</title>
-<link rel='stylesheet'
-	href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../css/style1.css'>
+    <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel='stylesheet' href='../css/grapechrg.css'>
 </head>
 <body>
-	<div class='container'>
-		<header></header>
- 
-		<h1>청포도 충전</h1>
-		<form>
-			<div class='form-group row'>
-				<label for='chrCount' class='col-sm-2 col-form-label'>충전갯수</label>
-				<div class='col-sm-10'>
-					<input type="text" class='form-control' id='chrCount'
-						name='chrCount'>
-				</div>
-			</div>
+    <div class="container">
+    <header></header>
+       <!-- left-nav -->
+        <div class="left-nav">
+            <ul class="ul-nav">
+                <li>청포도 정보</li>
+                <ul class="sub-nav">
+                    <li><a href="../grape/form.html" >청보도 충전</a></li>
+                    <li><a href="../grape/list.html" >충전/후원 내역</a></li>
+                </ul>
+            </ul>
+            
+        </div>
+        <!-- right-nav -->
+        <div class="right-content">
+           <div class="right-inner">
+            <div class="grape-container">
+                   <h1>청포도 충전</h1>
+                    <div class="grape-cnt">
+                        <div></div>
+                        <div>청포도<span>10</span>알
+                        <h5>1,100원</h5>
+                        <button onclick="select(10)" type="button" class='btn btn-success btn-sm'>선택</button>
+                        </div>
+                        <div></div>
+                        <div>청포도<span>30</span>알
+                        <h5>3,300원</h5>
+                        <button onclick="select(30)" type="button" class='btn btn-success btn-sm'>선택</button>
+                        </div>
+                    </div>
+                    <div class="grape-cnt2">
+                        <div></div>
+                        <div>청포도<span>50</span>알
+                        <h5>5,500원</h5>
+                        <button onclick="select(50)" type="button" class='btn btn-success btn-sm'>선택</button>
+                        </div>
+                        <div></div>
+                            <div>청포도<span>100</span>알
+                        <h5>11,000원</h5>
+                        <button onclick="select(100)" id="selectBtn" type="button" class='btn btn-success btn-sm'>선택</button>
+                        </div>
+                    </div>
+                </div>
+                
+            <form class="clear-fix">
+                <div class='form-group row'>
+                <label for='chrCount' class='form-label'>충전갯수</label>
+                    <div class='form-group col'>
+                        <input type="text" class='form-control' id='chrCount' name='chrCount'>
+                    </div>
+                     <label for='chrAmount' class='form-label'>충전금액</label>
+                <div class='form-group col'>
+                    <input class='form-control' readonly id='chrAmount' type='text'
+                        name='chrAmount' >
+                </div>
+                <label for='chrMethod' class='form-label'>충전수단</label>
+                <div class='col'>
+                    <input class='form-control' id='chrMethod' type='text'
+                        name='chrMethod'>
+                    </div>
+                    <button id="addBtn" type="button" class='btn btn-success btn-sm my-new'>충전</button>
+                </div>
+               </form>
+                 <button id="payBtn" type="button" class='btn btn-success'>카카오충전</button>
+                 <a id="custom-login-btn" href="javascript:loginWithKakao()">
+                <img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300" style="display:none"/></a>
+            </div>
+        </div>
+    </div>
+    <script src='../node_modules/jquery/dist/jquery.min.js'></script>
+    <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+    <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
-			<div class='form-group row'>
-				<label for='chrAmount' class='col-sm-2 col-form-label'>충전금액</label>
-				<div class='col-sm-10'>
-					<input class='form-control' readonly id='chrAmount' type='text'
-						name='chrAmount' >
-				</div>
-			</div>
 
-			<div class='form-group row'>
-				<label for='chrMethod' class='col-sm-2 col-form-label'>충전수단</label>
-				<div class='col-sm-10'>
-					<input class='form-control' id='chrMethod' type='text'
-						name='chrMethod'>
-				</div>
-			</div>
+<script type="text/javascript">
+"use strict"
 
-			<div class='form-group row'>
-				<div class='col-sm-10'>
-					<button id="addBtn" type="button"
-						class='btn btn-primary btn-sm my-new'>추가</button>
-				</div>
-			</div>
-		</form>
-		<footer></footer>
-	</div>
-
-
-	<script src='../node_modules/jquery/dist/jquery.min.js'></script>
-	<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
-	<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
-
-	<script type="text/javascript">
 var addBtn = $('#addBtn'),
+    payBtn = $('#payBtn'),
     chrCountItem = $('#chrCount'),
     chrAmountItem = $('#chrAmount'),
-    chrMethodItem = $('#chrMethod');    
-    
-    
+    chrMethodItem = $('#chrMethod'),
+    testBtn = $('#testBtn'),
+    access_Token;
     
 
-$('header').load('../header.html', () => {
-load();
-});
+$('header').load('../header.html');
 
 $('footer').load('../footer.html');
 
 $('#chrCount').on('input',() => {
-	 $('#chrAmount').val($('#chrCount').val() * 100)
-	});
-
-function load() {
-	
-/* var index = location.href.indexOf('?');
-if (index != -1) { // 기존 데이터를 조회할 경우,
-    var qs = location.href.substr(index + 1);
-    var arr = qs.split('=');
-    $('.my-new').css('display', 'none');
-    $(() => {
-        $.ajax('../json/grape/' + arr[1], {
-            dataType: 'json',
-            success: (result) => {
-                noItem.val(result.data.no);
-                nameItem.val(result.data.name);
-                korItem.val(result.data.kor);
-                engItem.val(result.data.eng);
-                mathItem.val(result.data.math);
-                sumItem.val(result.data.sum);
-                averItem.val(result.data.aver);
-            },
-            error: () => {
-                window.alert('서버 실행 오류!');
-            }
-        });
-    });
-}  */
+     $('#chrAmount').val($('#chrCount').val() * 110)
+});
 
 
+function select(value){
+    $('#chrCount').val(value);
+    $('#chrAmount').val($('#chrCount').val() * 110);
 }
+        
+Kakao.init('2b95c0d00218ed291ab065ab110b249c');
+
+
+ payBtn.click(()=> {
+     if(!chrAmountItem.val()){
+         alert("청포도를 입력해주세요");
+         return
+     }
+     if(!access_Token){
+	     console.log(access_Token);
+	     loginWithKakao();
+     } else {
+         payment();
+     }
+}); 
+ 
+ 
+ testBtn.click(() =>{
+     if(!access_Token){
+         loginWithKakao();
+     } else {
+         test();
+     }
+});
+
+function payment() {
+  $.ajax('../json/grape/payment', {
+     data: {
+         chrCount: chrCountItem.val(),
+         chrAmount: chrAmountItem.val(),
+         chrMethod: chrMethodItem.val(),
+         accessToken : access_Token
+     },
+     dataType: 'json',
+     method: 'POST',
+     success: (result) => {
+     window.open(result.next_redirect_pc_url,"","width=500, height=700");
+     
+  
+     }, 
+     error: () => {
+         window.alert('서버 실행 오류!');
+     }
+  });
+}
+
+
+
+
+
+function loginWithKakao() {
+    Kakao.Auth.login({
+      success: function(authObj) {
+          access_Token = authObj.access_token;
+          payment();
+      },
+      fail: function(err) {
+        alert(JSON.stringify(err));
+      }
+    });
+  };
 
 
 addBtn.click(() => {
@@ -111,7 +182,7 @@ addBtn.click(() => {
         dataType: 'json',
         method: 'POST',
         success: (result) => {
-        	 location.href = "list.html"
+             location.href = "list.html"
         },
         error: () => {
             window.alert('서버 실행 오류!');
@@ -124,26 +195,9 @@ addBtn.click(() => {
 </script>
 
 
+
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

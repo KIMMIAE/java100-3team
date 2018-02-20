@@ -13,12 +13,89 @@ body {
     font-size: 14px;
     line-height: 25px;
 }
+
+clearfix{
+    clear:both;
+}
+/* header */
+
+.main-nav{
+    clear:both;
+    border-bottom: 1px solid lightgray;
+    height: 60px;    
+}
+.main-nav img {
+    width: 100px;
+    margin-top:10px;
+    margin-left:10px;
+    float: left;
+}
+.main-nav {
+    margin: 10px;
+}
+
+.nav-right{
+    width:200px;
+    padding:10px;
+    margin-top:10px;
+    float: right;
+    text-align:right;
+}
+
+.nav-text{
+    margin: auto;
+    width: 600px;
+    padding-top: 10px;
+}
+.main-nav div a{
+    font-size: 16px;
+    padding: 0 10px;
+}
+
+
+/* 
+.main-nav{
+    clear:both;
+    border-bottom: 1px solid lightgray;
+    height: 60px;    
+}
+.main-nav img {
+    width: 30px;
+    margin-top:10px;
+    margin-left:10px;
+    float: left;
+}
+.main-nav {
+    margin: 10px;
+}
+
+.nav-right{
+    width:200px;
+    padding:10px;
+    margin-top:10px;
+    float: right;
+    text-align:right;
+}
+
+.nav-text{
+    margin: auto;
+    width: 600px;
+    padding-top: 10px;
+}
+.main-nav div a{
+    font-size: 16px;
+    padding: 0 10px;
+}
+
+ */
+
+/* 본문 */
+
 .container {
     width: 1200px;
     margin: auto;
-    margin-top: 100px;
 }
-.main-nav > li{
+.ul-nav > li{
     font-size: 25px;
     padding-bottom: 10px;
     
@@ -26,6 +103,11 @@ body {
 .left-nav li{
     list-style: none;
     padding-left: 15px;
+}
+hr{
+    width: 600px;
+    margin: 50px auto;
+     
 }
 /* left */
 .left-nav{
@@ -49,4 +131,9 @@ body {
 .table-box{
     width:700px;
     margin: auto;
+}
+
+.table-box form a {
+	margin-left: 35
+	0px;
 }

@@ -19,6 +19,7 @@ public interface SponsorService {
     int add(Sponsor sponsor);
     Sponsor get(int no);
     List<Sponsor> list(int no);
+    List<Sponsor> findSpons(int no);
     /*int deleteByMemberNo(int no);*/
     
     

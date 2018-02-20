@@ -46,12 +46,21 @@ public class SponsorController {
     }
     
     @RequestMapping("{sponsorNo}")
-    public Object view(@PathVariable int sponsorNo, Model model) throws Exception {
+    public Object view(@PathVariable int sponsorNo) throws Exception {
         HashMap<String,Object> result = new HashMap<>();
         result.put("sponsor", sponsorService.get(sponsorNo));
         return result;
     }
     
+    @RequestMapping("get")
+    public Object get(HttpSession session) throws Exception {
+        Member member = (Member)session.getAttribute("loginUser");
+        HashMap<String,Object> result = new HashMap<>();
+        System.out.println(member.getArtist());
+        result.put("get", sponsorService.findSpons(member.getArtist().getNo()));
+        return result;
+    }
+
 }
 
 

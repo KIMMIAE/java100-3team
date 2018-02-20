@@ -30,13 +30,18 @@
        insert into tb_spnshstry(mmbno,pfmno,ggcnt,spnsdesc,spnsdt) 
        values(#{memberNo},#{performNo},#{ggcnt},#{sponsDesc},now());
     </insert>
-
-<!-- 
-    <delete id="deleteAllByMemberNo" parameterType="int">
-        delete from tb_genrecode
-        where no=#{value}
-    </delete> -->
     
+     <select id="findByArtistNo" resultMap="sponsorMap" parameterType="int">
+      select * 
+        from 
+        tb_spnshstry  as t001
+        left join 
+        tb_prfrminfo as t002
+        on t001.pfmno=t002.pfmno
+        where artno=#{value};
+    </select>
+    
+  
 </mapper>  
 
 
