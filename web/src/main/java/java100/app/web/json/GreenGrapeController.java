@@ -94,7 +94,6 @@ public class GreenGrapeController {
         return result;
     }
 
-    
 //@RequestMapping(value="payment")
 //    public Object payment(GreenGrape grape, String accessToken) throws Exception {
 //        KakaoRestApi kakao = new KakaoRestApi();
