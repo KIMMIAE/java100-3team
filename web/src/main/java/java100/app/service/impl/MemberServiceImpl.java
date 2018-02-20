@@ -92,7 +92,12 @@ public class MemberServiceImpl implements MemberService {
     public int getTotalCount() {
         return memberDao.countAll();
     }
-
+    
+    @Override
+    public int getEmailCount(String email) {
+        return memberDao.countEmail(email);
+    }
+    
     @Override
     public int add(Member member) {
         
