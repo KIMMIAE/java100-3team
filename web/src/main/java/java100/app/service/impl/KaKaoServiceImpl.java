@@ -34,9 +34,9 @@ public class KaKaoServiceImpl implements KakaoService {
         param.add("quantity", Integer.toString(grape.getChrCount()));
         param.add("total_amount", Integer.toString(grape.getChrAmount()));
         param.add("tax_free_amount", Integer.toString((int)(grape.getChrAmount() * 0.1)));
-        param.add("approval_url", "http://localhost:9999/grape/success.html");
-        param.add("cancel_url", "http://localhost:9999/grape/form.html");
-        param.add("fail_url", "http://localhost:9999/grape/form.html");
+        param.add("approval_url", "http://t3.java100.com:9999/grape/success.html");
+        param.add("cancel_url", "http://t3.java100.com:9999/grape/form.html");
+        param.add("fail_url", "http://t3.java100.com:9999/grape/form.html");
         
         HttpEntity<MultiValueMap<String,String>> entity = new HttpEntity<>(param, headers);
         RestTemplate restTemplate = new RestTemplate();
