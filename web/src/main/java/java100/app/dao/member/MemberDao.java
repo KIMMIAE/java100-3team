@@ -10,6 +10,8 @@ public interface MemberDao {
     Member findByNo(int no);
     String findPhotoByMemberNo(int no);
     Member findByEmailAndPassword(Map<String,Object> params);
+    Member findByEmail(String email);
+    int countEmail(String email);
     int countAll();
     int insert(Member member);
     int update(Member member);
