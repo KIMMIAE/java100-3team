@@ -9,16 +9,16 @@ public class Request {
     protected String title;
     protected String detailDesc;
     protected String genre;
-    protected Date entryDate;
+    /*protected Date entryDate;*/
+    protected String entryDate;
     protected String location;
     protected String specialDesc;
     protected int viewCount;
     protected Date regDate;
 
     protected Member writer;
+
     
-
-
     @Override
     public String toString() {
         return "Request [no=" + no + ", title=" + title + ", detailDesc=" + detailDesc + ", genre=" + genre
@@ -35,12 +35,10 @@ public class Request {
     }
 
     public String getTitle() {
-        /*System.out.println(title + " ==> getTitle");*/
         return title;
     }
 
     public void setTitle(String title) {
-        /*System.out.println(title + " ==> setTitle");*/
         this.title = title;
     }
 
@@ -60,12 +58,11 @@ public class Request {
         this.genre = genre;
     }
 
-    public Date getEntryDate() {
-        /*System.out.println(entryDate + "=> getEntryDate");*/
+    public String getEntryDate() {
         return entryDate;
     }
 
-    public void setEntryDate(Date entryDate) {
+    public void setEntryDate(String entryDate) {
         this.entryDate = entryDate;
     }
 
@@ -86,12 +83,10 @@ public class Request {
     }
 
     public int getViewCount() {
-        /*System.out.println(viewCount + " ==> getViewCount");*/
         return viewCount;
     }
 
     public void setViewCount(int viewCount) {
-        /*System.out.println(viewCount + " ==> setViewCount");*/
         this.viewCount = viewCount;
     }
 
@@ -110,6 +105,9 @@ public class Request {
     public void setWriter(Member writer) {
         this.writer = writer;
     }
+    
+
+
 
 }
 

@@ -28,4 +28,9 @@ public class SponsorServiceImpl implements SponsorService{
     public int add(Sponsor sponsor) {
         return sponsorDao.insert(sponsor);
     }
+    
+    @Override
+    public List<Sponsor> findSpons(int no) {
+        return sponsorDao.findByArtistNo(no);
+    }
 }

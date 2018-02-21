@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <title>공연 요청 게시판</title>
 <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../css/common.css'>
-<!-- <link rel="stylesheet" href="../node_modules/datetimepicker/build/jquery.datetimepicker.min.css"> -->
+<link rel='stylesheet' href='../css/common.css'> 
+<!-- datetimepicker 경로 설정 -->
+<link rel="stylesheet" href="../node_modules/datetimepicker-master/build/jquery.datetimepicker.min.css">
 
 </head>
 <body>
@@ -78,11 +79,11 @@ admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm
 </div>
 </div>
 
-
+<!-- datetimepicker 타입 텍스트 처리 -->
 <div class='form-group row'>
 <label for='entryDate' class='col-sm-2 col-form-label'>공연날짜</label>
 <div class='col-sm-10'>
-<input class='form-control' id='entryDate' type='date' name='entryDate'>
+<input class='form-control' id='entryDate' type='text' name='entryDate'>
 </div>
 </div>
 
@@ -138,13 +139,14 @@ admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm
 <script src='../node_modules/jquery/dist/jquery.min.js'></script>
 <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
-
-<!-- <script src="../node_modules/datetimepicker/build/jquery.datetimepicker.full.min.js"><charset="UTF-8"></script> -->
+<!-- datetimepicker 경로 설정 -->
+<script src="../node_modules/datetimepicker-master/build/jquery.datetimepicker.full.min.js"><charset="UTF-8"></script>
 
 <script type="text/javascript">
-/* jQuery('#entryDate').datetimepicker();
+<!-- datetimepicker 사용 -->
+jQuery('#entryDate').datetimepicker();
 jQuery.datetimepicker.setLocale('ko');
- */
+
  
 var addBtn = $('#addBtn'),
     updateBtn = $('#updateBtn'),
@@ -255,13 +257,16 @@ deleteBtn.click(() => {
     });
 });
 
+<!-- datetimepicker 업데이트 -->
 function formatDate(jason) {
     var jasondate = new Date(jason),
         yyyy=jasondate.getFullYear().toString(),
         mm = (jasondate.getMonth() + 1).toString(),
-        dd = jasondate.getDate().toString();
+        dd = jasondate.getDate().toString(),
+        hh = jasondate.getHours().toString(),
+        minmin = jasondate.getMinutes().toString();
         
-    return yyyy +"-"+(mm[1] ? mm : '0'+mm[0])+"-"+(dd[1] ? dd : '0'+dd[0]);
+    return yyyy +"-"+(mm[1] ? mm : '0'+mm[0])+"-"+(dd[1] ? dd : '0'+dd[0])+" "+(hh[1] ? hh : '0'+hh[0])+"시"+(minmin[1] ? minmin : '0'+minmin[0])+"분";
  }
 
 </script>

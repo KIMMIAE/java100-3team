@@ -3,23 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
     <style>
         body{
-            font-family: Noto Sans KR;
+            font-family: Nanum Gothic;
         }
     </style>
 </head>
 <body>
     <div class="container">
-       <header></header>
+       <header>
+       <div class="main-nav">
+			<a href="../index.html"><img class="logo-img" src="../index-image/play-button.png"></a>
+			<div class="nav-right" id="nav-right">
+            <a href="../member/form.html">회원가입</a>
+            <a href="../auth/loginform.html">로그인</a>
+			</div>
+			<div class="nav-text" id="nav-text">
+			    <a href="../performance/list.html">
+			    <img src="index-image/text/text_01.png" alt="">
+			    </a>
+			    <a href="../performanceReview/list.html">
+			    <img src="index-image/text/text_02.png" alt="">
+			    </a>
+			    <a href="../performanceReview/list.html">
+			    <img src="index-image/text/text_03.png" alt="">
+			    </a>
+			    <a href="../performance/form.html">
+			    <img src="index-image/text/text_04.png" alt="">
+			    </a>
+			    <a href="../grape/list.html">
+                <img src="index-image/text/text_05.png" alt="">
+			    </a>
+<!--			    <a href="../request/form.html">공연요청</a>-->
+			</div>
+			</div>
+			<div class="clearfix">
+		</div>
+       
+       
+       </header>
        
         <section class="notice">
             <h2>Notice</h2>
-                <span>공연 Staff 모집 안내</span>
+                <span id="notice-span">공연 Staff 모집 안내</span>
         </section>
-        <section class="video-bg">
-        <div></div>
+        <section class="poster-bg">
+            <div class="poster-box">
+                <div class="poster-bottom">
+                    <figure><a onclick='poster()'><img src="index-image/config1%20(1).jpg"></a></figure>
+                    <figure><a href=""><img src="index-image/config1%20(2).jpg"></a></figure>
+                    <figure><a href=""><img src="index-image/config1%20(3).jpg"></a></figure>
+                    <figure><a href=""><img src="index-image/config1%20(4).jpg"></a></figure>
+                </div>
+             
+            </div>
+            <div class="poster-right">
+                <h2>Concert</h2>
+                <h1>Coldplay</h1>
+                <h3>Mylo Xyloto</h3>
+                <a href="">- see more -</a>
+            </div>
         </section>
         <section class="slogan">
             <h1>혹시 아티스트 이신가요?</h1>
@@ -96,13 +140,59 @@
 <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script type="text/javascript">
-$('header').load('header.html', () => {
-load();
+
+$('footer').load('footer.html');
+
+$('#nav-text').find('img').hover(function(){
+    $(this).attr("src",$(this).attr("src").replace("_","-hover_"));
+},function(){
+    $(this).attr("src",$(this).attr("src").replace("-hover_","_"));
 });
 
-$('footer').load('../footer.html');
+$.getJSON('../json/auth/loginUser', function(result) {
+      if (result.status == 'success') {
+      loginUser = result.loginUser;
+      $('#nav-right').html(" ");
+      $('#nav-right').html("<span id='username'></span><span>님 환영합니다</span><br>"+
+      "<a href='../member/form.html?no=" + result.loginUser.no +"'>회원정보</a>"+
+      "<a onclick='logoutBtn()' id='logoutBtn'>로그아웃</a>");
+      $('#username').html(result.loginUser.nickName);
+      }
+});
 
 
+function logoutBtn(){
+    $.getJSON('../json/auth/logout', (result) => {
+        console.log(result);
+        location.href = '../auth/loginform.html';
+    });
+}
+
+$.ajax('../json/notice/list', {
+    dataType: 'json',
+    success: (result) => {
+    for(var i=result.list.length-1;i>=0;i--){
+          console.log("j값"+i);
+        setTimeout(function(j){
+          console.log(result.list[j].no);
+          $('#notice-span').html(" ");
+          $('#notice-span').html("<a href='../notice/form.html?no=" + result.list[j].no + "'>" + result.list[j].noticeTitle + "</a>");
+         },i * 4000,i);
+    } 
+        
+    },//suceess 
+    error: () => {
+        window.alert('서버 실행 오류!');
+    }
+});
+
+function poster(){
+    $('.poster-bg').css({"background-image":"url(../index-image/main-poster-2.jpg)"});
+    $('.poster-right').find("h1").html("U2");
+    $('.poster-right').find("h3").html("Under a Blood");
+}
+    
+    
 
 </script>
 

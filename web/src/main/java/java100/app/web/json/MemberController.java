@@ -111,7 +111,6 @@ public class MemberController {
             }
             
             member.setInterestAreas(interestAreas);
-            System.out.println(member.getInterestAreas());
         }
         
         
@@ -137,6 +136,29 @@ public class MemberController {
         return "member/form";
         
     }
+    
+    @RequestMapping("checkEmail")
+    public int checkEmail(String email) {
+        /*System.out.println(email);*/
+        
+        int count = memberService.getEmailCount(email);
+        
+        return count;
+    }
+    
+/*    @RequestMapping("checkEmail")
+    public boolean checkEmail(String email) {
+        System.out.println(email);
+        
+        int count = memberService.getEmailCount(email);
+        
+        if (count == 0) {
+            
+            return true;
+        }
+        
+        return false;
+    }*/
     
     @RequestMapping("update")
     public String update(Member member, 

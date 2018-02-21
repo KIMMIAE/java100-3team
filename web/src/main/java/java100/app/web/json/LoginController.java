@@ -1,6 +1,7 @@
 package java100.app.web.json;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java100.app.domain.member.Member;
+import java100.app.service.FacebookService;
 import java100.app.service.MemberService;
 
 @RestController
@@ -23,6 +25,8 @@ import java100.app.service.MemberService;
 public class LoginController {
     
     @Autowired MemberService memberService;
+    @Autowired FacebookService facebookService; 
+    
     
     @RequestMapping(value="login", method=RequestMethod.POST)
     public Object login(
@@ -55,6 +59,45 @@ public class LoginController {
             result.put("status", "success");
         }
         return result;
+    }
+    
+    @RequestMapping(value="facebookLogin")
+    public Object facebookLogin(
+            String accessToken, 
+            HttpSession session,
+            Model model) {
+        
+        try {
+            @SuppressWarnings("rawtypes")
+            Map userInfo = facebookService.me(accessToken, Map.class);
+        
+            Member member = memberService.get((String)userInfo.get("email"));
+        
+            if (member == null) {
+                member = new Member();
+                member.setEmail((String)userInfo.get("email"));
+                member.setPassword("1111");
+                member.setNickName((String)userInfo.get("name"));
+                member.setType("페이스북");
+                member.setMessageFlag("1");
+                member.setMessageId((String)userInfo.get("name"));
+                
+                memberService.add(member);
+                
+            }
+        
+            // 회원 정보를 세션에 저장하여 자동 로그인 처리를 한다.
+            model.addAttribute("loginUser", member);
+        
+            HashMap<String,Object> result = new HashMap<>();
+            result.put("status", "success");
+            return result;
+        
+        } catch (Exception e) {
+            HashMap<String,Object> result = new HashMap<>();
+            result.put("status", "fail");
+            return result;
+        }
     }
     
     @RequestMapping("logout")
