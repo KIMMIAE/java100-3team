@@ -6,8 +6,10 @@
 <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link rel='stylesheet' href='../css/common.css'> 
 <!-- datetimepicker 경로 설정 -->
-<link rel="stylesheet" href="../node_modules/datetimepicker-master/build/jquery.datetimepicker.min.css">
-
+<!-- <link rel="stylesheet" href="../node_modules/datetimepicker-master/build/jquery.datetimepicker.min.css">
+ -->
+ <link rel="stylesheet" href="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.min.css">
+ 
 </head>
 <body>
 <div class='container'>
@@ -75,7 +77,18 @@ admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm
 <div class='form-group row'>
 <label for='genre' class='col-sm-2 col-form-label'>공연장르</label>
 <div class='col-sm-10'>
-<input class='form-control' id='genre' type='text' name='genre'>
+
+<select class="custom-select" id="genre" name="genre" value=''>
+  <option selected></option>
+  <option value='솔로'>솔로</option>
+  <option value='그룹'>그룹</option>
+  <option value='발라드'>발라드</option>
+  <option value='R & B'>R & B</option>
+  <option value='락'>락</option>
+  <option value='랩'>랩</option>
+  <option value='개그'>개그</option>
+  <option value='마술'>마술</option>
+</select>
 </div>
 </div>
 
@@ -94,10 +107,23 @@ admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm
 </div>
 </div> -->
 
+<!-- <div class='form-group row'>
+<label for='location' class='col-sm-2 col-form-label'>공연장소</label>
+<div class='col-sm-10'>
+<input class='form-control' id='location' type='text' name='location'>
+</div>
+</div>  -->
+
 <div class='form-group row'>
 <label for='location' class='col-sm-2 col-form-label'>공연장소</label>
 <div class='col-sm-10'>
-<input class='form-control' id='location' type="text" name='location'>
+<div class='search'>
+<input class='form-control' id='address' type='text' name='address'>
+</div>
+</div>
+<label class='col-sm-2 col-form-label'></label>
+<div class='col-sm-10'>
+<div id="map" style="width:100%;height:400px;"></div>
 </div>
 </div>
 
@@ -139,15 +165,162 @@ admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm
 <script src='../node_modules/jquery/dist/jquery.min.js'></script>
 <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
-<!-- datetimepicker 경로 설정 -->
-<script src="../node_modules/datetimepicker-master/build/jquery.datetimepicker.full.min.js"><charset="UTF-8"></script>
+<script src="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.full.min.js"><charset="UTF-8"></script>
+<!-- <script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=Rqa9P8nHPAt3FWOFtDNe&callback=initMap"></script>-->
+<!-- <script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=Rqa9P8nHPAt3FWOFtDNe&submodules=drawing,geocoder"></script> -->
+<script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=Rqa9P8nHPAt3FWOFtDNe&submodules=geocoder"></script>
+
 
 <script type="text/javascript">
 <!-- datetimepicker 사용 -->
 jQuery('#entryDate').datetimepicker();
+$('#entryDate').datetimepicker({step:10}); //분단위 설정
 jQuery.datetimepicker.setLocale('ko');
+//데이트 피커 
 
- 
+
+var map = new naver.maps.Map("map", {
+    center: new naver.maps.LatLng(37.566535, 126.9779692),
+    zoom: 10,
+    /* mapTypeControl: true */
+});
+//맵 초기 경로 , 배율 
+
+
+var infoWindow = new naver.maps.InfoWindow({
+    anchorSkew: true
+});
+//정보창에 설정
+
+map.setCursor('pointer');
+
+// search by tm128 coordinate
+function searchCoordinateToAddress(latlng) { // 지도 클릭시 마커로 위치표시 
+    var tm128 = naver.maps.TransCoord.fromLatLngToTM128(latlng);
+
+    infoWindow.close();
+
+    naver.maps.Service.reverseGeocode({
+        location: tm128,
+        coordType: naver.maps.Service.CoordType.TM128
+    }, function(status, response) {
+        if (status === naver.maps.Service.Status.ERROR) {
+            return alert('Something Wrong!');
+        }
+
+        var items = response.result.items,
+            htmlAddresses = [];
+
+       /* for (var i=0, ii=items.length, item, addrType; i<ii; i++) {
+            item = items[i];
+            addrType = item.isRoadAddress ? '[도로명 주소]' : '[지번 주소]';
+
+            htmlAddresses.push((i+1) +'. '+ addrType +' '+ item.address);
+            htmlAddresses.push('&nbsp&nbsp&nbsp -> '+ item.point.x +','+ item.point.y);
+        }  */
+
+        infoWindow.setContent([
+                '<div style="padding:10px;min-width:200px;line-height:150%;">',
+                '<h4 style="margin-top:5px;">검색 좌표 : '+ response.result.userquery +'</h4><br/>',
+                htmlAddresses.join('<br/>'),
+                '</div>'
+            ].join('\n'));
+
+        infoWindow.open(map, latlng);
+    });
+}
+
+
+// result by latlng coordinate
+function searchAddressToCoordinate(address) { // 주소 입력 했을 때 지도 위치 재지정
+    naver.maps.Service.geocode({
+        address: address
+    }, function(status, response) {
+        if (status === naver.maps.Service.Status.ERROR) {
+            return alert('지명을 확인해 주세요!');
+        }
+
+        var item = response.result.items[0],
+            addrType = item.isRoadAddress ? '[도로명 주소]' : '[지번 주소]' ,
+            point = new naver.maps.Point(item.point.x , item.point.y);
+
+        infoWindow.setContent([
+                '<div style="padding:10px;min-width:200px;line-height:150%;">',
+                '<h4 style="margin-top:5px;">검색 주소 : '+ response.result.userquery +'</h4><br/>',
+                addrType +' '+ item.address +'<br/>',
+                '&nbsp&nbsp&nbsp -> '+ point.x +','+ point.y,
+                '</div>'
+            ].join('\n'));
+
+
+        map.setCenter(point);
+        marker.setPosition(point);
+        /* infoWindow.open(map, point); */
+    });
+}
+
+function initGeocoder() { // 초기값 설정
+    map.addListener('click', function(e) {
+        searchCoordinateToAddress(e.coord);
+    });
+
+    $('#address').on('keydown', function(e) {
+        var keyCode = e.which;
+
+        if (keyCode === 13) { // Enter Key
+            searchAddressToCoordinate($('#address').val());
+        }
+    });
+
+    $('#submit').on('click', function(e) {
+        e.preventDefault();
+
+        searchAddressToCoordinate($('#address').val());
+    });
+
+}
+
+var marker = new naver.maps.Marker({ // 마커 설정
+
+    position: new naver.maps.LatLng(37.566295, 126.977945),
+
+    map: map
+
+});
+
+naver.maps.Event.addListener(map, 'click', function(e) { //이벤트 리스너세팅
+    marker.setPosition(e.latlng);
+    
+});
+
+naver.maps.onJSContentLoaded = initGeocoder;
+
+/* var map = null;
+
+function initMap() {
+var map = new naver.maps.Map("map", {
+    center: new naver.maps.LatLng(37.566295, 126.977945),
+    zoom: 10
+});
+
+var marker = new naver.maps.Marker({
+
+    position: new naver.maps.LatLng(37.566295, 126.977945),
+
+    map: map
+
+});
+
+naver.maps.Event.addListener(map, 'click', function(e) {
+    marker.setPosition(e.latlng);
+    
+});
+
+map.setCursor('pointer');
+
+} */
+
+
 var addBtn = $('#addBtn'),
     updateBtn = $('#updateBtn'),
     deleteBtn = $('#deleteBtn'),
@@ -161,7 +334,6 @@ var addBtn = $('#addBtn'),
     writerItem = $('#writer'),
     regDateItem = $('#regDate'),
     viewCountItem = $('#viewCount')
-    
 
 /* 
 $('header').load('../header.html');
@@ -179,7 +351,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
                 noItem.val(result.data.no);
                 titleItem.val(result.data.title);
                 detailDescItem.val(result.data.detailDesc);
-                genreItem.val(result.data.genre);
+                genreItem.append('<option selected>' + result.data.genre + '</option>')
                 entryDateItem.val(formatDate(result.data.entryDate));
                 locationItem.val(result.data.location);
                 specialDescItem.val(result.data.specialDesc);
@@ -257,6 +429,12 @@ deleteBtn.click(() => {
     });
 });
 
+
+function pad(n, width) {
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+}
+
 <!-- datetimepicker 업데이트 -->
 function formatDate(jason) {
     var jasondate = new Date(jason),
@@ -268,6 +446,10 @@ function formatDate(jason) {
         
     return yyyy +"-"+(mm[1] ? mm : '0'+mm[0])+"-"+(dd[1] ? dd : '0'+dd[0])+" "+(hh[1] ? hh : '0'+hh[0])+"시"+(minmin[1] ? minmin : '0'+minmin[0])+"분";
  }
+ 
+ 
+ 
+ 
 
 </script>
 
