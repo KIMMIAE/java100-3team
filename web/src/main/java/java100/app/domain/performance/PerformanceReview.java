@@ -3,12 +3,14 @@ package java100.app.domain.performance;
 import java.sql.Date;
 import java.util.List;
 
+import java100.app.domain.member.Artist;
 import java100.app.domain.member.Member;
 
 public class PerformanceReview {
 	
 	protected int reviewNo;
 	protected Performance performance;
+	protected Artist artist;
 	protected Member writer;
 	protected String reviewDescription;
 	protected int viewCount;
@@ -65,6 +67,13 @@ public class PerformanceReview {
 	public void setReviewFiles(List<ReviewFile> reviewFiles) {
 		this.reviewFiles = reviewFiles;
 	}
+	public Artist getArtist() {
+		return artist;
+	}
+	public void setArtist(Artist artist) {
+		this.artist = artist;
+	}
+	
 	
 	
 	
