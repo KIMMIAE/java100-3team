@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>공연 후기</title>
-<link rel='stylesheet'
-    href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../../css/style1.css'>
+<link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../css/style1.css'>
 </head>
 <body>
     <div class='container'>
@@ -63,12 +62,12 @@
     <script type="text/javascript">
 
 var words = $('#words'),
+    searchBtn = $('#searchBtn'),
     prevBtn = $('#prevBtn'),
     currBtn = $('#currBtn'),
     nextBtn = $('#nextBtn'),
     tbody = $('#list > tbody'),
     currPageNo = 1;
-    //member = null;
 
     $('header').load('../header.html', () => {
         load(1);
@@ -77,10 +76,10 @@ var words = $('#words'),
     $('footer').load('../footer.html');
 
 
-    $('#searchBtn').click(() => {
+    searchBtn.click(() => {
         //event.preventDefault();
         load(1, {
-            "words": words.value
+            "words": $('#words').val()
         })
     });
 
