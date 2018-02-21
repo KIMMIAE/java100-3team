@@ -69,9 +69,10 @@ public class PerformanceReviewServiceImpl implements PerformanceReviewService {
         System.out.println(performanceReview.getReviewNo() + " <= no");
         System.out.println("--------------------------------");
         
-/*        // 기존의 게시물 첨부파일은 모두 지운다. 
-        reviewFileDao.deleteAllByReviewNo(performanceReview.getReviewNo());*/
-        
+        // 기존의 게시물 첨부파일은 모두 지운다. 
+        if (performanceReview.getReviewFiles() != null) {
+        reviewFileDao.deleteAllByReviewNo(performanceReview.getReviewNo());
+        }
        // 다시 게시물 첨부파일을 저장한다.
 		if (performanceReview.getReviewFiles() != null) {
 			addReviewFiles(performanceReview.getReviewFiles(), performanceReview.getReviewNo());

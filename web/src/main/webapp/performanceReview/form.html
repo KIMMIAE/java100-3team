@@ -43,10 +43,37 @@
 </div>
 
 
+<div class='form-group row my-new'>
+<label for='performance' class='col-sm-2 col-form-label'>공연정보</label>
+<div class='col-sm-10'>
+<input class='form-control-sm mr-sm-2 data-reset' readonly id='performance'
+type="number" placeholder="공연을 검색하세요" name='performance.no'>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
+  찾기
+</button>
+  </div>
+</div>
+<!-- modal 적용 전
+  <a id="findBtn" type="button" class="btn btn-primary btn-sm" href="search.html" role="button" aria-expanded="false" aria-controls="collapseExample">
+    찾기
+ </a>
+ -->
+
+<!-- Modal -->
+
+
 <div class='form-group row'>
 <label for='name' class='col-sm-2 col-form-label'>공연명</label>
 <div class='col-sm-10'>
 <input class='form-control' readonly id='name' type='text' name='performance.name' value=''>
+</div>
+</div>
+
+<div class='form-group row'>
+<label for='artistName' class='col-sm-2 col-form-label'>아티스트명</label>
+<div class='col-sm-10'>
+<input class='form-control' readonly id='artistName' type='text' name='artist.artistName' value=''>
 </div>
 </div>
 
@@ -71,14 +98,6 @@
 </div>
 </div>
 
-<div class='form-group row my-new'>
-<label for='performance' class='col-sm-2 col-form-label'>공연정보</label>
-<div class='col-sm-10'>
-<input class='form-control data-reset' id='performance'
-type="number" placeholder="공연 번호를 입력하세요" name='performance.no'>
-</div>
-</div>
-
 <div class='form-group row'>
 <label for='reviewDescription' class='col-sm-2 col-form-label'>후기내용</label>
 <div class='col-sm-10'>
@@ -86,6 +105,7 @@ type="number" placeholder="공연 번호를 입력하세요" name='performance.n
 type='text' placeholder="내용을 입력하세요" name='reviewDescription' value=''>
 </div>
 </div>
+
 
 <div class='form-group row my-view'>
 <label for='viewcnt' class='col-sm-2 col-form-label'>조회수</label>
@@ -122,14 +142,68 @@ type='text' placeholder="내용을 입력하세요" name='reviewDescription' val
 </div>
 </div>
 
-
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      <div class="modal-body">
+			        <h2>공연 검색</h2>
+			        <nav class="navbar navbar-light justify-content-between">
+			            <form class="form-inline" >
+			                <input id="words" name="words"
+			                    class="form-control form-control-xs" type="search"  style="width:350px; height:30px;"
+			                    placeholder="내용을 입력하세요" aria-label="Search">
+			                    <!-- mr-xs-2 --> 
+			                <button id="searchBtn"
+			                    class="btn btn-sm btn-outline-success my-2 my-sm-0" type="button">Search</button>
+			            </form>
+			        </nav>
+			
+			        <table id="list" class='table table-hover'>
+			            <thead>
+			                <tr>
+			                    <th>번호</th>
+			                    <th>공연명</th>
+			                    <th>아티스트명</th>
+			                    <th>공연장소</th>
+			                    <th>공연날짜</th>
+			                </tr>
+			            </thead>
+			
+			            <tbody></tbody>
+			        </table>
+			
+			        <nav aria-label="Page navigation">
+			            <ul class="pagination justify-content-center">
+			                <li class="page-item"><a id="prevBtn" class="page-link"
+			                    tabindex="-1">이전</a></li>
+			
+			                <li class="page-item"><a id="currBtn" class="page-link"
+			                    href="#">1</a></li>
+			
+			                <li class="page-item "><a id="nextBtn" class="page-link"
+			                    tabindex="0">다음</a></li>
+			            </ul>
+			        </nav>
+      </div>
+      <div class="modal-footer">
+        <button id="closeBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class='form-group row'>
 <div class='col-sm-10'>
 <button id="addBtn" type="button" class='btn btn-primary btn-sm my-new'>추가</button>
 <button id="updateBtn" type="button" class='btn btn-primary btn-sm my-view'>변경</button>
 <button id="deleteBtn" type="button" class='btn btn-primary btn-sm my-view'>삭제</button>
+<!-- 검색 적용 전 button 
 <button id="findBtn" type="button" class='btn btn-primary btn-sm my-new'>찾기</button>
+-->
 </div>
 </div>
 </form>
@@ -145,12 +219,14 @@ type='text' placeholder="내용을 입력하세요" name='reviewDescription' val
 
 var addBtn = $('#addBtn'),
     findBtn = $('#findBtn'),
+    performanceSearchBtn = $('#performanceSearch'),
     updateBtn = $('#updateBtn'),
     deleteBtn = $('#deleteBtn'),
     noItem = $('#reviewNo'),
     memberNoItem = $('#memberNo'),
     nickNameItem = $('#nickName'),
     prfrmNameItem = $('#name'),
+    artistNameItem = $('#artistName'),
     locationItem = $('#location'),
     genreItem = $('#genre'),
     entryDateItem = $('#entryDate'),
@@ -158,13 +234,117 @@ var addBtn = $('#addBtn'),
     rvwDescItem = $('#reviewDescription'),
     viewcntItem = $('#viewcnt'),
     regdateItem = $('#regdate'),
-    reviewMediasItem = $('#reviewMedias');
-    
+    reviewMediasItem = $('#reviewMedias'),
+    words = $('#words'),
+	searchBtn = $('#searchBtn'),
+	prevBtn = $('#prevBtn'),
+	currBtn = $('#currBtn'),
+	nextBtn = $('#nextBtn'),
+	closeBtn = $('#closeBtn'),
+	tbody = $('#list > tbody'),
+	currPageNo = 1;
+
+
 $('header').load('../header.html', () => {
     load();
 });
 
 $('footer').load('../footer.html');
+
+
+searchBtn.click(() => {
+    //event.preventDefault();
+    search(1, {
+        "words": $('#words').val()
+    })
+});
+
+prevBtn.click (() => {
+    load(currPageNo - 1)
+});
+
+nextBtn.click (() => {
+    load(currPageNo + 1)
+});
+
+//검색한 공연 정보 받아오기
+function save(no){
+     
+    $.ajax('../../json/performance/'+no,{
+    dataType:'json',
+    success:(result)=>{
+    performanceNoItem.val(result.data.no),
+    $('#name').val(result.data.name),
+    $('#artistName').val(result.data.artist.artistName),
+    $('#location').val(result.data.location),
+    $('#genre').val(result.data.genre),
+    $('#entryDate').val(formatDate(result.data.entryDate)),
+    closeBtn.click();
+    
+    },
+    error:()=>{
+        console.log("문제발생")
+        }
+    
+    });
+}
+
+//공연정보 검색
+function search(pageNo, options) {
+    
+    if (options == undefined) options = {};
+    options.pn = pageNo;
+    $.ajax('../json/performance/list', {
+        /*method: 'GET',*/
+        data: options,
+        dataType: 'json',
+        success: (result) => {
+            tbody.html("");
+            var filename;
+            for (var data of result.list) {
+                for(var media of data.medias) {
+                    if (media.filename == null) {
+                        filename = 'no_img.jpg';
+                    } else {
+                        filename = media.filename;
+                    }
+                }
+                $('<tr>').
+                    html(
+                        "<td>" + data.no + "</td>" +
+                        "<td><a onclick='save(" + data.no + ")'>" + 
+                            "<img src='../download/" + filename + "' height=50>" + 
+                            "<div>" + data.name + "</a></td>" +
+                        "<td>" + data.artist.artistName + "</td>" +
+                        "<td>" + data.location + "</td>" +
+                        "<td>" + formatDate(data.entryDate) + "</td>")
+                    .appendTo(tbody);
+            }
+            currPageNo = result.pageNo;
+            currBtn.html(currPageNo);
+            
+            if (result.pageNo == 1) {
+                $(prevBtn.parent()).addClass("disabled");
+            } else {
+                $(prevBtn.parent()).removeClass("disabled");
+            }
+            
+            if (result.lastPageNo == result.pageNo) {
+                $(nextBtn.parent()).addClass("disabled");
+            } else { 
+                $(nextBtn.parent()).removeClass("disabled");
+            }
+        },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
+    });
+}
+
+
+
+
+
 
 function load() {
     $.getJSON('../../json/performanceReview/form', function(result) {
@@ -194,6 +374,7 @@ function load() {
                     performanceNoItem.val(result.performanceReview.performance.no);
                     memberNoItem.val(result.performanceReview.writer.no);
                     prfrmNameItem.val(result.performanceReview.performance.name);
+                    artistNameItem.val(result.performanceReview.artist.artistName);
                     locationItem.val(result.performanceReview.performance.location);
                     genreItem.val(result.performanceReview.performance.genre);
                     entryDateItem.val(formatDate(result.performanceReview.performance.entryDate));
@@ -216,6 +397,7 @@ function load() {
     
     
 }
+
     addBtn.click(() => {
         
         if (performanceNoItem.val() == 0) {
@@ -238,7 +420,8 @@ function load() {
         });
     });
     
-    findBtn.click(() => {//공연정보 불러오기
+    // 공연정보 검색으로 적용 전
+/*     findBtn.click(() => {//공연정보 불러오기
         
         if (performanceNoItem.val() == undefined) {
             return alert('공연정보를 입력하세요');
@@ -247,6 +430,7 @@ function load() {
             dataType: 'json',
             success: (result) => {
                 $('#name').val(result.data.name),
+                $('#artistName').val(result.data.artist.artistName),
                 $('#location').val(result.data.location),
                 $('#genre').val(result.data.genre),
                 $('#entryDate').val(formatDate(result.data.entryDate))
@@ -256,7 +440,7 @@ function load() {
             }
         });
     });
-    
+     */
     
     
     
