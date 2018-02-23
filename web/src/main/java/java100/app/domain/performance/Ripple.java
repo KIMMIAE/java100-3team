@@ -1,18 +1,20 @@
 package java100.app.domain.performance;
 
-import java.sql.Date;
+import java.util.Date;
+
+import java100.app.domain.member.Member;
 
 public class Ripple {
 
     protected int no;
     protected int performanceNo;
-    protected int memberNo;
+    protected Member writer;
     protected String ripple;
     protected Date regDate;
     
     @Override
     public String toString() {
-        return "Ripple [no=" + no + ", performanceNo=" + performanceNo + ", memberNo=" + memberNo + ", ripple=" + ripple
+        return "Ripple [no=" + no + ", performanceNo=" + performanceNo + ", writer=" + writer + ", ripple=" + ripple
                 + ", regDate=" + regDate + "]";
     }
 
@@ -32,12 +34,12 @@ public class Ripple {
         this.performanceNo = performanceNo;
     }
 
-    public int getMemberNo() {
-        return memberNo;
+    public Member getWriter() {
+        return writer;
     }
 
-    public void setMemberNo(int memberNo) {
-        this.memberNo = memberNo;
+    public void setWriter(Member writer) {
+        this.writer = writer;
     }
 
     public String getRipple() {

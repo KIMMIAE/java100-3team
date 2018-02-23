@@ -26,11 +26,6 @@
             <result column="pfmloc"     property="location"/>
             <result column="artno"     property="artist.no"/>
         </association>
-        
-        <association property="artist" javaType="artist">
-            <id     column="artno"       property="no"/>
-            <result column="artnm"     property="artistName"/>
-        </association>
 
         <collection property="reviewFiles"  ofType="reviewFile">
             <id     column="r_no"    property="reviewFileNo"/>
@@ -71,7 +66,7 @@
         <if test="words != null">
             <where>
                 <foreach collection="words" item="word">
-                    or rvwdesc like '${word}%'
+                    or rvwdesc like '%${word}%'
                 </foreach>
             </where>
         </if>
@@ -119,7 +114,6 @@
             r001.rvwno,
             r002.nicknm,
             r003.pfmnm,
-            r005.artnm,
             r003.pfmloc,
             r003.pfmgnr,
             r003.pfmdt,
@@ -134,7 +128,6 @@
              left join tb_memb r002 on r001.mmbno=r002.mmbno
              left join tb_prfrminfo r003 on r001.pfmno=r003.pfmno
              left join tb_rvwfile r004 on r001.rvwno=r004.rvwno
-             left join tb_artist r005 on r003.artno=r005.artno
         where r001.rvwno=#{value}
     </select>
     

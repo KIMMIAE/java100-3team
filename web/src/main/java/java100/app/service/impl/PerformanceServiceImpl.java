@@ -118,12 +118,17 @@ public class PerformanceServiceImpl implements PerformanceService {
     }
     
     @Override
+    public int checkRating(Rating rating) {
+        return ratingDao.check(rating);
+    }
+    
+    @Override
     public void addRipple(Ripple ripple) {
         rippleDao.insert(ripple);
     }
     
     @Override
-    public String getRipple(Ripple ripple) {
+    public List<Ripple> getRipple(Ripple ripple) {
         return rippleDao.getRipple(ripple);
     }
 

@@ -66,7 +66,7 @@ var //loginUser = {},
     currPageNo = 1;
 
 $(document.body).on('login', (event, obj) => {
-    console.log('로그인 정보 가져오기:', loginUser.type);
+    //console.log('로그인 정보 가져오기:', loginUser.artist.artistName);
     load(1);
 });
 
@@ -112,8 +112,6 @@ function load(pageNo, options) {
         success: (result) => {
             
             tbody.html("");
-            
-            //loginUser = result.loginUser;
             
             var filename;
             for (var data of result.list) {

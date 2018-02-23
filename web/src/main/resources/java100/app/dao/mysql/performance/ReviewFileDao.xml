@@ -26,12 +26,6 @@
         values(#{reviewFilename}, #{reviewNo})
     </insert>
     
-    <update id="update" parameterType="reviewFile">
-        update tb_rvwfile set 
-            filenm=#{reviewFilename}
-        where rvwno=#{reviewNo}
-    </update>
-    
     <delete id="deleteAllByReviewNo" parameterType="int">
         delete from tb_rvwfile
         where rvwno=#{value}

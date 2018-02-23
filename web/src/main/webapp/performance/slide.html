@@ -1,0 +1,485 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>http://www.blueb.co.kr</title>
+
+<script src='../node_modules/jquery/dist/jquery.min.js'></script>
+<!-- <script type="text/javascript" src="/data/jquery-1.4.4.min.js"></script> -->
+<script type="text/javascript" src="../js/jquery-contained-sticky-scroll.js"></script>
+    
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#sidebar').containedStickyScroll();
+});
+
+</script>
+<style type="text/css">
+    .grid_4 {
+        top: 200px;
+        right: 30px;
+        width: 300px;
+        display: inline;
+        float: right;
+        margin-left: 10px;
+        margin-right: 10px;
+        padding: 10px;
+        color: #fff;
+        background-color: #ff6000
+    }
+
+    /*옵션 테이블 스타일*/
+    h1 {
+        color: #000;
+        font-family: georgia
+    }
+
+    table.sidebart {
+        font-size: 11px;
+        font-family: tahoma
+    }
+
+    table.sidebart td {
+        border-bottom: 1px #eee solid;
+        color: #555;
+        padding: 4px;
+    }
+
+    table.sidebart th {
+        border: 2px #eee solid;
+        color: #fff;
+        background-color: #000;
+        padding: 4px;
+    }
+</style>
+
+</head>
+<body>
+
+<div id="sidebar" class="grid_4">
+    <div class="hotissue_layer" data-tiaramapper="realtime_issue3">
+        <h2 id="liveIssueTitle" class="txt_pctop tit_hotissue" tabindex="0"><span class="ir_wa">관심 공연 순위</span></h2>
+        <ol class="list_hotissue issue_row">
+            <li class="current">
+                <div class="roll_txt">
+                    <div class="rank_cont @1">
+                        <span class="num_pctop rank1"><span class="ir_wa">1위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EA%B0%95%EC%9C%A0%EB%AF%B8&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">강유미</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>13</em>
+                    </div>
+                </div>
+            </li>
+            <li class="next">
+                <div class="roll_txt">
+                    <div class="rank_cont @2">
+                        <span class="num_pctop rank2"><span class="ir_wa">2위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%ED%97%A4%EC%9D%B4%EC%A6%88&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">헤이즈</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>116</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @3">
+                        <span class="num_pctop rank3"><span class="ir_wa">3위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EB%B8%94%EB%9E%99%ED%95%98%EC%9A%B0%EC%8A%A4&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">블랙하우스</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>92</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @4">
+                        <span class="num_pctop rank4"><span class="ir_wa">4위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EC%A0%95%ED%98%84&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">정현</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>85</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @5">
+                        <span class="num_pctop rank5"><span class="ir_wa">5위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EA%B9%80%ED%95%98%EB%8A%98&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">김하늘</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>80</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @6">
+                        <span class="num_pctop rank6"><span class="ir_wa">6위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EA%B6%8C%EC%84%B1%EB%8F%99&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">권성동</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>77</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @7">
+                        <span class="num_pctop rank7"><span class="ir_wa">7위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EA%B9%80%EC%98%81%EC%B2%A0&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">김영철</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>74</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @8">
+                        <span class="num_pctop rank8"><span class="ir_wa">8위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EC%9D%B4%EB%B0%A9%EC%B9%B4&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">이방카</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>68</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @9">
+                        <span class="num_pctop rank9"><span class="ir_wa">9위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=9%ED%98%B8%EC%84%A0&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">9호선</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>45</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @10">
+                        <span class="num_pctop rank10"><span class="ir_wa">10위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EB%85%B8%ED%9A%8C%EC%B0%AC&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">노회찬</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>38</em>
+                    </div>
+                </div>
+            </li>
+        </ol>
+        <!-- <span class="txt_standard">2018.02.23 10:10기준</span>
+        <button type="button" class="ico_pctop btn_close"><span class="ir_wa">X닫기</span></button> -->
+    </div>
+</div>
+
+<h1>Option</h1>
+<table class="sidebart">
+    <tr>
+        <th>easing</th>
+        <td><i>String</i> - Allows the user to set the type of easing to be used in the animation. Defaults to linear.</td>
+    </tr>
+    <tr>
+        <th>duration</th>
+        <td><i>Numeric</i> - Allows the user to set the duration of the animation. Defaults to 500</td>
+    </tr>
+    <tr>
+        <th>queue</th>
+        <td><i>Boolean</i> - Allows the user to set whether the animation is placed into the queue. If false, animation starts immediately. Defaults to false</td>
+    </tr>
+    <tr>
+        <th>unstick</th>
+        <td><i>Boolean</i> - Allows the user to turn the unstick functionality on and off. Defaults to true (on)</td>
+    </tr>
+    <tr>
+        <th>closeChar</th>
+        <td><i>String</i> - Allows the user to set the character to be used as the unstick trigger. Defaults to ^</td>
+    </tr>
+    <tr>
+        <th>closeTop</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the top of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>closeRight</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the right of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>oSelector <em>(deprecated)</em></th>
+        <td>In version 1.0, this option is was set by the plugin and contains the selector information of the selected element. It is was used for internal purposes but has been deprecated for improved performance</td>
+    </tr>
+    <tr>
+        <th>easing</th>
+        <td><i>String</i> - Allows the user to set the type of easing to be used in the animation. Defaults to linear.</td>
+    </tr>
+    <tr>
+        <th>duration</th>
+        <td><i>Numeric</i> - Allows the user to set the duration of the animation. Defaults to 500</td>
+    </tr>
+    <tr>
+        <th>queue</th>
+        <td><i>Boolean</i> - Allows the user to set whether the animation is placed into the queue. If false, animation starts immediately. Defaults to false</td>
+    </tr>
+    <tr>
+        <th>unstick</th>
+        <td><i>Boolean</i> - Allows the user to turn the unstick functionality on and off. Defaults to true (on)</td>
+    </tr>
+    <tr>
+        <th>closeChar</th>
+        <td><i>String</i> - Allows the user to set the character to be used as the unstick trigger. Defaults to ^</td>
+    </tr>
+    <tr>
+        <th>closeTop</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the top of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>closeRight</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the right of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>oSelector <em>(deprecated)</em></th>
+        <td>In version 1.0, this option is was set by the plugin and contains the selector information of the selected element. It is was used for internal purposes but has been deprecated for improved performance</td>
+    </tr>
+    <tr>
+        <th>easing</th>
+        <td><i>String</i> - Allows the user to set the type of easing to be used in the animation. Defaults to linear.</td>
+    </tr>
+    <tr>
+        <th>duration</th>
+        <td><i>Numeric</i> - Allows the user to set the duration of the animation. Defaults to 500</td>
+    </tr>
+    <tr>
+        <th>queue</th>
+        <td><i>Boolean</i> - Allows the user to set whether the animation is placed into the queue. If false, animation starts immediately. Defaults to false</td>
+    </tr>
+    <tr>
+        <th>unstick</th>
+        <td><i>Boolean</i> - Allows the user to turn the unstick functionality on and off. Defaults to true (on)</td>
+    </tr>
+    <tr>
+        <th>closeChar</th>
+        <td><i>String</i> - Allows the user to set the character to be used as the unstick trigger. Defaults to ^</td>
+    </tr>
+    <tr>
+        <th>closeTop</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the top of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>closeRight</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the right of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>oSelector <em>(deprecated)</em></th>
+        <td>In version 1.0, this option is was set by the plugin and contains the selector information of the selected element. It is was used for internal purposes but has been deprecated for improved performance</td>
+    </tr>
+    <tr>
+        <th>easing</th>
+        <td><i>String</i> - Allows the user to set the type of easing to be used in the animation. Defaults to linear.</td>
+    </tr>
+    <tr>
+        <th>duration</th>
+        <td><i>Numeric</i> - Allows the user to set the duration of the animation. Defaults to 500</td>
+    </tr>
+    <tr>
+        <th>queue</th>
+        <td><i>Boolean</i> - Allows the user to set whether the animation is placed into the queue. If false, animation starts immediately. Defaults to false</td>
+    </tr>
+    <tr>
+        <th>unstick</th>
+        <td><i>Boolean</i> - Allows the user to turn the unstick functionality on and off. Defaults to true (on)</td>
+    </tr>
+    <tr>
+        <th>closeChar</th>
+        <td><i>String</i> - Allows the user to set the character to be used as the unstick trigger. Defaults to ^</td>
+    </tr>
+    <tr>
+        <th>closeTop</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the top of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>closeRight</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the right of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>oSelector <em>(deprecated)</em></th>
+        <td>In version 1.0, this option is was set by the plugin and contains the selector information of the selected element. It is was used for internal purposes but has been deprecated for improved performance</td>
+    </tr>
+    <tr>
+        <th>easing</th>
+        <td><i>String</i> - Allows the user to set the type of easing to be used in the animation. Defaults to linear.</td>
+    </tr>
+    <tr>
+        <th>duration</th>
+        <td><i>Numeric</i> - Allows the user to set the duration of the animation. Defaults to 500</td>
+    </tr>
+    <tr>
+        <th>queue</th>
+        <td><i>Boolean</i> - Allows the user to set whether the animation is placed into the queue. If false, animation starts immediately. Defaults to false</td>
+    </tr>
+    <tr>
+        <th>unstick</th>
+        <td><i>Boolean</i> - Allows the user to turn the unstick functionality on and off. Defaults to true (on)</td>
+    </tr>
+    <tr>
+        <th>closeChar</th>
+        <td><i>String</i> - Allows the user to set the character to be used as the unstick trigger. Defaults to ^</td>
+    </tr>
+    <tr>
+        <th>closeTop</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the top of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>closeRight</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the right of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>oSelector <em>(deprecated)</em></th>
+        <td>In version 1.0, this option is was set by the plugin and contains the selector information of the selected element. It is was used for internal purposes but has been deprecated for improved performance</td>
+    </tr>
+    <tr>
+        <th>easing</th>
+        <td><i>String</i> - Allows the user to set the type of easing to be used in the animation. Defaults to linear.</td>
+    </tr>
+    <tr>
+        <th>duration</th>
+        <td><i>Numeric</i> - Allows the user to set the duration of the animation. Defaults to 500</td>
+    </tr>
+    <tr>
+        <th>queue</th>
+        <td><i>Boolean</i> - Allows the user to set whether the animation is placed into the queue. If false, animation starts immediately. Defaults to false</td>
+    </tr>
+    <tr>
+        <th>unstick</th>
+        <td><i>Boolean</i> - Allows the user to turn the unstick functionality on and off. Defaults to true (on)</td>
+    </tr>
+    <tr>
+        <th>closeChar</th>
+        <td><i>String</i> - Allows the user to set the character to be used as the unstick trigger. Defaults to ^</td>
+    </tr>
+    <tr>
+        <th>closeTop</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the top of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>closeRight</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the right of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>oSelector <em>(deprecated)</em></th>
+        <td>In version 1.0, this option is was set by the plugin and contains the selector information of the selected element. It is was used for internal purposes but has been deprecated for improved performance</td>
+    </tr>
+    <tr>
+        <th>easing</th>
+        <td><i>String</i> - Allows the user to set the type of easing to be used in the animation. Defaults to linear.</td>
+    </tr>
+    <tr>
+        <th>duration</th>
+        <td><i>Numeric</i> - Allows the user to set the duration of the animation. Defaults to 500</td>
+    </tr>
+    <tr>
+        <th>queue</th>
+        <td><i>Boolean</i> - Allows the user to set whether the animation is placed into the queue. If false, animation starts immediately. Defaults to false</td>
+    </tr>
+    <tr>
+        <th>unstick</th>
+        <td><i>Boolean</i> - Allows the user to turn the unstick functionality on and off. Defaults to true (on)</td>
+    </tr>
+    <tr>
+        <th>closeChar</th>
+        <td><i>String</i> - Allows the user to set the character to be used as the unstick trigger. Defaults to ^</td>
+    </tr>
+    <tr>
+        <th>closeTop</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the top of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>closeRight</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the right of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>oSelector <em>(deprecated)</em></th>
+        <td>In version 1.0, this option is was set by the plugin and contains the selector information of the selected element. It is was used for internal purposes but has been deprecated for improved performance</td>
+    </tr>
+    <tr>
+        <th>easing</th>
+        <td><i>String</i> - Allows the user to set the type of easing to be used in the animation. Defaults to linear.</td>
+    </tr>
+    <tr>
+        <th>duration</th>
+        <td><i>Numeric</i> - Allows the user to set the duration of the animation. Defaults to 500</td>
+    </tr>
+    <tr>
+        <th>queue</th>
+        <td><i>Boolean</i> - Allows the user to set whether the animation is placed into the queue. If false, animation starts immediately. Defaults to false</td>
+    </tr>
+    <tr>
+        <th>unstick</th>
+        <td><i>Boolean</i> - Allows the user to turn the unstick functionality on and off. Defaults to true (on)</td>
+    </tr>
+    <tr>
+        <th>closeChar</th>
+        <td><i>String</i> - Allows the user to set the character to be used as the unstick trigger. Defaults to ^</td>
+    </tr>
+    <tr>
+        <th>closeTop</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the top of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>closeRight</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the right of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>oSelector <em>(deprecated)</em></th>
+        <td>In version 1.0, this option is was set by the plugin and contains the selector information of the selected element. It is was used for internal purposes but has been deprecated for improved performance</td>
+    </tr>
+    <tr>
+        <th>easing</th>
+        <td><i>String</i> - Allows the user to set the type of easing to be used in the animation. Defaults to linear.</td>
+    </tr>
+    <tr>
+        <th>duration</th>
+        <td><i>Numeric</i> - Allows the user to set the duration of the animation. Defaults to 500</td>
+    </tr>
+    <tr>
+        <th>queue</th>
+        <td><i>Boolean</i> - Allows the user to set whether the animation is placed into the queue. If false, animation starts immediately. Defaults to false</td>
+    </tr>
+    <tr>
+        <th>unstick</th>
+        <td><i>Boolean</i> - Allows the user to turn the unstick functionality on and off. Defaults to true (on)</td>
+    </tr>
+    <tr>
+        <th>closeChar</th>
+        <td><i>String</i> - Allows the user to set the character to be used as the unstick trigger. Defaults to ^</td>
+    </tr>
+    <tr>
+        <th>closeTop</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the top of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>closeRight</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the right of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>oSelector <em>(deprecated)</em></th>
+        <td>In version 1.0, this option is was set by the plugin and contains the selector information of the selected element. It is was used for internal purposes but has been deprecated for improved performance</td>
+    </tr>
+    <tr>
+        <th>easing</th>
+        <td><i>String</i> - Allows the user to set the type of easing to be used in the animation. Defaults to linear.</td>
+    </tr>
+    <tr>
+        <th>duration</th>
+        <td><i>Numeric</i> - Allows the user to set the duration of the animation. Defaults to 500</td>
+    </tr>
+    <tr>
+        <th>queue</th>
+        <td><i>Boolean</i> - Allows the user to set whether the animation is placed into the queue. If false, animation starts immediately. Defaults to false</td>
+    </tr>
+    <tr>
+        <th>unstick</th>
+        <td><i>Boolean</i> - Allows the user to turn the unstick functionality on and off. Defaults to true (on)</td>
+    </tr>
+    <tr>
+        <th>closeChar</th>
+        <td><i>String</i> - Allows the user to set the character to be used as the unstick trigger. Defaults to ^</td>
+    </tr>
+    <tr>
+        <th>closeTop</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the top of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>closeRight</th>
+        <td><i>Numeric</i> - Allows the user to set relative position of the unstick trigger to the right of the selected element, in pixels. Defaults to 0</td>
+    </tr>
+    <tr>
+        <th>oSelector <em>(deprecated)</em></th>
+        <td>In version 1.0, this option is was set by the plugin and contains the selector information of the selected element. It is was used for internal purposes but has been deprecated for improved performance</td>
+    </tr>
+</table>
+
+
+</body>
+</html>

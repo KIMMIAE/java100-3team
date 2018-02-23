@@ -1,9 +1,12 @@
 package java100.app.domain.performance;
 
+import java.util.Date;
+
 public class PerformanceFile {
-    int no;
-    String filename;
-    int performanceNo;
+    protected int no;
+    protected String filename;
+    protected int performanceNo;
+    protected Date regDate;
     
     public PerformanceFile() {}
     
@@ -18,7 +21,8 @@ public class PerformanceFile {
 
     @Override
     public String toString() {
-        return "PerformanceFile [no=" + no + ", filename=" + filename + ", performanceNo=" + performanceNo + "]";
+        return "PerformanceFile [no=" + no + ", filename=" + filename + ", performanceNo=" + performanceNo
+                + ", regDate=" + regDate + "]";
     }
 
     public int getNo() {
@@ -43,6 +47,14 @@ public class PerformanceFile {
 
     public void setPerformanceNo(int performanceNo) {
         this.performanceNo = performanceNo;
+    }
+
+    public Date getRegDate() {
+        return regDate;
+    }
+
+    public void setRegDate(Date regDate) {
+        this.regDate = regDate;
     }
     
     

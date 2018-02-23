@@ -115,7 +115,8 @@ public class PerformanceController {
     @RequestMapping("update")
     public Object update(
             Performance performance,
-            MultipartFile[] files) throws Exception {
+            MultipartFile[] files,
+            HttpSession session) throws Exception {
         
         System.out.println("Controller.update =>  " + performance.toString());
         
@@ -131,7 +132,9 @@ public class PerformanceController {
             }
             performance.setMedias(performanceFiles);
         }
-        
+
+        Member member = (Member)session.getAttribute("loginUser");
+        performance.setWriter(member);
         performanceService.update(performance);
         
         HashMap<String,Object> result = new HashMap<>();
@@ -148,10 +151,13 @@ public class PerformanceController {
     }*/
 
     @RequestMapping("jjim")
-    public Object jjim(Jjim jjim) throws Exception {
+    public Object jjim(Jjim jjim, HttpSession session) throws Exception {
         
         System.out.println("Controller.jjim =>  " + jjim.toString());
-
+        
+        Member member = (Member)session.getAttribute("loginUser");
+        jjim.setMemberNo(member.getNo());
+        
         performanceService.jjimHagi(jjim);
         
         HashMap<String,Object> result = new HashMap<>();
@@ -161,7 +167,11 @@ public class PerformanceController {
     }
     
     @RequestMapping("viewjjim")
-    public Object viewJjim(Jjim jjim) throws Exception {
+    public Object viewJjim(Jjim jjim, HttpSession session) throws Exception {
+        
+        Member member = (Member)session.getAttribute("loginUser");
+        jjim.setMemberNo(member.getNo());
+        
         HashMap<String, Object> result = new HashMap<>();
 
         result.put("jjim",  performanceService.getJjim(jjim));
@@ -169,9 +179,12 @@ public class PerformanceController {
     }
 
     @RequestMapping("addrating")
-    public Object addRating(Rating rating) throws Exception {
+    public Object addRating(Rating rating, HttpSession session) throws Exception {
         
         System.out.println("Controller.addRating =>  " + rating.toString());
+        
+        Member member = (Member)session.getAttribute("loginUser");
+        rating.setMemberNo(member.getNo());
 
         performanceService.addRating(rating);
         
@@ -181,10 +194,27 @@ public class PerformanceController {
         return result;
     }
 
+    @RequestMapping("checkrating")
+    public Object chekcRating(Rating rating, HttpSession session) throws Exception {
+        
+        System.out.println("Controller.chekcRating =>  " + rating.toString());
+        
+        Member member = (Member)session.getAttribute("loginUser");
+        rating.setMemberNo(member.getNo());
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("rating",  performanceService.checkRating(rating));
+        
+        return result;
+    }
+    
     @RequestMapping("addripple")
-    public Object addRipple(Ripple ripple) throws Exception {
+    public Object addRipple(Ripple ripple, HttpSession session) throws Exception {
         
         System.out.println("Controller.jjim =>  " + ripple.toString());
+        
+        Member member = (Member)session.getAttribute("loginUser");
+        ripple.setWriter(member);
 
         performanceService.addRipple(ripple);
         
@@ -195,13 +225,15 @@ public class PerformanceController {
     }
     
     @RequestMapping("viewripple")
-    public Object viewRipple(Ripple ripple) throws Exception {
+    public Object viewRipple(Ripple ripple, HttpSession session) throws Exception {
         
-        System.out.println("Controller.viewRipple =>  " + ripple.toString());
+        Member member = (Member)session.getAttribute("loginUser");
+        ripple.setWriter(member);
         
         HashMap<String, Object> result = new HashMap<>();
-        result.put("ripple",  performanceService.getRipple(ripple));
-        System.out.println("Controller.viewRipple =>  " + performanceService.getRipple(ripple));
+        result.put("list",  performanceService.getRipple(ripple));
+        
+        System.out.println("Controller.viewRipple =>  " + performanceService.getRipple(ripple).toString());
         return result;
     }
     

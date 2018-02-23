@@ -9,15 +9,26 @@
     <resultMap type="ripple" id="rippleMap">
         <id      column="rippleno"   property="no"/>
         <result column="pfmno"       property="performanceNo"/>
-        <result column="mmbno"       property="memberNo"/>
         <result column="ripple"      property="ripple"/>
         <result column="regdt"       property="regDate"/>
+        
+        <association property="writer" javaType="member">
+            <id     column="mmbno"       property="no"/>
+            <result column="nicknm"     property="nickName"/>
+            <result column="photo"     property="photo"/>
+        </association>
     </resultMap>
     
-    <select id="getRipple" resultType="String" parameterType="ripple">
+    <select id="getRipple" resultMap="rippleMap" parameterType="ripple">
         select 
-            ripple
-        from tb_ripple
+            t001.rippleno,
+            t001.ripple,
+            t001.mmbno,
+            t001.regdt,
+            t002.nicknm,
+            t002.photo
+        from tb_ripple t001
+             left join tb_memb t002 on t001.mmbno=t002.mmbno
         where pfmno=#{performanceNo}
     </select>
     
