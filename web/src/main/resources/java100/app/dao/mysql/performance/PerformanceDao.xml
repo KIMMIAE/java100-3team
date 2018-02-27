@@ -111,6 +111,7 @@
     
     <select id="findByNo2" resultMap="performanceMap" parameterType="int">
         select 
+            t002.email,
             t001.pfmno,
             t001.artno,
             t002.mmbno,

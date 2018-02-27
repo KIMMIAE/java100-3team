@@ -13,11 +13,18 @@
         <result column="regdt"     property="regDate"/>
     </resultMap>
     
-    <select id="getRating" resultType="rating" parameterType="int">
+    <select id="getRating" resultType="int" parameterType="int">
         select sum(rating)
         from tb_rating
         where pfmno=#{value}
         group by pfmno
+    </select>
+    
+    <select id="check" resultType="int" parameterType="rating">
+        select count(*)
+        from tb_rating
+        where pfmno=#{performanceNo}
+          and mmbno=#{memberNo}
     </select>
     
     <insert id="insert" parameterType="rating">

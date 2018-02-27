@@ -1,0 +1,16 @@
+Eclipse Team Git 사용법
+
+1. Git Staging 탭에서 자신이 수정한 소스들을 확인하고 
+   상단의 unstaged changes에서 하단의 staged changes로 옮긴다.
+
+2. Commit Message에 기록할 메시지를 적고 commit and push 버튼을 누른다.
+
+3. rejected 당했을 경우 프로젝트의 context 메뉴에서 Team - Synchronize workspace를 누른다.
+
+4. Synchronize 탭 밑에 프로젝트와 변경된 목록이 뜨고 그중에 빨간색 표시가 있는 파일들을 클릭하여 수정한다.
+
+5. 최종 수정 된 파일들은 context 메뉴에서 Mark as Merged를 눌러 저장을 시키고 다시 Git Staging 탭으로 돌아온다.
+
+6. Mark as Merged로 수정된 파일들을 다시 로컬 저장소에 commit 하고 pull로 당겨서 서버의 파일들과 합친다.
+
+7. 성공적으로 합쳐졌는지 확인 후 push upstream으로 git 서버의 저장소에 올린다.

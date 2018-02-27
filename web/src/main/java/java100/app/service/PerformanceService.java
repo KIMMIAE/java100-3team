@@ -21,8 +21,9 @@ public interface PerformanceService {
     void jjimHagi(Jjim jjim);
     int getJjim(Jjim jjim);
     void addRating(Rating rating);
+    int checkRating(Rating rating);
     void addRipple(Ripple ripple);
-    String getRipple(Ripple ripple);
+    List<Ripple>  getRipple(Ripple ripple);
 }
 
 
