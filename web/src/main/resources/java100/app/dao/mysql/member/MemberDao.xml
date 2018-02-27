@@ -184,7 +184,12 @@
         
     <!-- email 중복검사 -->
     <select id="countEmail" parameterType="string" resultType="int">
-        select count(email) from tb_memb where email=#{value}
+        select count(email) from tb_memb where email=#{email}
+    </select>
+    
+    <!-- nickName 중복검사 -->
+    <select id="countNickName" parameterType="string" resultType="int">
+        select count(nicknm) from tb_memb where nicknm=#{nickName}
     </select>
     
     <select id="countAll" resultType="int">
@@ -194,7 +199,7 @@
     
     <insert id="insert" parameterType="member" useGeneratedKeys="true" keyColumn="no" keyProperty="no">
         insert into tb_memb(photo,email,pwd,nicknm,type,msgfl,msgid,cancelfl,regdt)
-        values(#{photo},#{email},password(#{password}),#{nickName},#{type},#{messageFlag},#{messageId},'0',now())
+        values(#{photo},lower(#{email}),password(lower(#{password})),lower(#{nickName}),#{type},#{messageFlag},lower(#{messageId}),'0',now())
     </insert>
 
     <update id="update" parameterType="member">

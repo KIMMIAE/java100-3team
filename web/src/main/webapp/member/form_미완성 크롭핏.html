@@ -7,8 +7,8 @@
 <link rel='stylesheet' href='../css/style1.css'>
 </head>
 <body>
-<div class='container'>
 
+    <div class="container">
        <header>
        <div class="main-nav">
             <a href="../index.html"><img class="logo-img" src="../index-image/play-button.png"></a>
@@ -39,7 +39,6 @@
         </div>
 </header>
 
-
 <h3>회원 상세 정보</h3>
 <hr>
 <div style="margin-bottom: 3px;">
@@ -69,6 +68,7 @@
 <div class="chkEmailMsg" id="chkEmailMsg" style="color:red; margin-top:3px;"></div>
 </div>
 </div>
+
 
 
 <div class='form-group row'>
@@ -520,12 +520,8 @@ function checkNickName() {
         success: function (count) {
             if (count == 0 && re_nickName.test(nickNameItem.val()) == true) {
                 chkNickMsgItem.html('<p class="chkEmailMsg" id="chkEmailMsg" style="color:blue; margin-top:3px;">사용 가능한 닉네임입니다.</p>');
-                nickNameCount = count;
-                return nickNameCount;
             } else if (re_nickName.test(nickNameItem.val()) == false) {
                 chkNickMsgItem.html('<p class="chkEmailMsg" id="chkEmailMsg" style="color:red; margin-top:3px;">닉네임 형식이 맞지 않습니다.</p>');
-                nickNameCount = count;
-                return nickNameCount;
             } else if (count == 1) {
                 chkNickMsgItem.html('<p class="chkEmailMsg" id="chkEmailMsg" style="color:red; margin-top:3px;">이미 등록된 닉네임입니다.</p>');
                 nickNameCount = count;

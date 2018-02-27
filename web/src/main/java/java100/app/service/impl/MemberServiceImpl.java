@@ -99,6 +99,11 @@ public class MemberServiceImpl implements MemberService {
     }
     
     @Override
+    public int getNickNameCount(String nickName) {
+        return memberDao.countNickName(nickName);
+    }
+    
+    @Override
     public int add(Member member) {
         
         int count = memberDao.insert(member);
@@ -186,6 +191,8 @@ public class MemberServiceImpl implements MemberService {
             interestGenreDao.insert(genre);
         }
     }
+
+
 
 
 }

@@ -1,21 +1,48 @@
 <div class="main-nav">
-<img src="../index-image/play-button.png">
-<div class="nav-right"><span id="username"></span>님
-<button id="logoutBtn" type="button">로그아웃</button></div>
-<div class="nav-text">
-    <a href="../performance/list.html">공연정보</a>
-    <a href="../performance/form.html">공연등록</a>
-    <a href="../sponsor/list.html">후원정보</a>
-    <a href="../grape/list.html">청포도</a>
-    <a href="../performanceReview/list.html">공연후기</a>
-    <a href="../request/form.html">공연요청</a>
-</div>
-</div>
-<div class="clearfix"></div>
+            <a href="../index.html"><img class="logo-img" src="../index-image/play-button.png"></a>
+            <div class="nav-right" id="nav-right">
+            <span id='username'></span><span>님 환영합니다</span><br>
+            <a onclick='userInfo()' href='#'>회원정보</a>
+            <a onclick='logoutBtn()' href='#' id='logoutBtn'>로그아웃</a>
+            </div>
+            <div class="nav-text" id="nav-text">
+                <a href="../performance/list.html">
+                <img src="../index-image/text/text_01.png" alt="">
+                </a>
+                <a href="../performance/form.html">
+                <img src="../index-image/text/text_02.png" alt="">
+                </a>
+                <a href="../performanceReview/list.html">
+                <img src="../index-image/text/text_03.png" alt="">
+                </a>
+                <a href="../request/form.html">
+                <img src="../index-image/text/text_04.png" alt="">
+                </a>
+                <a href="../grape/list.html">
+                <img src="../index-image/text/text_05.png" alt="">
+                </a>
+<!--                <a href="../request/form.html">공연요청</a>-->
+            </div>
+            </div>
+            <div class="clearfix">
+        </div>
 
 <script type="text/javascript">
 
+$('#nav-text').find('img').hover(function(){
+$(this).attr("src",$(this).attr("src").replace("_","-hover_"));
+},function(){
+$(this).attr("src",$(this).attr("src").replace("-hover_","_"));
+});
+// 메뉴바 마우스오버시 이미지변경
+
 var loginUser = {};
+
+function userInfo(){
+    location.href="../member/form.html?no=" + loginUser.no;
+}
+
+
 
 $.getJSON('../json/auth/loginUser', function(result) {
     if (result.status == 'fail') {

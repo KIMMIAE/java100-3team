@@ -21,6 +21,7 @@ import java100.app.domain.member.InterestArea;
 import java100.app.domain.member.InterestGenre;
 import java100.app.domain.member.Member;
 import java100.app.service.MemberService;
+import java100.app.web.util.ThumbnailMaker;
 
 @RestController
 @RequestMapping("/member")
@@ -85,9 +86,6 @@ public class MemberController {
             result.put("genrelist", memberService.getInterestGenre(no));
         }
         
-        System.out.println(result);
-        
-        
         return result;
     }
     
@@ -101,6 +99,10 @@ public class MemberController {
             String uploadDir = servletContext.getRealPath("/download");
             String filename = writeUploadFile(file, uploadDir);
             member.setPhoto(filename);
+            
+            ThumbnailMaker.thumbnailMaker(100, 100, uploadDir, filename, "t1");
+            ThumbnailMaker.thumbnailMaker(200, 200, uploadDir, filename, "t2");
+            ThumbnailMaker.thumbnailMaker(300, 300, uploadDir, filename, "t3");
         }
         
         if (areas != null && areas.size() > 0) {
@@ -139,33 +141,26 @@ public class MemberController {
     
     @RequestMapping("checkEmail")
     public int checkEmail(String email) {
-        /*System.out.println(email);*/
         
         int count = memberService.getEmailCount(email);
         
         return count;
     }
     
-/*    @RequestMapping("checkEmail")
-    public boolean checkEmail(String email) {
-        System.out.println(email);
+    @RequestMapping("checkNickName")
+    public int checkNickName(String nickName) {
         
-        int count = memberService.getEmailCount(email);
+        int count = memberService.getNickNameCount(nickName);
         
-        if (count == 0) {
-            
-            return true;
-        }
-        
-        return false;
-    }*/
+        return count;
+    }
+    
     
     @RequestMapping("update")
     public String update(Member member, 
                           MultipartFile file, 
                           @RequestParam(value="areas",required=false) String[] areas,
                           @RequestParam(value="genres",required=false) String[] genres) throws Exception {
-        System.out.println(file);
         
         if (!file.isEmpty()) {
             String uploadDir = servletContext.getRealPath("/download");
@@ -237,11 +232,3 @@ public class MemberController {
         return filename;
     }  
 }
-
-
-
-
-
-
-
-

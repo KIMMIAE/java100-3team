@@ -1,6 +1,7 @@
 package java100.app.web.json;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,15 +13,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
+
 import java100.app.domain.member.Member;
 import java100.app.domain.sponsor.GreenGrape;
 import java100.app.service.GreenGrapeService;
+import java100.app.service.KakaoService;
 
 @RestController
 @RequestMapping("/grape")
 public class GreenGrapeController {
 
     @Autowired GreenGrapeService greenGrapeService;
+    @Autowired KakaoService kakaoService;
  
     @RequestMapping(value="add", method=RequestMethod.POST)
     public Object add(GreenGrape greenGrape,HttpSession session) throws Exception {
@@ -89,10 +94,51 @@ public class GreenGrapeController {
         return result;
     }
 
+//@RequestMapping(value="payment")
+//    public Object payment(GreenGrape grape, String accessToken) throws Exception {
+//        KakaoRestApi kakao = new KakaoRestApi();
+//        
+//      kakao.setAccessToken(accessToken);
+//      kakao.setAdminKey("c161a4770dca0c74c43b31ae3e730a25");
+//      Map<String, String> paramMap = new HashMap<String,String>();
+//      paramMap.put("cid", "TC0ONETIME");
+//      paramMap.put("partner_order_id", "partner_order_id");
+//      paramMap.put("partner_user_id", "partner_user_id");
+//      paramMap.put("item_name", "청포도");
+//      paramMap.put("quantity", Integer.toString(grape.getChrCount()));
+//      paramMap.put("total_amount", Integer.toString(grape.getChrAmount()));
+//      paramMap.put("vat_amount", Integer.toString((int)(grape.getChrAmount() * 0.1)));
+//      paramMap.put("tax_free_amount", "0");
+//      paramMap.put("approval_url", "http://localhost:9999/index.html");
+//      paramMap.put("cancel_url", "http://localhost:9999/auth/kakaoPay.html");
+//      paramMap.put("fail_url", "http://localhost:9999/index.html");
+//      
+//      return new Gson().fromJson(kakao.request(HttpMethodType.POST, "/v1/payment/ready", kakao.mapToParams(paramMap)),HashMap.class);
+//    }
+
+
+@RequestMapping(value="payment")
+    public Object payment(GreenGrape grape, String accessToken,HttpSession session) throws Exception {
+    
+        @SuppressWarnings("rawtypes")
+        HashMap result = kakaoService.pay(accessToken, grape,HashMap.class);
+        
+        session.setAttribute("tid",result.get("tid"));
+        session.setAttribute("accessToken", accessToken);
+    return result;
+    }
+
+
+
+@RequestMapping(value="approve")
+public Object approve(String pg_Token,HttpSession session) throws Exception {
+    
+    @SuppressWarnings("rawtypes")
+    HashMap result = kakaoService.approve(pg_Token,session,HashMap.class);
+    return result;
+    }
 
 }
-
-
 
 
 

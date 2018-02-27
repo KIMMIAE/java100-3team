@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+
+<form>
+    <input id="location" type="text" name="locName" value="강남">
+    <button id="sendBtn" type="button">발송</button>
+</form>
+
+
+
+
+<script src='../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=bFDtO4KnfCKKptaueJAL&submodules=geocoder"></script>
+<script type="text/javascript">
+
+var sendBtn = $('#sendBtn');
+
+sendBtn.click(()=>{
+    $.ajax('../json/request/test',{
+        data: {
+            locName : $('#location').val()
+        },
+        method:'POST',
+        dataType:'json',
+        success:(response)=>{
+            console.log("성공")
+            console.log(response);
+             for (var list of response.items){
+                console.log(list)
+            } // for문 */
+        }, //성공 
+       error:()=>{
+           window.alert('실행오류');
+       }
+        
+    }); //ajax 종료
+});
+
+
+</script>
+</body>
+</html>

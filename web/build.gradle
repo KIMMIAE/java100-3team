@@ -34,6 +34,10 @@ repositories {
     jcenter()
 }
 dependencies {
+
+    // java 썸네일 라이브러리
+    compile group: 'net.coobird', name: 'thumbnailator', version: '0.4.8'
+
     // MySQL DBMS의 JDBC Driver
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
     
