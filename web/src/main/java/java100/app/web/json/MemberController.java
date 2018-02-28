@@ -21,6 +21,7 @@ import java100.app.domain.member.InterestArea;
 import java100.app.domain.member.InterestGenre;
 import java100.app.domain.member.Member;
 import java100.app.service.MemberService;
+import java100.app.web.util.Base64Decoder;
 import java100.app.web.util.ThumbnailMaker;
 
 @RestController
@@ -91,13 +92,16 @@ public class MemberController {
     
     @RequestMapping(value="add", method=RequestMethod.POST)
     public Object add(Member member, 
-                       MultipartFile file,
+            @RequestParam(value="base64Image",required=false) String base64Image,
                        @RequestParam(value="areas", required=false) List<String> areas,
                        @RequestParam(value="genres", required=false) List<String> genres) throws Exception {
         
-        if (!file.isEmpty()) {
+        if (!base64Image.isEmpty()) {
+            
             String uploadDir = servletContext.getRealPath("/download");
-            String filename = writeUploadFile(file, uploadDir);
+            String filename = getNewFilename(".jpeg");
+            Base64Decoder.decoder(base64Image, uploadDir + "//" + filename);
+            
             member.setPhoto(filename);
             
             ThumbnailMaker.thumbnailMaker(100, 100, uploadDir, filename, "t1");
@@ -205,14 +209,14 @@ public class MemberController {
     
     // 다른 클라이언트가 보낸 파일명과 중복되지 않도록 
     // 서버에 파일을 저장할 때는 새 파일명을 만든다.
-    synchronized private String getNewFilename(String filename) {
+    synchronized private String getNewFilename(String png) {
         long currMillis = System.currentTimeMillis();
         if (prevMillis != currMillis) {
             count = 0;
             prevMillis = currMillis;
         }
         
-        return  currMillis + "_" + count++ + extractFileExtName(filename); 
+        return  currMillis + "_" + count++ + extractFileExtName(png); 
     }
     
     // 파일명에서 뒤의 확장자명을 추출한다.
