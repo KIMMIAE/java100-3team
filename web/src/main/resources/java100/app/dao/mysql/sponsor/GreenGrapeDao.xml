@@ -68,7 +68,18 @@
     </select>
     
     <select id="findSum" resultType="int" parameterType="int">
-    select 
+     select 
+        IFNULL(chrgsum - spnssum,0)
+        from 
+        (select mmbno,sum(chrgcnt) as chrgsum from tb_greengrape where mmbno=#{value} group by mmbno)
+        as t001 
+        join
+        (select mmbno,sum(ggcnt) as spnssum from tb_spnshstry where mmbno=#{value} group by mmbno) 
+        as t002 
+        on t001.mmbno = t002.mmbno;
+  
+  
+  <!--   select 
     chrgsum - spnssum
     from 
     (select mmbno,sum(chrgcnt) as chrgsum from tb_greengrape where mmbno=#{value} group by mmbno)
@@ -76,7 +87,7 @@
     join
     (select mmbno,sum(ggcnt) as spnssum from tb_spnshstry where mmbno=#{value} group by mmbno) 
     as t002 
-    on t001.mmbno = t002.mmbno;
+    on t001.mmbno = t002.mmbno; -->
        
     </select>
     

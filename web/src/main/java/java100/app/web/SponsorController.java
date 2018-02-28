@@ -42,7 +42,6 @@ public class SponsorController {
     @RequestMapping("{sponsorNo}")
     public String view(@PathVariable int sponsorNo, Model model) throws Exception {
         System.out.println(sponsorNo);
-        
         System.out.println(sponsorService.get(sponsorNo).getSponsorNo());
         model.addAttribute("sponsor", sponsorService.get(sponsorNo));
         return "sponsor/view";
