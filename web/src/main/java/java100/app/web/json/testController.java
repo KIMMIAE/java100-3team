@@ -20,8 +20,8 @@ public class testController {
         System.out.println(locName);
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        headers.set("X-Naver-Client-Id", "_RXvYrCYla3FF85EAXUF");
-        headers.set("X-Naver-Client-Secret", "hvSdUqWkxp");
+        headers.set("X-Naver-Client-Id", "bFDtO4KnfCKKptaueJAL");
+        headers.set("X-Naver-Client-Secret", "0EGuD8QufL");
         HttpEntity entity = new HttpEntity(headers);
         System.out.println("실행완료");
         ResponseEntity<HashMap> response = restTemplate.exchange("https://openapi.naver.com/v1/search/local.json?query={v1}", HttpMethod.GET, entity, HashMap.class, locName);

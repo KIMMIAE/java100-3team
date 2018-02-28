@@ -27,6 +27,7 @@ public interface MemberService {
     Member get(String email, String password);
     public Member get(String email);
     int getEmailCount(String email);
+    int getNickNameCount(String nickName);
     int getTotalCount();
     int add(Member member);
     int update(Member member);
