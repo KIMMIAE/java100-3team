@@ -4,49 +4,25 @@
 <meta charset="UTF-8">
 <title>공연 요청 게시판</title>
 <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../css/common.css'> 
+<link rel='stylesheet' href='../css/style1.css'>
+<link rel="stylesheet" href="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.min.css">
 <!-- datetimepicker 경로 설정 -->
 <!-- <link rel="stylesheet" href="../node_modules/datetimepicker-master/build/jquery.datetimepicker.min.css">
  -->
- <link rel="stylesheet" href="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.min.css">
+<style>
+.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+.map_wrap {position:relative;width:100%;height:500px;}
+#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+.bg_white {background:#fff;}
+#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+/* #menu_wrap .option{text-align: center;}  */
+</style>
  
 </head>
 <body>
 <div class='container'>
-
-<header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-<a class="navbar-brand" href="http://localhost:9999/app/index.html">
-  <img src="../images/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-  비트캠프
-</a>
-
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
-<div class="collapse navbar-collapse" id="navbarNav">
-<ul class="navbar-nav mr-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="http://localhost:9999/app/member/list">회원정보</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="http://localhost:9999/app/performance/list">공연정보</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="http://localhost:9999/app/request/list">공연요청</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="http://localhost:9999/app/sponsor/list">공연후원</a>
-  </li>
-    <li class="nav-item">
-    <a class="nav-link" href="http://localhost:9999/app/notice/list">공지사항</a>
-  </li>
-</ul>
-
-admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm">로그아웃</a>
-    </div>
-</nav>
-</header>
+<header></header>
 
 <h1>공연 요청</h1>
 
@@ -58,7 +34,6 @@ admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm
 <input class='form-control' readonly id='no' type='text' name='no'>
 </div>
 </div>
-
 
 <div class='form-group row'>
 <label for='title' class='col-sm-2 col-form-label'>제목</label>
@@ -116,22 +91,34 @@ admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm
 <div class='form-group row'>
 <label for='location' class='col-sm-2 col-form-label'>공연장소</label>
 <div class='col-sm-10'>
-<div class='search'>
-<input class='form-control' id='address' type='text' name='address'>
-</div>
-</div>
-<label class='col-sm-2 col-form-label'></label>
-<div class='col-sm-10'>
-<div id="map" style="width:100%;height:400px;"></div>
+<input class='form-control' readonly id='mapAddress' type='text' name='location'>
 </div>
 </div>
 
 <div class='form-group row'>
+<div class="map_wrap">
+    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+    <div id="menu_wrap" class="bg_white">
+        <div class="option">
+            <div>
+                    키워드 : <input type="text" value="강남" id="location" name="locName" size="15"> 
+                    <button id="sendBtn" type="button">검색하기</button> 
+                    <hr>
+                    <table id="searchTable">
+                    <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+<!-- <div class='form-group row'>
 <label for='specialDesc' class='col-sm-2 col-form-label'>특이사항</label>
 <div class='col-sm-10'>
 <input class='form-control' id='specialDesc' type='text' name='specialDesc'>
 </div>
-</div>
+</div> -->
 
 <div class='form-group row'>
 <label for='regDate' class='col-sm-2 col-form-label'>등록일</label>
@@ -157,7 +144,6 @@ admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm
 </form>
 
 <footer>
-    비트캠프 자바100기@2017
 </footer>
 </div>
 
@@ -165,10 +151,10 @@ admin<a href="http://localhost:9999/app/auth/logout" class="btn btn-light btn-sm
 <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script src="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.full.min.js"><charset="UTF-8"></script>
+
 <!-- <script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=Rqa9P8nHPAt3FWOFtDNe&callback=initMap"></script>-->
 <!-- <script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=Rqa9P8nHPAt3FWOFtDNe&submodules=drawing,geocoder"></script> -->
-<script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=Rqa9P8nHPAt3FWOFtDNe&submodules=geocoder"></script>
-
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=bFDtO4KnfCKKptaueJAL&submodules=geocoder"></script>
 
 <script type="text/javascript">
 <!-- datetimepicker 사용 -->
@@ -177,149 +163,86 @@ $('#entryDate').datetimepicker({step:10}); //분단위 설정
 jQuery.datetimepicker.setLocale('ko');
 //데이트 피커 
 
-
+/* var sendBtn = $('#sendBtn'),
+    searchTableTbody = $('#searchTable > tbody');
+ */
+ 
 var map = new naver.maps.Map("map", {
-    center: new naver.maps.LatLng(37.566535, 126.9779692),
-    zoom: 10,
-    /* mapTypeControl: true */
-});
-//맵 초기 경로 , 배율 
-
-
-var infoWindow = new naver.maps.InfoWindow({
-    anchorSkew: true
-});
-//정보창에 설정
-
-map.setCursor('pointer');
-
-// search by tm128 coordinate
-function searchCoordinateToAddress(latlng) { // 지도 클릭시 마커로 위치표시 
-    var tm128 = naver.maps.TransCoord.fromLatLngToTM128(latlng);
-
-    infoWindow.close();
-
-    naver.maps.Service.reverseGeocode({
-        location: tm128,
-        coordType: naver.maps.Service.CoordType.TM128
-    }, function(status, response) {
-        if (status === naver.maps.Service.Status.ERROR) {
-            return alert('Something Wrong!');
-        }
-
-        var items = response.result.items,
-            htmlAddresses = [];
-
-       /* for (var i=0, ii=items.length, item, addrType; i<ii; i++) {
-            item = items[i];
-            addrType = item.isRoadAddress ? '[도로명 주소]' : '[지번 주소]';
-
-            htmlAddresses.push((i+1) +'. '+ addrType +' '+ item.address);
-            htmlAddresses.push('&nbsp&nbsp&nbsp -> '+ item.point.x +','+ item.point.y);
-        }  */
-
-        infoWindow.setContent([
-                '<div style="padding:10px;min-width:200px;line-height:150%;">',
-                '<h4 style="margin-top:5px;">검색 좌표 : '+ response.result.userquery +'</h4><br/>',
-                htmlAddresses.join('<br/>'),
-                '</div>'
-            ].join('\n'));
-
-        infoWindow.open(map, latlng);
-    });
-}
-
-
-// result by latlng coordinate
-function searchAddressToCoordinate(address) { // 주소 입력 했을 때 지도 위치 재지정
-    naver.maps.Service.geocode({
-        address: address
-    }, function(status, response) {
-        if (status === naver.maps.Service.Status.ERROR) {
-            return alert('지명을 확인해 주세요!');
-        }
-
-        var item = response.result.items[0],
-            addrType = item.isRoadAddress ? '[도로명 주소]' : '[지번 주소]' ,
-            point = new naver.maps.Point(item.point.x , item.point.y);
-
-        infoWindow.setContent([
-                '<div style="padding:10px;min-width:200px;line-height:150%;">',
-                '<h4 style="margin-top:5px;">검색 주소 : '+ response.result.userquery +'</h4><br/>',
-                addrType +' '+ item.address +'<br/>',
-                '&nbsp&nbsp&nbsp -> '+ point.x +','+ point.y,
-                '</div>'
-            ].join('\n'));
-
-
-        map.setCenter(point);
-        marker.setPosition(point);
-        /* infoWindow.open(map, point); */
-    });
-}
-
-function initGeocoder() { // 초기값 설정
-    map.addListener('click', function(e) {
-        searchCoordinateToAddress(e.coord);
-    });
-
-    $('#address').on('keydown', function(e) {
-        var keyCode = e.which;
-
-        if (keyCode === 13) { // Enter Key
-            searchAddressToCoordinate($('#address').val());
-        }
-    });
-
-    $('#submit').on('click', function(e) {
-        e.preventDefault();
-
-        searchAddressToCoordinate($('#address').val());
-    });
-
-}
-
-var marker = new naver.maps.Marker({ // 마커 설정
-
-    position: new naver.maps.LatLng(37.566295, 126.977945),
-
-    map: map
-
+    center: new naver.maps.Point(309944, 552085),
+    zoom: 11,
+    mapTypes: new naver.maps.MapTypeRegistry({
+        'normal': naver.maps.NaverMapTypeOption.getNormalMap({
+            projection: naver.maps.TM128Coord
+        }),
+        'terrain': naver.maps.NaverMapTypeOption.getTerrainMap({
+            projection: naver.maps.TM128Coord
+        }),
+        'satellite': naver.maps.NaverMapTypeOption.getSatelliteMap({
+            projection: naver.maps.TM128Coord
+            
+            
+            
+        }),
+        'hybrid': naver.maps.NaverMapTypeOption.getHybridMap({
+            projection: naver.maps.TM128Coord
+        })
+    }),
+    mapTypeControl: true
 });
 
-naver.maps.Event.addListener(map, 'click', function(e) { //이벤트 리스너세팅
-    marker.setPosition(e.latlng);
+var markers = [];
+
+$('#searchTable').on('click', '.addressLink',(event) => {
+    event.preventDefault();
+    var target = event.target;
+    if (!(event.target instanceof HTMLAnchorElement))
+        target = event.target.parentNode;
+    initMap($(target).attr('mapx'),$(target).attr('mapy'));
+    /* console.log($(target).attr('roadAddress')); */
+   $(document).ready(function() {
+    if($(target).attr('roadAddress')){    
+        var locationItem = $(target).attr('roadAddress');
+        $('#mapAddress').val($(target).attr('roadAddress'));
+    } else{
+        var locationItem = $(target).attr('address');
+        $('#mapAddress').val($(target).attr('address'));
+    }
     
+    }); 
 });
 
-naver.maps.onJSContentLoaded = initGeocoder;
+function initMap(x,y) {
+    map.setCenter(new naver.maps.Point(x, y));
+}
 
-/* var map = null;
-
-function initMap() {
-var map = new naver.maps.Map("map", {
-    center: new naver.maps.LatLng(37.566295, 126.977945),
-    zoom: 10
-});
-
-var marker = new naver.maps.Marker({
-
-    position: new naver.maps.LatLng(37.566295, 126.977945),
-
-    map: map
-
-});
-
-naver.maps.Event.addListener(map, 'click', function(e) {
-    marker.setPosition(e.latlng);
-    
-});
-
-map.setCursor('pointer');
-
-} */
-
-
+/* function initMap(x,y) {
+    map = new naver.maps.Map("map", {
+        center: new naver.maps.Point(x, y),
+        zoom: 11,
+        
+        mapTypes: new naver.maps.MapTypeRegistry({
+            'normal': naver.maps.NaverMapTypeOption.getNormalMap({
+                projection: naver.maps.TM128Coord
+            }),
+            'terrain': naver.maps.NaverMapTypeOption.getTerrainMap({
+                projection: naver.maps.TM128Coord
+            }),
+            'satellite': naver.maps.NaverMapTypeOption.getSatelliteMap({
+                projection: naver.maps.TM128Coord
+            }),
+            'hybrid': naver.maps.NaverMapTypeOption.getHybridMap({
+                projection: naver.map
+            })
+        }),
+        mapTypeControl: true
+    });
+    marker = new naver.maps.Marker({
+        position: new naver.maps.Point(x, y),
+        map:map
+    }); 
+}
+ */
+ 
 var addBtn = $('#addBtn'),
     updateBtn = $('#updateBtn'),
     deleteBtn = $('#deleteBtn'),
@@ -328,15 +251,20 @@ var addBtn = $('#addBtn'),
     detailDescItem = $('#detailDesc'),
     genreItem = $('#genre'),
     entryDateItem = $('#entryDate'),
-    locationItem = $('#location'),
+    /* locationItem = $('#location'), */
+    locationItem = $('#mapAddress'),
     specialDescItem = $('#specialDesc'),
     writerItem = $('#writer'),
     regDateItem = $('#regDate'),
-    viewCountItem = $('#viewCount')
+    viewCountItem = $('#viewCount'),
+    sendBtn = $('#sendBtn'),
+    searchTableTbody = $('#searchTable > tbody');
+   
 
-/* 
-$('header').load('../header.html');
-$('footer').load('../footer.html'); */
+$('header').load('../header.html', () => {
+});
+
+$('footer').load('../footer.html');
 
 var index = location.href.indexOf('?');
 if (index != -1) { // 기존 데이터를 조회할 경우,
@@ -367,6 +295,51 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
 } else { // 신규 데이터 입력일 경우,
     $('.my-view').css('display', 'none');
 }
+
+
+
+sendBtn.click(()=>{
+    
+    for (var i = 0; i < markers.length; i++) {
+     markers[i].setMap(null);
+    }
+    
+    $.ajax('../json/request/form',{
+        data: {
+            locName : $('#location').val(),
+        },
+        /* method:'GET', */ 
+        success:(response)=>{
+            console.log("성공")
+            console.log(response);
+            searchTableTbody.html('');
+             for (var item of response.items){
+                 var result = item.roadAddress ? item.roadAddress : item.address
+                 console.log(result);
+                 $('<tr>')   
+                    .html("<td><a class='addressLink' href='#' mapx='" + item.mapx + "' mapy='" + item.mapy + "' roadAddress= '" + result + "'>" + item.title + "</a></td>")
+                    .appendTo(searchTableTbody);
+                 $('<tr>')
+                    .html("<td>" + result + "</td>")
+                    
+                    .appendTo(searchTableTbody);
+                 $('<hr>')
+                    .appendTo(searchTableTbody);
+          
+                 marker = new naver.maps.Marker({
+                 position: new naver.maps.Point(item.mapx, item.mapy),
+                 map: map,
+                 });
+                 markers.push(marker);
+                 
+            } // for문 */
+        }, //성공 
+       error:()=>{
+           window.alert('실행오류');
+       }
+        
+    }); //ajax 종료
+});
 
 
 addBtn.click(() => {
@@ -434,6 +407,7 @@ function pad(n, width) {
     return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
 }
 
+
 <!-- datetimepicker 업데이트 -->
 function formatDate(jason) {
     var jasondate = new Date(jason),
@@ -443,10 +417,8 @@ function formatDate(jason) {
         hh = jasondate.getHours().toString(),
         minmin = jasondate.getMinutes().toString();
         
-    return yyyy +"-"+(mm[1] ? mm : '0'+mm[0])+"-"+(dd[1] ? dd : '0'+dd[0])+" "+(hh[1] ? hh : '0'+hh[0])+"시"+(minmin[1] ? minmin : '0'+minmin[0])+"분";
+    return yyyy +"-"+(mm[1] ? mm : '0'+mm[0])+"-"+(dd[1] ? dd : '0'+dd[0])+" "+(hh[1] ? hh : '0'+hh[0])+":"+(minmin[1] ? minmin : '0'+minmin[0]);
  }
- 
- 
  
  
 
