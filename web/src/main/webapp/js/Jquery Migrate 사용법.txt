@@ -1,0 +1,25 @@
+﻿## Jquery Migrate 사용법
+
+## 1. Jquery 구버전 - 신버전 순으로 import한다.
+
+#### 라이브러리가 사용할 제이쿼리
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+#### 현재 사용하는 제이쿼리
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+
+## 2. link jQuery Migrate Plugin을 사용한다.
+###  2.1 만약 현재 사용하는 제이쿼리가 3.0이하라면 jQuery Migrate 1.4.1를 import한다.
+#### 현재 사용하는 제이쿼리
+<script src="../node_modules/jquery_migrate/jquery-migrate-1.4.1.min.js"></script>
+###  2.2 현재 사용하는 제이쿼리가 3.0이상이라면 jQuery Migrate 1.4.1를 import한 후 3.0.0도 import한다.
+<script src="../node_modules/jquery_migrate/jquery-migrate-3.0.0.min.js"></script>
+
+## 3. 사용할 라이브러리를 import한다.
+
+### ex) 최종 순서
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> 구버전 제이쿼리
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script> 현재 사용하는 제이쿼리
+    <script src="../node_modules/jquery_migrate/jquery-migrate-1.4.1.min.js"></script> 구버전 마이그레이트
+    <script src="../node_modules/jquery_migrate/jquery-migrate-3.0.0.min.js"></script> 신버전 마이그레이트
+    <script src="../node_modules/cropit/dist/jquery.cropit.js"></script> 사용할 라이브러리

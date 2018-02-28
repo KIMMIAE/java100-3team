@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,12 @@ public class MemberServiceImpl implements MemberService {
     @Autowired AreaCodeDao areaCodeDao;
     @Autowired GenreCodeDao genreCodeDao;
     
+    static Logger logger = Logger.getLogger(MemberServiceImpl.class);
+    
     @Override
     public List<Member> list(int pageNo, int pageSize, Map<String, Object> options) {
+        
+        logger.debug("MemberServiceImpl");
         
         HashMap<String,Object> params = new HashMap<>();
         params.put("startIndex", (pageNo - 1) * pageSize);
@@ -96,6 +101,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public int getEmailCount(String email) {
         return memberDao.countEmail(email);
+    }
+    
+    @Override
+    public int getNickNameCount(String nickName) {
+        return memberDao.countNickName(nickName);
     }
     
     @Override
@@ -186,6 +196,8 @@ public class MemberServiceImpl implements MemberService {
             interestGenreDao.insert(genre);
         }
     }
+
+
 
 
 }
