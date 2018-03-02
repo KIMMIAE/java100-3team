@@ -3,15 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>공지 게시판</title>
-<link rel='stylesheet' href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link rel='stylesheet' href='../css/style1.css'>
 </head>
 <body>
 <div class='container'>
 
-<header></header>
-
-<h1>공지 목록</h1>
+<h1>공지</h1>
 
 <nav class="navbar navbar-light justify-content-between">
   <a href='form.html' class='btn btn-primary btn-sm'>추가</a>
@@ -46,9 +44,6 @@
         <a id="nextBtn" class="page-link" tabindex="0">다음</a></li>
   </ul>
 </nav>
-
-<footer></footer>
-
 </div>
 
 <script src='../node_modules/jquery/dist/jquery.min.js'></script>
@@ -65,11 +60,7 @@ var words = $('#words'),
     currPageNo = 1;
     /* member = null; */
 
-$('header').load('../header.html', () => {
     load(1);
-});
-
-$('footer').load('../footer.html');
 
 
 searchBtn.click(() => {

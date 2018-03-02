@@ -1,3 +1,4 @@
+<html>
 <head>
 
 <meta charset="UTF-8">
@@ -51,6 +52,7 @@
     .span {position:absolute; color:#708090; font-family:verdana; font-size: 12px; width:200px;}
     .spaninfo {position:absolute; color:black;font-family:verdana; font-size: 12px; width:200px;}
 </style>
+
 
 
 <style>
@@ -226,22 +228,20 @@ table tr:nth-child(2n+1) {
     overflow: visible;
   }
 }
+
 </style>
-
-
 </head>
-
 <body>
-
-
-
-
-<!-- <div class="box-left"> -->
 
 <header></header>
 
 
+
 <div class='container box-left'>
+
+
+
+
 
 <div class='form-group row' id='box' style="position:absolute; border:black solid 1px;visibility:hidden;">
 
@@ -256,7 +256,7 @@ table tr:nth-child(2n+1) {
 </div>  <!-- form-group -->
 
 
-<div class='form-group' style="position: relative; left:50px; top:400px;">
+<div class='form-group' style="position: relative; top:320px;">
     <nav class="navbar navbar-light justify-content-between">
       <form class="form-inline">
         <input id="words" name="words"
@@ -268,22 +268,35 @@ table tr:nth-child(2n+1) {
     </nav>
 
 </div>  <!-- form-group -->
-    
-    
 
-<div class='form-group' style="position: relative; top:400px;">
+
+
+
+
+<div class='form-group' style="position: relative; top:320px;">
+
+
 <div class="table-users">
-    <div class="header">공연 정보</div>
-    <table id="list">
+   <div class="header">공연 정보</div>
+
+   <table id="list">
     <thead>
-    <tr>
-    <th>포스터</th><th>공연명</th><th>아티스트명</th>
-    <th>공연장르</th><th>공연날짜</th><th>공연장소</th>
-    <th>등록자</th><th>조회수</th>
-    </tr>
+      <tr>
+	    <th>포스터</th><th>공연명</th><th>아티스트명</th>
+	    <th>공연장르</th><th>공연날짜</th><th>공연장소</th>
+	    <th>등록자</th><th>조회수</th>
+        <!-- <th width="100">포스터</th><th width="200">공연명</th><th width="100">아티스트명</th>
+        <th width="100">공연장르</th><th width="100">공연날짜</th><th width="100">공연장소</th>
+        <th width="100">등록자</th><th width="80">조회수</th> -->
+      </tr>
     </thead>
+
     <tbody></tbody>
-    </table>
+   </table>
+   
+   
+   
+   
     
     
     <nav aria-label="Page navigation">
@@ -298,32 +311,21 @@ table tr:nth-child(2n+1) {
             <a id="nextBtn" class="page-link" tabindex="0">다음</a></li>
       </ul>
     </nav>
+    
+    
+    
+    
+    
 </div>
+
+
+
+
 </div>
 
 
-<!-- </div>box-left -->
 
-
-
-
-
-
-</div> <!-- container -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
 
 
 <script src='../node_modules/jquery/dist/jquery.min.js'></script>
@@ -346,7 +348,7 @@ var //loginUser = {},
     imgbox1 = $('#box'),
     imgbox = $('#imgbox'),
     words = $('#words'),
-    addBtn = $('#addBtn'),
+    //addBtn = $('#addBtn'),
     searchBtn = $('#searchBtn'),
     prevBtn = $('#prevBtn'),
     currBtn = $('#currBtn'),
@@ -441,7 +443,7 @@ function load(pageNo, options) {
                 }
                 $('<tr>').html(
                     "<td><a href='detail.html?no=" + data.no + "'>" + 
-                        "<img src='../download/" + filename + "' height=50>" + 
+                        "<img src='../download/" + filename + ">" + 
                     "<td>" + data.name + "</td>" +
                     "<td>" + data.artist.artistName + "</td>" +
                     "<td>" + data.genre + "</td>" +
@@ -458,7 +460,7 @@ function load(pageNo, options) {
                     "title='" + data.name + "'" +
                     "alt='" + data.location + " : " +  
                          formatDate(data.entryDate, 0) + "'" +
-                    "onclick='Obj[" + i++ + "].clic();'" +
+                    /* "onclick='Obj[" + i++ + "].clic();'" + */
                     ">" +
                     "</a>"
                 );
@@ -506,10 +508,10 @@ function formatDate(jason, typedt) {
     }
     else {
         if (jasondate.getMinutes() == 0) {
-	        strval = jasondate.getFullYear() + '년' + 
-	                 (jasondate.getMonth() + 1) + '월' + 
-	                 jasondate.getDate() + "일<br/>" +
-	                 jasondate.getHours() + '시';
+            strval = jasondate.getFullYear() + '년' + 
+                     (jasondate.getMonth() + 1) + '월' + 
+                     jasondate.getDate() + "일<br/>" +
+                     jasondate.getHours() + '시';
         } else {
             strval = jasondate.getFullYear() + '년' + 
             (jasondate.getMonth() + 1) + '월' +  
@@ -616,7 +618,7 @@ function CObj(n, s, x, tx, ti){
             zo -= (zo-dim)*speed;
             l   = Math.round((x1*si)+6*(n+1));
             w   = Math.round(zo*si);
-            is.left   = l+20; //l;
+            is.left   = l;
             is.top    = (H-w*rImg)*.5;
             is.width  = w;
             is.height = w*rImg;
@@ -650,7 +652,7 @@ function dText(){
     //txt1.innerHTML = Obj[sel].tx;
     var splitStr = Obj[sel].tx.split(':');
     txt1.innerHTML = "공연장소 : " + splitStr[0];
-    txt2.innerHTML = "공연시간 : " + splitStr[1];
+    txt2.innerHTML = "공연날짜 : " + splitStr[1];
 }
 
 
@@ -675,9 +677,9 @@ function doResize(){
     txt2.style.fontSize = 16 + "px";  //(nx / 70) + "px";
     
     with(box.style){
-        width  = 815;  // W;
+        width  = 990;  // W;
         height = H;
-        left   = nx / 2 - W / 2  + 480;
+        left   = nx / 2 - W / 2  + 160;
         top    = ny / 2 - H / 2;
         top = 220;
     }

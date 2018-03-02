@@ -1,3 +1,4 @@
+<html>
 <head>
 
 <meta charset="UTF-8">
@@ -6,8 +7,62 @@
 <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link rel='stylesheet' href='../css/style1.css'>
 
-<!-- Image Slide -->
 <style type="text/css">
+    .img  {position:absolute; border:gray solid 1px; cursor:pointer; width:0px; }
+    .span {position:absolute; color:#708090; font-family:verdana; font-size: 12px; width:200px;}
+    .spaninfo {position:absolute; color:black;font-family:verdana; font-size: 12px; width:200px;}
+</style>
+
+
+
+
+<style type="text/css">
+body * {
+  box-sizing: border-box;
+}
+
+
+table {
+  width: 100%;
+}
+table td, table th {
+  color: #2b686e;
+  padding: 10px;
+}
+table td {
+  text-align: center;
+  vertical-align: middle;
+}
+table th {
+  background-color: #daeff1;
+  font-weight: 300;
+}
+table tr:nth-child(2n) {
+  background-color: white;
+}
+table tr:nth-child(2n+1) {
+  background-color: #edf7f8;
+}
+    
+    /* .container {
+      display: flex;
+    } */
+    
+    .box-left {
+       /* flex: 8; */
+      float:left;
+      width:70%;
+      margin-left: 200px;
+    }
+    
+    .box-right {
+      /* flex: 2; */
+      /* float:right; */
+      width:20%;
+      height:2000px;
+      display:inline-block;
+    }
+    
     .grid_4 {
         top: 0px;
         right: 0px;
@@ -44,190 +99,12 @@
         background-color: #000;
         padding: 4px;
     }
+    
+    
+    
+    
+    
 </style>
-
-<style type="text/css">
-    .img  {position:absolute; border:gray solid 1px; cursor:pointer; width:0px; }
-    .span {position:absolute; color:#708090; font-family:verdana; font-size: 12px; width:200px;}
-    .spaninfo {position:absolute; color:black;font-family:verdana; font-size: 12px; width:200px;}
-</style>
-
-
-<style>
-body * {
-  box-sizing: border-box;
-}
-.table-users {
-  background-color: #91ced4;
-}
-
-.header {
-  background-color: #327a81;
-  color: white;
-  font-size: 1.5em;
-  padding: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-img {
-  border-radius: 50%;
-  height: 60px;
-  width: 60px;
-}
-
-.table-users {
-  border: 1px solid #327a81;
-  border-radius: 10px;
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
-  max-width: calc(100% - 2em);
-  margin: 1em auto;
-  overflow: hidden;
-  width: 1000px;
-}
-
-table {
-  width: 100%;
-}
-table td, table th {
-  color: #2b686e;
-  padding: 10px;
-}
-table td {
-  text-align: center;
-  vertical-align: middle;
-}
-table td:last-child {
-  font-size: 0.95em;
-  line-height: 1.4;
-  text-align: left;
-}
-table th {
-  background-color: #daeff1;
-  font-weight: 300;
-}
-table tr:nth-child(2n) {
-  background-color: white;
-}
-table tr:nth-child(2n+1) {
-  background-color: #edf7f8;
-}
-
-@media screen and (max-width: 1000px) {
-  table, tr, td {
-    display: block;
-  }
-
-  td:first-child {
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-            transform: translateY(-50%);
-    width: 100px;
-  }
-  td:not(:first-child) {
-    clear: both;
-    margin-left: 100px;
-    padding: 4px 20px 4px 90px;
-    position: relative;
-    text-align: left;
-  }
-  td:not(:first-child):before {
-    color: #91ced4;
-    content: '';
-    display: block;
-    left: 0;
-    position: absolute;
-  }
-  td:nth-child(2):before {
-    content: '공연명:';
-  }
-  td:nth-child(3):before {
-    content: '아티스트명:';
-  }
-  td:nth-child(4):before {
-    content: '공연장르:';
-  }
-  td:nth-child(5):before {
-    content: '공연날짜:';
-  }
-  td:nth-child(6):before {
-    content: '공연장소:';
-  }
-  td:nth-child(7):before {
-    content: '등록자:';
-  }
-  td:nth-child(8):before {
-    content: '조회수:';
-  }
-
-  tr {
-    padding: 10px 0;
-    position: relative;
-  }
-  tr:first-child {
-    display: none;
-  }
-}
-@media screen and (max-width: 500px) {
-  .header {
-    background-color: transparent;
-    color: white;
-    font-size: 2em;
-    font-weight: 700;
-    padding: 0;
-    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
-  }
-
-  img {
-    border: 3px solid;
-    border-color: #daeff1;
-    height: 100px;
-    margin: 0.5rem 0;
-    width: 100px;
-  }
-
-  td:first-child {
-    background-color: #c8e7ea;
-    border-bottom: 1px solid #91ced4;
-    border-radius: 10px 10px 0 0;
-    position: relative;
-    top: 0;
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-    width: 100%;
-  }
-  td:not(:first-child) {
-    margin: 0;
-    padding: 5px 1em;
-    width: 100%;
-  }
-  td:not(:first-child):before {
-    font-size: .8em;
-    padding-top: 0.3em;
-    position: relative;
-  }
-  td:last-child {
-    padding-bottom: 1rem !important;
-  }
-
-  tr {
-    background-color: white !important;
-    border: 1px solid #6cbec6;
-    border-radius: 10px;
-    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
-    margin: 0.5rem 0;
-    padding: 0;
-  }
-
-  .table-users {
-    border: none;
-    box-shadow: none;
-    overflow: visible;
-  }
-}
-</style>
-
 
 </head>
 
@@ -238,26 +115,35 @@ table tr:nth-child(2n+1) {
 
 <!-- <div class="box-left"> -->
 
-<header></header>
-
-
 <div class='container box-left'>
+<header></header>
+<h1>공연 목록</h1>
+
+
+
 
 <div class='form-group row' id='box' style="position:absolute; border:black solid 1px;visibility:hidden;">
 
-    <div id="img"></div>
-    
-    <div class='spaninfo' >
-        <span class='spaninfo' id=tit></span>
-        <span class='spaninfo' id=txt1></span>
-        <span class='spaninfo' id=txt2></span>
-    </div>
-    
+<div id="img"></div>
+  
+  <div class='spaninfo' >
+  <span class='spaninfo' id=tit></span>
+  <span class='spaninfo' id=txt1></span>
+  <span class='spaninfo' id=txt2></span>
+  </div>
+
+
+  <span class=span id=LB0 style="position:absolute;left:50%;top:50%;">
+  <span style="position:absolute;font-family:arial;font-size:10px;color:#000000;left:-50;top:-18">Loading...</span>
+  <span class=span  style="position:absolute;left:-50;top:-5;font-size:1px;width:100;height:10px;background:#333">
+  <span id=LB1 style="position:absolute;left:0;top:0;font-size:1px;width:0;height:10px;background:#ff0000"></span>
+  </span></span>
 </div>  <!-- form-group -->
 
 
-<div class='form-group' style="position: relative; left:50px; top:400px;">
+<div class='form-group' style="position: relative; top:280px;">
     <nav class="navbar navbar-light justify-content-between">
+    <button id="addBtn" type="button" class='btn btn-primary btn-sm my-view'>공연등록</button>
       <form class="form-inline">
         <input id="words" name="words"
                class="form-control form-control-sm mr-sm-2" type="search" 
@@ -266,20 +152,11 @@ table tr:nth-child(2n+1) {
                 type="button">Search</button>
       </form>
     </nav>
-
-</div>  <!-- form-group -->
     
-    
-
-<div class='form-group' style="position: relative; top:400px;">
-<div class="table-users">
-    <div class="header">공연 정보</div>
-    <table id="list">
+    <table id="list" class='table table-hover' style="text-align : center; line-height:100%">
     <thead>
     <tr>
-    <th>포스터</th><th>공연명</th><th>아티스트명</th>
-    <th>공연장르</th><th>공연날짜</th><th>공연장소</th>
-    <th>등록자</th><th>조회수</th>
+    <th>번호</th><th>공연명</th><th>아티스트명</th><th>공연장르</th><th>공연날짜</th><th>공연장소</th><th>등록자</th><th>조회수</th>
     </tr>
     </thead>
     <tbody></tbody>
@@ -298,8 +175,9 @@ table tr:nth-child(2n+1) {
             <a id="nextBtn" class="page-link" tabindex="0">다음</a></li>
       </ul>
     </nav>
-</div>
-</div>
+
+
+</div>  <!-- form-group -->
 
 
 <!-- </div>box-left -->
@@ -309,8 +187,133 @@ table tr:nth-child(2n+1) {
 
 
 
+
+
+
 </div> <!-- container -->
 
+
+
+
+<div class="box-right">
+
+
+
+
+<!-- <div class='form-group row'> -->
+
+
+
+
+
+
+<div id="sidebar" class="grid_4 box-left">
+    <div class="hotissue_layer" data-tiaramapper="realtime_issue3">
+        <h2 id="liveIssueTitle" class="txt_pctop tit_hotissue" tabindex="0"><span class="ir_wa">관심 공연 순위</span></h2>
+        <ol class="list_hotissue issue_row">
+            <li class="current">
+                <div class="roll_txt">
+                    <div class="rank_cont @1">
+                        <span class="num_pctop rank1"><span class="ir_wa">1위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EA%B0%95%EC%9C%A0%EB%AF%B8&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">강유미</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>13</em>
+                    </div>
+                </div>
+            </li>
+            <li class="next">
+                <div class="roll_txt">
+                    <div class="rank_cont @2">
+                        <span class="num_pctop rank2"><span class="ir_wa">2위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%ED%97%A4%EC%9D%B4%EC%A6%88&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">헤이즈</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>116</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @3">
+                        <span class="num_pctop rank3"><span class="ir_wa">3위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EB%B8%94%EB%9E%99%ED%95%98%EC%9A%B0%EC%8A%A4&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">블랙하우스</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>92</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @4">
+                        <span class="num_pctop rank4"><span class="ir_wa">4위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EC%A0%95%ED%98%84&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">정현</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>85</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @5">
+                        <span class="num_pctop rank5"><span class="ir_wa">5위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EA%B9%80%ED%95%98%EB%8A%98&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">김하늘</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>80</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @6">
+                        <span class="num_pctop rank6"><span class="ir_wa">6위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EA%B6%8C%EC%84%B1%EB%8F%99&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">권성동</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>77</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @7">
+                        <span class="num_pctop rank7"><span class="ir_wa">7위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EA%B9%80%EC%98%81%EC%B2%A0&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">김영철</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>74</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @8">
+                        <span class="num_pctop rank8"><span class="ir_wa">8위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EC%9D%B4%EB%B0%A9%EC%B9%B4&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">이방카</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>68</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @9">
+                        <span class="num_pctop rank9"><span class="ir_wa">9위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=9%ED%98%B8%EC%84%A0&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">9호선</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>45</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @10">
+                        <span class="num_pctop rank10"><span class="ir_wa">10위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EB%85%B8%ED%9A%8C%EC%B0%AC&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">노회찬</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>38</em>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+
+
+<!-- </div>  form-group -->
+
+
+
+
+</div><!-- box-left -->
 
 
 
@@ -356,25 +359,25 @@ var //loginUser = {},
     currPageNo = 1;
     
 
-    window.onerror         = new Function("return true");
-    document.onselectstart = new Function("return false");
-    screen.bufferDepth     = 16;
-    imgInterval = 0;
-    Obj = new Array();
-    box = 0;
-    img = 0;
-    tit = 0;
-    txt1 = 0;
-    txt2 = 0;
-    W   = 0;
-    H   = 0;
-    nI  = 0;
-    sel = 0;
-    si  = 0;
-    inc = 0;
-    ZOOM  = 7;
-    rImg  = 1.33;
-    speed = .1;
+	window.onerror         = new Function("return true");
+	document.onselectstart = new Function("return false");
+	screen.bufferDepth     = 16;
+	imgInterval = 0;
+	Obj = new Array();
+	box = 0;
+	img = 0;
+	tit = 0;
+	txt1 = 0;
+	txt2 = 0;
+	W   = 0;
+	H   = 0;
+	nI  = 0;
+	sel = 0;
+	si  = 0;
+	inc = 0;
+	ZOOM  = 7;
+	rImg  = 1.33;
+	speed = .1;
 
 
 $(document.body).on('login', (event, obj) => {
@@ -442,13 +445,13 @@ function load(pageNo, options) {
                 $('<tr>').html(
                     "<td><a href='detail.html?no=" + data.no + "'>" + 
                         "<img src='../download/" + filename + "' height=50>" + 
-                    "<td>" + data.name + "</td>" +
-                    "<td>" + data.artist.artistName + "</td>" +
-                    "<td>" + data.genre + "</td>" +
-                    "<td>" + formatDate(data.entryDate, 1) + "</td>" +
-                    "<td>" + data.location + "</td>" +
-                    "<td>" + data.writer.nickName + "</td>" +
-                    "<td>" + data.viewCount + "</td>"
+                    "<td><br>" + data.name + "</td>" +
+                    "<td><br>" + data.artist.artistName + "</td>" +
+                    "<td><br>" + data.genre + "</td>" +
+                    "<td><br>" + formatDate(data.entryDate, 1) + "</td>" +
+                    "<td><br>" + data.location + "</td>" +
+                    "<td><br>" + data.writer.nickName + "</td>" +
+                    "<td><br>" + data.viewCount + "</td>"
                 ).appendTo(tbody);
                 
                 
@@ -506,10 +509,10 @@ function formatDate(jason, typedt) {
     }
     else {
         if (jasondate.getMinutes() == 0) {
-	        strval = jasondate.getFullYear() + '년' + 
-	                 (jasondate.getMonth() + 1) + '월' + 
-	                 jasondate.getDate() + "일<br/>" +
-	                 jasondate.getHours() + '시';
+            strval = jasondate.getFullYear() + '년' + 
+                     (jasondate.getMonth() + 1) + '월' + 
+                     jasondate.getDate() + "일<br/>" +
+                     jasondate.getHours() + '시';
         } else {
             strval = jasondate.getFullYear() + '년' + 
             (jasondate.getMonth() + 1) + '월' +  
@@ -616,7 +619,7 @@ function CObj(n, s, x, tx, ti){
             zo -= (zo-dim)*speed;
             l   = Math.round((x1*si)+6*(n+1));
             w   = Math.round(zo*si);
-            is.left   = l+20; //l;
+            is.left   = l;
             is.top    = (H-w*rImg)*.5;
             is.width  = w;
             is.height = w*rImg;
@@ -675,9 +678,9 @@ function doResize(){
     txt2.style.fontSize = 16 + "px";  //(nx / 70) + "px";
     
     with(box.style){
-        width  = 815;  // W;
+        width  = 990;  // W;
         height = H;
-        left   = nx / 2 - W / 2  + 480;
+        left   = nx / 2 - W / 2  + 160;
         top    = ny / 2 - H / 2;
         top = 220;
     }

@@ -52,7 +52,7 @@ public class Performance {
     public void setGenre(String genre) {
         this.genre = genre;
     }
-
+    
     public Date getEntryDate() {
         return entryDate;
     }

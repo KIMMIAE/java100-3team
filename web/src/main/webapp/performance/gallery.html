@@ -1,12 +1,11 @@
-<!DOCTYPE html>
 <html>
 <head>
 
 <meta charset="UTF-8">
 <title>공연 정보</title>
 
-<link rel='stylesheet' href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../../css/style1.css'>
+<link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../css/style1.css'>
 
 <style type="text/css">
     .img  {position:absolute; border:gray solid 1px; cursor:pointer; width:0px; }
@@ -14,18 +13,92 @@
     .spaninfo {position:absolute; color:black;font-family:verdana; font-size: 12px; width:200px;}
 </style>
 
+
+
+
+<style type="text/css">
+    
+    /* .container {
+      display: flex;
+    } */
+    
+    .box-left {
+       /* flex: 8; */
+      float:left;
+      width:70%;
+        margin-left: 200px;
+    }
+    
+    .box-right {
+      /* flex: 2; */
+      /* float:right; */
+      width:20%;
+      height:2000px;
+      display:inline-block;
+    }
+    
+    .grid_4 {
+        top: 0px;
+        right: 0px;
+        /* width: 300px; */
+        display: inline;
+        float: right;
+        margin-left: 10px;
+        margin-right: 10px;
+        padding: 10px;
+        color: #fff;
+        background-color: #ff6000
+    }
+
+    /*옵션 테이블 스타일*/
+    h1 {
+        color: #000;
+        font-family: georgia
+    }
+
+    table.sidebart {
+        font-size: 11px;
+        font-family: tahoma
+    }
+
+    table.sidebart td {
+        border-bottom: 1px #eee solid;
+        color: #555;
+        padding: 4px;
+    }
+
+    table.sidebart th {
+        border: 2px #eee solid;
+        color: #fff;
+        background-color: #000;
+        padding: 4px;
+    }
+    
+    
+    
+    
+    
+</style>
+
 </head>
 
 <body>
 
-<div class='container'>
-<header></header>
 
+
+
+<!-- <div class="box-left"> -->
+
+<div class='container box-left'>
+<header></header>
 <h1>공연 목록</h1>
+
+
+
 
 <div class='form-group row' id='box' style="position:absolute; border:black solid 1px;visibility:hidden;">
 
-<div id="imglist"></div>
+<div id="img"></div>
   <!-- <img class="img"  onclick="Obj[0].clic();" src="../download/1519187085795_0.jpg" title="킹키부츠가 돌아왔다!x" alt="1111 : 2018년 2월 9일 ">
   <img class="img"  onclick="Obj[1].clic();" src="../download/1519187106682_0.jpg" title="1111" alt="111 : 2018년 2월 2일 ">
   <img class="img"  onclick="Obj[2].clic();" src="../download/1519187117598_0.jpg" title="99" alt="99 : 2018년 2월 13일 ">
@@ -38,13 +111,13 @@
   <span class='spaninfo' id=txt2></span>
   </div>
 
-</div>
 
   <span class=span id=LB0 style="position:absolute;left:50%;top:50%;">
   <span style="position:absolute;font-family:arial;font-size:10px;color:#000000;left:-50;top:-18">Loading...</span>
   <span class=span  style="position:absolute;left:-50;top:-5;font-size:1px;width:100;height:10px;background:#333">
   <span id=LB1 style="position:absolute;left:0;top:0;font-size:1px;width:0;height:10px;background:#ff0000"></span>
   </span></span>
+</div>  <!-- form-group -->
 
 
 <div class='form-group' style="position: relative; top:360px;">
@@ -68,6 +141,49 @@
   <tbody></tbody>
   </table>
   
+  
+  
+  
+  
+  
+  <table id="list" class='table table-hover' style="text-align : center; line-height:100%">
+  <thead>
+  <tr>
+  <th>번호</th><th>공연명</th><th>아티스트명</th><th>공연장르</th><th>공연날짜</th><th>공연장소</th><th>등록자</th><th>조회수</th>
+  </tr>
+  </thead>
+  <tbody></tbody>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <table id="list" class='table table-hover' style="text-align : center; line-height:100%">
+  <thead>
+  <tr>
+  <th>번호</th><th>공연명</th><th>아티스트명</th><th>공연장르</th><th>공연날짜</th><th>공연장소</th><th>등록자</th><th>조회수</th>
+  </tr>
+  </thead>
+  <tbody></tbody>
+  </table>
+  
+  
+  
+  
+  
+  
+  <table id="list" class='table table-hover' style="text-align : center; line-height:100%">
+  <thead>
+  <tr>
+  <th>번호</th><th>공연명</th><th>아티스트명</th><th>공연장르</th><th>공연날짜</th><th>공연장소</th><th>등록자</th><th>조회수</th>
+  </tr>
+  </thead>
+  <tbody></tbody>
+  </table>
+  
   <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center">
       <li class="page-item">
@@ -80,16 +196,172 @@
           <a id="nextBtn" class="page-link" tabindex="0">다음</a></li>
     </ul>
   </nav>
+  
+
+</div>  <!-- form-group -->
 
 
-<footer></footer>
+<!-- </div>box-left -->
+
+
+
+
+
+
+
+
+
+</div> <!-- container -->
+
+
+
+
+<div class="box-right">
+
+
+
+
+<!-- <div class='form-group row'> -->
+
+
+
+
+
+
+<div id="sidebar" class="grid_4 box-left">
+    <div class="hotissue_layer" data-tiaramapper="realtime_issue3">
+        <h2 id="liveIssueTitle" class="txt_pctop tit_hotissue" tabindex="0"><span class="ir_wa">관심 공연 순위</span></h2>
+        <ol class="list_hotissue issue_row">
+            <li class="current">
+                <div class="roll_txt">
+                    <div class="rank_cont @1">
+                        <span class="num_pctop rank1"><span class="ir_wa">1위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EA%B0%95%EC%9C%A0%EB%AF%B8&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">강유미</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>13</em>
+                    </div>
+                </div>
+            </li>
+            <li class="next">
+                <div class="roll_txt">
+                    <div class="rank_cont @2">
+                        <span class="num_pctop rank2"><span class="ir_wa">2위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%ED%97%A4%EC%9D%B4%EC%A6%88&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">헤이즈</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>116</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @3">
+                        <span class="num_pctop rank3"><span class="ir_wa">3위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EB%B8%94%EB%9E%99%ED%95%98%EC%9A%B0%EC%8A%A4&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">블랙하우스</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>92</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @4">
+                        <span class="num_pctop rank4"><span class="ir_wa">4위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EC%A0%95%ED%98%84&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">정현</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>85</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @5">
+                        <span class="num_pctop rank5"><span class="ir_wa">5위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EA%B9%80%ED%95%98%EB%8A%98&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">김하늘</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>80</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @6">
+                        <span class="num_pctop rank6"><span class="ir_wa">6위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EA%B6%8C%EC%84%B1%EB%8F%99&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">권성동</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>77</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @7">
+                        <span class="num_pctop rank7"><span class="ir_wa">7위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EA%B9%80%EC%98%81%EC%B2%A0&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">김영철</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>74</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @8">
+                        <span class="num_pctop rank8"><span class="ir_wa">8위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EC%9D%B4%EB%B0%A9%EC%B9%B4&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">이방카</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>68</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @9">
+                        <span class="num_pctop rank9"><span class="ir_wa">9위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=9%ED%98%B8%EC%84%A0&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">9호선</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>45</em>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="roll_txt">
+                    <div class="rank_cont @10">
+                        <span class="num_pctop rank10"><span class="ir_wa">10위</span></span>
+                        <span class="txt_issue"><a href="https://search.daum.net/search?w=tot&amp;q=%EB%85%B8%ED%9A%8C%EC%B0%AC&amp;DA=ATG&amp;rtmaxcoll=1TH" class="link_issue">노회찬</a></span>
+                        <em class="rank_result"><span class="ico_pctop ico_up"><span class="ir_wa">&uarr; 상승</span></span>38</em>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </div>
 </div>
-</div>
+
+
+
+
+<!-- </div>  form-group -->
+
+
+
+
+</div><!-- box-left -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script src='../node_modules/jquery/dist/jquery.min.js'></script>
 <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 
+<script type="text/javascript" src="../js/jquery-contained-sticky-scroll.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#sidebar").containedStickyScroll();
+});
+
+</script>
 
 
 <script type="text/javascript">
@@ -205,7 +477,7 @@ function load(pageNo, options) {
                 ).appendTo(tbody);
                 
                 
-                $('#imglist').append(
+                $('#img').append(
                     "<a href='form.html?no=" + data.no + "'>" + 
                     "<img class='img' src='../download/" + filename + "'" + 
                     "title='" + data.name + "'" +
@@ -378,10 +650,10 @@ function CObj(n, s, x, tx, ti){
                 if(sel<nI*.5) tit.style.left = txt1.style.left = l+w+6;
                 else tit.style.left = txt1.style.left = l-(nx*.25)-6;
 
-                tit.style.top = -(w*rImg)*.3  //(w*rImg)*.33;
+                tit.style.top = -(w*rImg)*.26  //(w*rImg)*.33;
                 
-                txt1.style.top = -(w*rImg)*.2  //-(w*rImg)*.25;
-                txt2.style.top = -(w*rImg)*.1  //-(w*rImg)*.25;
+                txt1.style.top = -(w*rImg)*.18  //-(w*rImg)*.25;
+                txt2.style.top = -(w*rImg)*.10  //-(w*rImg)*.25;
                 txt2.style.left = txt1.style.left;
             }
         }
@@ -423,16 +695,16 @@ function doResize(){
     txt1.style.width = nx*.25;
     txt2.style.width = nx*.25;
     
-    tit.style.fontSize = 18 + "px";  // (nx / 30) + "px";
-    txt1.style.fontSize = 18 + "px";  //(nx / 70) + "px";
-    txt2.style.fontSize = 18 + "px";  //(nx / 70) + "px";
+    tit.style.fontSize = 16 + "px";  // (nx / 30) + "px";
+    txt1.style.fontSize = 16 + "px";  //(nx / 70) + "px";
+    txt2.style.fontSize = 16 + "px";  //(nx / 70) + "px";
     
     with(box.style){
         width  = 772;  // W;
         height = H;
-        left   = nx / 2 - W / 2  + 100;
-        top    = ny / 2 - H / 2  + 100;
-        top = 200;
+        left   = nx / 2 - W / 2  + 200;
+        top    = ny / 2 - H / 2;
+        top = 220;
     }
 }
 

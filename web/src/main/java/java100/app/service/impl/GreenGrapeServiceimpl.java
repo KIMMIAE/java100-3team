@@ -29,7 +29,11 @@ public class GreenGrapeServiceimpl implements GreenGrapeService {
 
     @Override
     public int sum(int no) {
-        return greenGrapeDao.findSum(no);
+        try {
+            return greenGrapeDao.findSum(no);
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
 

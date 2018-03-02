@@ -18,12 +18,12 @@
                     <ul class="sub-nav">
                         <li><a href="../grape/form.html" >청보도 충전</a></li>
                         <li><a href="../grape/list.html" >충전/후원 내역</a></li>
+                        <li><a href="../sponsor/form.html">후원하기</a></li>
                     </ul>
             </ul>
             
         </div>
         <div class="right-content">
-        
             <div class="table-box">
                 <h2>청포도 충전 내역</h2>
                 <table id="list" class='table table-hover'>
@@ -32,10 +32,6 @@
                     </thead>
                     <tbody id="grapechrg"></tbody>
                 </table>
-                <form>
-                포도 남은 갯수 :  <input type="text" readonly id='grapeSum'>
-                <a href='form.html' class='btn btn-primary btn-sm'>충전하기</a>
-                </form>
             </div>  
         
             <nav aria-label="Page navigation">
@@ -48,8 +44,12 @@
                     <a id="nextBtn" class="page-link" tabindex="0">다음</a></li>
               </ul>
             </nav> 
+                <div class="grape-cnt">
+                포도 남은 갯수 :  <input type="text" readonly id='grapeSum'>
+                <a href='form.html' class='btn btn-primary btn-sm'>충전하기</a>
+                </div>
+                
                 <hr>
-            <div>
                 <div class="table-box">
                     <h2>청포도 후원 내역</h2>
                     <table id="list" class='table table-hover '>
@@ -72,7 +72,6 @@
                      </ul>
                 </nav> 
                 </div>
-            </div>
               <hr>
             <div class="table-box">
                     <h2>후원받은 내역</h2>
