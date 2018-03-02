@@ -15,15 +15,17 @@ public class Request {
     protected String specialDesc;
     protected int viewCount;
     protected Date regDate;
+    protected String mapx;
+    protected String mapy;
 
     protected Member writer;
 
-    
     @Override
     public String toString() {
         return "Request [no=" + no + ", title=" + title + ", detailDesc=" + detailDesc + ", genre=" + genre
                 + ", entryDate=" + entryDate + ", location=" + location + ", specialDesc=" + specialDesc
-                + ", viewCount=" + viewCount + ", regDate=" + regDate + ", writer=" + writer + "]";
+                + ", viewCount=" + viewCount + ", regDate=" + regDate + ", mapx=" + mapx + ", mapy=" + mapy
+                + ", writer=" + writer + "]";
     }
 
     public int getNo() {
@@ -98,6 +100,22 @@ public class Request {
         this.regDate = regDate;
     }
 
+    public String getMapx() {
+        return mapx;
+    }
+
+    public void setMapx(String mapx) {
+        this.mapx = mapx;
+    }
+
+    public String getMapy() {
+        return mapy;
+    }
+
+    public void setMapy(String mapy) {
+        this.mapy = mapy;
+    }
+
     public Member getWriter() {
         return writer;
     }
@@ -105,9 +123,6 @@ public class Request {
     public void setWriter(Member writer) {
         this.writer = writer;
     }
-    
-
-
 
 }
 

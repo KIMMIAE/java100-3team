@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.min.css">
 <!-- datetimepicker 경로 설정 -->
 <!-- <link rel="stylesheet" href="../node_modules/datetimepicker-master/build/jquery.datetimepicker.min.css">
- -->
+ -->  
 <style>
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
@@ -95,6 +95,14 @@
 </div>
 </div>
 
+<div class='col-sm-10'>
+<input class='form-control' id='mapx' type='hidden' name='mapx'>
+</div>
+
+<div class='col-sm-10'>
+<input class='form-control' id='mapy' type='hidden' name='mapy'>
+</div>
+
 <div class='form-group row'>
 <div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
@@ -113,12 +121,12 @@
     </div>
     </div>
 
-<!-- <div class='form-group row'>
+<div class='form-group row'>
 <label for='specialDesc' class='col-sm-2 col-form-label'>특이사항</label>
 <div class='col-sm-10'>
 <input class='form-control' id='specialDesc' type='text' name='specialDesc'>
 </div>
-</div> -->
+</div>
 
 <div class='form-group row'>
 <label for='regDate' class='col-sm-2 col-form-label'>등록일</label>
@@ -151,10 +159,10 @@
 <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script src="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.full.min.js"><charset="UTF-8"></script>
-
 <!-- <script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=Rqa9P8nHPAt3FWOFtDNe&callback=initMap"></script>-->
 <!-- <script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=Rqa9P8nHPAt3FWOFtDNe&submodules=drawing,geocoder"></script> -->
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=bFDtO4KnfCKKptaueJAL&submodules=geocoder"></script>
+
 
 <script type="text/javascript">
 <!-- datetimepicker 사용 -->
@@ -167,9 +175,14 @@ jQuery.datetimepicker.setLocale('ko');
     searchTableTbody = $('#searchTable > tbody');
  */
  
+var marker = new naver.maps.Marker({ // 마커 설정
+    position: new naver.maps.LatLng(309944, 552085),
+    map: map
+});
+
 var map = new naver.maps.Map("map", {
     center: new naver.maps.Point(309944, 552085),
-    zoom: 11,
+    zoom: 10,
     mapTypes: new naver.maps.MapTypeRegistry({
         'normal': naver.maps.NaverMapTypeOption.getNormalMap({
             projection: naver.maps.TM128Coord
@@ -179,9 +192,6 @@ var map = new naver.maps.Map("map", {
         }),
         'satellite': naver.maps.NaverMapTypeOption.getSatelliteMap({
             projection: naver.maps.TM128Coord
-            
-            
-            
         }),
         'hybrid': naver.maps.NaverMapTypeOption.getHybridMap({
             projection: naver.maps.TM128Coord
@@ -191,20 +201,32 @@ var map = new naver.maps.Map("map", {
 });
 
 var markers = [];
+var markerArray = [];
 
 $('#searchTable').on('click', '.addressLink',(event) => {
     event.preventDefault();
+    
     var target = event.target;
     if (!(event.target instanceof HTMLAnchorElement))
         target = event.target.parentNode;
+    
+    var title = $(target).html();
+    
+    for (var marker of markerArray) {
+        if (marker.title == title) {
+            console.log('===>', marker.title);
+            break;
+        }
+    }
+  
     initMap($(target).attr('mapx'),$(target).attr('mapy'));
-    /* console.log($(target).attr('roadAddress')); */
+
    $(document).ready(function() {
+       $('#mapx').val($(target).attr('mapx'));
+       $('#mapy').val($(target).attr('mapy'));
     if($(target).attr('roadAddress')){    
-        var locationItem = $(target).attr('roadAddress');
         $('#mapAddress').val($(target).attr('roadAddress'));
     } else{
-        var locationItem = $(target).attr('address');
         $('#mapAddress').val($(target).attr('address'));
     }
     
@@ -212,37 +234,11 @@ $('#searchTable').on('click', '.addressLink',(event) => {
 });
 
 function initMap(x,y) {
-    map.setCenter(new naver.maps.Point(x, y));
+    map.setCenter(new naver.maps.Point(x, y)
+    );
 }
 
-/* function initMap(x,y) {
-    map = new naver.maps.Map("map", {
-        center: new naver.maps.Point(x, y),
-        zoom: 11,
-        
-        mapTypes: new naver.maps.MapTypeRegistry({
-            'normal': naver.maps.NaverMapTypeOption.getNormalMap({
-                projection: naver.maps.TM128Coord
-            }),
-            'terrain': naver.maps.NaverMapTypeOption.getTerrainMap({
-                projection: naver.maps.TM128Coord
-            }),
-            'satellite': naver.maps.NaverMapTypeOption.getSatelliteMap({
-                projection: naver.maps.TM128Coord
-            }),
-            'hybrid': naver.maps.NaverMapTypeOption.getHybridMap({
-                projection: naver.map
-            })
-        }),
-        mapTypeControl: true
-    });
-    marker = new naver.maps.Marker({
-        position: new naver.maps.Point(x, y),
-        map:map
-    }); 
-}
- */
- 
+
 var addBtn = $('#addBtn'),
     updateBtn = $('#updateBtn'),
     deleteBtn = $('#deleteBtn'),
@@ -251,15 +247,16 @@ var addBtn = $('#addBtn'),
     detailDescItem = $('#detailDesc'),
     genreItem = $('#genre'),
     entryDateItem = $('#entryDate'),
-    /* locationItem = $('#location'), */
     locationItem = $('#mapAddress'),
     specialDescItem = $('#specialDesc'),
     writerItem = $('#writer'),
     regDateItem = $('#regDate'),
     viewCountItem = $('#viewCount'),
     sendBtn = $('#sendBtn'),
-    searchTableTbody = $('#searchTable > tbody');
-   
+    searchTableTbody = $('#searchTable > tbody'),
+    mapxItem = $('#mapx'),
+    mapyItem = $('#mapy');
+
 
 $('header').load('../header.html', () => {
 });
@@ -285,6 +282,13 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
                 regDateItem.val(formatDate(result.data.regDate));
                 writerItem.val(result.data.writer);
                 viewCountItem.val(result.data.viewCount);
+                mapxItem.val(result.data.mapx);
+                mapyItem.val(result.data.mapy);
+                initMap(result.data.mapx, result.data.mapy);
+                marker = new naver.maps.Marker({
+                    position: new naver.maps.Point(result.data.mapx, result.data.mapy),
+                    map: map,
+                    });
             },
             error: () => {
                 window.alert('서버 실행 오류!');
@@ -296,10 +300,8 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
     $('.my-view').css('display', 'none');
 }
 
-
-
 sendBtn.click(()=>{
-    
+    marker.setMap(null);
     for (var i = 0; i < markers.length; i++) {
      markers[i].setMap(null);
     }
@@ -313,6 +315,8 @@ sendBtn.click(()=>{
             console.log("성공")
             console.log(response);
             searchTableTbody.html('');
+            markerArray = [];
+            initMap(response.items[0].mapx, response.items[0].mapy);
              for (var item of response.items){
                  var result = item.roadAddress ? item.roadAddress : item.address
                  console.log(result);
@@ -321,18 +325,23 @@ sendBtn.click(()=>{
                     .appendTo(searchTableTbody);
                  $('<tr>')
                     .html("<td>" + result + "</td>")
-                    
                     .appendTo(searchTableTbody);
                  $('<hr>')
                     .appendTo(searchTableTbody);
-          
+                 
                  marker = new naver.maps.Marker({
                  position: new naver.maps.Point(item.mapx, item.mapy),
                  map: map,
                  });
+                 marker.title = item.title;
+                 markerArray.push(marker);
                  markers.push(marker);
-                 
             } // for문 */
+            
+            
+            for (var marker of markerArray) {
+                console.log(marker.title)
+            }
         }, //성공 
        error:()=>{
            window.alert('실행오류');
@@ -350,7 +359,9 @@ addBtn.click(() => {
             genre: genreItem.val(),
             entryDate: entryDateItem.val(),
             location: locationItem.val(),
-            specialDesc: specialDescItem.val()
+            specialDesc: specialDescItem.val(),
+            mapx: mapxItem.val(),
+            mapy: mapyItem.val()
         },
         dataType: 'json',
         method: 'POST',
@@ -373,7 +384,9 @@ updateBtn.click(() => {
             genre: genreItem.val(),
             entryDate: entryDateItem.val(),
             location: locationItem.val(),
-            specialDesc: specialDescItem.val()
+            specialDesc: specialDescItem.val(),
+            mapx: mapxItem.val(),
+            mapy: mapyItem.val()
         },
         dataType: 'json',
         method: 'POST',
@@ -420,6 +433,10 @@ function formatDate(jason) {
     return yyyy +"-"+(mm[1] ? mm : '0'+mm[0])+"-"+(dd[1] ? dd : '0'+dd[0])+" "+(hh[1] ? hh : '0'+hh[0])+":"+(minmin[1] ? minmin : '0'+minmin[0]);
  }
  
+
+    
+ 
+
  
 
 </script>
