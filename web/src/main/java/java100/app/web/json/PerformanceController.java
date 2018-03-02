@@ -48,7 +48,7 @@ public class PerformanceController {
         if (pageSize < 5 || pageSize > 15) {
             pageSize = 5;
         }
-        
+
         HashMap<String,Object> options = new HashMap<>();
         if (words != null && words[0].length() > 0) {
             options.put("words", words);
@@ -61,7 +61,7 @@ public class PerformanceController {
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;
         }
-        
+
         HashMap<String,Object> result = new HashMap<>();
         result.put("pageNo", pageNo);
         result.put("lastPageNo", lastPageNo);
@@ -87,7 +87,7 @@ public class PerformanceController {
             MultipartFile[] files,
             HttpSession session) throws Exception {
         
-        //System.out.println("Controller.add =>  " + performance.toString());
+        System.out.println("Controller.add =>  " + performance.toString());
         
         String saveDir = servletContext.getRealPath("/download");
         ArrayList<PerformanceFile> performanceFiles = new ArrayList<>();

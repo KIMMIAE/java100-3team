@@ -59,5 +59,32 @@ public class DefaultControllerAdvice {
                 java.sql.Date.class,  
                 new CustomDateEditor(dateFormat2, false)); 
         
+
+        /*@SuppressWarnings("serial")
+        SimpleDateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd hh:mm") {
+            @Override
+            public java.util.Date parse(String source) throws ParseException {
+                java.util.Date date = super.parse(source);
+                return new java.util.Date(date.getTime());
+            }
+        };
+        dateFormat3.setLenient(false); // 날짜 형식을 엄격하게 검사하라!
+        
+        binder.registerCustomEditor(
+                java.util.Date.class,  
+                new CustomDateEditor(dateFormat3, false)); */
+        
+
+        CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd hh:mm"), true);
+        binder.registerCustomEditor(Date.class, editor);
+        
+        /*SimpleDateFormat dateFormat4 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        dateFormat4.setLenient(false); // 날짜 형식을 엄격하게 검사하라!
+        binder.registerCustomEditor(
+                java.util.Date.class, // 문자열을 어떤 타입으로 바꿀지 설정한다 
+                new CustomDateEditor( // 문자열을 java.util.Date 객체로 만들어 준다.
+                        dateFormat4, // 실제로는 그 작업을 SimpleDateFormat이 한다. 
+                        false)); // 문자열 값이 비어 있는 것을 허락할 것인지 여부!
+        */
     }
 }
