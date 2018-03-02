@@ -5,37 +5,6 @@
 <title>회원정보</title>
 <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link rel='stylesheet' href='../css/style1.css'>
-<style>
-.cropit-preview {
-    background-color: #f8f8f8;
-    background-size: cover;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 15px;
-    margin-right: 15px;
-    width: 200px;
-    height: 200px;
-    cursor: move;
-}
-
-.cropit-preview-background {
-  opacity: .2;
-}
-
-input.cropit-image-zoom-input {
-  position: relative;
-}
-
-.image-size-label {
-  margin-top: 10px;
-}
-
-.checkMessages {
-  margin-top:3px;
-}
-</style>
 </head>
 <body>
 
@@ -72,45 +41,17 @@ input.cropit-image-zoom-input {
 
 <h3>회원 상세 정보</h3>
 <hr>
-<div style="margin-bottom: 5px;">
+<div style="margin-bottom: 3px;">
 <font color="red">*</font>이 표시된 항목은 필수 입력입니다.
 </div>
 
 <form id='formData'>
-
-<!--
 <div class='form-group row'>
 <label for='file' class='col-sm-2 col-form-label'>사진</label>
 <div class='col-sm-5'>
 <input type="file" class="form-control-file" name="file">
 </div>
 </div>
--->
-
-<!--
-<div class='form-group row'>
-<label for='file' class='col-sm-2 col-form-label'>사진</label>
-<div class='col-sm-5'>
-<img id="preview" src="../download/cat.jpg" width="200" height="200" alt="로컬에 있는 이미지가 보여지는 영역" style="margin: 15px">
-<input id="getFile" type="file" class="form-control-file" name="file" accept="image/*">
-</div>
-</div> 
--->
-
-<div class='form-group row'>
-<label for='file' class='col-sm-2 col-form-label'>사진</label>
-<div class='col-sm-5'>
-<div id="image-cropper">
-<input type="file" class="cropit-image-input form-control-file">
-<div class="cropit-preview"></div>
-<input type="range" class="cropit-image-zoom-input" style="margin-top: 20px; padding: -5px;">
-<button id="cuttingBtn" type="button">사진 자르기</button>
-<input type="hidden" name="base64Image" id="hidden-image-data" value=""/>
-<div class="checkMessages" id="chkImageMsg" style="color:blue;"></div>
-</div>
-</div>
-</div>
-
 
 <div class='form-group row my-view'>
 <label for='no' class='col-sm-2 col-form-label'>번호</label>
@@ -124,7 +65,7 @@ input.cropit-image-zoom-input {
 <label for='email' class='col-sm-2 col-form-label'>이메일<font color="red">*</font></label>
 <div class='col-sm-5'>
 <input class='form-control' id='email' type='email' name='email' onkeyup="checkEmail()" placeholder="example@email.com">
-<div class="checkMessages" id="chkEmailMsg" style="color:red;"></div>
+<div class="chkEmailMsg" id="chkEmailMsg" style="color:red; margin-top:3px;"></div>
 </div>
 </div>
 
@@ -142,8 +83,8 @@ input.cropit-image-zoom-input {
 <div class='form-group row'>
 <label for='password' class='col-sm-2 col-form-label'>비밀번호 확인<font color="red">*</font></label>
 <div class='col-sm-5'>
-<input class='form-control' id='pwConfirm' type='password' onkeyup="confirmPassword()" placeholder="비밀번호 재입력">
-<div class="checkMessages" id="chkPwMsg" style="color:red;"></div>
+<input class='form-control' id='pwConfirm' type='password' name='password' onkeyup="confirmPassword()" placeholder="비밀번호 재입력">
+<div class="chkPwMsg" id="chkPwMsg" style="color:red; margin-top:3px;"></div>
 </div>
 </div>
 
@@ -152,7 +93,7 @@ input.cropit-image-zoom-input {
 <label for='nickName' class='col-sm-2 col-form-label'>닉네임<font color="red">*</font></label>
 <div class='col-sm-5'>
 <input class='form-control' id='nickName' type='text' name='nickName' onkeyup="checkNickName()" placeholder="한글/알파벳/숫자 조합 2~10자">
-<div class="checkMessages" id="chkNickMsg" style="color:red;"></div>
+<div class="chkNickMsg" id="chkNickMsg" style="color:red; margin-top:3px;"></div>
 </div>
 </div>
 
@@ -170,7 +111,7 @@ input.cropit-image-zoom-input {
 <label for='messageId' class='col-sm-2 col-form-label'>메세지 수신 아이디</label>
 <div class='col-sm-5'>
 <input class='form-control' id='messageId' type='text' name='messageId' placeholder="카카오톡 ID">
-<div class="checkMessages" id="chkMessageId" style="color:red;"></div>
+<div class="chkMessageId" id="chkMessageId" style="color:red; margin-top:3px;"></div>
 </div>
 </div>
 
@@ -192,7 +133,7 @@ input.cropit-image-zoom-input {
 <label for='artistName' class='col-sm-2 col-form-label'>아티스트/팀명</label>
 <div class='col-sm-5'>
 <input class='form-control' id='artistName' type='text' name='artist.artistName'>
-<div class="checkMessages" id="chkArtistName" style="color:red;"></div>
+<div class="chkArtistName" id="chkArtistName" style="color:red; margin-top:3px;"></div>
 </div>
 </div>
 
@@ -200,7 +141,7 @@ input.cropit-image-zoom-input {
 <label for='artistMember' class='col-sm-2 col-form-label'>팀구성원</label>
 <div class='col-sm-5'>
 <input class='form-control' id='artistMember' type='text' name='artist.artistMember'>
-<div class="checkMessages" id="chkArtistMember" style="color:red;"></div>
+<div class="chkArtistMember" id="chkArtistMember" style="color:red; margin-top:3px;"></div>
 </div>
 </div>
 
@@ -208,7 +149,7 @@ input.cropit-image-zoom-input {
 <label for='profile' class='col-sm-2 col-form-label'>프로필</label>
 <div class='col-sm-5'>
 <input class='form-control' id='profile' type='text' name='artist.profile'>
-<div class="checkMessages" id="chkProfile" style="color:red;"></div>
+<div class="chkProfile" id="chkProfile" style="color:red; margin-top:3px;"></div>
 </div>
 </div>
 
@@ -216,7 +157,7 @@ input.cropit-image-zoom-input {
 <label for='joinDate' class='col-sm-2 col-form-label'>팀결성날짜</label>
 <div class='col-sm-5'>
 <input class='form-control' id='joinDate' type='date' name='artist.joinDate'>
-<div class="checkMessages" id="chkJoinDate" style="color:red;"></div>
+<div class="chkJoinDate" id="chkJoinDate" style="color:red; margin-top:3px;"></div>
 </div>
 </div>
 
@@ -252,7 +193,7 @@ input.cropit-image-zoom-input {
     
     <input type='checkbox' id='areas8' name='areas' value='신림역'>
     <label for='areas'>신림역</label>
-<div class="checkMessages" id="chkAreas" style="color:red;"></div>
+<div class="chkAreas" id="chkAreas" style="color:red; margin-top:3px;"></div>
 </div>
 </div>
 
@@ -283,46 +224,35 @@ input.cropit-image-zoom-input {
     
     <input type='checkbox' id='genre8' name='genres' value='마술'>
     <label for='genres'>마술</label>
-<div class="checkMessages" id="chkGenres" style="color:red;"></div>
+<div class="chkGenres" id="chkGenres" style="color:red; margin-top:3px;"></div>
 </div>
 </div>
 
 
 <div class='form-group row'>
 <div class='col-sm-5'>
-<button id="addBtn" type="button" class='btn btn-primary btn-sm my-new'>가입</button>
+<button id="addBtn" type="button" class='btn btn-primary btn-sm my-new'>추가</button>
 <button id="updateBtn" type="button" class='btn btn-primary btn-sm my-view'>변경</button>
 <button id="deleteBtn" type="button" class='btn btn-primary btn-sm my-view'>삭제</button>
 </div>
 </div>
 </form>
+
 <footer></footer>
 </div>
 </body>
-
-<!-- 크로핏용 제이쿼리 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
-<!-- 최신 제이쿼리 -->
 <script src='../node_modules/jquery/dist/jquery.min.js'></script>
-
-<!-- 제이쿼리 호환 스크립트-->
-<script src='../js/jquery_migrate/jquery-migrate-1.4.1.min.js'></script>
-<script src='../js/jquery_migrate/jquery-migrate-3.0.0.min.js'></script>
-
 <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 
-<!-- 크로핏 -->
-<script src="../node_modules/cropit/dist/jquery.cropit.js"></script>
+<script src='../node_modules/jquery-validation/dist/jquery.validate.min.js'></script>
+<script src='../node_modules/jquery-validation/dist/localization/messages_ko.js'></script>
 
 <script type="text/javascript">
 var formDataItem = $('#formData'),
     addBtn = $('#addBtn'),
     updateBtn = $('#updateBtn'),
     deleteBtn = $('#deleteBtn'),
-    
-    cuttingBtn = $('#cuttingBtn'),
     
     /* input의 id 변수들 */
     
@@ -343,9 +273,6 @@ var formDataItem = $('#formData'),
     areasDivItem = $('#areasDiv'),
     genresDivItem = $('#genresDiv'),
     
-    imageCropperItem = $('#image-cropper'),
-    hiddenImageDate = $('#hidden-image-data'),
-    
     /* check div들에 문구를 출력해줄 변수들 */
     
     chkEmailMsgItem = $('#chkEmailMsg'),
@@ -359,8 +286,6 @@ var formDataItem = $('#formData'),
     chkAreasItem = $('#chkAreas'),
     chkGenresItem = $('#chkGenres'),
     
-    chkImageItem = $('#chkImageMsg'),
-    
     /* 검증용 변수 */
     
     emailCount = null,
@@ -371,28 +296,6 @@ var formDataItem = $('#formData'),
     /*,
     interestAreasItem = $("input:checkbox[name=checkParam]:checked");
     interestgenresItem = []; */
-    
-    imageCropperItem.cropit({
-    	imageBackground:true, 
-    	imageBackgroundBorderWidth: 15
-    });
-    
-    cuttingBtn.click(function(){
-        var imageData = imageCropperItem.cropit('export', {
-            type: 'image/jpeg',
-            quality: .9,
-            originalSize: true
-        });
-        
-        hiddenImageDate.val(imageData);
-        
-        if (hiddenImageDate.val() != "") {
-            chkImageItem.html('<p class="checkMessages">사진 편집이 완료 되었습니다.</p>')
-        }
-    });
-    
-      
-
     
 $('footer').load('../footer.html');
     
@@ -564,15 +467,13 @@ function checkEmail() {
         },
         success: function (count) {
             if (count == 0 && re_email.test(emailItem.val()) == true) {
-            	chkEmailMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 이메일입니다.</p>');
+            	chkEmailMsgItem.html('<p style="color:blue; margin-top:3px;">사용 가능한 이메일입니다.</p>');
             	emailCount = count;
                 return emailCount;
             } else if (re_email.test(emailItem.val()) == false) {
-                chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이메일 형식이 맞지 않습니다.</p>');
-                emailCount = count;
-                return emailCount;
+                chkEmailMsgItem.html('<p style="color:red; margin-top:3px;">이메일 형식이 맞지 않습니다.</p>');
             } else if (count == 1) {
-            	chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이미 가입한 이메일입니다.</p>');
+            	chkEmailMsgItem.html('<p style="color:red; margin-top:3px;">이미 가입한 이메일입니다.</p>');
                 emailCount = count;
                 return emailCount;
             } 
@@ -587,11 +488,11 @@ function checkEmail() {
 
 function checkPassword() {
     if (re_password.test(passwordItem.val()) == true) {
-        chkPwMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 비밀번호입니다.</p>');
+        chkPwMsgItem.html('<p style="color:blue; margin-top:3px;">사용 가능한 비밀번호입니다.</p>');
         conPw = true;
         return conPw;
     } else if (re_password.test(passwordItem.val()) == false) {
-        chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호는 영문/숫자/특수문자 조합 6~18자입니다.</p>');
+        chkPwMsgItem.html('<p style="color:red; margin-top:3px;">비밀번호는 영문/숫자/특수문자 조합 6~18자입니다.</p>');
         conPw = false;
         return conPw;
     } 
@@ -599,11 +500,11 @@ function checkPassword() {
 
 function confirmPassword() {
     if (passwordItem.val() == pwConfirmItem.val() && conPw == true) {
-        chkPwMsgItem.html('<p class="checkMessages" style="color:blue;">비밀번호 확인 일치!</p>');
+        chkPwMsgItem.html('<p style="color:blue; margin-top:3px;">비밀번호 확인 일치!</p>');
         completConfirm = true;
         return completConfirm;
     } else {
-        chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호 확인 불일치!</p>');
+        chkPwMsgItem.html('<p style="color:red; margin-top:3px;">비밀번호 확인 불일치!</p>');
         completConfirm = false;
         return completConfirm;
     }
@@ -618,15 +519,11 @@ function checkNickName() {
         },
         success: function (count) {
             if (count == 0 && re_nickName.test(nickNameItem.val()) == true) {
-                chkNickMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 닉네임입니다.</p>');
-                nickNameCount = count;
-                return nickNameCount;
+                chkNickMsgItem.html('<p class="chkEmailMsg" id="chkEmailMsg" style="color:blue; margin-top:3px;">사용 가능한 닉네임입니다.</p>');
             } else if (re_nickName.test(nickNameItem.val()) == false) {
-                chkNickMsgItem.html('<p class="checkMessages" style="color:red;">닉네임 형식이 맞지 않습니다.</p>');
-                nickNameCount = count;
-                return nickNameCount;
+                chkNickMsgItem.html('<p class="chkEmailMsg" id="chkEmailMsg" style="color:red; margin-top:3px;">닉네임 형식이 맞지 않습니다.</p>');
             } else if (count == 1) {
-                chkNickMsgItem.html('<p class="checkMessages" style="color:red;">이미 등록된 닉네임입니다.</p>');
+                chkNickMsgItem.html('<p class="chkEmailMsg" id="chkEmailMsg" style="color:red; margin-top:3px;">이미 등록된 닉네임입니다.</p>');
                 nickNameCount = count;
                 return nickNameCount;
             }
@@ -638,13 +535,11 @@ function checkNickName() {
 };
 
 
-
-
 addBtn.click(() => {
 
 // 이메일 검증
 if (emailItem.val() == "") {
-    chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이메일을 입력해주세요.</p>');
+    chkEmailMsgItem.html('<p style="color:red; margin-top:3px;">이메일을 입력해주세요.</p>');
     emailItem.focus();
     return;
 }
@@ -656,7 +551,7 @@ if (re_email.test(emailItem.val()) == false || emailCount == 1) {
 
 // 비밀번호 검사
 if (passwordItem.val() == "") {
-    chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호를 입력해 주세요.</p>');
+    chkPwMsgItem.html('<p style="color:red; margin-top:3px;">비밀번호를 입력해 주세요.</p>');
     pwConfirmItem.val("");
     passwordItem.focus();
     return;
@@ -667,21 +562,20 @@ if (passwordItem.val() == "") {
 	pwConfirmItem.focus();
     return;
 } else if (pwConfirmItem.val() == "") {
-    chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호 확인을 입력해 주세요.</p>');
+    chkPwMsgItem.html('<p style="color:red; margin-top:3px;">비밀번호 확인을 입력해 주세요.</p>');
     pwConfirmItem.focus();
     return;
 } 
 
 // 닉네임 검사
 if (nickNameItem.val() == "") {
-    chkNickMsgItem.html('<p class="checkMessages" style="color:red;">닉네임을 입력해 주세요.</p>');
+    chkNickMsgItem.html('<p style="color:red; margin-top:3px;">닉네임을 입력해 주세요.</p>');
     nickNameItem.focus();
     return;
 } else if (re_nickName.test(nickNameItem.val()) == false) {
-	nickNameItem.focus();
+    nickNameItem.focus();
     return;
 } else if (nickNameCount == 1) {
-    console.log(nickNameCount);
     nickNameItem.focus();
     return;
 }
@@ -690,7 +584,7 @@ if (nickNameItem.val() == "") {
 // 메시지 수신 동의 시 아이디 입력 확인
 if ($("input[name='messageFlag']:checked").val() == 
         '1' && messageIdItem.val() == "") {
-    chkMessageIdItem.html('<p class="checkMessages" style="color:red;">메세지를 수신 받을 카카오톡 ID를 입력해주세요.</p>');
+    chkMessageIdItem.html('<p style="color:red; margin-top:3px;">메세지를 수신 받을 카카오톡 ID를 입력해주세요.</p>');
 	messageIdItem.focus();
    return;
 } 

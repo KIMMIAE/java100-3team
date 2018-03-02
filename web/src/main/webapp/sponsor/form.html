@@ -4,131 +4,217 @@
 <meta charset="UTF-8">
 <title>청포도 충전</title>
 <link rel='stylesheet'
-    href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+	href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <link rel='stylesheet' href='../css/style1.css'>
+<link rel='stylesheet' href='../css/grape.css'>
+
 </head>
 <body>
-    <div class='container'>
-        <header></header>
+	<div class="container">
+		<header></header>
 
-        <h1>청포도 충전</h1>
+		<div class="left-nav">
+			<ul class="ul-nav">
+				<li>청포도 정보</li>
+				<ul class="sub-nav">
+					<li><a href="../grape/form.html">청보도 충전</a></li>
+					<li><a href="../grape/list.html">충전/후원 내역</a></li>
+					<li><a href="../sponsor/form.html">후원하기</a></li>
+				</ul>
+			</ul>
+		</div>
 
-        <form>
+		<div class="right-content">
+			<form class="table-box">
+				<!-- modal 시작 -->
+				<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+					role="dialog" aria-labelledby="exampleModalCenterTitle"
+					aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<div class="modal-body">
+								<h2>공연 검색</h2>
+								<nav class="navbar navbar-light justify-content-between">
 
-            <div class='form-group row'>
-                <label for='performNo' class='col-sm-2 col-form-label'>공연번호</label>
-                <div class='col-sm-10'>
-                    <input type="text" class='form-control' id='performNo'
-                        name='performNo'>
+									<input id="words" name="words"
+										class="form-control form-control-xs" type="search"
+										style="width: 350px; height: 30px;" placeholder="내용을 입력하세요"
+										aria-label="Search">
+									<button id="searchBtn"
+										class="btn btn-sm btn-outline-success my-2 my-sm-0"
+										type="button">Search</button>
+								</nav>
+
+								<table id="list" class='table table-hover'>
+									<thead>
+										<tr>
+											<th>번호</th>
+											<th>공연명</th>
+											<th>아티스트명</th>
+											<th>공연장소</th>
+											<th>공연날짜</th>
+										</tr>
+									</thead>
+
+									<tbody></tbody>
+								</table>
+
+								<nav aria-label="Page navigation">
+									<ul class="pagination justify-content-center">
+										<li class="page-item"><a id="prevBtn" class="page-link"
+											tabindex="-1">이전</a></li>
+
+										<li class="page-item"><a id="currBtn" class="page-link"
+											href="#">1</a></li>
+
+										<li class="page-item "><a id="nextBtn" class="page-link"
+											tabindex="0">다음</a></li>
+									</ul>
+								</nav>
+							</div>
+							<div class="modal-footer">
+								<button id="closeBtn" type="button" class="btn btn-secondary"
+									data-dismiss="modal">Close</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- modal 끝 -->
+
+                <div class='form-group row'>
+                    <label for='performNo' class='col-sm-2 col-form-label'>공연번호</label>
+                    <div class='col-sm-10'>
+                        <input class='form-control' readonly id='performNo' type='text'
+                            name='performance.name' value=''>
+                    </div>
                 </div>
-            </div>
+                
             
-            <div class='form-group row'>
-                <label for='name' class='col-sm-2 col-form-label'>공연명</label>
-                <div class='col-sm-10'>
-                    <input class='form-control' readonly id='name' type='text'
-                        name='name'>
-                </div>
-            </div>
-            
-            <div class='form-group row'>
-                <label for='entryDate' class='col-sm-2 col-form-label'>공연날짜</label>
-                <div class='col-sm-10'>
-                    <input class='form-control' readonly id='entryDate' type='date'
-                        name='entryDate'>
-                </div>
-            </div>
-            
-            <div class='form-group row'>
-                <label for='ggcnt' class='col-sm-2 col-form-label'>후원갯수</label>
-                <div class='col-sm-10'>
-                    <input class='form-control' id='ggcnt' type='text'
-                        name='ggcnt'>
-                </div>
-            </div>
-
-            <div class='form-group row'>
-                <label for='sponsDesc' class='col-sm-2 col-form-label'>후원내용</label>
-                <div class='col-sm-10'>
-                    <input class='form-control' id='sponsDesc' type='text'
-                        name='sponsDesc'>
-                </div>
-            </div>
-
-            <div class='form-group row'>
-                <div class='col-sm-10'>
-                    <button id="addBtn" type="button"
-                        class='btn btn-primary btn-sm my-new'>등록</button>
-                    
-                    <button id="findBtn" type="button"
-                        class='btn btn-primary btn-sm my-new'>찾기</button>
-                </div>
-            </div>
-            
-        </form>
-        <footer></footer>
-    </div>
 
 
-    <script src='../node_modules/jquery/dist/jquery.min.js'></script>
-    <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
-    <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+				<div class='form-group row'>
+					<label for='name' class='col-sm-2 col-form-label'>공연명</label>
+					<div class='col-sm-10'>
+						<input class='form-control' readonly id='name' type='text'
+							name='performance.name' value=''>
+					</div>
+				</div>
 
-    <script type="text/javascript">
+				<div class='form-group row'>
+					<label for='artistName' class='col-sm-2 col-form-label'>아티스트명</label>
+					<div class='col-sm-10'>
+						<input class='form-control' readonly id='artistName' type='text'
+							name='artist.artistName' value=''>
+					</div>
+				</div>
+
+				<div class='form-group row'>
+					<label for='location' class='col-sm-2 col-form-label'>공연장소</label>
+					<div class='col-sm-10'>
+						<input class='form-control' readonly id='location' type='text'
+							name='performance.location' value=''>
+					</div>
+				</div>
+
+				<div class='form-group row'>
+					<label for='genre' class='col-sm-2 col-form-label'>공연장르</label>
+					<div class='col-sm-10'>
+						<input class='form-control' readonly id='genre' type='text'
+							name='performance.genre' value=''>
+					</div>
+				</div>
+
+				<div class='form-group row'>
+					<label for='entryDate' class='col-sm-2 col-form-label'>공연날짜</label>
+					<div class='col-sm-10'>
+						<input class='form-control' readonly id='entryDate' type='date'
+							name='performance.entryDate'>
+					</div>
+				</div>
+
+				<div class='form-group row'>
+					<label for='ggcnt' class='col-sm-2 col-form-label'>후원갯수</label>
+					<div class='col-sm-10'>
+						<input class='form-control' id='ggcnt' type='text' name='ggcnt'>
+					</div>
+				</div>
+
+				<div class='form-group row'>
+					<label for='sponsDesc' class='col-sm-2 col-form-label'>후원내용</label>
+					<div class='col-sm-10'>
+						<input class='form-control' id='sponsDesc' type='text'
+							name='sponsDesc'>
+					</div>
+				</div>
+
+				<div class='form-group row'>
+					<div class='col-sm-10'>
+						<button id="addBtn" type="button"
+							class='btn btn-primary btn-sm my-new'>등록</button>
+						<button type="button" class="btn btn-primary btn-sm"
+							data-toggle="modal" data-target="#exampleModalCenter">찾기</button>
+					</div>
+				</div>
+			</form>
+
+
+		</div>
+	</div>
+
+	<script src='../node_modules/jquery/dist/jquery.min.js'></script>
+	<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+	<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+
+	<script type="text/javascript">
 var addBtn = $('#addBtn'),
     findBtn = $('#findBtn'),
+    performanceNoItem = $('#performNo'),
+    performanceSearchBtn = $('#performanceSearch'),
     memberItem = $('#memberNo'),
     performNoItem = $('#performNo'),
     ggcntItem = $('#ggcnt'),
-    sponsDescItem = $('#sponsDesc');    
-$('header').load('../header.html', () => {
-load();
-});
+    sponsDescItem = $('#sponsDesc'),
+    words = $('#words'),
+    searchBtn = $('#searchBtn'),
+    prevBtn = $('#prevBtn'),
+    currBtn = $('#currBtn'),
+    nextBtn = $('#nextBtn'),
+    closeBtn = $('#closeBtn'),
+    tbody = $('#list > tbody'),
+    currPageNo = 1;
+
+    
+    
+$('header').load('../header.html');
 $('footer').load('../footer.html');
-function load() {
-/* var index = location.href.indexOf('?');
-if (index != -1) { // 기존 데이터를 조회할 경우,
-    var qs = location.href.substr(index + 1);
-    var arr = qs.split('=');
-    $('.my-new').css('display', 'none');
-    $(() => {
-        $.ajax('../json/grape/' + arr[1], {
-            dataType: 'json',
-            success: (result) => {
-                noItem.val(result.data.no);
-                nameItem.val(result.data.name);
-                korItem.val(result.data.kor);
-                engItem.val(result.data.eng);
-                mathItem.val(result.data.math);
-                sumItem.val(result.data.sum);
-                averItem.val(result.data.aver);
-            },
-            error: () => {
-                window.alert('서버 실행 오류!');
-            }
-        });
-    });
-}  */
-}
+
+
+
 addBtn.click(() => {
     $.ajax('../json/sponsor/add', {
         data: {
             performNo: $('#performNo').val(),
             ggcnt: $('#ggcnt').val(),
             sponsDesc: $('#sponsDesc').val(),
-            sponsDes: $('#sponsDesc').val()
         },
         dataType: 'json',
         method: 'POST',
         success: (result) => {
-            location.href = "list.html";
+            location.href = "../grape/list.html";
         },
         error: () => {
             window.alert('서버 실행 오류!');
         }
     });
 });
-findBtn.click(() => {
+/* findBtn.click(() => {
     if (performNoItem.val() == undefined) {
         return alert('공연정보를 입력하세요');
     }
@@ -144,7 +230,7 @@ findBtn.click(() => {
             window.alert('서버 실행 오류!');
         }
     });
-});
+}); */
 function formatDate(jason) {
 var jasondate = new Date(jason),
     yyyy=jasondate.getFullYear().toString(),
@@ -153,14 +239,111 @@ var jasondate = new Date(jason),
     
 return yyyy +"-"+(mm[1] ? mm : '0'+mm[0])+"-"+(dd[1] ? dd : '0'+dd[0]);
 }
+
+
+
+
+searchBtn.click(() => {
+    //event.preventDefault();
+    search(1, {
+        "words": $('#words').val()
+    })
+});
+
+prevBtn.click (() => {
+    load(currPageNo - 1)
+});
+
+nextBtn.click (() => {
+    load(currPageNo + 1)
+});
+
+
+
+
+//검색한 공연 정보 받아오기
+function save(no){
+  $.ajax('../../json/performance/'+no,{
+  dataType:'json',
+  success:(result)=>{
+  performanceNoItem.val(result.data.no),
+  $('#name').val(result.data.name),
+  $('#artistName').val(result.data.artist.artistName),
+  $('#location').val(result.data.location),
+  $('#genre').val(result.data.genre),
+  $('#entryDate').val(formatDate(result.data.entryDate)),
+  closeBtn.click();
+  
+  },
+  error:()=>{
+      console.log("문제발생")
+      }
+  
+  });
+}
+
+//공연정보 검색
+function search(pageNo, options) {
+  
+  if (options == undefined) options = {};
+  options.pn = pageNo;
+  $.ajax('../json/performance/list', {
+      /*method: 'GET',*/
+      data: options,
+      dataType: 'json',
+      success: (result) => {
+          tbody.html("");
+          var filename;
+          for (var data of result.list) {
+              for(var media of data.medias) {
+                  if (media.filename == null) {
+                      filename = 'no_img.jpg';
+                  } else {
+                      filename = media.filename;
+                  }
+              }
+              $('<tr>').
+                  html(
+                      "<td>" + data.no + "</td>" +
+                      "<td><a onclick='save(" + data.no + ")'>" + 
+                          "<img src='../download/" + filename + "' height=50>" + 
+                          "<div>" + data.name + "</a></td>" +
+                      "<td>" + data.artist.artistName + "</td>" +
+                      "<td>" + data.location + "</td>" +
+                      "<td>" + formatDate(data.entryDate) + "</td>")
+                  .appendTo(tbody);
+          }
+          currPageNo = result.pageNo;
+          currBtn.html(currPageNo);
+          
+          if (result.pageNo == 1) {
+              $(prevBtn.parent()).addClass("disabled");
+          } else {
+              $(prevBtn.parent()).removeClass("disabled");
+          }
+          
+          if (result.lastPageNo == result.pageNo) {
+              $(nextBtn.parent()).addClass("disabled");
+          } else { 
+              $(nextBtn.parent()).removeClass("disabled");
+          }
+      },
+      error: () => {
+          window.alert('서버 실행 오류!');
+      }
+  });
+}
+
+
+
+
 </script>
+
+
+
 
 
 </body>
 </html>
-
-
-
-
 
 

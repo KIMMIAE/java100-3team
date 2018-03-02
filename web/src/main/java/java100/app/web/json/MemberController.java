@@ -21,6 +21,8 @@ import java100.app.domain.member.InterestArea;
 import java100.app.domain.member.InterestGenre;
 import java100.app.domain.member.Member;
 import java100.app.service.MemberService;
+import java100.app.web.util.Base64Decoder;
+import java100.app.web.util.ThumbnailMaker;
 
 @RestController
 @RequestMapping("/member")
@@ -85,22 +87,26 @@ public class MemberController {
             result.put("genrelist", memberService.getInterestGenre(no));
         }
         
-        System.out.println(result);
-        
-        
         return result;
     }
     
     @RequestMapping(value="add", method=RequestMethod.POST)
     public Object add(Member member, 
-                       MultipartFile file,
+            @RequestParam(value="base64Image",required=false) String base64Image,
                        @RequestParam(value="areas", required=false) List<String> areas,
                        @RequestParam(value="genres", required=false) List<String> genres) throws Exception {
         
-        if (!file.isEmpty()) {
+        if (!base64Image.isEmpty()) {
+            
             String uploadDir = servletContext.getRealPath("/download");
-            String filename = writeUploadFile(file, uploadDir);
+            String filename = getNewFilename(".jpeg");
+            Base64Decoder.decoder(base64Image, uploadDir + "//" + filename);
+            
             member.setPhoto(filename);
+            
+            ThumbnailMaker.thumbnailMaker(100, 100, uploadDir, filename, "t1");
+            ThumbnailMaker.thumbnailMaker(200, 200, uploadDir, filename, "t2");
+            ThumbnailMaker.thumbnailMaker(300, 300, uploadDir, filename, "t3");
         }
         
         if (areas != null && areas.size() > 0) {
@@ -139,33 +145,26 @@ public class MemberController {
     
     @RequestMapping("checkEmail")
     public int checkEmail(String email) {
-        /*System.out.println(email);*/
         
         int count = memberService.getEmailCount(email);
         
         return count;
     }
     
-/*    @RequestMapping("checkEmail")
-    public boolean checkEmail(String email) {
-        System.out.println(email);
+    @RequestMapping("checkNickName")
+    public int checkNickName(String nickName) {
         
-        int count = memberService.getEmailCount(email);
+        int count = memberService.getNickNameCount(nickName);
         
-        if (count == 0) {
-            
-            return true;
-        }
-        
-        return false;
-    }*/
+        return count;
+    }
+    
     
     @RequestMapping("update")
     public String update(Member member, 
                           MultipartFile file, 
                           @RequestParam(value="areas",required=false) String[] areas,
                           @RequestParam(value="genres",required=false) String[] genres) throws Exception {
-        System.out.println(file);
         
         if (!file.isEmpty()) {
             String uploadDir = servletContext.getRealPath("/download");
@@ -210,14 +209,14 @@ public class MemberController {
     
     // 다른 클라이언트가 보낸 파일명과 중복되지 않도록 
     // 서버에 파일을 저장할 때는 새 파일명을 만든다.
-    synchronized private String getNewFilename(String filename) {
+    synchronized private String getNewFilename(String png) {
         long currMillis = System.currentTimeMillis();
         if (prevMillis != currMillis) {
             count = 0;
             prevMillis = currMillis;
         }
         
-        return  currMillis + "_" + count++ + extractFileExtName(filename); 
+        return  currMillis + "_" + count++ + extractFileExtName(png); 
     }
     
     // 파일명에서 뒤의 확장자명을 추출한다.
@@ -237,11 +236,3 @@ public class MemberController {
         return filename;
     }  
 }
-
-
-
-
-
-
-
-
