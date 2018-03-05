@@ -1,0 +1,442 @@
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>공연 정보</title>
+
+<link rel='stylesheet' href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../../css/style1.css'>
+
+<style type="text/css">
+    .img  {position:absolute; border:gray solid 1px; cursor:pointer; width:0px; }
+    .span {position:absolute; color:#708090; font-family:verdana; font-size: 12px; width:200px;}
+</style>
+
+</head>
+
+<body>
+
+<div class='container'>
+<header></header>
+
+<h1>공연 목록</h1>
+
+<div class='form-group row' id=box style="position:absolute; border:black solid 1px;visibility:hidden;">
+
+  <img class="img"  onclick="Obj[0].clic();" src="../download/1519187085795_0.jpg" title="킹키부츠가 돌아왔다!x" alt="1111 : 2018년 2월 9일 ">
+  <img class="img"  onclick="Obj[1].clic();" src="../download/1519187106682_0.jpg" title="1111" alt="111 : 2018년 2월 2일 ">
+  <img class="img"  onclick="Obj[2].clic();" src="../download/1519187117598_0.jpg" title="99" alt="99 : 2018년 2월 13일 ">
+  <img class="img"  onclick="Obj[3].clic();" src="../download/1519187129342_0.jpg" title="88" alt="88 : 2018년 2월 2일 ">
+  <img class="img"  onclick="Obj[4].clic();" src="../download/1519187139748_0.jpg" title="77" alt="77 : 2018년 2월 14일 ">
+  
+  
+ <!--  <ul class="pagination justify-content-center">
+    <li>
+    <img class="img"  onclick="Obj[0].clic();" src="../download/1519187085795_0.jpg" title="킹키부츠가 돌아왔다!x" alt="1111 : 2018년 2월 9일 ">
+    </li>
+    <li>
+    <img class="img"  onclick="Obj[0].clic();" src="../download/1519187085795_0.jpg" title="킹키부츠가 돌아왔다!x" alt="1111 : 2018년 2월 9일 ">
+    </li>
+    <li>
+    <img class="img"  onclick="Obj[0].clic();" src="../download/1519187085795_0.jpg" title="킹키부츠가 돌아왔다!x" alt="1111 : 2018년 2월 9일 ">
+    </li>
+    <li>
+    <img class="img"  onclick="Obj[0].clic();" src="../download/1519187085795_0.jpg" title="킹키부츠가 돌아왔다!x" alt="1111 : 2018년 2월 9일 ">
+    </li>
+    <li>
+    <img class="img"  onclick="Obj[0].clic();" src="../download/1519187085795_0.jpg" title="킹키부츠가 돌아왔다!x" alt="1111 : 2018년 2월 9일 ">
+    </li>
+  
+  
+  </ul> -->
+  
+  
+  
+  
+  <span class='span' id='tit'></span>
+  <span class='span' id='txt1'></span>
+  <span class='span' id='txt2'></span>
+
+  <span class='span' id='LB0' style="position:absolute;left:50%;top:50%;">
+  <span style="position:absolute;font-family:arial;font-size:10px;color:#000000;left:-50;top:-18">Loading...</span>
+  <span class='span'  style="position:absolute;left:-50;top:-5;font-size:1px;width:100;height:10px;background:#333">
+  <span id='LB1' style="position:absolute;left:0;top:0;font-size:1px;width:0;height:10px;background:#ff0000"></span>
+  </span></span>
+</div>
+
+
+<div class='form-group' style="position: relative; top:400px;">
+  <nav class="navbar navbar-light justify-content-between">
+    <!-- <a href='form.html' id='addBtn' type="button" class='btn btn-primary btn-sm'>추가</a> -->
+  <button id="addBtn" type="button" class='btn btn-primary btn-sm my-view'>공연등록</button>
+    <form class="form-inline">
+      <input id="words" name="words"
+             class="form-control form-control-sm mr-sm-2" type="search" 
+             placeholder="검색" aria-label="Search">
+      <button id="searchBtn" class="btn btn-sm btn-outline-success my-2 my-sm-0" 
+              type="button">Search</button>
+    </form>
+  </nav>
+  
+  <table id="list" class='table table-hover' style="text-align : center; line-height:100%">
+  <thead>
+  <tr>
+  <th>번호</th><th>공연명</th><th>아티스트명</th><th>공연장르</th><th>공연날짜</th><th>공연장소</th><th>등록자</th><th>조회수</th>
+  </tr>
+  </thead>
+  <tbody></tbody>
+  </table>
+  
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+          <a id="prevBtn" class="page-link" tabindex="-1">이전</a></li>
+          
+      <li class="page-item">
+          <a id="currBtn" class="page-link" href="#">1</a></li>
+      
+      <li class="page-item ">
+          <a id="nextBtn" class="page-link" tabindex="0">다음</a></li>
+    </ul>
+  </nav>
+
+
+<footer></footer>
+</div>
+</div>
+
+<script src='../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+
+
+
+<script type="text/javascript">
+var //loginUser = {},
+    performInfo = {},
+    imgbox1 = $('#box'),
+    imgbox = $('#imgbox'),
+    words = $('#words'),
+    addBtn = $('#addBtn'),
+    searchBtn = $('#searchBtn'),
+    prevBtn = $('#prevBtn'),
+    currBtn = $('#currBtn'),
+    nextBtn = $('#nextBtn'),
+    tbody = $('#list > tbody'),
+    currPageNo = 1;
+
+$(document.body).on('login', (event, obj) => {
+    //console.log('로그인 정보 가져오기:', loginUser.artist.artistName);
+    load(1);
+});
+
+$('header').load('../header.html');
+
+$('footer').load('../footer.html');
+
+
+addBtn.click (() => {
+    console.log('로그인 정보 가져오기:', loginUser.type);
+    if (loginUser.type == '아티스트') {
+        location.href = "form.html";
+    } else {
+        alert("아티스트가 아닙니다.");
+        return
+    }
+});
+
+searchBtn.click (() => {
+    //event.preventDefault();
+    load(1, {
+        "words": words.value
+    })
+});
+
+prevBtn.click (() => {
+    load(currPageNo - 1)
+});
+
+nextBtn.click (() => {
+    load(currPageNo + 1)
+});
+
+function load(pageNo, options) {
+    
+    if (options == undefined) options = {};
+    options.pn = pageNo;
+    
+    $.ajax('../json/performance/list', {
+        data: options,
+        dataType: 'json',
+        success: (result) => {
+            
+            // 다른 함수에서 사용
+            performInfo = result.list;
+            
+            // table list
+            tbody.html("");
+            
+            var filename;
+            for (var data of performInfo) {
+                for(var media of data.medias) {
+                    if (media.filename == null) {
+                        filename = 'no_img.jpg';
+                    } else {
+                        filename = media.filename;
+                    }
+                }
+                $('<tr>').html(
+                    "<td><br>" + data.no + "</td>" +
+                    "<td><a href='form.html?no=" + data.no + "'>" + 
+                        "<img src='../download/" + filename + "' height=50>" + 
+                        "<div>" + data.name + "</a></td>" +
+                    "<td><br>" + data.artist.artistName + "</td>" +
+                    "<td><br>" + data.genre + "</td>" +
+                    "<td><br>" + formatDate(data.entryDate) + "</td>" +
+                    "<td><br>" + data.location + "</td>" +
+                    "<td><br>" + data.writer.nickName + "</td>" +
+                    "<td><br>" + data.viewCount + "</td>"
+                ).appendTo(tbody);
+            }
+            
+            
+            // image list
+            /* imgbox1.html("");
+            for (var data of result.list) {
+                for(var media of data.medias) {
+                    if (media.filename == null) {
+                        filename = 'no_img.jpg';
+                    } else {
+                        filename = media.filename;
+                    }
+                }
+                $('#box').append(
+                    "<img class='img' src='../download/" + filename + "'" + 
+                    "title='" + data.name + "'" +
+                    "alt='" + data.location + " : " +  
+                         formatDate(data.entryDate) + "'" +
+                    ">"
+                );
+                $('#box').append("<img class='img' src='../download/" + filename + "'>");
+            } */
+            
+            
+            
+            currPageNo = result.pageNo;
+            currBtn.html(currPageNo);
+            
+            if (result.pageNo == 1) {
+                $(prevBtn.parent()).addClass("disabled");
+            } else {
+                $(prevBtn.parent()).removeClass("disabled");
+            }
+            
+            if (result.lastPageNo == result.pageNo) {
+                $(nextBtn.parent()).addClass("disabled");
+            } else { 
+                $(nextBtn.parent()).removeClass("disabled");
+            }
+        },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
+    });
+}
+
+function formatDate(jason) {
+    var jasondate = new Date(jason) 
+
+    return jasondate.getFullYear() + '년 ' + 
+      (jasondate.getMonth() + 1) + '월 ' + 
+      jasondate.getDate() + '일 '  
+}
+</script>
+
+
+
+<!-- animation -->
+<script>
+m00=document.getElementById("box").getElementsByTagName("img");
+m01=m00.length;
+
+images_loading_bar();
+function images_loading_bar(){
+    m02=0;
+    for(i=0;i<m01;i++)m02+=(m00[i].complete)?1:0;
+        document.getElementById("LB1").style.width=Math.round(m02/m01*100);
+        
+    if(m02==m01)
+        setTimeout("document.getElementById('LB0').style.display='none'",128);
+    else
+       setTimeout("images_loading_bar()", 64);
+};
+</script>
+
+
+
+
+<script type="text/javascript">
+
+window.onerror         = new Function("return true");
+document.onselectstart = new Function("return false");
+screen.bufferDepth     = 16;
+Obj = new Array();
+box = 0;
+img = 0;
+txt1 = 0;
+txt2 = 0;
+tit = 0;
+W   = 0;
+H   = 0;
+nI  = 0;
+sel = 0;
+si  = 0;
+inc = 0;
+ZOOM  = 7;
+rImg  = 1.33;
+speed = .1;
+
+onload = function(){
+    box = document.getElementById("box");
+    tit = document.getElementById("tit");
+    txt1 = document.getElementById("txt1");
+    txt2 = document.getElementById("txt2");
+    img = box.getElementsByTagName("img");
+    nI  = img.length;
+    resize();
+    s = ZOOM * 25;  //100
+    x = 0;
+    tit.innerHTML = img[0].title;
+    //txt1.innerHTML = img[0].alt;
+    
+    var splitStr = img[0].alt.split(':');
+    txt1.innerHTML = "공연장소 : " + splitStr[0];
+    txt2.innerHTML = "공연시간 : " + splitStr[1];
+    for(i=0; i<nI; i++) {
+        Obj[i] = new CObj(i, s, x, img[i].alt, img[i].title);
+        img[i].alt = "";
+        img[i].title = "";
+        img[i].onmousedown = new Function("return false;");
+        x += s;
+        s = 100;
+    }
+    Obj[0].is.cursor = "default";
+    setTimeout("box.style.visibility='visible';",100);
+    run();
+    setInterval(()=>{
+        Obj[inc++ % 5].clic();
+    }, 2000);
+}
+
+function CObj(n, s, x, tx, ti){
+    this.n    = n;
+    this.dim  = s;
+    this.tx   = tx;
+    this.ti   = ti;
+    this.is   = img[n].style;
+    this.vz   = 0;
+    this.sx   = 0;
+    this.x0   = x;
+    this.x1   = 0;
+    this.zo   = 0;
+    this.clic = function() {
+        with(this){
+            if(n!=sel){
+                Obj[sel].is.cursor = "pointer";
+                Obj[n].is.cursor = "default";
+                Obj[sel].dim = 100;
+                Obj[n].dim = ZOOM * 25;   //100
+                sel = n;
+                l = 0;
+                for(k=0; k<nI; k++){
+                    Obj[k].x0 = l;
+                    l += Obj[k].dim;
+                }
+                tit.innerHTML = "";
+                txt1.innerHTML = txt2.innerHTML = "";
+                setTimeout("dText()", 32);
+            } else {
+                // not implemented
+            }
+        }
+    }
+    this.anim = function () {
+        with(this){
+            vz  = speed*(vz+(x1-sx)*.5);
+            x1 -= vz;
+            sx  = (n==0) ? 0 : Obj[n-1].x0+Obj[n-1].dim;
+            zo -= (zo-dim)*speed;
+            l   = Math.round((x1*si)+6*(n+1));
+            w   = Math.round(zo*si);
+            is.left   = l;
+            is.top    = (H-w*rImg)*.5;
+            is.width  = w;
+            is.height = w*rImg;
+            
+            if(sel == n){
+                if(sel<nI*.5) tit.style.left = txt1.style.left = l+w+6;
+                else tit.style.left = txt1.style.left = l-(nx*.25)-6;
+
+                tit.style.top = -(w*rImg)*.25  //(w*rImg)*.33;
+                
+                txt1.style.top = -(w*rImg)*.16  //-(w*rImg)*.25;
+                txt2.style.top = -(w*rImg)*.08  //-(w*rImg)*.25;
+                txt2.style.left = txt1.style.left;
+            }
+        }
+    }
+}
+
+function run(){
+    for(j in Obj) Obj[j].anim();
+    
+    setTimeout("run()", 16);
+}
+
+
+function dText(){
+    tit.style.textAlign = (sel<nI/2)?"left":"right";
+    txt1.style.textAlign = txt2.style.textAlign = (sel<nI/2)?"left":"right";
+    
+    tit.innerHTML = "공연명 : " + Obj[sel].ti;
+    //txt1.innerHTML = Obj[sel].tx;
+    var splitStr = Obj[sel].tx.split(':');
+    txt1.innerHTML = "공연장소 : " + splitStr[0];
+    txt2.innerHTML = "공연시간 : " + splitStr[1];
+}
+
+
+//onresize = resize;
+function resize(){
+    nx = 1600;  //document.body.offsetWidth;
+    ny = 1400;  //document.body.offsetHeight;
+    W  =  nx * 90 / 100;
+    si = (W-((nI+1)*6))/((ZOOM*100)+((nI-1)*100));
+    H  = (100 * si * rImg) + 14;
+    setTimeout("doResize()", 16);
+}
+
+
+function doResize(){
+    tit.style.width = nx*.25;
+    txt1.style.width = nx*.25;
+    txt2.style.width = nx*.25;
+    
+    tit.style.fontSize = 18 + "px";  // (nx / 30) + "px";
+    txt1.style.fontSize = 18 + "px";  //(nx / 70) + "px";
+    txt2.style.fontSize = 18 + "px";  //(nx / 70) + "px";
+    
+    with(box.style){
+        width  = 1000;  // W;
+        height = H;
+        left   = nx / 2 - W / 2;
+        top    = ny / 2 - H / 2;
+        top = 200;
+    }
+}
+
+</script>
+
+
+</body>
+</html>

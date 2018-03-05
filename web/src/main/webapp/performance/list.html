@@ -271,8 +271,8 @@ table tr:nth-child(2n+1) {
     
     
 
-<div class='form-group' style="position: relative; top:400px;">
-<div class="table-users">
+<div id='info-list' class='form-group' style="position: relative; top:400px;">
+<div class="table-users" >
     <div class="header">공연 정보</div>
     <table id="list">
     <thead>
@@ -650,7 +650,7 @@ function dText(){
     //txt1.innerHTML = Obj[sel].tx;
     var splitStr = Obj[sel].tx.split(':');
     txt1.innerHTML = "공연장소 : " + splitStr[0];
-    txt2.innerHTML = "공연시간 : " + splitStr[1];
+    txt2.innerHTML = "공연날짜 : " + splitStr[1];
 }
 
 

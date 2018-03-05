@@ -9,19 +9,159 @@
 
 <!-- 댓글 관련 -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
 
-<style> 
-    span{margin: 20px;}
-    .w3-third{width:500px;}
-    .w3-twothird{margin-left:50px;width:500px;}
-    #detail-td1{width:500px;} 
-    #detail-td2{width:900px;}
-    html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
-    
+<style>
+body * {
+  box-sizing: border-box;
+}
+span{margin: 20px;}
+.w3-third{width:500px;}
+.w3-twothird{width:400px;}
+#detail-td1{width:100px;}
+#detail-td1{width:100px;}
+
+/* 
+@media (max-width: 1000px) {
+  .w3-third{width:300px;}
+  .w3-twothird{width:500px;}
+#detail-td1{width:100px;}
+#detail-td1{width:100px;} 
+*/
+}
+  /* #detail-td2{width:900px;} */
+  /* html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif} */
 </style>
+
+<style>
+.css3-tab {
+  list-style: none;
+  margin: 0 auto 40px;
+  padding: 38px 0 0 0;
+  position: relative;
+  width: 90%;
+}
+.css3-tab input[type='radio'] {
+  display: none;
+}
+.css3-tab .css3-tab-nav {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+.css3-tab .css3-tab-nav label {
+  display: table-cell;
+  background-color: #2b686e;
+  color: #FFFFFF;
+  padding: 15px;
+  text-align: center;
+  transition: all .3s ease 0s;
+}
+.css3-tab .css3-tab-nav label:hover {
+  cursor: pointer;
+  background: #edf7f8;
+  color: #666666;
+  transition: all .3s ease 0s;
+}
+@media (max-width: 1000px) {
+  .css3-tab .css3-tab-nav {
+    display: block;
+    margin: 0 0 20px;
+  }
+  .css3-tab .css3-tab-nav label {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px;
+  }
+  .css3-tab input[id='tabOne']:checked ~ div.tab-one {
+    border-top: solid 3px white;
+    border-bottom: solid 1px black;
+    border-right: solid 1px black;
+    border-left: solid 1px black;
+  }
+  .css3-tab input[id='tabTwo']:checked ~ div.tab-two {
+    border-top: solid 3px white;
+    border-bottom: solid 1px black;
+    border-right: solid 1px black;
+    border-left: solid 1px black;
+  }
+  .css3-tab input[id='tabThree']:checked ~ div.tab-three {
+    border-top: solid 3px white;
+    border-bottom: solid 1px black;
+    border-right: solid 1px black;
+    border-left: solid 1px black;
+  }
+  .css3-tab input[id='tabFour']:checked ~ div.tab-four {
+    border-top: solid 3px white;
+    border-bottom: solid 1px black;
+    border-right: solid 1px black;
+    border-left: solid 1px black;
+  }
+}
+.css3-tab .css3-tab-content {
+  overflow: hidden;
+  padding: 25px;
+  display: none;
+  background: #FFF;
+  clear: left;
+  box-sizing: border-box;
+}
+.css3-tab input[id='tabOne']:checked ~ .css3-tab-nav label[for='tabOne'] {
+  background: red;
+  color: white;
+  cursor: default;
+}
+.css3-tab input[id='tabOne']:checked ~ div.tab-one {
+  display: block;
+  border-top: solid 3px red;
+  border-bottom: solid 1px black;
+  border-right: solid 1px black;
+  border-left: solid 1px black;
+}
+.css3-tab input[id='tabTwo']:checked ~ .css3-tab-nav label[for='tabTwo'] {
+  background: red;
+  color: white;
+  cursor: default;
+}
+.css3-tab input[id='tabTwo']:checked ~ div.tab-two {
+  display: block;
+  border-top: solid 3px red;
+  border-bottom: solid 1px black;
+  border-right: solid 1px black;
+  border-left: solid 1px black;
+}
+.css3-tab input[id='tabThree']:checked ~ .css3-tab-nav label[for='tabThree'] {
+  background: red;
+  color: white;
+  cursor: default;
+}
+.css3-tab input[id='tabThree']:checked ~ div.tab-three {
+  display: block;
+  border-top: solid 3px red;
+  border-bottom: solid 1px black;
+  border-right: solid 1px black;
+  border-left: solid 1px black;
+}
+.css3-tab input[id='tabFour']:checked ~ .css3-tab-nav label[for='tabFour'] {
+  background: red;
+  color: white;
+  cursor: default;
+}
+.css3-tab input[id='tabFour']:checked ~ div.tab-four {
+  display: block;
+  border-top: solid 3px red;
+  border-bottom: solid 1px black;
+  border-right: solid 1px black;
+  border-left: solid 1px black;
+}
+
+</style>
+
+
+
 </head>
 <body>
 <div class='container'>
@@ -31,244 +171,180 @@
 
 
 
-
-
-
-
-<div id='general-view'>
-
-<form id='formList'>
-   <div class="w3-panel">
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-third">
-        <h5>관련 영상</h5>
-            <div class="col-sm-100 embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" id="video" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
-            </div>
-      </div>
-      <div class="w3-twothird">
-        <h5>상세 정보</h5>
-        <table id="detail-table" class="w3-table w3-striped w3-white"></table>
-      </div>
-    </div>
-  </div>
-  <hr>
-</form>
-
-
-<div class='form-group row'>
-<div class='col-sm-10'>
-<!-- <button id="addBtn" type="button" class='btn btn-primary btn-sm my-new'>공연 추가</button> -->
-<button id="updateBtn" type="button" class='btn btn-primary btn-sm my-view'>공연 수정</button>
-<button id="deleteBtn" type="button" class='btn btn-primary btn-sm my-view'>공연 삭제</button>
-</div>
-</div>
-
-<form id="formjjim">
-
-<div class='form-group row my-jjim jjim'>
-<label class='col-sm-2 col-form-label'></label>
-<div class='col-sm-10'>
-    <button id='jjim' type="button" class='btn btn-primary btn-sm jjim'>찜하기</button>
-    <span></span>
-    
-    <button id='share' type="button" class='btn btn-primary btn-sm jjim'>공유하기</button>
-    <span></span>
-    
-    <label for='rating' class='col-sm-2 col-form-label rating'></label>
-    <input class='col-sm-2 rating' type='number' min="-10" max="100" id='rating' name='rating' value=''>
-    <button id="ratingBtn"type="button" class='btn btn-primary btn-sm rating'>점수주기</button>
-    
-</div>
-</div>
-
-
-<!-- <div id="rating" class="form-row">
-    <div class="col">
-    <input class='"form-control mb-2 mr-sm-2 rating' id='rating' type='number' min="-10" max="100" name='rating' value=''>
-    </div>
-    <div class="col">
-    <button id="ratingBtn"type="button" class='btn btn-primary btn-sm rating'>점수주기</button>
-    </div>
-</div> -->
-
-<!-- <div class='form-group row ripple'>
-<label for='ripple' class='col-sm-2 col-form-label'>댓글</label>
-<div class='col-sm-10'>
-<textarea class='form-control' id='ripple' name='ripple' value=''></textarea>
-<button id="rippleBtn"type="button" class='btn btn-primary btn-sm'>등록</button>
-</div>
-</div> -->
-
-</form>
-
-
-
-<div id="comment" data-role="collapsible">
-    <h3>댓글</h3>
-
-    <form id="comment_new_form" method="post" action="https://opentutorials.org/comment/add_ajax" data-ajax="true">
-        <!-- <div class="profile_image">
-            <img src="/download/1518169411347_0.jpg"  height="50" alt="">
-        </div> -->
-
-        <div class="form_wrapper">
-            <dl class="comment_form_content">
-                <!-- <dt>댓글 본문</dt> -->
-                <dd>
-                    <!-- <div id="reply_indicator">
-                        <a>리체님의 댓글에 대한 답글입니다.</a>
-                        <input type="hidden" name="parent" value="">
-                        <a class="btn btn_unchain" href="#">삭제</a>
-                    </div> -->
-                    <!-- <textarea name="cmt_content"></textarea> -->
-                    <textarea class='form-control' id='ripple' name='ripple' rows='5' value=''></textarea>
-                </dd>
-            </dl>
-            <!-- <dl class="comment_form_writer">
-                <dt>작성자</dt>
-                <dd><input type="text" name="username" placeholder="이름"></dd>
-            </dl>
-            <dl class="comment_form_password">
-                <dt>비밀번호</dt>
-                <dd><input type="password" name="password" placeholder="비밀번호"></dd>
-            </dl> -->
-            <div class="buttons">
-                <!-- <input type="hidden" name="course_id" value="0">
-                <input type="hidden" name="module_id" value="1976">
-                <input type="hidden" name="topic_id" value="0"> -->
-
-                <button id="rippleBtn"type="button" class='btn btn-primary btn-sm' style="float:right">댓글달기</button>
-            </div>
-        </div>
-    </form>
-    <br><br>
-    <ol id="comment_list"></ol>
-
-    <!-- <div id="cmt_more" class="hidden">
-        <a href="#"><span>더 보기</span></a>
-    </div> -->
-</div>  
-    
-
-
-<table id="ripplelist" class='table table-hover'>
-<thead>
-<tr>
-<!-- <th></th><th></th> -->
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-
-
-</div>  <!-- general view -->
-
-
-<div id='artist-view'>
-
-
-
-
-<!-- 
-<form id='formData' enctype="multipart/form-data">
-<div class='form-group row'>
+<div class='w3-first my-hidden'>
 <label for='no' class='col-sm-2 col-form-label'>공연번호</label>
 <div class='col-sm-10'>
 <input class='form-control' readonly id='no' type='number' name='no' value='0'>
 </div>
 </div>
 
-<div class='form-group row'>
-<label class='col-sm-2 col-form-label'>공연사진/영상</label>
-<div class='col-sm-10' id='medias' value=''>
-</div>
-</div>
+<!-- 
+<div id='general-view'>
+
+   <div class="w3-panel">
+    <div class="w3-row-padding">  style="margin:0 -16px">
+      <div class="w3-third" style='border: 1px solid black'>
+        <h5>관련 영상</h5>
+            <div style='border: 1px solid black'>
+            <img class="img" src="../download/no_img.jpg" style="width:400px">
+                <iframe class="embed-responsive-item" id="video" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" ></iframe>
+            </div>
+      </div>
+      <div class="w3-third" style='border: 1px solid black'>
+        <h5>상세 정보</h5>
+        <table id="detail-table" class="w3-table w3-striped w3-white"></table>
+      </div>
+    </div>
+  </div>
+
+</div> 
+-->
 
 <div class='form-group row'>
-<label for='name' class='col-sm-2 col-form-label'>공연명</label>
-<div class='col-sm-10'>
-<input class='form-control' id='name' type='text' name='name' value=''>
-</div>
-</div>
-
-<div class='form-group row'>
-<label for='genre' class='col-sm-2 col-form-label'>공연장르</label>
-<div class='col-sm-10'>
-
-<select class="custom-select" id="genre" name="genre" value=''>
-  <option selected></option>
-  <option value='솔로'>솔로</option>
-  <option value='그룹'>그룹</option>
-  <option value='발라드'>발라드</option>
-  <option value='R & B'>R & B</option>
-  <option value='락'>락</option>
-  <option value='랩'>랩</option>
-  <option value='개그'>개그</option>
-  <option value='마술'>마술</option>
-</select>
-</div>
-</div>
-
-<div class='form-group row'>
-<label for='joinDate' class='col-sm-2 col-form-label'>공연날짜</label>
-<div class='col-sm-10'>
-<input class='form-control' id='entryDate' type='datetime' name='entryDate'  value=''>
-</div>
-</div>
-
-<div class='form-group row'>
-<label for='location' class='col-sm-2 col-form-label'>공연장소</label>
-<div class='col-sm-10'>
-<input class='form-control' id='location' type='text' name='location' value=''>
-</div>
-</div>
-
-<div class='form-group row'>
-<label for='detailDesc' class='col-sm-2 col-form-label'>공연내용</label>
-<div class='col-sm-10'>
-<textarea class='form-control' id='detailDesc' name='detailDesc' rows='5' value=''></textarea>
-</div>
-</div>
-
-<div class='form-group row'>
-<label for='specialDesc' class='col-sm-2 col-form-label'>특이사항</label>
-<div class='col-sm-10'>
-<input class='form-control' id='specialDesc' type='text' name='specialDesc' value=''>
-</div>
-</div>
-
-<div class='form-group row'>
-<label for='file1' class='col-sm-2 col-form-label'>파일1</label>
-<div class='col-sm-10'>
-<input type="file" class="form-control-file" id="file1" name="files" value=''>
-</div>
-</div>
-
-<div class='form-group row'>
-<label for='file2' class='col-sm-2 col-form-label'>파일2</label>
-<div class='col-sm-10'>
-<input type="file" class="form-control-file" id="file2" name="files" value=''>
-</div>
-</div>
-
-<div class='form-group row'>
-<label for='file3' class='col-sm-2 col-form-label'>파일3</label>
-<div class='col-sm-10'>
-<input type="file" class="form-control-file" id="file3" name="files" value=''>
-</div>
-</div>
-
-</form>  
-#form -->
+    <div class='css3-tab'>
+        <div class="w3-third">
+          <h5>공연 미디어</h5>
+            <table id="media-table" class="w3-table w3-striped w3-white"></table>
+            <!-- <img class="img" src="../download/no_img.jpg" style="width:400px"> -->
+        </div>
+        <div class="w3-twothird">
+          <h5>상세 정보</h5>
+            <table id="detail-table" class="w3-table w3-striped w3-white"></table>
+            <div class='col-sm-10'>
+            <br>
+            <button id="updateBtn" type="button" class='btn btn-primary btn-sm my-view'>공연 수정</button>
+            <button id="deleteBtn" type="button" class='btn btn-primary btn-sm my-view'>공연 삭제</button>
+            </div>
+        </div>
+    </div>
 
 
- 
+    <!-- Pure CSS Menu -->
+        
+    <div class='css3-tab'>
+        <input type='radio' name='a' id='tabOne' tabindex="1" checked>
+        <input type='radio' name='a' id='tabTwo' tabindex="2">
+        <input type='radio' name='a' id='tabThree' tabindex="3">
+        <input type='radio' name='a' id='tabFour' tabindex="4">
+        <div class="css3-tab-nav">
+            <label for='tabOne'>상세보기</label>
+            <label for='tabTwo'>아티스트</label>
+            <label for='tabThree'>미디어</label>
+            <label for='tabFour'>평점 & 댓글</label>
+        </div>
+    
+        <div class='css3-tab-content tab-one'>
+            <div class='w3-third' style='border: 2px solid white'> 
+                <div id='map_canvas' style='width:400px; height:350px; border: 2px solid white'></div>
+            </div>
+        
+        </div>
+        <div class='css3-tab-content tab-two'></div>
+        <div class='css3-tab-content tab-three'></div>
+        <div class='css3-tab-content tab-four'>
+
+            <form id="formjjim">
+            
+            <div class='form-group row my-jjim jjim'>
+            <label class='col-sm-2 col-form-label'></label>
+            <div class='col-sm-10'>
+                <button id='jjim' type="button" class='btn btn-primary btn-sm jjim'>찜하기</button>
+                <span></span>
+                
+                <button id='share' type="button" class='btn btn-primary btn-sm jjim'>공유하기</button>
+                <span></span>
+                
+                <label for='rating' class='col-sm-2 col-form-label rating'></label>
+                <input class='col-sm-2 rating' type='number' min="-10" max="100" id='rating' name='rating' value=''>
+                <button id="ratingBtn"type="button" class='btn btn-primary btn-sm rating'>점수주기</button>
+                
+            </div>
+            </div>
+            
+            
+            <!-- <div id="rating" class="form-row">
+                <div class="col">
+                <input class='"form-control mb-2 mr-sm-2 rating' id='rating' type='number' min="-10" max="100" name='rating' value=''>
+                </div>
+                <div class="col">
+                <button id="ratingBtn"type="button" class='btn btn-primary btn-sm rating'>점수주기</button>
+                </div>
+            </div> -->
+            
+            <!-- <div class='form-group row ripple'>
+            <label for='ripple' class='col-sm-2 col-form-label'>댓글</label>
+            <div class='col-sm-10'>
+            <textarea class='form-control' id='ripple' name='ripple' value=''></textarea>
+            <button id="rippleBtn"type="button" class='btn btn-primary btn-sm'>등록</button>
+            </div>
+            </div> -->
+            
+            </form>
+            
+            
+            
+            <div id="comment" data-role="collapsible">
+                <h3>댓글</h3>
+            
+                <!-- <form id="comment_new_form" method="post" action="https://opentutorials.org/comment/add_ajax" data-ajax="true"> -->
+                <form id="comment_new_form" >
+                    <!-- <div class="profile_image">
+                        <img src="/download/1518169411347_0.jpg"  height="50" alt="">
+                    </div> -->
+            
+                    <div class="form_wrapper">
+                        <dl class="comment_form_content">
+                            <!-- <dt>댓글 본문</dt> -->
+                            <dd>
+                                <!-- <div id="reply_indicator">
+                                    <a>리체님의 댓글에 대한 답글입니다.</a>
+                                    <input type="hidden" name="parent" value="">
+                                    <a class="btn btn_unchain" href="#">삭제</a>
+                                </div> -->
+                                <!-- <textarea name="cmt_content"></textarea> -->
+                                <textarea class='form-control' id='ripple' name='ripple' rows='5' value=''></textarea>
+                            </dd>
+                        </dl>
+                        <!-- <dl class="comment_form_writer">
+                            <dt>작성자</dt>
+                            <dd><input type="text" name="username" placeholder="이름"></dd>
+                        </dl>
+                        <dl class="comment_form_password">
+                            <dt>비밀번호</dt>
+                            <dd><input type="password" name="password" placeholder="비밀번호"></dd>
+                        </dl> -->
+                        <div class="buttons">
+                            <!-- <input type="hidden" name="course_id" value="0">
+                            <input type="hidden" name="module_id" value="1976">
+                            <input type="hidden" name="topic_id" value="0"> -->
+            
+                            <button id="rippleBtn"type="button" class='btn btn-primary btn-sm' style="float:right">댓글달기</button>
+                        </div>
+                    </div>
+                </form>
+                <br><br>
+                <ol id="comment_list"></ol>
+            
+                <!-- <div id="cmt_more" class="hidden">
+                    <a href="#"><span>더 보기</span></a>
+                </div> -->
+            </div>
+        
+            <table id="ripplelist" class='table table-hover'>
+            <thead>
+            <tr>
+            <!-- <th></th><th></th> -->
+            </tr>
+            </thead>
+            <tbody></tbody>
+            </table>
+        
+        </div>
+    </div>
+</div>
 
 
-</div>  <!-- artist view -->
-
-<footer></footer>
+    <footer></footer>
 </div>
 
 
@@ -276,34 +352,22 @@
 <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 
-
-
 <script type="text/javascript">
 
 
 var performInfo = {},
-     pagearr,
-    addBtn = $('#addBtn'),
+    pagearr,
+    noItem = $('#no'),
+    mediatable = $('#media-table');
+    detailtable = $('#detail-table');
     updateBtn = $('#updateBtn'),
     deleteBtn = $('#deleteBtn'),
     rippleBtn = $('#rippleBtn'),
-    ratingBtn = $('#ratingBtn'),
-    noItem = $('#no'),
-    //memberNoItem = $('#memberNo'),
-    nameItem = $('#name'),
-    genreItem = $('#genre'),
-    entryDateItem = $('#entryDate'),
-    locationItem = $('#location'),
-    detailDescItem = $('#detailDesc'),
-    specialDescItem = $('#specialDesc'),
-    mediasItem = $('#medias'),
-    file1Item = $('#file1'),
     jjimItem = $('#jjim'),
     ratingItem = $('#rating'),
     rippleItem = $('#ripple'),
     infolist = $('#infolist > tbody'),
     ripplelist = $('#ripplelist > tbody'),
-    detailtable = $('#detail-table');
 
 $(document.body).on('login', (event, obj) => {
     console.log('로그인 정보 가져오기:', loginUser.type);
@@ -312,7 +376,7 @@ $(document.body).on('login', (event, obj) => {
 
 $('header').load('../header.html');
 
-//$('footer').load('../footer.html');
+$('footer').load('../footer.html');
 
 
 var index = location.href.indexOf('?');
@@ -320,10 +384,11 @@ var index = location.href.indexOf('?');
 //$(document.body).on('login', (event, obj) => {
 
 function load() {
+    $('.my-hidden').css('display', 'none');
     if (index != -1) { // 기존 데이터를 조회할 경우,
         var qs = location.href.substr(index + 1);
         pagearr = qs.split('=');
-        $('h1').html("공연 정보");
+        //$('h1').html("공연 정보");
         $('.my-new').css('display', 'none');
         $(() => {
             
@@ -333,28 +398,37 @@ function load() {
                 async : false,
                 success: (result) => {
                     
-                    // 다른 함수에서 사용
-                    performInfo = result.data;
-                    
-                    //for (var i = 0; i < result.data.medias.length; i++) {
+	                // 다른 함수에서 사용
+	                performInfo = result.data;
+	                    
+                    var filename;
+	                for(var media of performInfo.medias) {
+	                    if (media.filename == null) {
+	                        filename = 'no_img.jpg';
+	                    } else {
+	                        filename = media.filename;
+	                    }
+	                };
+	                
                     for (var data of performInfo.medias) {
                         if (data.filename != null) {
-                            mediasItem.append("<img src='../download/" + data.filename + "' height=100>");
+                            //mediasItem.append("<img src='../download/" + data.filename + "' height=100>");
                             //mediasItem.append("<a href='/download/" + data.filename + "'>" + data.filename + "</a><br>");
                         }
                     };
                     
-                    // formData
-                    /* noItem.val(performInfo.no);
-                    nameItem.val(performInfo.name);
-                    genreItem.append('<option selected>' + performInfo.genre + '</option>')
-                    entryDateItem.val(formatDate(performInfo.entryDate));
-                    locationItem.val(performInfo.location);
-                    detailDescItem.val(performInfo.detailDesc);
-                    specialDescItem.val(performInfo.specialDesc); 
-                    # form */
+                    if (performInfo.artist.artistMember == null) performInfo.artist.artistMember = '없음';
                     
+
+                    noItem.val(performInfo.no);
                     
+                    //imagetable
+                    mediatable.html("");
+                    $('<tr>').html(
+                        "<img src='../download/" + filename + "'style='width:400px'>"
+                        //"<img src='../download/no_img.jpg' style='width:300px'>" +
+                    ).appendTo(mediatable);
+
                     //detailtable
                     detailtable.html("");
                     $('<tr>').html(
@@ -369,7 +443,7 @@ function load() {
                     
                     $('<tr>').html(
                             "<td id='detail-td1'>" + "공연 날짜" + "</td>" +
-                            "<td id='detail-td2'>" + formatDate(performInfo.entryDate) + "</td>"
+                            "<td id='detail-td2'>" + formatDate(performInfo.entryDate, 2) + "</td>"
                     ).appendTo(detailtable);
                     
                     $('<tr>').html(
@@ -377,10 +451,83 @@ function load() {
                             "<td id='detail-td2'>" + performInfo.location + "</td>"
                     ).appendTo(detailtable);
                     
-                    $('<tr>').html(
+                    /* $('<tr>').html(
                             "<td id='detail-td1'>" + "공연 내용" + "</td>" +
                             "<td id='detail-td2'>" + performInfo.detailDesc + "</td>"
-                    ).appendTo(detailtable);
+                    ).appendTo(detailtable); */
+                    
+
+                    
+                    
+                    $('.tab-one').append(
+                        //"<div class='w3-third' style='width:400px'>" +
+                        //"<img src='../download/" + performInfo.writer.photo + "' width=200><br>" +
+                        //"<img src='../download/no_img.jpg' style='width:300px'>" +
+                        //"</div>" +
+                        //"<div class='w3-third' style='border: 2px solid red;'>" + 
+                        //"<div id='map_canvas' style='width:400px; height:350px; border: 2px solid blue;'></div>" +
+                        //"</div>" +
+                        "<div class='w3-twothird'>" +
+                        "<table id='detail-table' class='w3-table w3-striped w3-white'>" +
+                        "<tr>" +
+                        "<td id='detail-td1' style='background:white'>" + "공연명" + "</td>" +
+                        "<td id='detail-td2' style='background:white'>" + performInfo.name  + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<td id='detail-td1' style='background:white'>" + "공연 장르" + "</td>" +
+                        "<td id='detail-td2' style='background:white'>" + performInfo.genre + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<td id='detail-td1' style='background:white'>" + "공연 내용" + "</td>" +
+                        "<td id='detail-td2' style='background:white'>" + performInfo.detailDesc + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<td id='detail-td1' style='background:white'>" + "특이 사항" + "</td>" +
+                        "<td id='detail-td2' style='background:white'>" + performInfo.specialDesc + "</td>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</div>"
+                    );
+                    
+                    $('.tab-two').append(
+                        "<div class='w3-third' style='width:400px'>" +
+                        "<img src='../download/" + performInfo.writer.photo + "' width=200><br>" +
+                        //"<img src='../download/no_img.jpg' style='width:300px'>" +
+                        "</div>" +
+                        "<div class='w3-twothird'>" +
+                        "<table id='detail-table' class='w3-table w3-striped w3-white'>" +
+                        "<tr>" +
+                        "<td id='detail-td1' style='background:white'>" + "아티스트명" + "</td>" +
+                        "<td id='detail-td2' style='background:white'>" + performInfo.artist.artistName + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<td id='detail-td1' style='background:white'>" + "구성원" + "</td>" +
+                        "<td id='detail-td2' style='background:white'>" + performInfo.artist.artistMember + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<td id='detail-td1' style='background:white'>" + "프로필" + "</td>" +
+                        "<td id='detail-td2' style='background:white'>" + performInfo.artist.profile + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<td id='detail-td1' style='background:white'>" + "결성일" + "</td>" +
+                        "<td id='detail-td2' style='background:white'>" + formatDate(performInfo.artist.joinDate, 0) + "</td>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</div>"
+                    );
+                    
+                    $('.tab-three').append(
+                        "<h1'>" + "공연 사진" + "</h1><br>" +
+                        "<img src='../download/" + filename + "' width=300>"
+                        //"<img src='../download/no_img.jpg' style='width:300px'>"
+                    );
+                    
+                    $('.tab-four').append(
+                        //"<h1'>" + "공연 내용" + "</h1>" +
+                        //"<p>" + performInfo.detailDesc +"</p><hr>" +
+                        //"<h1'>" + "특이 사항" + "</h1>" +
+                        //"<p>" + performInfo.specialDesc
+                    );
                     
                     
                     if (loginUser.no != result.data.writer.no ) {
@@ -392,89 +539,55 @@ function load() {
                     window.alert('view 서버 실행 오류!');
                 }
             });
-            
-            // 찜 정보
-            if (loginUser.no == performInfo.writer.no) {
-                $('.jjim').css('display', 'none');
-            } else {
-	            $.ajax('../json/performance/viewjjim', {
-	                data: {
-	                    //performanceNo: noItem.val()
-	                    performanceNo: pagearr[1]
-	                },
-	                dataType: 'json',
-	                method: 'POST',
-	                success: (result) => {
-	                    console.log(result.jjim);
-	                    if (result.jjim == 1) {
-	                        jjimItem.prop("checked", true);
-	                    } else {
-	                        jjimItem.prop("checked", false);
-	                    }
-	                },
-	                error: () => {
-	                    window.alert('viewjjim 서버 실행 오류!');
-	                }
-	            });
-            }
-            
-            // 평점
-            if (loginUser.no == performInfo.writer.no) {
-                $('.rating').css('display', 'none');
-            } else {
-                $.ajax('../json/performance/checkrating', {
-                    data: {
-                        //performanceNo: noItem.val()
-                        performanceNo: pagearr[1]
-                    },
-                    dataType: 'json',
-                    method: 'POST',
-                    success: (result) => {
-                        if (result.rating == 1) {
-                            $('.rating').css('display', 'none');
-                        }
-                    },
-                    error: () => {
-                        window.alert('checkrating 서버 실행 오류!');
-                    }
-                });
-            }
-            
-            // 리플
-            $.ajax('../json/performance/viewripple', {
-                data: {
-                    //performanceNo: noItem.val(),performInfo.no
-                    performanceNo: pagearr[1]
-                },
-                dataType: 'json',
-                method: 'POST',
-                success: (result) => {
-                    
-                    ripplelist.html("");
-                    
-                    for (var data of result.list) {
-                        
-                        $('<tr>').
-                            html(
-                                "<td>" + 
-                                    "<img src='../download/" + data.writer.photo + "' height=50>" + "</td>" +
-                                "<td>"  + data.writer.nickName + "<span>"+ formatDateTime(data.regDate) + "</spna>" +
-                                    "<div>" + data.ripple +
-                                "</td>"
-                            ).appendTo(ripplelist);
-                        
-                        /* $('<tr>').html("<hr>").appendTo(ripplelist);
-                        $('<p>').html("</p>").appendTo(ripplelist);
-                        $('<tr>').html(data.writer.nickName + "</tr>").appendTo(ripplelist);
-                        $('<tr>').html(data.ripple + "</tr>").appendTo(ripplelist);
-                        $('<tr>').html(formatDateTime(data.regDate) + "</tr>").appendTo(ripplelist); */
-                    }
-                },
-                error: () => {
-                    window.alert('viewripple 서버 실행 오류!');
-                }
-            });
         });
+        
+        
+        
+
+        // 리플
+        $.ajax('../json/performance/viewripple', {
+            data: {
+                //performanceNo: noItem.val(),performInfo.no
+                performanceNo: pagearr[1]
+            },
+            dataType: 'json',
+            method: 'POST',
+            success: (result) => {
+                
+                ripplelist.html("");
+                
+                for (var data of result.list) {
+                    
+                    $('<tr>').
+                        html(
+                            "<td>" + 
+                                "<img src='../download/" + data.writer.photo + "' height=50>" + "</td>" +
+                            "<td>"  + data.writer.nickName + "<span>"+ formatDate(data.regDate, 3) + "</spna>" +
+                                "<div>" + data.ripple +
+                            "</td>"
+                        ).appendTo(ripplelist);
+                    /* $('.tab-four').append(
+                            "<tr>" +
+                            "<td>" + 
+                                "<img src='../download/" + data.writer.photo + "' height=50>" + "</td>" +
+                            "<td>"  + data.writer.nickName + "<span>"+ formatDateTime(data.regDate) + "</spna>" +
+                                "<div>" + data.ripple +
+                            "</td>" +
+                            "</tr>"
+                    ); */
+                    
+                    /* $('<tr>').html("<hr>").appendTo(ripplelist);
+                    $('<p>').html("</p>").appendTo(ripplelist);
+                    $('<tr>').html(data.writer.nickName + "</tr>").appendTo(ripplelist);
+                    $('<tr>').html(data.ripple + "</tr>").appendTo(ripplelist);
+                    $('<tr>').html(formatDateTime(data.regDate) + "</tr>").appendTo(ripplelist); */
+                }
+            },
+            error: () => {
+                window.alert('viewripple 서버 실행 오류!');
+            }
+        });
+        
         
     } /* else { // 신규 데이터 입력일 경우,
         $('h1').html("공연 등록");
@@ -486,7 +599,7 @@ function load() {
         $('.ripple').css('display', 'none');
     } 
     # form */
-}
+} 
 
 
 
@@ -519,7 +632,6 @@ updateBtn.click(() => {
     if (loginUser.type == '아티스트') {
         location.href = "form.html?no="+ performInfo.no;
     } else {
-        alert("아티스트가 아닙니다.");
         return
     }
     
@@ -557,73 +669,6 @@ updateBtn.click(() => {
     
     } */
 });
-
-deleteBtn.click(() => {
-    
-    if (deleteBtn.text() == "수정 취소") {
-
-        $('h1').html("공연 정보");
-        
-        $('#formData').css('display', 'none');
-        $('#formList').css('display', '');
-        //$('#deleteBtn').css('display', 'none');
-        $('#formjjim').css('display', '');
-        $('#comment').css('display', '');
-        $('#ripplelist').css('display', '');
-        updateBtn.text("공연 수정"); 
-        deleteBtn.text("공연 삭제");
-        
-        
-        $(() => {
-            
-            // 공연정보
-            $.ajax('../json/performance/' + pagearr[1], {
-                dataType: 'json',
-                async : false,
-                success: (result) => {
-                    
-                    // 다른 함수에서 사용
-                    performInfo = result.data;
-                    
-                    //for (var i = 0; i < result.data.medias.length; i++) {
-                    for (var data of performInfo.medias) {
-                        if (data.filename != null) {
-                            mediasItem.append("<img src='../download/" + data.filename + "' height=100>");
-                            //mediasItem.append("<a href='/download/" + data.filename + "'>" + data.filename + "</a><br>");
-                        }
-                    };
-                    
-                    // formData
-                    noItem.val(performInfo.no);
-                    nameItem.val(performInfo.name);
-                    genreItem.append('<option selected>' + performInfo.genre + '</option>')
-                    entryDateItem.val(formatDate(performInfo.entryDate));
-                    locationItem.val(performInfo.location);
-                    detailDescItem.val(performInfo.detailDesc);
-                    specialDescItem.val(performInfo.specialDesc);
-                },
-                error: () => {
-                    window.alert('view 서버 실행 오류!');
-                }
-            });
-        });
-        
-    } else {
-        $.ajax('../json/performance/delete', {
-            data: {
-                no: noItem.val()
-            },
-            dataType: 'json',
-            success: (result) => {
-                location.href = "list.html";
-            },
-            error: () => {
-                window.alert('서버 실행 오류!');
-            }
-        });
-    }
-});
-
 
 
 $('#jjim').click(function() {
@@ -670,6 +715,8 @@ ratingBtn.click(() => {
 });
 
 rippleBtn.click(() => {
+    
+    console.log("ripple click");
     $.ajax('../json/performance/addripple', {
         data: {
             performanceNo: noItem.val(),
@@ -679,59 +726,94 @@ rippleBtn.click(() => {
         dataType: 'json',
         method: 'POST',
         success: (result) => {
-            window.alert('서버 실행 성공!');
+            
+            // 리플 다시 불러오기
+            $.ajax('../json/performance/viewripple', {
+                data: {
+                    performanceNo: noItem.val(),
+                    //memberNo: memberNoItem.val()
+                },
+                dataType: 'json',
+                method: 'POST',
+                success: (result) => {
+                    
+                    rippleItem.val('');
+                    ripplelist.html("");
+                    console.log("리플");
+                    
+                    for (var data of result.list) {
+                        
+                        $('<tr>').
+                            html(
+                                "<td>" + 
+                                    "<img src='../download/" + data.writer.photo + "' height=50>" + "</td>" +
+                                "<td>"  + data.writer.nickName + "<span>"+ formatDate(data.regDate, 3) + "</spna>" +
+                                    "<div>" + data.ripple +
+                                "</td>"
+                            ).appendTo(ripplelist);
+                    }
+                },
+                error: () => {
+                    window.alert('viewripple 서버 실행 오류!');
+                }
+            });
+            
+            window.alert('addripple 서버 실행 성공!');
         },
         error: () => {
-            window.alert('서버 실행 오류!');
-        }
-    });
-    
-    $.ajax('../json/performance/viewripple', {
-        data: {
-            performanceNo: noItem.val(),
-            //memberNo: memberNoItem.val()
-        },
-        dataType: 'json',
-        method: 'POST',
-        success: (result) => {
-            
-            ripplelist.html("");
-            console.log("리플");
-            
-            for (var data of result.list) {
-                console.log(data.ripple);
-                /* $('<tr>').html(data.memberNo + "</tr>" +
-                               data.ripple + "</tr>" +
-                               formatDate(data.regDate) + "</tr>").appendTo(ripplelist); */
-                $('<tr>').html(data.memberNo + "</tr>").appendTo(ripplelist);
-                $('<tr>').html(data.ripple + "</tr>").appendTo(ripplelist);
-                $('<tr>').html(formatDateTime(data.regDate) + "</tr>").appendTo(ripplelist);
-            }
-        },
-        error: () => {
-            window.alert('viewripple 서버 실행 오류!');
+            window.alert('addripple 서버 실행 오류!');
         }
     });
 });
 
 
-function formatDate(jason) {
+function formatDate(jason, typedt) {
     var jasondate = new Date(jason);
-            
-    return jasondate.getFullYear() + '-' +
-    pad((jasondate.getMonth() + 1), 2) + '-' +
-    pad(jasondate.getDate(), 2);
-}
-
-function formatDateTime(jason) {
-    var jasondate = new Date(jason);
-            
-    return jasondate.getFullYear() + '-' +
-    pad((jasondate.getMonth() + 1), 2) + '-' +
-    pad(jasondate.getDate(), 2) + ' ' +
-    pad(jasondate.getHours(), 2) + ':' +
-    pad(jasondate.getMinutes(), 2) + ':' +
-    pad(jasondate.getSeconds(), 2);
+    var strval;
+    
+    if (typedt == 0) {
+        strval = jasondate.getFullYear() + '년' + 
+                 (jasondate.getMonth() + 1) + '월' + 
+                 jasondate.getDate() + '일';
+    }
+    else if (typedt == 1) {
+        if (jasondate.getMinutes() == 0) {
+            strval = jasondate.getFullYear() + '년' + 
+                     (jasondate.getMonth() + 1) + '월' + 
+                     jasondate.getDate() + "일<br/>" +
+                     jasondate.getHours() + '시';
+        } else {
+            strval = jasondate.getFullYear() + '년' + 
+            (jasondate.getMonth() + 1) + '월' +  
+            jasondate.getDate() + "일<br/>" +
+            jasondate.getHours() + '시' +
+            jasondate.getMinutes() + '분';
+        }
+    }
+    else if (typedt == 2) {
+        if (jasondate.getMinutes() == 0) {
+            strval = jasondate.getFullYear() + '년' + 
+                     (jasondate.getMonth() + 1) + '월' + 
+                     jasondate.getDate() + "일 " +
+                     jasondate.getHours() + '시';
+        } else {
+            strval = jasondate.getFullYear() + '년' + 
+            (jasondate.getMonth() + 1) + '월' +  
+            jasondate.getDate() + "일 " +
+            jasondate.getHours() + '시' +
+            jasondate.getMinutes() + '분';
+        }
+    }
+    else if (typedt = 3) {
+        strval = jasondate.getFullYear() + '-' +
+        pad((jasondate.getMonth() + 1), 2) + '-' +
+        pad(jasondate.getDate(), 2) + ' ' +
+        pad(jasondate.getHours(), 2) + ':' +
+        pad(jasondate.getMinutes(), 2) + ':' +
+        pad(jasondate.getSeconds(), 2);
+    }
+    
+    return strval;
 }
 
 function pad(n, width) {
@@ -742,5 +824,44 @@ function pad(n, width) {
 </script>
 
 
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBl2qPIVMyVVmfA4F43i0cCk3g6vf2RRZI&callback=initMap"></script>
+
+<script>
+function initMap() {
+    var latlng = new google.maps.LatLng(37.49929098029149, 127.0289699802915);
+    var map = new google.maps.Map(document.getElementById("map_canvas"), {
+         center: latlng, //{lat: 37.49929098029149, lng: 127.0289699802915},
+         zoom: 15
+    });
+  
+    //var infoWindow = new google.maps.InfoWindow({map: map});
+
+  
+    var marker = new google.maps.Marker({
+        position: latlng, //{lat: 37.49929098029149, lng: 127.0289699802915},
+        map: map,
+        title: "performInfo.name",
+        //draggable: true,
+        animation: google.maps.Animation.DROP
+    });
+}
+
+</script>
+
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

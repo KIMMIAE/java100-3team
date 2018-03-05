@@ -34,13 +34,13 @@
     
     <insert id="insert" parameterType="ripple">
         insert into tb_ripple (pfmno, mmbno, ripple, regdt) 
-        values (#{performanceNo}, #{memberNo}, #{ripple}, now())
+        values (#{performanceNo}, #{writer.no}, #{ripple}, now())
     </insert>
     
     <delete id="delete" parameterType="ripple">
         delete from tb_ripple
         where rippleno=#{no}
           and pfmno=#{performanceNo}
-          and mmbno=#{memberNo}
+          and mmbno=#{writer.no}
     </delete>
 </mapper>
