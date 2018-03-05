@@ -91,7 +91,7 @@ public class MemberController {
     }
     
     @RequestMapping(value="add", method=RequestMethod.POST)
-    public Object add(Member member, 
+    public Object add(Member member,
             @RequestParam(value="base64Image",required=false) String base64Image,
                        @RequestParam(value="areas", required=false) List<String> areas,
                        @RequestParam(value="genres", required=false) List<String> genres) throws Exception {
@@ -161,18 +161,31 @@ public class MemberController {
     
     
     @RequestMapping("update")
-    public String update(Member member, 
-                          MultipartFile file, 
+    public Object update(Member member, 
+            @RequestParam(value="base64Image",required=false) String base64Image,
                           @RequestParam(value="areas",required=false) String[] areas,
                           @RequestParam(value="genres",required=false) String[] genres) throws Exception {
         
-        if (!file.isEmpty()) {
+        if (!base64Image.isEmpty()) {
+            
+            String uploadDir = servletContext.getRealPath("/download");
+            String filename = getNewFilename(".jpeg");
+            Base64Decoder.decoder(base64Image, uploadDir + "//" + filename);
+            
+            member.setPhoto(filename);
+            
+            ThumbnailMaker.thumbnailMaker(100, 100, uploadDir, filename, "t1");
+            ThumbnailMaker.thumbnailMaker(200, 200, uploadDir, filename, "t2");
+            ThumbnailMaker.thumbnailMaker(300, 300, uploadDir, filename, "t3");
+        }
+        
+        /*if (!file.isEmpty()) {
             String uploadDir = servletContext.getRealPath("/download");
             String filename = writeUploadFile(file, uploadDir);
             member.setPhoto(filename);
         } else {
             member.setPhoto(memberService.getPhoto(member.getNo()));
-        }
+        }*/
 
         if (areas != null && areas[0].length() > 0) {
             ArrayList<InterestArea> interestAreas = new ArrayList<>();
@@ -193,14 +206,22 @@ public class MemberController {
         }
         
         memberService.update(member);
-        return "redirect:list";
+        
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("status", "success");
+        
+        return result;
     }
 
     @RequestMapping("delete")
-    public String delete(int no) throws Exception {
+    public Object delete(int no) throws Exception {
 
         memberService.delete(no);
-        return "redirect:list";
+        
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("status", "success");
+        
+        return result;
     }
     
     
@@ -234,5 +255,6 @@ public class MemberController {
         String filename = getNewFilename(part.getOriginalFilename());
         part.transferTo(new File(path + "/" + filename));
         return filename;
-    }  
+    }
+
 }

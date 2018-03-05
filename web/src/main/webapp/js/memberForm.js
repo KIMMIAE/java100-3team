@@ -1,197 +1,5 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-    <title>회원 가입</title>
-     <!-- <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'> -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet' type='text/css'>
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    <link rel='stylesheet' href='../css/member/cropit.css'>
-    <link rel='stylesheet' href='../css/member/memberForm.css'>
-    <!-- <link rel='stylesheet' href='../css/member/memberFormCheckbox.css'> -->
-</head>
-
-<body>
-
-
-<div class="joinbox">
-  <h1>Registration</h1>
-
-  <form id='formData'>
-  
-  <hr>  
-  <div class="accounttype">
-  <input type="radio" value="일반회원" id="type1" name="type" checked="checked"/>
-  <label for="type1" class="radio">일반회원</label>
-  <input type="radio" value="아티스트" id="type2" name="type"/>
-  <label for="type2" class="radio">아티스트</label>
-  </div>
-  <hr>
-
-  
-  <div id="image-cropper">
-  <div class="cropit-preview"></div>
-  <input type="file" class="cropit-image-input">
-  <input id="cropit-range" type="range" class="cropit-image-zoom-input">
-  <button id="cuttingBtn" type="button" style="display: inline-block;">사진 자르기</button>
-  <input type="hidden" name="base64Image" id="hidden-image-data" value=""/>
-  <div class="checkMessages" id="chkImageMsg"></div>
-  </div>
-  <hr>
-
-  <div id="personalInfoDiv">
-  
-  <div id="emailDiv">
-    <label id="icon" for="email"><i class="icon-envelope "></i></label>
-    <input type="email" id='email' name="email" onkeyup="checkEmail()" placeholder="example@email.com" required/>
-    <div class="checkMessages" id="chkEmailMsg"></div>
-  </div>
-  
-  <div id="nickNameDiv">
-    <label id="icon" for="nickName"><i class="icon-user"></i></label>
-    <input type="text" id="nickName" name="nickName" onkeyup="checkNickName()" placeholder="닉네임" required/>
-    <div class="checkMessages" id="chkNickMsg"></div>
-  </div>
-  
-  <div id="passwordDiv">
-    <label id="icon" for="password"><i class="icon-shield"></i></label>
-    <input type="password" id="password" name="password" onkeyup="checkPassword()" placeholder="비밀번호" required/>
-  </div>
-  
-  <div id="pwConfirmDiv">
-    <label id="icon" for="pwConfirm"><i class="icon-shield"></i></label>
-    <input type="password" id="pwConfirm" name="pwConfirm" onkeyup="confirmPassword()" placeholder="비밀번호 확인" required/>
-    <div class="checkMessages" id="chkPwMsg"></div>
-  </div>
-
-  <div id="messageFlagDiv">
-    <input type="radio" id="messageFlag1" name="messageFlag" value="1" checked="checked">
-    <label for="messageFlag1" class="radio">메시지 수신</label>
-    <input type="radio" id="messageFlag2" name="messageFlag" value="0">
-    <label for="messageFlag2" class="radio">메시지 거부</label>
-  </div> 
-  
-  <div id='messageIdDiv'>
-    <label id="icon" for='messageId'><i class="icon-shield"></i></label>
-    <input type='text' id='messageId' name='messageId' placeholder="카카오톡 ID">
-    <div class="checkMessages" id="chkMessageId"></div>
-  </div>
-  </div>
-  <hr>
-  
-  <!-- 아티스트 회원 정보 -->
-  <div id='artistInfoDiv'>
-
-  <label id="icon" for='artistName'><i class="icon-male"></i></label>
-  <input id='artistName' type='text' name='artist.artistName' value="" placeholder="아티스트/팀명">
-  <div class="checkMessages" id="chkArtistName"></div>
-
-  <label id="icon" for='artistMember'><i class="icon-male"></i></label>
-  <input id='artistMember' type='text' name='artist.artistMember' value="" placeholder="팀 구성원">
-  <div class="checkMessages" id="chkArtistMember"></div>
-
-  <label id="icon" for='profile'><i class="icon-male"></i></label>
-  <input id='profile' type="text" name='artist.profile' value="" placeholder="프로필">
-  <div class="checkMessages" id="chkProfile"></div>
-
-  <label id="icon" for='joinDate'><i class="icon-male"></i></label>
-  <input id='joinDate' type='date' name='artist.joinDate' value="" placeholder="팀 결성 날짜">
-  <div class="checkMessages" id="chkJoinDate"></div>
-
-  </div>
-  <!-- 아티스트 회원 정보 끝 -->
-
-  <div id="interestAreasDiv">
-  <label for='interestAreas' id="interestAreas">관심 지역</label>
-
-  <div id="areasDiv">
-  
-    <input type='checkbox' id='areas1' name='areas' value='홍대'>
-    <label for='areas'>홍대</label>
-    
-    <input type='checkbox' id='areas2' name='areas' value='대학로'>
-    <label for='areas'>대학로</label>
-    
-    <input type='checkbox' id='areas3' name='areas' value='신촌'>
-    <label for='areas'>신촌</label>
-    
-    <input type='checkbox' id='areas4' name='areas' value='건대'>
-    <label for='areas'>건대</label>
-    
-    <input type='checkbox' id='areas5' name='areas' value='한강공원'>
-    <label for='areas'>한강공원</label>
-    
-    <input type='checkbox' id='areas6' name='areas' value='뚝섬유원지'>
-    <label for='areas'>뚝섬유원지</label>
-    
-    <input type='checkbox' id='areas7' name='areas' value='보라매'>
-    <label for='areas'>보라매</label>
-    
-    <input type='checkbox' id='areas8' name='areas' value='신림역'>
-    <label for='areas'>신림역</label>
-    
-    <div class="checkMessages" id="chkAreas" style="color:red;"></div>
-  </div>
-  </div>
-
-  <div id="interestgenresDiv">
-  <label for='interestgenres' id='interestgenres'>관심 장르</label>
-
-  <div id="genresDiv">
-  
-    <input type='checkbox' id='genre1' name='genres' value='솔로'>
-    <label for='genres'>솔로</label>
-    
-    <input type='checkbox' id='genre2' name='genres' value='그룹'>
-    <label for='genres'>그룹</label>
-    
-    <input type='checkbox' id='genre3' name='genres' value='발라드'>
-    <label for='genres'>발라드</label>
-    
-    <input type='checkbox' id='genre4' name='genres' value='R & B'>
-    <label for='genres'>R & B</label>
-    
-    <input type='checkbox' id='genre5' name='genres' value='락'>
-    <label for='genres'>락</label>
-    
-    <input type='checkbox' id='genre6' name='genres' value='랩'>
-    <label for='genres'>랩</label>
-    
-    <input type='checkbox' id='genre7' name='genres' value='개그'>
-    <label for='genres'>개그</label>
-    
-    <input type='checkbox' id='genre8' name='genres' value='마술'>
-    <label for='genres'>마술</label>
-<div class="checkMessages" id="chkGenres" style="color:red;"></div>
-</div>
-</div>
-
-
-
-   <button id="addBtn" type="button">회원 가입</button>
-  </form>
-</div>
-
-<!-- 크로핏용 제이쿼리 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
-<!-- 최신 제이쿼리 -->
-<script src='../node_modules/jquery/dist/jquery.min.js'></script>
-
-<!-- 제이쿼리 호환 스크립트-->
-<script src='../js/jquery_migrate/jquery-migrate-1.4.1.min.js'></script>
-<script src='../js/jquery_migrate/jquery-migrate-3.0.0.min.js'></script>
-
-<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
-<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
-
-<!-- 크로핏 -->
-<script src="../node_modules/cropit/dist/jquery.cropit.js"></script>
-
-<!-- 메인 스크립트 -->
-<script>
-<script type="text/javascript">
 var formDataItem = $('#formData'),
+    addBtn = $('#addBtn'),
     updateBtn = $('#updateBtn'),
     deleteBtn = $('#deleteBtn'),
     
@@ -239,14 +47,29 @@ var formDataItem = $('#formData'),
     emailCount = null,
     nickNameCount = null,
     conPw = null,
-    completConfirm = null,
+    completConfirm = null;
+    
+    /* 크로핏 기본 이미지용 변수 */
+    
+   
+     
+    /*,
+    interestAreasItem = $("input:checkbox[name=checkParam]:checked");
+    interestgenresItem = []; */
+    
+    
 
     
-    memberPhoto ="dragNdrop";
-    
+      
+$('footer').load('../footer.html');
 
+imageCropperItem.cropit({
+    imageBackground:true, 
+    imageBackgroundBorderWidth: 15,
+    allowDragNDrop:true,
+    imageState: { src: "../images/dragNdrop.jpg" }
+});
 
-    
 cuttingBtn.click(function(){
     var imageData = imageCropperItem.cropit('export', {
         type: 'image/jpeg',
@@ -257,16 +80,10 @@ cuttingBtn.click(function(){
     hiddenImageDate.val(imageData);
     
     if (hiddenImageDate.val() != "") {
-        chkImageItem.html('<p class="checkMessages">사진 편집이 완료 되었습니다.</p>')
+        chkImageItem.html('<p class="checkMessages" id="cutPhoto">사진 편집이 완료 되었습니다.</p>')
     }
 });
-    
-      
 
-    
-$('header').load('../header.html');
-$('footer').load('../footer.html');
-    
 $("#messageFlag1").click(function(){
     $("#messageIdDiv").show();
 });
@@ -285,19 +102,23 @@ $("#type2").click(function(){
     $("#artistInfoDiv").show();
 });
 
+
+
+
 var index = location.href.indexOf('?');
 
 if (index != -1) { // 기존 데이터를 조회할 경우,
     var qs = location.href.substr(index + 1);
     var arr = qs.split('=');
-
+   
+    $('.my-new').css('display', 'none');
     $(() => {
         $.ajax('../json/member/' + arr[1], {
             dataType: 'json',
             success: (result) => {
-
                 noItem.val(result.member.no);
                 emailItem.val(result.member.email);
+                /* passwordItem.val(result.member.password); */
                 nickNameItem.val(result.member.nickName);
 
                 if (result.member.messageFlag == '1') {
@@ -396,17 +217,6 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
                         }
                     }
                 }
-                
-                
-                memberPhoto = result.member.photo;
-                
-                imageCropperItem.cropit({
-                    imageBackground:true, 
-                    imageBackgroundBorderWidth: 15,
-                    allowDragNDrop:true,
-                    imageState: { src: "../download/" + memberPhoto }
-                });
-
             },
             error: () => {
                 window.alert('서버 실행 오류!');
@@ -415,15 +225,14 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
     });
 
 } else { // 신규 데이터 입력일 경우,
-    alert('잘못 된 경로입니다. 회원가입 페이지로 넘어갑니다.');
-    location.href='form.html';
+    $('.my-view').css('display', 'none');
 }
 
-function formatDate(jason) {
-    var jasondate = new Date(jason);
-    return jasondate.getFullYear() + '-' +
-    pad((jasondate.getMonth() + 1), 2) + '-' +
-    pad(jasondate.getDate(), 2);
+function formatDate(json) {
+    var jsonDate = new Date(json);
+    return jsonDate.getFullYear() + '-' +
+    pad((jsonDate.getMonth() + 1), 2) + '-' +
+    pad(jsonDate.getDate(), 2);
 }
 
 function pad(n, width) {
@@ -445,16 +254,18 @@ function checkEmail() {
             email: emailItem.val()
         },
         success: function (count) {
+        	console.log(count);
+        	
             if (count == 0 && re_email.test(emailItem.val()) == true) {
-                chkEmailMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 이메일입니다.</p>');
-                emailCount = count;
+            	chkEmailMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 이메일입니다.</p>');
+            	emailCount = count;
                 return emailCount;
             } else if (re_email.test(emailItem.val()) == false) {
                 chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이메일 형식이 맞지 않습니다.</p>');
                 emailCount = count;
                 return emailCount;
             } else if (count == 1) {
-                chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이미 가입한 이메일입니다.</p>');
+            	chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이미 가입한 이메일입니다.</p>');
                 emailCount = count;
                 return emailCount;
             } 
@@ -522,7 +333,7 @@ function checkNickName() {
 
 
 
-updateBtn.click(() =>  {
+addBtn.click(() => {
 
 // 이메일 검증
 if (emailItem.val() == "") {
@@ -536,7 +347,23 @@ if (re_email.test(emailItem.val()) == false || emailCount == 1) {
     return;
 }
 
-// 비밀번호 검사
+
+
+// 닉네임 검사
+if (nickNameItem.val() == "") {
+    chkNickMsgItem.html('<p class="checkMessages" style="color:red;">닉네임을 입력해 주세요.</p>');
+    nickNameItem.focus();
+    return;
+} else if (re_nickName.test(nickNameItem.val()) == false) {
+	nickNameItem.focus();
+    return;
+} else if (nickNameCount == 1) {
+    console.log(nickNameCount);
+    nickNameItem.focus();
+    return;
+}
+
+//비밀번호 검사
 if (passwordItem.val() == "") {
     chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호를 입력해 주세요.</p>');
     pwConfirmItem.val("");
@@ -546,7 +373,7 @@ if (passwordItem.val() == "") {
     passwordItem.focus();
     return;
 } else if (completConfirm == false) {
-    pwConfirmItem.focus();
+	pwConfirmItem.focus();
     return;
 } else if (pwConfirmItem.val() == "") {
     chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호 확인을 입력해 주세요.</p>');
@@ -554,95 +381,60 @@ if (passwordItem.val() == "") {
     return;
 } 
 
-// 닉네임 검사
-if (nickNameItem.val() == "") {
-    chkNickMsgItem.html('<p class="checkMessages" style="color:red;">닉네임을 입력해 주세요.</p>');
-    nickNameItem.focus();
-    return;
-} else if (re_nickName.test(nickNameItem.val()) == false) {
-    nickNameItem.focus();
-    return;
-} else if (nickNameCount == 1) {
-    console.log(nickNameCount);
-    nickNameItem.focus();
-    return;
-}
-
-
 // 메시지 수신 동의 시 아이디 입력 확인
 if ($("input[name='messageFlag']:checked").val() == 
         '1' && messageIdItem.val() == "") {
     chkMessageIdItem.html('<p class="checkMessages" style="color:red;">메세지를 수신 받을 카카오톡 ID를 입력해주세요.</p>');
-    messageIdItem.focus();
+	messageIdItem.focus();
    return;
 } 
 
 // 아티스트 입력 항목 검사
 if ($("input[name='type']:checked").val() == '아티스트') {
     if (artistNameItem.val() == "") {
-        chkArtistNameItem.html("활동명을 입력해주세요.");
+        chkArtistNameItem.html('<p class="checkMessages" style="color:red;">활동명을 입력해주세요.</p>');
         artistNameItem.focus();
         return;
     } else if (artistMemberItem.val() == "") {
-        chkArtistMemberItem.html("팀 구성원을 입력해주세요.");
-        artistMemberItem.focus();
-        return;
+    	chkArtistMemberItem.html('<p class="checkMessages" style="color:red;">팀 구성원을 입력해주세요.</p>');
+    	artistMemberItem.focus();
+    	return;
     } else if (profileItem.val() == "") {
-        chkProfileItem.html("프로필을 입력해주세요.");
-        profileItem.focus();
-        return;
+    	chkProfileItem.html('<p class="checkMessages" style="color:red;">프로필을 입력해주세요.</p>');
+    	profileItem.focus();
+    	return;
     } else if (joinDateItem.val() == "") {
-        chkJoinDateItem.html("팀 결성일을 입력해주세요!");
-        joinDateItem.focus();
-        return;
+    	chkJoinDateItem.html('<p class="checkMessages" style="color:red;">팀 결성일을 입력해주세요!</p>');
+    	joinDateItem.focus();
+    	return;
     }
 }
 
 // 관심 장르와 지역 반드시 입력
-
 if ($("input[name='areas']:checked").val() == null) {
-    chkAreasItem.html("관심 장르를 체크해주세요");
-    areasDivItem.focus();
+	chkAreasItem.html("관심 장르를 체크해주세요");
+	areasDivItem.focus();
    return;
 }
 
 if ($("input[name='genres']:checked").val() == null) {
-    chkGenresItem.html("관심 지역을 체크해주세요.");
-    genresDivItem.focus();
+	chkGenresItem.html("관심 지역을 체크해주세요.");
+	genresDivItem.focus();
    return;
 }
 
 var formData = new FormData(formDataItem[0]);
-    $.ajax('../json/member/update', {
+    $.ajax('../json/member/add', {
         data: formData,
         dataType: 'json',
         method: 'POST',
         processData: false,
         contentType: false,
         success: () => {
-            location.href="../index.html";
+            location.href='../index.html';
         },
         error: () => {
             alert("서버 입력 오류!");
         }
     });
 });
-
-
-deleteBtn.click(() => {
-    $.ajax('../json/member/delete', {
-        data: {
-            no: noItem.val()
-        },
-        dataType: 'json',
-        success: (result) => {
-            location.href = "list.html";
-        },
-        error: () => {
-            window.alert('삭제 중 서버 실행 오류!');
-        }
-    });
-});
-</script>
-</body>
-</html>
