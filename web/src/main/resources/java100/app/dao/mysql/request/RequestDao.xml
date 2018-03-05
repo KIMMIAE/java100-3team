@@ -17,6 +17,8 @@
         <result column="spcldesc"    property="specialDesc"/>
         <result column="regdt"    property="regDate"/>
         <result column="viewcnt"    property="viewCount"/>
+        <result column="mapx"    property="mapx"/>
+        <result column="mapy"    property="mapy"/>
         
         <!-- 게시글 작성자 정보를 담을 수 있도록 설정한다. -->
         <association property="writer" javaType="member">
@@ -81,6 +83,8 @@
             pr.spcldesc,
             pr.regdt,
             pr.viewcnt,
+            pr.mapx,
+            pr.mapy,
             m.mmbno as m_no,
             m.nicknm as m_nicknm
         from tb_prfrmrequest as pr join tb_memb as m on pr.mmbno=m.mmbno
@@ -106,7 +110,9 @@
             pfmloc,
             spcldesc,
             viewcnt,
-            regdt)
+            regdt,
+            mapx,
+            mapy)
         
         values(
             #{writer.no},
@@ -117,7 +123,9 @@
             #{location},
             #{specialDesc},
             0,
-            now())
+            now(),
+            #{mapx},
+            #{mapy})
     </insert>
     
 
@@ -128,7 +136,9 @@
             pfmgnr=#{genre},
             pfmdt=#{entryDate},
             pfmloc=#{location},
-            spcldesc=#{specialDesc}
+            spcldesc=#{specialDesc},
+            mapx=#{mapx},
+            mapy=#{mapy}
         where reqno=#{no}
     </update>
 
