@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,21 +77,31 @@ public class MemberController {
     }
     
     @RequestMapping("{no}")
-    public Object view(@PathVariable int no) throws Exception {
+    public Object view(@PathVariable int no, HttpSession session) throws Exception {
         
+        Member member = (Member) session.getAttribute("loginUser");
         HashMap<String, Object> result = new HashMap<>();
+       
+        if (no != member.getNo()) {
+            
+            result.put("status", "fail");
+            result.put("realUserNo", member.getNo());
         
-        result.put("member", memberService.get(no));
+        } else {
+            
+            result.put("member", memberService.get(no));
 
-        if (memberService.getAreaCnt(no) > 0) {
-            result.put("arealist", memberService.getInterestArea(no));
-        }
+            if (memberService.getAreaCnt(no) > 0) {
+                result.put("arealist", memberService.getInterestArea(no));
+            }
 
-        if (memberService.getGenreCnt(no) > 0) {
-            result.put("genrelist", memberService.getInterestGenre(no));
+            if (memberService.getGenreCnt(no) > 0) {
+                result.put("genrelist", memberService.getInterestGenre(no));
+            }
         }
         
         return result;
+        
     }
     
     @RequestMapping(value="add", method=RequestMethod.POST)
@@ -164,57 +175,73 @@ public class MemberController {
         return count;
     }
     
+    @RequestMapping("updatePassword")
+    public Object updatePassword(String password) {
+        
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("status", "success");
+        
+        return result;
+    }; 
+    
     
     @RequestMapping("update")
     public Object update(Member member, 
             @RequestParam(value="base64Image",required=false) String base64Image,
                           @RequestParam(value="areas",required=false) String[] areas,
-                          @RequestParam(value="genres",required=false) String[] genres) throws Exception {
+                          @RequestParam(value="genres",required=false) String[] genres, 
+                          HttpSession session) throws Exception {
         
-        if (!base64Image.isEmpty()) {
-            
-            String uploadDir = servletContext.getRealPath("/download");
-            String filename = getNewFilename(".jpeg");
-            Base64Decoder.decoder(base64Image, uploadDir + "//" + filename);
-            
-            member.setPhoto(filename);
-            
-            ThumbnailMaker.thumbnailMaker(70, 70, uploadDir, filename, "70");
-            ThumbnailMaker.thumbnailMaker(150, 150, uploadDir, filename, "150");
-            ThumbnailMaker.thumbnailMaker(200, 200, uploadDir, filename, "200");
-        }
+        Member loginUser = (Member) session.getAttribute("loginUser");
         
-        /*if (!file.isEmpty()) {
-            String uploadDir = servletContext.getRealPath("/download");
-            String filename = writeUploadFile(file, uploadDir);
-            member.setPhoto(filename);
-        } else {
-            member.setPhoto(memberService.getPhoto(member.getNo()));
-        }*/
-
-        if (areas != null && areas[0].length() > 0) {
-            ArrayList<InterestArea> interestAreas = new ArrayList<>();
-            for (String area : areas) {
-                if (area.isEmpty()) continue;
-                interestAreas.add(new InterestArea(area));
-            }
-            member.setInterestAreas(interestAreas);
-        }
-
-        if (genres != null && genres[0].length() > 0) {
-            ArrayList<InterestGenre> interestGenres = new ArrayList<>();
-            for (String genre : genres) {
-                if (genre.isEmpty()) continue;
-                interestGenres.add(new InterestGenre(genre));
-            }
-            member.setInterestGenres(interestGenres);
-        }
-        
-        memberService.update(member);
+        System.out.println(loginUser.getPhoto());
         
         HashMap<String, Object> result = new HashMap<>();
-        result.put("status", "success");
-        
+
+        if (loginUser.getNo() != member.getNo()) {
+            
+            result.put("status", "fail");
+            result.put("realUserNo", member.getNo());
+
+        } else {
+            
+            if (base64Image != null) {
+                String uploadDir = servletContext.getRealPath("/download");
+                String filename = getNewFilename(".jpeg");
+                Base64Decoder.decoder(base64Image, uploadDir + "//" + filename);
+
+                member.setPhoto(filename);
+
+                ThumbnailMaker.thumbnailMaker(70, 70, uploadDir, filename, "70");
+                ThumbnailMaker.thumbnailMaker(150, 150, uploadDir, filename, "150");
+                ThumbnailMaker.thumbnailMaker(200, 200, uploadDir, filename, "200");
+            } else {
+                member.setPhoto(loginUser.getPhoto());
+            }
+
+            if (areas != null && areas[0].length() > 0) {
+                ArrayList<InterestArea> interestAreas = new ArrayList<>();
+                for (String area : areas) {
+                    if (area.isEmpty()) continue;
+                    interestAreas.add(new InterestArea(area));
+                }
+                member.setInterestAreas(interestAreas);
+            }
+
+            if (genres != null && genres[0].length() > 0) {
+                ArrayList<InterestGenre> interestGenres = new ArrayList<>();
+                for (String genre : genres) {
+                    if (genre.isEmpty()) continue;
+                    interestGenres.add(new InterestGenre(genre));
+                }
+                member.setInterestGenres(interestGenres);
+            }
+
+            memberService.update(member);
+
+            result.put("status", "success");
+        }
+
         return result;
     }
 

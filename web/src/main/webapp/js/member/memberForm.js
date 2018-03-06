@@ -22,7 +22,7 @@ var formDataItem = $('#formData'),
     genresDivItem = $('#genresDiv'),
     
     imageCropperItem = $('#image-cropper'),
-    hiddenImageDate = $('#hidden-image-data'),
+    hiddenImageData = $('#hidden-image-data'),
     
     /* check div들에 문구를 출력해줄 변수들 */
     
@@ -62,9 +62,9 @@ cuttingBtn.click(function(){
         originalSize: true
     });
     
-    hiddenImageDate.val(imageData);
+    hiddenImageData.val(imageData);
     
-    if (hiddenImageDate.val() != "") {
+    if (hiddenImageData.val() != "") {
         chkImageItem.html('<p class="checkMessages" id="cutPhoto">사진 편집이 완료 되었습니다.</p>')
     }
 });
@@ -93,10 +93,12 @@ $("#type2").click(function(){
 var index = location.href.indexOf('?');
 
 if (index != -1) {
+    var qs = location.href.substr(index + 1);
+    var arr = qs.split('=');
 
 window.alert("잘못된 요청입니다.");
 
-location.href='form.html';
+location.href='view.html?no=' + arr[1];
 
 }
 

@@ -1,5 +1,4 @@
 var formDataItem = $('#formData'),
-    addBtn = $('#addBtn'),
     updateBtn = $('#updateBtn'),
     deleteBtn = $('#deleteBtn'),
     
@@ -25,7 +24,7 @@ var formDataItem = $('#formData'),
     genresDivItem = $('#genresDiv'),
     
     imageCropperItem = $('#image-cropper'),
-    hiddenImageDate = $('#hidden-image-data'),
+    hiddenImageData = $('#hidden-image-data'),
     
     /* check div들에 문구를 출력해줄 변수들 */
     
@@ -47,34 +46,32 @@ var formDataItem = $('#formData'),
     emailCount = null,
     nickNameCount = null,
     conPw = null,
-    completConfirm = null;
+    completConfirm = null,
+    currentPicture = null,
     
-    /*,
-    interestAreasItem = $("input:checkbox[name=checkParam]:checked");
-    interestgenresItem = []; */
+    memberPhoto ="dragNdrop";
     
-    imageCropperItem.cropit({
-       imageBackground:true, 
-       imageBackgroundBorderWidth: 15
+
+
+    
+cuttingBtn.click(function(){
+    var imageData = imageCropperItem.cropit('export', {
+        type: 'image/jpeg',
+        quality: .9,
+        originalSize: true
     });
     
-    cuttingBtn.click(function(){
-        var imageData = imageCropperItem.cropit('export', {
-            type: 'image/jpeg',
-            quality: .9,
-            originalSize: true
-        });
-        
-        hiddenImageDate.val(imageData);
-        
-        if (hiddenImageDate.val() != "") {
-            chkImageItem.html('<p class="checkMessages">사진 편집이 완료 되었습니다.</p>')
-        }
-    });
+    hiddenImageData.val(imageData);
+    
+    if (hiddenImageData.val() != "") {
+        chkImageItem.html('<p class="checkMessages">사진 편집이 완료 되었습니다.</p>')
+    }
+});
     
       
 
     
+$('header').load('../header.html');
 $('footer').load('../footer.html');
     
 $("#messageFlag1").click(function(){
@@ -100,22 +97,26 @@ var index = location.href.indexOf('?');
 if (index != -1) { // 기존 데이터를 조회할 경우,
     var qs = location.href.substr(index + 1);
     var arr = qs.split('=');
-   
-    $('.my-new').css('display', 'none');
+
     $(() => {
         $.ajax('../json/member/' + arr[1], {
             dataType: 'json',
             success: (result) => {
+            	
+            	if (result.status == 'fail') {
+            	  window.alert("잘못된 접근입니다.");
+            	  return location.href='view.html?no=' + result.realUserNo;
+            	}
+            	
                 noItem.val(result.member.no);
                 emailItem.val(result.member.email);
-                /* passwordItem.val(result.member.password); */
                 nickNameItem.val(result.member.nickName);
 
                 if (result.member.messageFlag == '1') {
-                    messageFlag1Item.attr('checked', 'checked');
+                    messageFlag1Item.prop("checked", true);
                     $("#messageIdDiv").show();
                 } else {
-                    messageFlag2Item.attr('checked', 'checked');
+                    messageFlag2Item.prop("checked", true);
                     $("#messageIdDiv").hide();
                 }
 
@@ -207,6 +208,17 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
                         }
                     }
                 }
+                
+                currentPicture = result.member.photo;
+                
+                imageCropperItem.cropit({
+                    imageBackground:true, 
+                    imageBackgroundBorderWidth: 15,
+                    allowDragNDrop:true,
+                    imageState: { src: "../download/" + currentPicture }
+                });
+                
+                return currentPicture;
             },
             error: () => {
                 window.alert('서버 실행 오류!');
@@ -215,7 +227,8 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
     });
 
 } else { // 신규 데이터 입력일 경우,
-    $('.my-view').css('display', 'none');
+    alert('잘못 된 경로입니다. 회원가입 페이지로 넘어갑니다.');
+    location.href='form.html';
 }
 
 function formatDate(jason) {
@@ -245,15 +258,15 @@ function checkEmail() {
         },
         success: function (count) {
             if (count == 0 && re_email.test(emailItem.val()) == true) {
-               chkEmailMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 이메일입니다.</p>');
-               emailCount = count;
+            	chkEmailMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 이메일입니다.</p>');
+            	emailCount = count;
                 return emailCount;
             } else if (re_email.test(emailItem.val()) == false) {
                 chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이메일 형식이 맞지 않습니다.</p>');
                 emailCount = count;
                 return emailCount;
             } else if (count == 1) {
-               chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이미 가입한 이메일입니다.</p>');
+            	chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이미 가입한 이메일입니다.</p>');
                 emailCount = count;
                 return emailCount;
             } 
@@ -321,7 +334,7 @@ function checkNickName() {
 
 
 
-addBtn.click(() => {
+updateBtn.click(() =>  {
 
 // 이메일 검증
 if (emailItem.val() == "") {
@@ -336,21 +349,18 @@ if (re_email.test(emailItem.val()) == false || emailCount == 1) {
 }
 
 // 비밀번호 검사
-if (passwordItem.val() == "") {
-    chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호를 입력해 주세요.</p>');
-    pwConfirmItem.val("");
-    passwordItem.focus();
-    return;
-} else if (re_password.test(passwordItem.val()) == false) {
-    passwordItem.focus();
-    return;
-} else if (completConfirm == false) {
-   pwConfirmItem.focus();
-    return;
-} else if (pwConfirmItem.val() == "") {
-    chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호 확인을 입력해 주세요.</p>');
-    pwConfirmItem.focus();
-    return;
+if (passwordItem.val() !== "") {
+	if (re_password.test(passwordItem.val()) == false) {
+	    passwordItem.focus();
+	    return;
+	} else if (completConfirm == false) {
+		pwConfirmItem.focus();
+	    return;
+	} else if (pwConfirmItem.val() == "") {
+	    chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호 확인을 입력해 주세요.</p>');
+	    pwConfirmItem.focus();
+	    return;
+	}
 } 
 
 // 닉네임 검사
@@ -359,7 +369,7 @@ if (nickNameItem.val() == "") {
     nickNameItem.focus();
     return;
 } else if (re_nickName.test(nickNameItem.val()) == false) {
-   nickNameItem.focus();
+	nickNameItem.focus();
     return;
 } else if (nickNameCount == 1) {
     console.log(nickNameCount);
@@ -372,17 +382,9 @@ if (nickNameItem.val() == "") {
 if ($("input[name='messageFlag']:checked").val() == 
         '1' && messageIdItem.val() == "") {
     chkMessageIdItem.html('<p class="checkMessages" style="color:red;">메세지를 수신 받을 카카오톡 ID를 입력해주세요.</p>');
-   messageIdItem.focus();
+	messageIdItem.focus();
    return;
 } 
-
-// 일반회원의 아티스트 입력 항목 값 제거
-if ($("input[name='type']:checked").val() == '일반회원') {
-    artistNameItem.removeAttr('name');
-    artistMemberItem.removeAttr('name');
-    profileItem.removeAttr('name');
-    joinDateItem.removeAttr('name');
-}
 
 // 아티스트 입력 항목 검사
 if ($("input[name='type']:checked").val() == '아티스트') {
@@ -391,83 +393,52 @@ if ($("input[name='type']:checked").val() == '아티스트') {
         artistNameItem.focus();
         return;
     } else if (artistMemberItem.val() == "") {
-       chkArtistMemberItem.html("팀 구성원을 입력해주세요.");
-       artistMemberItem.focus();
-       return;
+    	chkArtistMemberItem.html("팀 구성원을 입력해주세요.");
+    	artistMemberItem.focus();
+    	return;
     } else if (profileItem.val() == "") {
-       chkProfileItem.html("프로필을 입력해주세요.");
-       profileItem.focus();
+    	chkProfileItem.html("프로필을 입력해주세요.");
+    	profileItem.focus();
+    	return;
     } else if (joinDateItem.val() == "") {
-       chkJoinDateItem.html("팀 결성일을 입력해주세요!");
-       joinDateItem.focus();
+    	chkJoinDateItem.html("팀 결성일을 입력해주세요!");
+    	joinDateItem.focus();
+    	return;
     }
 }
 
 // 관심 장르와 지역 반드시 입력
+if ($("input[name='genres']:checked").val() == null) {
+	chkGenresItem.html("관심 지역을 체크해주세요.");
+	genresDivItem.focus();
+   return;
+}
 
 if ($("input[name='areas']:checked").val() == null) {
-   chkAreasItem.html("관심 장르를 체크해주세요");
-   areasDivItem.focus();
-   return;
-}
-
-if ($("input[name='genres']:checked").val() == null) {
-   chkGenresItem.html("관심 지역을 체크해주세요.");
-   genresDivItem.focus();
+	chkAreasItem.html("관심 장르를 체크해주세요");
+	areasDivItem.focus();
    return;
 }
 
 var formData = new FormData(formDataItem[0]);
-    $.ajax('../json/member/add', {
-        data: formData,
-        dataType: 'json',
-        method: 'POST',
-        processData: false,
-        contentType: false,
-        success: () => {
-            location.href='list.html';
-        },
-        error: () => {
-            alert("서버 입력 오류!");
-        }
-    });
-});
 
-
-updateBtn.click(() => {
-
-if (emailItem.val() == "" || 
-        passwordItem.val() == "" || 
-            nickNameItem.val() == "") {
-    alert("이메일, 비밀번호, 닉네임은 필수 입력 항목입니다.")
+if (joinDateItem.val() != "") {
+    formData.append("artist.joinDate", joinDateItem.val() + " 00:00");
 }
 
-if ($("input[name='messageFlag']:checked").val() == '1') {
-    if (messageIdItem.val() == "") {
-    alert("메시지 수신 아이디를 입력해주세요.")
-   return;
-   }
+if (passwordItem.val() != "") {
+	formData.append("password", passwordItem.val());
 }
 
-if ($("input[name='type']:checked").val() == '일반회원') {
-    joinDateItem.removeAttr('name');
+if (passwordItem.val() != "") {
+	formData.append("password", passwordItem.val());
 }
 
-if ($("input[name='type']:checked").val() == '아티스트') {
-     if (artistNameItem.val() == "" || artistMemberItem.val() == ""
-        || profileItem.val() == "" || joinDateItem.val() == "") {
-    alert("아티스트의 회원의 *표시 항목은 필수 입력입니다.")
-    return;
-    }
-}
+console.log(hiddenImageData.val());
 
-if ($("input[name='areas']:checked").val() == null || 
-        $("input[name='genres']:checked").val() == null) {
-   alert("관심 장르와 지역은 반드시 1개 이상 체크해주세요.")
-   return;
+if (hiddenImageData.val() != "") {
+	formData.append("base64Image", hiddenImageData.val());
 }
-
-var formData = new FormData(formDataItem[0]);
     $.ajax('../json/member/update', {
         data: formData,
         dataType: 'json',
@@ -475,14 +446,13 @@ var formData = new FormData(formDataItem[0]);
         processData: false,
         contentType: false,
         success: () => {
-            location.href='list.html';
+        	location.href="../index.html";
         },
         error: () => {
-            alert("회원 정보 변경 중 서버 입력 오류!");
+            alert("서버 입력 오류!");
         }
     });
 });
-
 
 
 deleteBtn.click(() => {
@@ -499,3 +469,5 @@ deleteBtn.click(() => {
         }
     });
 });
+
+

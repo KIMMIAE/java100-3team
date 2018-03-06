@@ -31,6 +31,7 @@ public interface MemberService {
     int getTotalCount();
     int add(Member member);
     int update(Member member);
+    public int updatePassword(Member member);
     int delete(int no);
     public void addInterestAreas(int memberNo, List<InterestArea> areas);
     public void addInterestGenres(int memberNo, List<InterestGenre> genres);

@@ -153,6 +153,12 @@ public class MemberServiceImpl implements MemberService {
         
         return count;
     }
+    
+    @Override
+    public int updatePassword(Member member) {
+        return 0;
+        
+    }
 
     @Override
     public int delete(int no) {

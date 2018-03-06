@@ -208,9 +208,14 @@
             email=#{email},
             msgfl=#{messageFlag},
             msgid=#{messageId},
-            pwd=password(#{password}),
             nicknm=#{nickName},
             type=#{type}
+        where mmbno=#{no}
+    </update>
+
+    <update id="updatePassword" parameterType="member">
+        update tb_memb set 
+            pwd=password(#{password})
         where mmbno=#{no}
     </update>
 
