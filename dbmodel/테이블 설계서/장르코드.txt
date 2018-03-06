@@ -1,0 +1,8 @@
+insert into tb_genrecode(gnrnm, gnrcd) values ("솔로",  "00001");
+insert into tb_genrecode(gnrnm, gnrcd) values ("그룹",  "00002");
+insert into tb_genrecode(gnrnm, gnrcd) values ("발라드",  "00003");
+insert into tb_genrecode(gnrnm, gnrcd) values ("R & B",  "00004");
+insert into tb_genrecode(gnrnm, gnrcd) values ("락",  "00005");
+insert into tb_genrecode(gnrnm, gnrcd) values ("랩",  "00006");
+insert into tb_genrecode(gnrnm, gnrcd) values ("개그",  "00007");
+insert into tb_genrecode(gnrnm, gnrcd) values ("마술",  "00008");

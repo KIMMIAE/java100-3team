@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import java100.app.domain.member.Member;
-import java100.app.domain.performance.Performance;
 import java100.app.domain.performance.PerformanceReview;
 import java100.app.domain.performance.ReviewFile;
 import java100.app.service.PerformanceReviewService;
+import java100.app.web.util.ThumbnailMaker;
 
 @RestController
 @RequestMapping("/performanceReview")
@@ -79,11 +79,13 @@ public class PerformanceReviewController {
             PerformanceReview performanceReview,
             MultipartFile[] files,
             HttpSession session) throws Exception {
-       
+        
+    	System.out.println("=====================>");
     	System.out.println(files);
     	System.out.println(performanceReview);
     	
        String uploadDir = servletContext.getRealPath("/download");
+       
        ArrayList<ReviewFile> reviewFileList = new ArrayList<>();
 
       for (MultipartFile parts : files) {
@@ -92,12 +94,13 @@ public class PerformanceReviewController {
 
          String filename = this.writeUploadFile(parts, uploadDir);
          reviewFileList.add(new ReviewFile(filename));
+         ThumbnailMaker.thumbnailMaker(740, 300, uploadDir, filename, "reviewT1");
 
       }
       
        performanceReview.setReviewFiles(reviewFileList);
-       
-   	Member member = (Member)session.getAttribute("loginUser");
+
+       Member member = (Member)session.getAttribute("loginUser");
    	performanceReview.setWriter(new Member());
    	performanceReview.getWriter().setNo(member.getNo());
        
@@ -129,7 +132,7 @@ public class PerformanceReviewController {
 
    @RequestMapping("update")
     public Object update(
-            PerformanceReview performanceReview, Performance performance,String nickName, MultipartFile[] files) throws Exception {
+            PerformanceReview performanceReview, /*Performance performance,String nickName,*/ MultipartFile[] files, HttpSession session) throws Exception {
        
       
 
@@ -141,15 +144,17 @@ public class PerformanceReviewController {
                    if (part.isEmpty()) continue;
                
                String filename = this.writeUploadFile(part, uploadDir);
+               ThumbnailMaker.thumbnailMaker(300, 300, uploadDir, filename, "reviewT1");
                reviewUploadFile.add(new ReviewFile(filename));
            }
            performanceReview.setReviewFiles(reviewUploadFile);
        }
       
-System.out.println(performanceReview + "<= 리뷰//");
-/*System.out.println(performance + "<= 공연//");
-System.out.println(nickName + "<= 닉네임//");*/
-
+           System.out.println(performanceReview + "<= 리뷰//");
+           /*System.out.println(performance + "<= 공연//");
+			System.out.println(nickName + "<= 닉네임//");*/
+           Member member = (Member)session.getAttribute("loginUser");
+           performanceReview.setWriter(member);
            performanceReviewService.update(performanceReview);
            
            HashMap<String, Object> result = new HashMap<>();
@@ -197,6 +202,9 @@ System.out.println(nickName + "<= 닉네임//");*/
        
        return filename;
     }
+    
+
+    
     
     
     //

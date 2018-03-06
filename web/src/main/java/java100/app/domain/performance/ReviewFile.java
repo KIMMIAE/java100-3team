@@ -3,6 +3,7 @@ package java100.app.domain.performance;
 public class ReviewFile {
     int reviewFileNo;
     String reviewFilename;
+    String thumbnailName;
     int reviewNo;
     
     public ReviewFile() {}
@@ -15,6 +16,11 @@ public class ReviewFile {
     	this.reviewFileNo = reviewFileNo;
     	this.reviewFilename = reviewFilename;
     }
+
+	public ReviewFile(String reviewFilename, String thumbnailName) {
+		this.reviewFilename = reviewFilename;
+		this.thumbnailName = thumbnailName;
+	}
 
 	public int getReviewFileNo() {
 		return reviewFileNo;
