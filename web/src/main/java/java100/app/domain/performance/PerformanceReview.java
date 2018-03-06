@@ -3,6 +3,7 @@ package java100.app.domain.performance;
 import java.sql.Date;
 import java.util.List;
 
+import java100.app.domain.member.Artist;
 import java100.app.domain.member.Member;
 
 public class PerformanceReview {
@@ -14,6 +15,8 @@ public class PerformanceReview {
 	protected int viewCount;
 	protected Date regDate;
 	protected List<ReviewFile> reviewFiles;
+	protected Artist artist;
+	
 	
 	
 	
@@ -21,7 +24,7 @@ public class PerformanceReview {
 	public String toString() {
 		return "PerformanceReview [reviewNo=" + reviewNo + ", performance=" + performance + ", writer=" + writer
 				+ ", reviewDescription=" + reviewDescription + ", viewCount=" + viewCount + ", regDate=" + regDate
-				+ ", reviewFiles=" + reviewFiles + "]";
+				+ ", reviewFiles=" + reviewFiles + ", artist=" + artist + "]";
 	}
 	public int getReviewNo() {
 		return reviewNo;
@@ -64,6 +67,12 @@ public class PerformanceReview {
 	}
 	public void setReviewFiles(List<ReviewFile> reviewFiles) {
 		this.reviewFiles = reviewFiles;
+	}
+	public Artist getArtist() {
+		return artist;
+	}
+	public void setArtist(Artist artist) {
+		this.artist = artist;
 	}
 	
 	

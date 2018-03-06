@@ -54,13 +54,6 @@ type="number" placeholder="공연을 검색하세요" name='performance.no'>
 </button>
   </div>
 </div>
-<!-- modal 적용 전
-  <a id="findBtn" type="button" class="btn btn-primary btn-sm" href="search.html" role="button" aria-expanded="false" aria-controls="collapseExample">
-    찾기
- </a>
- -->
-
-<!-- Modal -->
 
 
 <div class='form-group row'>
@@ -94,7 +87,7 @@ type="number" placeholder="공연을 검색하세요" name='performance.no'>
 <div class='form-group row'>
 <label for='entryDate' class='col-sm-2 col-form-label'>공연날짜</label>
 <div class='col-sm-10'>
-<input class='form-control' readonly id='entryDate' type='date' name='performance.entryDate'>
+<input class='form-control' readonly id='entryDate' type='datetime' name='performance.entryDate'>
 </div>
 </div>
 
@@ -110,14 +103,13 @@ type='text' placeholder="내용을 입력하세요" name='reviewDescription' val
 <div class='form-group row my-view'>
 <label for='viewcnt' class='col-sm-2 col-form-label'>조회수</label>
 <div class='col-sm-10'>
-<input class='form-control' readonly id='viewcnt' type="number" name='viewcnt' value=''>
+<input class='form-control' readonly id='viewCount' type="number" name='viewCount' value='0'>
 </div>
 </div>
-
 <div class='form-group row my-view'>
 <label for='regdate' class='col-sm-2 col-form-label'>등록일</label>
 <div class='col-sm-10'>
-<input class='form-control' readonly id='regdate' type="date" name='regdate' value=''>
+<input class='form-control' readonly id='regDate' type="date" name='regDate' value='2018-01-01'>
 </div>
 </div>
 
@@ -149,44 +141,44 @@ type='text' placeholder="내용을 입력하세요" name='reviewDescription' val
           <span aria-hidden="true">&times;</span>
         </button>
       <div class="modal-body">
-			        <h2>공연 검색</h2>
-			        <nav class="navbar navbar-light justify-content-between">
-			            <form class="form-inline" >
-			                <input id="words" name="words"
-			                    class="form-control form-control-xs" type="search"  style="width:350px; height:30px;"
-			                    placeholder="내용을 입력하세요" aria-label="Search">
-			                    <!-- mr-xs-2 --> 
-			                <button id="searchBtn"
-			                    class="btn btn-sm btn-outline-success my-2 my-sm-0" type="button">Search</button>
-			            </form>
-			        </nav>
-			
-			        <table id="list" class='table table-hover'>
-			            <thead>
-			                <tr>
-			                    <th>번호</th>
-			                    <th>공연명</th>
-			                    <th>아티스트명</th>
-			                    <th>공연장소</th>
-			                    <th>공연날짜</th>
-			                </tr>
-			            </thead>
-			
-			            <tbody></tbody>
-			        </table>
-			
-			        <nav aria-label="Page navigation">
-			            <ul class="pagination justify-content-center">
-			                <li class="page-item"><a id="prevBtn" class="page-link"
-			                    tabindex="-1">이전</a></li>
-			
-			                <li class="page-item"><a id="currBtn" class="page-link"
-			                    href="#">1</a></li>
-			
-			                <li class="page-item "><a id="nextBtn" class="page-link"
-			                    tabindex="0">다음</a></li>
-			            </ul>
-			        </nav>
+                    <h2>공연 검색</h2>
+                    <nav class="navbar navbar-light justify-content-between">
+                        <form class="form-inline" >
+                            <input id="words" name="words"
+                                class="form-control form-control-xs" type="search"  style="width:350px; height:30px;"
+                                placeholder="내용을 입력하세요" aria-label="Search">
+                                <!-- mr-xs-2 --> 
+                            <button id="searchBtn"
+                                class="btn btn-sm btn-outline-success my-2 my-sm-0" type="button">Search</button>
+                        </form>
+                    </nav>
+            
+                    <table id="list" class='table table-hover'>
+                        <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>공연명</th>
+                                <th>아티스트명</th>
+                                <th>공연장소</th>
+                                <th>공연날짜</th>
+                            </tr>
+                        </thead>
+            
+                        <tbody></tbody>
+                    </table>
+            
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item"><a id="prevBtn" class="page-link"
+                                tabindex="-1">이전</a></li>
+            
+                            <li class="page-item"><a id="currBtn" class="page-link"
+                                href="#">1</a></li>
+            
+                            <li class="page-item "><a id="nextBtn" class="page-link"
+                                tabindex="0">다음</a></li>
+                        </ul>
+                    </nav>
       </div>
       <div class="modal-footer">
         <button id="closeBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -232,17 +224,17 @@ var addBtn = $('#addBtn'),
     entryDateItem = $('#entryDate'),
     performanceNoItem = $('#performance'),
     rvwDescItem = $('#reviewDescription'),
-    viewcntItem = $('#viewcnt'),
-    regdateItem = $('#regdate'),
+    viewcntItem = $('#viewCount'),
+    regdateItem = $('#regDate'),
     reviewMediasItem = $('#reviewMedias'),
     words = $('#words'),
-	searchBtn = $('#searchBtn'),
-	prevBtn = $('#prevBtn'),
-	currBtn = $('#currBtn'),
-	nextBtn = $('#nextBtn'),
-	closeBtn = $('#closeBtn'),
-	tbody = $('#list > tbody'),
-	currPageNo = 1;
+    searchBtn = $('#searchBtn'),
+    prevBtn = $('#prevBtn'),
+    currBtn = $('#currBtn'),
+    nextBtn = $('#nextBtn'),
+    closeBtn = $('#closeBtn'),
+    tbody = $('#list > tbody'),
+    currPageNo = 1;
 
 
 $('header').load('../header.html', () => {
@@ -270,7 +262,7 @@ nextBtn.click (() => {
 //검색한 공연 정보 받아오기
 function save(no){
      
-    $.ajax('../../json/performance/'+no,{
+    $.ajax('../json/performance/'+no,{
     dataType:'json',
     success:(result)=>{
     performanceNoItem.val(result.data.no),
@@ -278,7 +270,7 @@ function save(no){
     $('#artistName').val(result.data.artist.artistName),
     $('#location').val(result.data.location),
     $('#genre').val(result.data.genre),
-    $('#entryDate').val(formatDate(result.data.entryDate)),
+    $('#entryDate').val(formatDateTime(result.data.entryDate)),
     closeBtn.click();
     
     },
@@ -347,78 +339,79 @@ function search(pageNo, options) {
 
 
 function load() {
-    $.getJSON('../../json/performanceReview/form', function(result) {
+    $.getJSON('../json/performanceReview/form', function(result) {
         $('#memberNo').val(result.loginUser.no),
         $('#nickName').val(result.loginUser.nickName);
         
 });
     
-    var index = location.href.indexOf('?');
-    if (index != -1) { // 기존 데이터를 조회할 경우,
-        var qs = location.href.substr(index + 1);
-        var arr = qs.split('=');
-        $('.my-new').css('display', 'none');
-        
-        $(() => {
-            $.ajax('../../json/performanceReview/' + arr[1], {
-                dataType: 'json',
-                async : false,
-                success: (result) => {
-                    for (var performanceReview of result.performanceReview.reviewFiles) {
-                        if (performanceReview.reviewFilename != null) {
-                            reviewMediasItem.append("<img src='../download/" + performanceReview.reviewFilename + "' height=100>");
-                        }
-                    };
-                    
-                    noItem.val(result.performanceReview.reviewNo);
-                    performanceNoItem.val(result.performanceReview.performance.no);
-                    memberNoItem.val(result.performanceReview.writer.no);
-                    prfrmNameItem.val(result.performanceReview.performance.name);
-                    artistNameItem.val(result.performanceReview.artist.artistName);
-                    locationItem.val(result.performanceReview.performance.location);
-                    genreItem.val(result.performanceReview.performance.genre);
-                    entryDateItem.val(formatDate(result.performanceReview.performance.entryDate));
-                    rvwDescItem.val(result.performanceReview.reviewDescription);
-                    viewcntItem.val(result.performanceReview.viewCount);
-                    regdateItem.val(formatDate(result.performanceReview.regDate));
-                    
-                },
-                error: () => {
-                    window.alert('서버 실행 오류!');
-                }
-            });
-        });
-        
-    } else { // 신규 데이터 입력일 경우,
-        $('.my-view').css('display', 'none');
-    }
+   var index = location.href.indexOf('?');
+   if (index != -1) { // 기존 데이터를 조회할 경우,
+       var qs = location.href.substr(index + 1);
+       var arr = qs.split('=');
+       $('.my-new').css('display', 'none');
+       
+       $(() => {
+           $.ajax('../json/performanceReview/' + arr[1], {
+               dataType: 'json',
+               async : false,
+               success: (result) => {
+                   for (var performanceReview of result.performanceReview.reviewFiles) {
+                       if (performanceReview.reviewFilename != null) {
+                           reviewMediasItem.append("<img src='../download/" + performanceReview.reviewFilename + "' height=100>");
+                       }
+                   };
+                   
+                   noItem.val(result.performanceReview.reviewNo);
+                   performanceNoItem.val(result.performanceReview.performance.no);
+                   memberNoItem.val(result.performanceReview.writer.no);
+                   prfrmNameItem.val(result.performanceReview.performance.name);
+                   artistNameItem.val(result.performanceReview.artist.artistName);
+                   locationItem.val(result.performanceReview.performance.location);
+                   genreItem.val(result.performanceReview.performance.genre);
+                   entryDateItem.val(formatDateTime(result.performanceReview.performance.entryDate));
+                   rvwDescItem.val(result.performanceReview.reviewDescription);
+                   viewcntItem.val(result.performanceReview.viewCount);
+                   regdateItem.val(formatDate(result.performanceReview.regDate));
+                   
+               },
+               error: () => {
+                   window.alert('서버 실행 오류!');
+               }
+           });
+       });
+       
+   } else { // 신규 데이터 입력일 경우,
+       $('.my-view').css('display', 'none');
+   }
 
 
     
     
 }
 
-    addBtn.click(() => {
-        
-        if (performanceNoItem.val() == 0) {
-            return alert('공연정보를 입력하세요');
+
+//공연후기 추가
+addBtn.click(() => {
+    if (performanceNoItem.val() == 0) {
+        return alert('공연정보를 입력하세요');
         }
         var formData = new FormData($('#formData')[0]);
         
-        $.ajax('../json/performanceReview/add', {
-            data: formData,
-            dataType: 'json',
-            method: 'POST',
-            processData: false,
-            contentType: false,
-            success: () => {
-                location.href='list.html';
-                },
-            error: () => {
-                window.alert('서버 실행 오류!');
-            }
-        });
+    $.ajax('../json/performanceReview/add', {
+        data: formData,
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        method: 'POST',
+        success: (result) => {
+            location.href='list.html';
+            },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
     });
+});
     
     // 공연정보 검색으로 적용 전
 /*     findBtn.click(() => {//공연정보 불러오기
@@ -442,52 +435,62 @@ function load() {
     });
      */
     
-    
-    
-    
-    updateBtn.click(() => {
-        var formData = new FormData($("#formData")[0]);
-        $.ajax('../../json/performanceReview/update', {
-            data: formData,
-            dataType: 'json',
-            processData: false,
-            contentType: false,
-            method: 'POST',
-            success: (result) => {
-                location.href='list.html';
-                },
-            error: () => {
-                window.alert('서버 실행 오류!');
-            }
-        });
-    });
-
-    
-    deleteBtn.click(() => {
-        $.ajax('../json/performanceReview/delete', {
-            data: {
-                no: noItem.val()
+updateBtn.click(() => {
+    var formData = new FormData($("#formData")[0]);
+    $.ajax('../../json/performanceReview/update', {
+        data: formData,
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        method: 'POST',
+        success: (result) => {
+            location.href='list.html';
             },
-            dataType: 'json',
-            success: (result) => {
-                location.href = "list.html";
-            },
-            error: () => {
-                window.alert('삭제 중 서버 실행 오류!');
-            }
-        });
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
     });
+});
+    
+deleteBtn.click(() => {
+    $.ajax('../json/performanceReview/delete', {
+        data: {
+            no: noItem.val()
+        },
+        dataType: 'json',
+        success: (result) => {
+            location.href = "list.html";
+        },
+        error: () => {
+            window.alert('삭제 중 서버 실행 오류!');
+        }
+    });
+});
     
     
+function formatDate(json) {
+    var jsondate = new Date(json),
+        yyyy=jsondate.getFullYear().toString(),
+        mm = (jsondate.getMonth() + 1).toString(),
+        dd = jsondate.getDate().toString();
+        
+    return yyyy +"-"+(mm[1] ? mm : '0'+mm[0])+"-"+(dd[1] ? dd : '0'+dd[0]);
+}
 
-    function formatDate(jason) {
-        var jasondate = new Date(jason),
-            yyyy=jasondate.getFullYear().toString(),
-            mm = (jasondate.getMonth() + 1).toString(),
-            dd = jasondate.getDate().toString();
+function formatDateTime(jason) {
+    var jasondate = new Date(jason);
             
-        return yyyy +"-"+(mm[1] ? mm : '0'+mm[0])+"-"+(dd[1] ? dd : '0'+dd[0]);
-     }
+    return jasondate.getFullYear() + '-' +
+    pad((jasondate.getMonth() + 1), 2) + '-' +
+    pad(jasondate.getDate(), 2) + ' ' +
+    pad(jasondate.getHours(), 2) + ':' +
+    pad(jasondate.getMinutes(), 2);
+    //pad(jasondate.getSeconds(), 2);
+}
+function pad(n, width) {
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+}
 </script>
 
 </body>
