@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+.cropit-preview {
+    background-color: #f8f8f8;
+    background-size: cover;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 0px 65px;
+    width: 200px;
+    height: 200px;
+    cursor: move;
+}
+
+.cropit-preview-background {
+  opacity: .2;
+}
+
+input.cropit-image-zoom-input {
+  position: relative;
+}
+
+.image-size-label {
+  margin-top: 10px;
+}
+
+.checkMessages {
+  margin-top:3px;
+}
+
+#cropit-range {
+ display: block;
+}

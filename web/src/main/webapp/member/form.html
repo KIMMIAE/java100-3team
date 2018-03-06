@@ -1,46 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>회원정보</title>
-<link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../css/style1.css'>
-<style>
-.cropit-preview {
-    background-color: #f8f8f8;
-    background-size: cover;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 15px;
-    margin-right: 15px;
-    width: 200px;
-    height: 200px;
-    cursor: move;
-}
-
-.cropit-preview-background {
-  opacity: .2;
-}
-
-input.cropit-image-zoom-input {
-  position: relative;
-}
-
-.image-size-label {
-  margin-top: 10px;
-}
-
-.checkMessages {
-  margin-top:3px;
-}
-</style>
+    <title>회원 가입</title>
+     <!-- <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'> -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet' type='text/css'>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link rel='stylesheet' href='../css/member/cropit.css'>
+    <link rel='stylesheet' href='../css/member/memberForm.css'>
+    <link rel='stylesheet' href='../css/style1.css'>
+    <!-- <link rel='stylesheet' href='../css/member/memberFormCheckbox.css'> -->
 </head>
 <body>
-
-    <div class="container">
-       <header>
+<header>
        <div class="main-nav">
             <a href="../index.html"><img class="logo-img" src="../index-image/play-button.png"></a>
             <div class="nav-right" id="nav-right">
@@ -69,237 +41,165 @@ input.cropit-image-zoom-input {
             <div class="clearfix">
         </div>
 </header>
+<div class="joinbox">
+  <h1>Registration</h1>
 
-<h3>회원 상세 정보</h3>
-<hr>
-<div style="margin-bottom: 5px;">
-<font color="red">*</font>이 표시된 항목은 필수 입력입니다.
-</div>
+  <form id='formData'>
+  
+  <hr>  
+  <div class="accounttype">
+  <input type="radio" value="일반회원" id="type1" name="type" checked="checked"/>
+  <label for="type1" class="radio">일반회원</label>
+  <input type="radio" value="아티스트" id="type2" name="type"/>
+  <label for="type2" class="radio">아티스트</label>
+  </div>
+  <hr>
 
-<form id='formData'>
+  
+  <div id="image-cropper">
+  <div class="cropit-preview"></div>
+  <input type="file" class="cropit-image-input">
+  <input id="cropit-range" type="range" class="cropit-image-zoom-input">
+  <button id="cuttingBtn" type="button" style="display: inline-block;">사진 자르기</button>
+  <input type="hidden" name="base64Image" id="hidden-image-data" value=""/>
+  <div class="checkMessages" id="chkImageMsg"></div>
+  </div>
+  <hr>
 
-<!--
-<div class='form-group row'>
-<label for='file' class='col-sm-2 col-form-label'>사진</label>
-<div class='col-sm-5'>
-<input type="file" class="form-control-file" name="file">
-</div>
-</div>
--->
+  <div id="personalInfoDiv">
+  
+  <div id="emailDiv">
+    <label id="icon" for="email"><i class="icon-envelope"></i></label>
+    <input type="email" id='email' name="email" onkeyup="checkEmail()" placeholder="example@email.com" required/>
+    <div class="checkMessages" id="chkEmailMsg"></div>
+  </div>
+  
+  <div id="nickNameDiv">
+    <label id="icon" for="nickName"><i class="icon-user"></i></label>
+    <input type="text" id="nickName" name="nickName" onkeyup="checkNickName()" placeholder="닉네임" required/>
+    <div class="checkMessages" id="chkNickMsg"></div>
+  </div>
+  
+  <div id="passwordDiv">
+    <label id="icon" for="password"><i class="icon-shield"></i></label>
+    <input type="password" id="password" name="password" onkeyup="checkPassword()" placeholder="비밀번호" required/>
+  </div>
+  
+  <div id="pwConfirmDiv">
+    <label id="icon" for="pwConfirm"><i class="icon-shield"></i></label>
+    <input type="password" id="pwConfirm" name="pwConfirm" onkeyup="confirmPassword()" placeholder="비밀번호 확인" required/>
+    <div class="checkMessages" id="chkPwMsg"></div>
+  </div>
 
-<!--
-<div class='form-group row'>
-<label for='file' class='col-sm-2 col-form-label'>사진</label>
-<div class='col-sm-5'>
-<img id="preview" src="../download/cat.jpg" width="200" height="200" alt="로컬에 있는 이미지가 보여지는 영역" style="margin: 15px">
-<input id="getFile" type="file" class="form-control-file" name="file" accept="image/*">
-</div>
-</div> 
--->
-
-<div class='form-group row'>
-<label for='file' class='col-sm-2 col-form-label'>사진</label>
-<div class='col-sm-5'>
-<div id="image-cropper">
-<input type="file" class="cropit-image-input form-control-file">
-<div class="cropit-preview"></div>
-<input type="range" class="cropit-image-zoom-input" style="margin-top: 20px; padding: -5px;">
-<button id="cuttingBtn" type="button">사진 자르기</button>
-<input type="hidden" name="base64Image" id="hidden-image-data" value=""/>
-<div class="checkMessages" id="chkImageMsg" style="color:blue;"></div>
-</div>
-</div>
-</div>
-
-
-<div class='form-group row my-view'>
-<label for='no' class='col-sm-2 col-form-label'>번호</label>
-<div class='col-sm-5'>
-<input class='form-control' readonly id='no' type='number' 
-       name='no' value="0"> 
-</div>
-</div>
-
-<div class='form-group row'>
-<label for='email' class='col-sm-2 col-form-label'>이메일<font color="red">*</font></label>
-<div class='col-sm-5'>
-<input class='form-control' id='email' type='email' name='email' onkeyup="checkEmail()" placeholder="example@email.com">
-<div class="checkMessages" id="chkEmailMsg" style="color:red;"></div>
-</div>
-</div>
-
-
-
-<div class='form-group row'>
-<label for='password' class='col-sm-2 col-form-label'>비밀번호<font color="red">*</font></label>
-<div class='col-sm-5'>
-<input class='form-control' id='password' type='password' name='password' onkeyup="checkPassword()" placeholder="영문/숫자/특수문자 조합 6~18자">
-<div style="margin-top:3px;"></div>
-</div>
-</div>
-
-
-<div class='form-group row'>
-<label for='password' class='col-sm-2 col-form-label'>비밀번호 확인<font color="red">*</font></label>
-<div class='col-sm-5'>
-<input class='form-control' id='pwConfirm' type='password' onkeyup="confirmPassword()" placeholder="비밀번호 재입력">
-<div class="checkMessages" id="chkPwMsg" style="color:red;"></div>
-</div>
-</div>
-
-
-<div class='form-group row'>
-<label for='nickName' class='col-sm-2 col-form-label'>닉네임<font color="red">*</font></label>
-<div class='col-sm-5'>
-<input class='form-control' id='nickName' type='text' name='nickName' onkeyup="checkNickName()" placeholder="한글/알파벳/숫자 조합 2~10자">
-<div class="checkMessages" id="chkNickMsg" style="color:red;"></div>
-</div>
-</div>
-
-<div class='form-group row'>
-<label for='messageFlag' class='col-sm-2 col-form-label'>메세지 수신<font color="red">*</font></label>
-<div class='col-sm-5' id='messageFlag'>
+  <div id="messageFlagDiv">
     <input type="radio" id="messageFlag1" name="messageFlag" value="1" checked="checked">
-    <label for="messageFlag">수신</label>
+    <label for="messageFlag1" class="radio">메시지 수신</label>
     <input type="radio" id="messageFlag2" name="messageFlag" value="0">
-    <label for="messageFlag">거부</label>
-</div>
-</div>
+    <label for="messageFlag2" class="radio">메시지 거부</label>
+  </div> 
+  
+  <div id='messageIdDiv'>
+    <label id="icon" for='messageId'><i class="icon-shield"></i></label>
+    <input type='text' id='messageId' name='messageId' placeholder="카카오톡 ID">
+    <div class="checkMessages" id="chkMessageId"></div>
+  </div>
+  </div>
+  <hr>
+  
+  <!-- 아티스트 회원 정보 -->
+  <div id='artistInfoDiv'>
 
-<div class='form-group row' id='messageIdDiv'>
-<label for='messageId' class='col-sm-2 col-form-label'>메세지 수신 아이디</label>
-<div class='col-sm-5'>
-<input class='form-control' id='messageId' type='text' name='messageId' placeholder="카카오톡 ID">
-<div class="checkMessages" id="chkMessageId" style="color:red;"></div>
-</div>
-</div>
+  <label id="icon" for='artistName'><i class="icon-male"></i></label>
+  <input id='artistName' type='text' name='artist.artistName' value="" placeholder="아티스트/팀명">
+  <div class="checkMessages" id="chkArtistName"></div>
 
-<div class='form-group row'>
-<label for='type' class='col-sm-2 col-form-label'>가입자 유형<font color="red">*</font></label>
-<div class='col-sm-5'>
-    <input type="radio" id="type1" name="type" value="일반회원" checked="checked">
-    <label for="type">일반회원</label>
+  <label id="icon" for='artistMember'><i class="icon-male"></i></label>
+  <input id='artistMember' type='text' name='artist.artistMember' value="" placeholder="팀 구성원">
+  <div class="checkMessages" id="chkArtistMember"></div>
 
-    <input type="radio" id="type2" name="type" value="아티스트" >
-    <label for="type">아티스트</label>
-</div>
-</div>
+  <label id="icon" for='profile'><i class="icon-male"></i></label>
+  <input id='profile' type="text" name='artist.profile' value="" placeholder="프로필">
+  <div class="checkMessages" id="chkProfile"></div>
 
-<!-- 아티스트 회원 정보 -->
-<div id='artistInfoDiv'>
+  <label id="icon" for='joinDate'><i class="icon-male"></i></label>
+  <input id='joinDate' type='date' placeholder="팀 결성 날짜">
+  <!-- name='artist.joinDate' -->
+  <div class="checkMessages" id="chkJoinDate"></div>
 
-<div class='form-group row'>
-<label for='artistName' class='col-sm-2 col-form-label'>아티스트/팀명</label>
-<div class='col-sm-5'>
-<input class='form-control' id='artistName' type='text' name='artist.artistName'>
-<div class="checkMessages" id="chkArtistName" style="color:red;"></div>
-</div>
-</div>
+  </div>
+  <!-- 아티스트 회원 정보 끝 -->
 
-<div class='form-group row'>
-<label for='artistMember' class='col-sm-2 col-form-label'>팀구성원</label>
-<div class='col-sm-5'>
-<input class='form-control' id='artistMember' type='text' name='artist.artistMember'>
-<div class="checkMessages" id="chkArtistMember" style="color:red;"></div>
-</div>
-</div>
+  <div id="interestAreasDiv">
+  <label for='interestAreas' id="interestAreas">관심 지역</label>
 
-<div class='form-group row'>
-<label for='profile' class='col-sm-2 col-form-label'>프로필</label>
-<div class='col-sm-5'>
-<input class='form-control' id='profile' type='text' name='artist.profile'>
-<div class="checkMessages" id="chkProfile" style="color:red;"></div>
-</div>
-</div>
-
-<div class='form-group row'>
-<label for='joinDate' class='col-sm-2 col-form-label'>팀결성날짜</label>
-<div class='col-sm-5'>
-<input class='form-control' id='joinDate' type='date' name='artist.joinDate'>
-<div class="checkMessages" id="chkJoinDate" style="color:red;"></div>
-</div>
-</div>
-
-</div>
-<!-- 아티스트 회원 정보 끝 -->
-
-
-<div class='form-group row'>
-<label for='interestArea' class='col-sm-2 col-form-label'>관심 지역</label>
-
-<div class='col-sm-5' id="areasDiv">
-    
+  <div id="areasDiv">
+  
     <input type='checkbox' id='areas1' name='areas' value='홍대'>
-    <label for='areas'>홍대</label>
+    <label for='areas1' class="checkbox">홍대</label>
     
     <input type='checkbox' id='areas2' name='areas' value='대학로'>
-    <label for='areas'>대학로</label>
+    <label for='areas2' class="checkbox">대학로</label>
     
     <input type='checkbox' id='areas3' name='areas' value='신촌'>
-    <label for='areas'>신촌</label>
+    <label for='areas3' class="checkbox">신촌</label>
     
     <input type='checkbox' id='areas4' name='areas' value='건대'>
-    <label for='areas'>건대</label>
+    <label for='areas4' class="checkbox">건대</label>
     
     <input type='checkbox' id='areas5' name='areas' value='한강공원'>
-    <label for='areas'>한강공원</label>
+    <label for='areas5' class="checkbox">한강공원</label>
     
     <input type='checkbox' id='areas6' name='areas' value='뚝섬유원지'>
-    <label for='areas'>뚝섬유원지</label>
+    <label for='areas6' class="checkbox">뚝섬유원지</label>
     
     <input type='checkbox' id='areas7' name='areas' value='보라매'>
-    <label for='areas'>보라매</label>
+    <label for='areas7' class="checkbox">보라매</label>
     
     <input type='checkbox' id='areas8' name='areas' value='신림역'>
-    <label for='areas'>신림역</label>
-<div class="checkMessages" id="chkAreas" style="color:red;"></div>
-</div>
-</div>
+    <label for='areas8' class="checkbox">신림역</label>
+    
+    <div class="checkMessages" id="chkAreas" style="color:red;"></div>
+  </div>
+  </div>
 
-<div class='form-group row'>
-<label for='interestgenres' class='col-sm-2 col-form-label'>관심 장르</label>
+  <div id="interestgenresDiv">
+  <label for='interestgenres' id='interestgenres'>관심 장르</label>
 
-<div class='col-sm-5' id="genresDiv">
+  <div id="genresDiv">
+  
     <input type='checkbox' id='genre1' name='genres' value='솔로'>
-    <label for='genres'>솔로</label>
+    <label for='genre1' class="checkbox">솔로</label>
     
     <input type='checkbox' id='genre2' name='genres' value='그룹'>
-    <label for='genres'>그룹</label>
+    <label for='genre2' class="checkbox">그룹</label>
     
     <input type='checkbox' id='genre3' name='genres' value='발라드'>
-    <label for='genres'>발라드</label>
+    <label for='genre3' class="checkbox">발라드</label>
     
     <input type='checkbox' id='genre4' name='genres' value='R & B'>
-    <label for='genres'>R & B</label>
+    <label for='genre4' class="checkbox">R & B</label>
     
     <input type='checkbox' id='genre5' name='genres' value='락'>
-    <label for='genres'>락</label>
+    <label for='genre5' class="checkbox">락</label>
     
     <input type='checkbox' id='genre6' name='genres' value='랩'>
-    <label for='genres'>랩</label>
+    <label for='genre6' class="checkbox">랩</label>
     
     <input type='checkbox' id='genre7' name='genres' value='개그'>
-    <label for='genres'>개그</label>
+    <label for='genre7' class="checkbox">개그</label>
     
     <input type='checkbox' id='genre8' name='genres' value='마술'>
-    <label for='genres'>마술</label>
+    <label for='genre8' class="checkbox">마술</label>
 <div class="checkMessages" id="chkGenres" style="color:red;"></div>
 </div>
 </div>
 
 
-<div class='form-group row'>
-<div class='col-sm-5'>
-<button id="addBtn" type="button" class='btn btn-primary btn-sm my-new'>가입</button>
-<button id="updateBtn" type="button" class='btn btn-primary btn-sm my-view'>변경</button>
-<button id="deleteBtn" type="button" class='btn btn-primary btn-sm my-view'>삭제</button>
-</div>
-</div>
-</form>
-<footer></footer>
-</div>
-</body>
 
+   <button id="addBtn" type="button">회원 가입</button>
+  </form>
+</div>
+<footer></footer>
 <!-- 크로핏용 제이쿼리 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
@@ -316,512 +216,7 @@ input.cropit-image-zoom-input {
 <!-- 크로핏 -->
 <script src="../node_modules/cropit/dist/jquery.cropit.js"></script>
 
-<script type="text/javascript">
-var formDataItem = $('#formData'),
-    addBtn = $('#addBtn'),
-    updateBtn = $('#updateBtn'),
-    deleteBtn = $('#deleteBtn'),
-    
-    cuttingBtn = $('#cuttingBtn'),
-    
-    /* input의 id 변수들 */
-    
-    noItem = $('#no'),
-    emailItem = $('#email'),
-    passwordItem = $('#password'),
-    pwConfirmItem = $('#pwConfirm'),
-    nickNameItem = $('#nickName'),
-    messageFlag1Item = $('#messageFlag1'),
-    messageFlag2Item = $('#messageFlag2'),
-    messageIdItem = $('#messageId'),
-    type1Item = $("#type1"),
-    type2Item = $("#type2"),
-    artistNameItem = $('#artistName'),
-    artistMemberItem = $('#artistMember'),
-    profileItem = $('#profile'),
-    joinDateItem = $('#joinDate'),
-    areasDivItem = $('#areasDiv'),
-    genresDivItem = $('#genresDiv'),
-    
-    imageCropperItem = $('#image-cropper'),
-    hiddenImageDate = $('#hidden-image-data'),
-    
-    /* check div들에 문구를 출력해줄 변수들 */
-    
-    chkEmailMsgItem = $('#chkEmailMsg'),
-    chkPwMsgItem = $('#chkPwMsg'),
-    chkNickMsgItem = $('#chkNickMsg'),
-    chkMessageIdItem = $('#chkMessageId'),
-    chkArtistNameItem = $('#chkArtistName'),
-    chkArtistMemberItem = $('#chkArtistMember'),
-    chkProfileItem = $('#chkProfile'),
-    chkJoinDateItem = $('#chkJoinDate'),
-    chkAreasItem = $('#chkAreas'),
-    chkGenresItem = $('#chkGenres'),
-    
-    chkImageItem = $('#chkImageMsg'),
-    
-    /* 검증용 변수 */
-    
-    emailCount = null,
-    nickNameCount = null,
-    conPw = null,
-    completConfirm = null;
-    
-    /*,
-    interestAreasItem = $("input:checkbox[name=checkParam]:checked");
-    interestgenresItem = []; */
-    
-    imageCropperItem.cropit({
-    	imageBackground:true, 
-    	imageBackgroundBorderWidth: 15
-    });
-    
-    cuttingBtn.click(function(){
-        var imageData = imageCropperItem.cropit('export', {
-            type: 'image/jpeg',
-            quality: .9,
-            originalSize: true
-        });
-        
-        hiddenImageDate.val(imageData);
-        
-        if (hiddenImageDate.val() != "") {
-            chkImageItem.html('<p class="checkMessages">사진 편집이 완료 되었습니다.</p>')
-        }
-    });
-    
-      
-
-    
-$('footer').load('../footer.html');
-    
-$("#messageFlag1").click(function(){
-    $("#messageIdDiv").show();
-});
-    
-$("#messageFlag2").click(function(){
-    $("#messageIdDiv").hide();
-});
-
-$("#artistInfoDiv").hide();
-
-$("#type1").click(function(){
-    $("#artistInfoDiv").hide();
-});
-
-$("#type2").click(function(){
-    $("#artistInfoDiv").show();
-});
-
-var index = location.href.indexOf('?');
-
-if (index != -1) { // 기존 데이터를 조회할 경우,
-    var qs = location.href.substr(index + 1);
-    var arr = qs.split('=');
-   
-    $('.my-new').css('display', 'none');
-    $(() => {
-        $.ajax('../json/member/' + arr[1], {
-            dataType: 'json',
-            success: (result) => {
-                noItem.val(result.member.no);
-                emailItem.val(result.member.email);
-                /* passwordItem.val(result.member.password); */
-                nickNameItem.val(result.member.nickName);
-
-                if (result.member.messageFlag == '1') {
-                    messageFlag1Item.attr('checked', 'checked');
-                    $("#messageIdDiv").show();
-                } else {
-                    messageFlag2Item.attr('checked', 'checked');
-                    $("#messageIdDiv").hide();
-                }
-
-                messageIdItem.val(result.member.messageId);
-
-                if (result.member.type == "아티스트") {
-                    type2Item.prop("checked", true);
-                    $("#artistInfoDiv").show();
-                    artistNameItem.val(result.member.artist.artistName);
-                    artistMemberItem.val(result.member.artist.artistMember);
-                    profileItem.val(result.member.artist.profile);
-                    joinDateItem.val(formatDate(result.member.artist.joinDate));
-
-                } else {
-                    type1Item.prop("checked", true);
-                }
-
-
-                var areas = [];
-                var i = 0;
-                for (var info of result.arealist) {
-                    areas[i++] = info.areaName;
-
-                    var objAreas = document.getElementsByName("areas");
-                    for (i = 0; i < objAreas.length; i++) {
-                        for (j = 0; j < areas.length; j++) {
-                            if (objAreas[i].value == "홍대" && areas[j] == "홍대") {
-                                objAreas[i].checked = true;
-                            }
-                            if (objAreas[i].value == "대학로" && areas[j] == "대학로") {
-                                objAreas[i].checked = true;
-                            }
-                            if (objAreas[i].value == "신촌" && areas[j] == "신촌") {
-                                objAreas[i].checked = true;
-                            }
-                            if (objAreas[i].value == "건대" && areas[j] == "건대") {
-                                objAreas[i].checked = true;
-                            }
-                            if (objAreas[i].value == "한강공원" && areas[j] == "한강공원") {
-                                objAreas[i].checked = true;
-                            }
-                            if (objAreas[i].value == "뚝섬유원지" && areas[j] == "뚝섬유원지") {
-                                objAreas[i].checked = true;
-                            }
-                            if (objAreas[i].value == "보라매" && areas[j] == "보라매") {
-                                objAreas[i].checked = true;
-                            }
-                            if (objAreas[i].value == "신림역" && areas[j] == "신림역") {
-                                objAreas[i].checked = true;
-                            }
-                        }
-                    }
-                }
-
-                var genres = [];
-                i = 0;
-
-                for (var info of result.genrelist) {
-                    genres[i++] = info.genreName;
-                    var objGenre = document.getElementsByName("genres");
-                    
-                    for (i = 0; i < objGenre.length; i++) {
-                        
-                        for (j = 0; j < genres.length; j++) {
-                            if (objGenre[i].value == "솔로" && genres[j] == "솔로") {
-                                objGenre[i].checked = true;
-                            }
-                            if (objGenre[i].value == "그룹" && genres[j] == "그룹") {
-                                objGenre[i].checked = true;
-                            }
-                            if (objGenre[i].value == "발라드" && genres[j] == "발라드") {
-                                objGenre[i].checked = true;
-                            }
-                            if (objGenre[i].value == "R & B" && genres[j] == "R & B") {
-                                objGenre[i].checked = true;
-                            }
-                            if (objGenre[i].value == "락" && genres[j] == "락") {
-                                objGenre[i].checked = true;
-                            }
-                            if (objGenre[i].value == "랩" && genres[j] == "랩") {
-                                objGenre[i].checked = true;
-                            }
-                            if (objGenre[i].value == "개그" && genres[j] == "개그") {
-                                objGenre[i].checked = true;
-                            }
-                            if (objGenre[i].value == "마술" && genres[j] == "마술") {
-                                objGenre[i].checked = true;
-                            }
-                        }
-                    }
-                }
-            },
-            error: () => {
-                window.alert('서버 실행 오류!');
-            }
-        });
-    });
-
-} else { // 신규 데이터 입력일 경우,
-    $('.my-view').css('display', 'none');
-}
-
-function formatDate(jason) {
-    var jasondate = new Date(jason);
-    return jasondate.getFullYear() + '-' +
-    pad((jasondate.getMonth() + 1), 2) + '-' +
-    pad(jasondate.getDate(), 2);
-}
-
-function pad(n, width) {
-    n = n + '';
-    return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
-}
-
-var re_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
-var re_password = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,18}/;
-var re_nickName = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/;
-
-
-
-function checkEmail() {
-    $.ajax({
-        url: '../json/member/checkEmail',
-        type: 'post',
-        data: {
-            email: emailItem.val()
-        },
-        success: function (count) {
-            if (count == 0 && re_email.test(emailItem.val()) == true) {
-            	chkEmailMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 이메일입니다.</p>');
-            	emailCount = count;
-                return emailCount;
-            } else if (re_email.test(emailItem.val()) == false) {
-                chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이메일 형식이 맞지 않습니다.</p>');
-                emailCount = count;
-                return emailCount;
-            } else if (count == 1) {
-            	chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이미 가입한 이메일입니다.</p>');
-                emailCount = count;
-                return emailCount;
-            } 
-        },
-        error: function () {
-            alert("이메일 체크 중 서버 에러");
-        }
-    });
-};
-
-
-
-function checkPassword() {
-    if (re_password.test(passwordItem.val()) == true) {
-        chkPwMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 비밀번호입니다.</p>');
-        conPw = true;
-        return conPw;
-    } else if (re_password.test(passwordItem.val()) == false) {
-        chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호는 영문/숫자/특수문자 조합 6~18자입니다.</p>');
-        conPw = false;
-        return conPw;
-    } 
-};
-
-function confirmPassword() {
-    if (passwordItem.val() == pwConfirmItem.val() && conPw == true) {
-        chkPwMsgItem.html('<p class="checkMessages" style="color:blue;">비밀번호 확인 일치!</p>');
-        completConfirm = true;
-        return completConfirm;
-    } else {
-        chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호 확인 불일치!</p>');
-        completConfirm = false;
-        return completConfirm;
-    }
-};
-
-function checkNickName() {
-    $.ajax({
-        url: '../json/member/checkNickName',
-        type: 'post',
-        data: {
-            nickName: nickNameItem.val()
-        },
-        success: function (count) {
-            if (count == 0 && re_nickName.test(nickNameItem.val()) == true) {
-                chkNickMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 닉네임입니다.</p>');
-                nickNameCount = count;
-                return nickNameCount;
-            } else if (re_nickName.test(nickNameItem.val()) == false) {
-                chkNickMsgItem.html('<p class="checkMessages" style="color:red;">닉네임 형식이 맞지 않습니다.</p>');
-                nickNameCount = count;
-                return nickNameCount;
-            } else if (count == 1) {
-                chkNickMsgItem.html('<p class="checkMessages" style="color:red;">이미 등록된 닉네임입니다.</p>');
-                nickNameCount = count;
-                return nickNameCount;
-            }
-        },
-        error: function () {
-            alert("닉네임 체크 중 서버 에러");
-        }
-    });
-};
-
-
-
-
-addBtn.click(() => {
-
-// 이메일 검증
-if (emailItem.val() == "") {
-    chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이메일을 입력해주세요.</p>');
-    emailItem.focus();
-    return;
-}
-
-if (re_email.test(emailItem.val()) == false || emailCount == 1) {
-    emailItem.focus();
-    return;
-}
-
-// 비밀번호 검사
-if (passwordItem.val() == "") {
-    chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호를 입력해 주세요.</p>');
-    pwConfirmItem.val("");
-    passwordItem.focus();
-    return;
-} else if (re_password.test(passwordItem.val()) == false) {
-    passwordItem.focus();
-    return;
-} else if (completConfirm == false) {
-	pwConfirmItem.focus();
-    return;
-} else if (pwConfirmItem.val() == "") {
-    chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호 확인을 입력해 주세요.</p>');
-    pwConfirmItem.focus();
-    return;
-} 
-
-// 닉네임 검사
-if (nickNameItem.val() == "") {
-    chkNickMsgItem.html('<p class="checkMessages" style="color:red;">닉네임을 입력해 주세요.</p>');
-    nickNameItem.focus();
-    return;
-} else if (re_nickName.test(nickNameItem.val()) == false) {
-	nickNameItem.focus();
-    return;
-} else if (nickNameCount == 1) {
-    console.log(nickNameCount);
-    nickNameItem.focus();
-    return;
-}
-
-
-// 메시지 수신 동의 시 아이디 입력 확인
-if ($("input[name='messageFlag']:checked").val() == 
-        '1' && messageIdItem.val() == "") {
-    chkMessageIdItem.html('<p class="checkMessages" style="color:red;">메세지를 수신 받을 카카오톡 ID를 입력해주세요.</p>');
-	messageIdItem.focus();
-   return;
-} 
-
-// 일반회원의 아티스트 입력 항목 값 제거
-if ($("input[name='type']:checked").val() == '일반회원') {
-    artistNameItem.removeAttr('name');
-    artistMemberItem.removeAttr('name');
-    profileItem.removeAttr('name');
-    joinDateItem.removeAttr('name');
-}
-
-// 아티스트 입력 항목 검사
-if ($("input[name='type']:checked").val() == '아티스트') {
-    if (artistNameItem.val() == "") {
-        chkArtistNameItem.html("활동명을 입력해주세요.");
-        artistNameItem.focus();
-        return;
-    } else if (artistMemberItem.val() == "") {
-    	chkArtistMemberItem.html("팀 구성원을 입력해주세요.");
-    	artistMemberItem.focus();
-    	return;
-    } else if (profileItem.val() == "") {
-    	chkProfileItem.html("프로필을 입력해주세요.");
-    	profileItem.focus();
-    } else if (joinDateItem.val() == "") {
-    	chkJoinDateItem.html("팀 결성일을 입력해주세요!");
-    	joinDateItem.focus();
-    }
-}
-
-// 관심 장르와 지역 반드시 입력
-
-if ($("input[name='areas']:checked").val() == null) {
-	chkAreasItem.html("관심 장르를 체크해주세요");
-	areasDivItem.focus();
-   return;
-}
-
-if ($("input[name='genres']:checked").val() == null) {
-	chkGenresItem.html("관심 지역을 체크해주세요.");
-	genresDivItem.focus();
-   return;
-}
-
-var formData = new FormData(formDataItem[0]);
-    $.ajax('../json/member/add', {
-        data: formData,
-        dataType: 'json',
-        method: 'POST',
-        processData: false,
-        contentType: false,
-        success: () => {
-            location.href='list.html';
-        },
-        error: () => {
-            alert("서버 입력 오류!");
-        }
-    });
-});
-
-
-updateBtn.click(() => {
-
-if (emailItem.val() == "" || 
-        passwordItem.val() == "" || 
-            nickNameItem.val() == "") {
-    alert("이메일, 비밀번호, 닉네임은 필수 입력 항목입니다.")
-}
-
-if ($("input[name='messageFlag']:checked").val() == '1') {
-    if (messageIdItem.val() == "") {
-    alert("메시지 수신 아이디를 입력해주세요.")
-   return;
-   }
-}
-
-if ($("input[name='type']:checked").val() == '일반회원') {
-    joinDateItem.removeAttr('name');
-}
-
-if ($("input[name='type']:checked").val() == '아티스트') {
-     if (artistNameItem.val() == "" || artistMemberItem.val() == ""
-        || profileItem.val() == "" || joinDateItem.val() == "") {
-    alert("아티스트의 회원의 *표시 항목은 필수 입력입니다.")
-    return;
-    }
-}
-
-if ($("input[name='areas']:checked").val() == null || 
-        $("input[name='genres']:checked").val() == null) {
-   alert("관심 장르와 지역은 반드시 1개 이상 체크해주세요.")
-   return;
-}
-
-var formData = new FormData(formDataItem[0]);
-    $.ajax('../json/member/update', {
-        data: formData,
-        dataType: 'json',
-        method: 'POST',
-        processData: false,
-        contentType: false,
-        success: () => {
-            location.href='list.html';
-        },
-        error: () => {
-            alert("회원 정보 변경 중 서버 입력 오류!");
-        }
-    });
-});
-
-
-
-deleteBtn.click(() => {
-    $.ajax('../json/member/delete', {
-        data: {
-            no: noItem.val()
-        },
-        dataType: 'json',
-        success: (result) => {
-            location.href = "list.html";
-        },
-        error: () => {
-            window.alert('삭제 중 서버 실행 오류!');
-        }
-    });
-});
-
-
-
-</script>
+<!-- 메인 스크립트 -->
+<script src="../js/member/memberForm.js"></script>
 </body>
 </html>
-

@@ -29,6 +29,7 @@ public class Member {
     }
 
     public void setArtistNo(int no) {
+        
         this.artist.setNo(no);
     }
 

@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,8 @@ public class MemberController {
     @Autowired ServletContext servletContext;
     @Autowired ServletRequest pageContext;
     @Autowired MemberService memberService;
+    
+    static Logger logger = Logger.getLogger(MemberController.class);
     
     @RequestMapping("list")
     public Object list(
@@ -91,10 +94,12 @@ public class MemberController {
     }
     
     @RequestMapping(value="add", method=RequestMethod.POST)
-    public Object add(Member member, 
+    public Object add(Member member,
             @RequestParam(value="base64Image",required=false) String base64Image,
                        @RequestParam(value="areas", required=false) List<String> areas,
                        @RequestParam(value="genres", required=false) List<String> genres) throws Exception {
+        
+        logger.debug("debug.....");
         
         if (!base64Image.isEmpty()) {
             
@@ -161,18 +166,31 @@ public class MemberController {
     
     
     @RequestMapping("update")
-    public String update(Member member, 
-                          MultipartFile file, 
+    public Object update(Member member, 
+            @RequestParam(value="base64Image",required=false) String base64Image,
                           @RequestParam(value="areas",required=false) String[] areas,
                           @RequestParam(value="genres",required=false) String[] genres) throws Exception {
         
-        if (!file.isEmpty()) {
+        if (!base64Image.isEmpty()) {
+            
+            String uploadDir = servletContext.getRealPath("/download");
+            String filename = getNewFilename(".jpeg");
+            Base64Decoder.decoder(base64Image, uploadDir + "//" + filename);
+            
+            member.setPhoto(filename);
+            
+            ThumbnailMaker.thumbnailMaker(70, 70, uploadDir, filename, "70");
+            ThumbnailMaker.thumbnailMaker(150, 150, uploadDir, filename, "150");
+            ThumbnailMaker.thumbnailMaker(200, 200, uploadDir, filename, "200");
+        }
+        
+        /*if (!file.isEmpty()) {
             String uploadDir = servletContext.getRealPath("/download");
             String filename = writeUploadFile(file, uploadDir);
             member.setPhoto(filename);
         } else {
             member.setPhoto(memberService.getPhoto(member.getNo()));
-        }
+        }*/
 
         if (areas != null && areas[0].length() > 0) {
             ArrayList<InterestArea> interestAreas = new ArrayList<>();
@@ -193,14 +211,22 @@ public class MemberController {
         }
         
         memberService.update(member);
-        return "redirect:list";
+        
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("status", "success");
+        
+        return result;
     }
 
     @RequestMapping("delete")
-    public String delete(int no) throws Exception {
+    public Object delete(int no) throws Exception {
 
         memberService.delete(no);
-        return "redirect:list";
+        
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("status", "success");
+        
+        return result;
     }
     
     
@@ -234,5 +260,6 @@ public class MemberController {
         String filename = getNewFilename(part.getOriginalFilename());
         part.transferTo(new File(path + "/" + filename));
         return filename;
-    }  
+    }
+
 }

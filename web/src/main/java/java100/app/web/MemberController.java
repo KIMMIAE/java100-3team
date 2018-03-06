@@ -8,7 +8,6 @@ import java.util.HashMap;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,8 +30,6 @@ public class MemberController {
     @Autowired ServletRequest pageContext;
     @Autowired MemberService memberService;
     
-    static Logger logger = Logger.getLogger(MemberController.class);
-    
     @RequestMapping("list")
     public String list(
             @RequestParam(value="pn", defaultValue="1") int pageNo,
@@ -41,12 +38,6 @@ public class MemberController {
             @RequestParam(value="oc", required=false) String orderColumn,
             @RequestParam(value="al", required=false) String align,
             Model model) throws Exception {
-        
-        logger.fatal("fatal......");
-        logger.error("error......");
-        logger.warn("warn......");
-        logger.info("info......");
-        logger.debug("debug......");
         
         // UI 제어와 관련된 코드는 이렇게 페이지 컨트롤러에 두어야 한다.
         //

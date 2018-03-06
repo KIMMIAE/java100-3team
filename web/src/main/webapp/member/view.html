@@ -4,54 +4,70 @@
 <meta charset="UTF-8">
 <title>회원정보</title>
 <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../css/style1.css'>
+<link rel='stylesheet' href='../css/member/memberView.css'>
+<style>
+.cropit-preview {
+    background-color: #f8f8f8;
+    background-size: cover;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+    width: 200px;
+    height: 200px;
+    cursor: move;
+}
+
+.cropit-preview-background {
+  opacity: .2;
+}
+
+input.cropit-image-zoom-input {
+  position: relative;
+}
+
+.image-size-label {
+  margin-top: 10px;
+}
+
+.checkMessages {
+  margin-top:3px;
+}
+</style>
 </head>
 <body>
 
-    <div class="container">
-       <header>
-       <div class="main-nav">
-            <a href="../index.html"><img class="logo-img" src="../index-image/play-button.png"></a>
-            <div class="nav-right" id="nav-right">
-            <a href="../member/form.html">회원가입</a>
-            <a href="../auth/loginform.html">로그인</a>
-            </div>
-            <div class="nav-text" id="nav-text">
-                <a href="../performance/list.html">
-                <img src="../index-image/text/text_01.png" alt="">
-                </a>
-                <a href="../performanceReview/list.html">
-                <img src="../index-image/text/text_02.png" alt="">
-                </a>
-                <a href="../performanceReview/list.html">
-                <img src="../index-image/text/text_03.png" alt="">
-                </a>
-                <a href="../performance/form.html">
-                <img src="../index-image/text/text_04.png" alt="">
-                </a>
-                <a href="../grape/list.html">
-                <img src="../index-image/text/text_05.png" alt="">
-                </a>
-<!--                <a href="../request/form.html">공연요청</a>-->
-            </div>
-            </div>
-            <div class="clearfix">
-        </div>
-</header>
+<div class="container">
+<header></header>
 
-<h3>회원 상세 정보</h3>
-<hr>
-<div style="margin-bottom: 3px;">
-<font color="red">*</font>이 표시된 항목은 필수 입력입니다.
-</div>
+
 
 <form id='formData'>
+<h3>회원 정보</h3>
+<hr>
+<div class='form-group row' style="margin-bottom: 5px;">
+<label class='col-sm-5 col-form-label'><font color="red">*</font>표시는 필수 입력 항목입니다.</label>
+<div class='col-sm-2'>
+</div>
+</div>
+
+
 <div class='form-group row'>
 <label for='file' class='col-sm-2 col-form-label'>사진</label>
 <div class='col-sm-5'>
-<input type="file" class="form-control-file" name="file">
+<div id="image-cropper">
+<input type="file" class="cropit-image-input form-control-file">
+<div class="cropit-preview"></div>
+<input type="range" class="cropit-image-zoom-input col-sm" style="margin-top: 20px; padding: -5px;">
+<button class="btn col-sm" id="cuttingBtn" type="button">사진 자르기</button>
+<input type="hidden" name="base64Image" id="hidden-image-data" value=""/>
+<div class="checkMessages" id="chkImageMsg" style="color:blue;"></div>
 </div>
 </div>
+</div>
+
 
 <div class='form-group row my-view'>
 <label for='no' class='col-sm-2 col-form-label'>번호</label>
@@ -65,7 +81,7 @@
 <label for='email' class='col-sm-2 col-form-label'>이메일<font color="red">*</font></label>
 <div class='col-sm-5'>
 <input class='form-control' id='email' type='email' name='email' onkeyup="checkEmail()" placeholder="example@email.com">
-<div class="chkEmailMsg" id="chkEmailMsg" style="color:red; margin-top:3px;"></div>
+<div class="checkMessages" id="chkEmailMsg" style="color:red;"></div>
 </div>
 </div>
 
@@ -83,8 +99,8 @@
 <div class='form-group row'>
 <label for='password' class='col-sm-2 col-form-label'>비밀번호 확인<font color="red">*</font></label>
 <div class='col-sm-5'>
-<input class='form-control' id='pwConfirm' type='password' name='password' onkeyup="confirmPassword()" placeholder="비밀번호 재입력">
-<div class="chkPwMsg" id="chkPwMsg" style="color:red; margin-top:3px;"></div>
+<input class='form-control' id='pwConfirm' type='password' onkeyup="confirmPassword()" placeholder="비밀번호 재입력">
+<div class="checkMessages" id="chkPwMsg" style="color:red;"></div>
 </div>
 </div>
 
@@ -93,7 +109,7 @@
 <label for='nickName' class='col-sm-2 col-form-label'>닉네임<font color="red">*</font></label>
 <div class='col-sm-5'>
 <input class='form-control' id='nickName' type='text' name='nickName' onkeyup="checkNickName()" placeholder="한글/알파벳/숫자 조합 2~10자">
-<div class="chkNickMsg" id="chkNickMsg" style="color:red; margin-top:3px;"></div>
+<div class="checkMessages" id="chkNickMsg" style="color:red;"></div>
 </div>
 </div>
 
@@ -111,7 +127,7 @@
 <label for='messageId' class='col-sm-2 col-form-label'>메세지 수신 아이디</label>
 <div class='col-sm-5'>
 <input class='form-control' id='messageId' type='text' name='messageId' placeholder="카카오톡 ID">
-<div class="chkMessageId" id="chkMessageId" style="color:red; margin-top:3px;"></div>
+<div class="checkMessages" id="chkMessageId" style="color:red;"></div>
 </div>
 </div>
 
@@ -132,32 +148,32 @@
 <div class='form-group row'>
 <label for='artistName' class='col-sm-2 col-form-label'>아티스트/팀명</label>
 <div class='col-sm-5'>
-<input class='form-control' id='artistName' type='text' name='artist.artistName'>
-<div class="chkArtistName" id="chkArtistName" style="color:red; margin-top:3px;"></div>
+<input class='form-control' id='artistName' type='text' name='artist.artistName' value="">
+<div class="checkMessages" id="chkArtistName" style="color:red;"></div>
 </div>
 </div>
 
 <div class='form-group row'>
 <label for='artistMember' class='col-sm-2 col-form-label'>팀구성원</label>
 <div class='col-sm-5'>
-<input class='form-control' id='artistMember' type='text' name='artist.artistMember'>
-<div class="chkArtistMember" id="chkArtistMember" style="color:red; margin-top:3px;"></div>
+<input class='form-control' id='artistMember' type='text' name='artist.artistMember' value="">
+<div class="checkMessages" id="chkArtistMember" style="color:red;"></div>
 </div>
 </div>
 
 <div class='form-group row'>
 <label for='profile' class='col-sm-2 col-form-label'>프로필</label>
 <div class='col-sm-5'>
-<input class='form-control' id='profile' type='text' name='artist.profile'>
-<div class="chkProfile" id="chkProfile" style="color:red; margin-top:3px;"></div>
+<input class='form-control' id='profile' type='text' name='artist.profile' value="">
+<div class="checkMessages" id="chkProfile" style="color:red;"></div>
 </div>
 </div>
 
 <div class='form-group row'>
 <label for='joinDate' class='col-sm-2 col-form-label'>팀결성날짜</label>
 <div class='col-sm-5'>
-<input class='form-control' id='joinDate' type='date' name='artist.joinDate'>
-<div class="chkJoinDate" id="chkJoinDate" style="color:red; margin-top:3px;"></div>
+<input class='form-control' id='joinDate' type='date' name='artist.joinDate' value="">
+<div class="checkMessages" id="chkJoinDate" style="color:red;"></div>
 </div>
 </div>
 
@@ -193,7 +209,7 @@
     
     <input type='checkbox' id='areas8' name='areas' value='신림역'>
     <label for='areas'>신림역</label>
-<div class="chkAreas" id="chkAreas" style="color:red; margin-top:3px;"></div>
+<div class="checkMessages" id="chkAreas" style="color:red;"></div>
 </div>
 </div>
 
@@ -224,35 +240,44 @@
     
     <input type='checkbox' id='genre8' name='genres' value='마술'>
     <label for='genres'>마술</label>
-<div class="chkGenres" id="chkGenres" style="color:red; margin-top:3px;"></div>
+<div class="checkMessages" id="chkGenres" style="color:red;"></div>
 </div>
 </div>
 
 
 <div class='form-group row'>
 <div class='col-sm-5'>
-<button id="addBtn" type="button" class='btn btn-primary btn-sm my-new'>추가</button>
-<button id="updateBtn" type="button" class='btn btn-primary btn-sm my-view'>변경</button>
-<button id="deleteBtn" type="button" class='btn btn-primary btn-sm my-view'>삭제</button>
+<button id="updateBtn" type="button" class='btn btn-primary btn-sm'>회원정보 변경</button>
+<button id="deleteBtn" type="button" class='btn btn-primary btn-sm'>회원 탈퇴</button>
 </div>
 </div>
 </form>
-
 <footer></footer>
 </div>
 </body>
+
+<!-- 크로핏용 제이쿼리 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- 최신 제이쿼리 -->
 <script src='../node_modules/jquery/dist/jquery.min.js'></script>
+
+<!-- 제이쿼리 호환 스크립트-->
+<script src='../js/jquery_migrate/jquery-migrate-1.4.1.min.js'></script>
+<script src='../js/jquery_migrate/jquery-migrate-3.0.0.min.js'></script>
+
 <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 
-<script src='../node_modules/jquery-validation/dist/jquery.validate.min.js'></script>
-<script src='../node_modules/jquery-validation/dist/localization/messages_ko.js'></script>
+<!-- 크로핏 -->
+<script src="../node_modules/cropit/dist/jquery.cropit.js"></script>
 
 <script type="text/javascript">
 var formDataItem = $('#formData'),
-    addBtn = $('#addBtn'),
     updateBtn = $('#updateBtn'),
     deleteBtn = $('#deleteBtn'),
+    
+    cuttingBtn = $('#cuttingBtn'),
     
     /* input의 id 변수들 */
     
@@ -273,6 +298,9 @@ var formDataItem = $('#formData'),
     areasDivItem = $('#areasDiv'),
     genresDivItem = $('#genresDiv'),
     
+    imageCropperItem = $('#image-cropper'),
+    hiddenImageDate = $('#hidden-image-data'),
+    
     /* check div들에 문구를 출력해줄 변수들 */
     
     chkEmailMsgItem = $('#chkEmailMsg'),
@@ -286,17 +314,39 @@ var formDataItem = $('#formData'),
     chkAreasItem = $('#chkAreas'),
     chkGenresItem = $('#chkGenres'),
     
+    chkImageItem = $('#chkImageMsg'),
+    
     /* 검증용 변수 */
     
     emailCount = null,
     nickNameCount = null,
     conPw = null,
-    completConfirm = null;
+    completConfirm = null,
+
     
-    /*,
-    interestAreasItem = $("input:checkbox[name=checkParam]:checked");
-    interestgenresItem = []; */
+    memberPhoto ="dragNdrop";
     
+
+
+    
+cuttingBtn.click(function(){
+    var imageData = imageCropperItem.cropit('export', {
+        type: 'image/jpeg',
+        quality: .9,
+        originalSize: true
+    });
+    
+    hiddenImageDate.val(imageData);
+    
+    if (hiddenImageDate.val() != "") {
+        chkImageItem.html('<p class="checkMessages">사진 편집이 완료 되었습니다.</p>')
+    }
+});
+    
+      
+
+    
+$('header').load('../header.html');
 $('footer').load('../footer.html');
     
 $("#messageFlag1").click(function(){
@@ -322,22 +372,21 @@ var index = location.href.indexOf('?');
 if (index != -1) { // 기존 데이터를 조회할 경우,
     var qs = location.href.substr(index + 1);
     var arr = qs.split('=');
-   
-    $('.my-new').css('display', 'none');
+
     $(() => {
         $.ajax('../json/member/' + arr[1], {
             dataType: 'json',
             success: (result) => {
+
                 noItem.val(result.member.no);
                 emailItem.val(result.member.email);
-                /* passwordItem.val(result.member.password); */
                 nickNameItem.val(result.member.nickName);
 
                 if (result.member.messageFlag == '1') {
-                    messageFlag1Item.attr('checked', 'checked');
+                    messageFlag1Item.prop("checked", true);
                     $("#messageIdDiv").show();
                 } else {
-                    messageFlag2Item.attr('checked', 'checked');
+                    messageFlag2Item.prop("checked", true);
                     $("#messageIdDiv").hide();
                 }
 
@@ -429,6 +478,14 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
                         }
                     }
                 }
+                
+                imageCropperItem.cropit({
+                    imageBackground:true, 
+                    imageBackgroundBorderWidth: 15,
+                    allowDragNDrop:true,
+                    imageState: { src: "../download/" + result.member.photo}
+                });
+
             },
             error: () => {
                 window.alert('서버 실행 오류!');
@@ -437,7 +494,8 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
     });
 
 } else { // 신규 데이터 입력일 경우,
-    $('.my-view').css('display', 'none');
+    alert('잘못 된 경로입니다. 회원가입 페이지로 넘어갑니다.');
+    location.href='form.html';
 }
 
 function formatDate(jason) {
@@ -467,13 +525,15 @@ function checkEmail() {
         },
         success: function (count) {
             if (count == 0 && re_email.test(emailItem.val()) == true) {
-            	chkEmailMsgItem.html('<p style="color:blue; margin-top:3px;">사용 가능한 이메일입니다.</p>');
+            	chkEmailMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 이메일입니다.</p>');
             	emailCount = count;
                 return emailCount;
             } else if (re_email.test(emailItem.val()) == false) {
-                chkEmailMsgItem.html('<p style="color:red; margin-top:3px;">이메일 형식이 맞지 않습니다.</p>');
+                chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이메일 형식이 맞지 않습니다.</p>');
+                emailCount = count;
+                return emailCount;
             } else if (count == 1) {
-            	chkEmailMsgItem.html('<p style="color:red; margin-top:3px;">이미 가입한 이메일입니다.</p>');
+            	chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이미 가입한 이메일입니다.</p>');
                 emailCount = count;
                 return emailCount;
             } 
@@ -488,11 +548,11 @@ function checkEmail() {
 
 function checkPassword() {
     if (re_password.test(passwordItem.val()) == true) {
-        chkPwMsgItem.html('<p style="color:blue; margin-top:3px;">사용 가능한 비밀번호입니다.</p>');
+        chkPwMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 비밀번호입니다.</p>');
         conPw = true;
         return conPw;
     } else if (re_password.test(passwordItem.val()) == false) {
-        chkPwMsgItem.html('<p style="color:red; margin-top:3px;">비밀번호는 영문/숫자/특수문자 조합 6~18자입니다.</p>');
+        chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호는 영문/숫자/특수문자 조합 6~18자입니다.</p>');
         conPw = false;
         return conPw;
     } 
@@ -500,11 +560,11 @@ function checkPassword() {
 
 function confirmPassword() {
     if (passwordItem.val() == pwConfirmItem.val() && conPw == true) {
-        chkPwMsgItem.html('<p style="color:blue; margin-top:3px;">비밀번호 확인 일치!</p>');
+        chkPwMsgItem.html('<p class="checkMessages" style="color:blue;">비밀번호 확인 일치!</p>');
         completConfirm = true;
         return completConfirm;
     } else {
-        chkPwMsgItem.html('<p style="color:red; margin-top:3px;">비밀번호 확인 불일치!</p>');
+        chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호 확인 불일치!</p>');
         completConfirm = false;
         return completConfirm;
     }
@@ -519,11 +579,15 @@ function checkNickName() {
         },
         success: function (count) {
             if (count == 0 && re_nickName.test(nickNameItem.val()) == true) {
-                chkNickMsgItem.html('<p class="chkEmailMsg" id="chkEmailMsg" style="color:blue; margin-top:3px;">사용 가능한 닉네임입니다.</p>');
+                chkNickMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 닉네임입니다.</p>');
+                nickNameCount = count;
+                return nickNameCount;
             } else if (re_nickName.test(nickNameItem.val()) == false) {
-                chkNickMsgItem.html('<p class="chkEmailMsg" id="chkEmailMsg" style="color:red; margin-top:3px;">닉네임 형식이 맞지 않습니다.</p>');
+                chkNickMsgItem.html('<p class="checkMessages" style="color:red;">닉네임 형식이 맞지 않습니다.</p>');
+                nickNameCount = count;
+                return nickNameCount;
             } else if (count == 1) {
-                chkNickMsgItem.html('<p class="chkEmailMsg" id="chkEmailMsg" style="color:red; margin-top:3px;">이미 등록된 닉네임입니다.</p>');
+                chkNickMsgItem.html('<p class="checkMessages" style="color:red;">이미 등록된 닉네임입니다.</p>');
                 nickNameCount = count;
                 return nickNameCount;
             }
@@ -535,11 +599,13 @@ function checkNickName() {
 };
 
 
-addBtn.click(() => {
+
+
+updateBtn.click(() =>  {
 
 // 이메일 검증
 if (emailItem.val() == "") {
-    chkEmailMsgItem.html('<p style="color:red; margin-top:3px;">이메일을 입력해주세요.</p>');
+    chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이메일을 입력해주세요.</p>');
     emailItem.focus();
     return;
 }
@@ -551,7 +617,7 @@ if (re_email.test(emailItem.val()) == false || emailCount == 1) {
 
 // 비밀번호 검사
 if (passwordItem.val() == "") {
-    chkPwMsgItem.html('<p style="color:red; margin-top:3px;">비밀번호를 입력해 주세요.</p>');
+    chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호를 입력해 주세요.</p>');
     pwConfirmItem.val("");
     passwordItem.focus();
     return;
@@ -562,20 +628,21 @@ if (passwordItem.val() == "") {
 	pwConfirmItem.focus();
     return;
 } else if (pwConfirmItem.val() == "") {
-    chkPwMsgItem.html('<p style="color:red; margin-top:3px;">비밀번호 확인을 입력해 주세요.</p>');
+    chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호 확인을 입력해 주세요.</p>');
     pwConfirmItem.focus();
     return;
 } 
 
 // 닉네임 검사
 if (nickNameItem.val() == "") {
-    chkNickMsgItem.html('<p style="color:red; margin-top:3px;">닉네임을 입력해 주세요.</p>');
+    chkNickMsgItem.html('<p class="checkMessages" style="color:red;">닉네임을 입력해 주세요.</p>');
     nickNameItem.focus();
     return;
 } else if (re_nickName.test(nickNameItem.val()) == false) {
-    nickNameItem.focus();
+	nickNameItem.focus();
     return;
 } else if (nickNameCount == 1) {
+    console.log(nickNameCount);
     nickNameItem.focus();
     return;
 }
@@ -584,18 +651,10 @@ if (nickNameItem.val() == "") {
 // 메시지 수신 동의 시 아이디 입력 확인
 if ($("input[name='messageFlag']:checked").val() == 
         '1' && messageIdItem.val() == "") {
-    chkMessageIdItem.html('<p style="color:red; margin-top:3px;">메세지를 수신 받을 카카오톡 ID를 입력해주세요.</p>');
+    chkMessageIdItem.html('<p class="checkMessages" style="color:red;">메세지를 수신 받을 카카오톡 ID를 입력해주세요.</p>');
 	messageIdItem.focus();
    return;
 } 
-
-// 일반회원의 아티스트 입력 항목 값 제거
-if ($("input[name='type']:checked").val() == '일반회원') {
-    artistNameItem.removeAttr('name');
-    artistMemberItem.removeAttr('name');
-    profileItem.removeAttr('name');
-    joinDateItem.removeAttr('name');
-}
 
 // 아티스트 입력 항목 검사
 if ($("input[name='type']:checked").val() == '아티스트') {
@@ -610,9 +669,11 @@ if ($("input[name='type']:checked").val() == '아티스트') {
     } else if (profileItem.val() == "") {
     	chkProfileItem.html("프로필을 입력해주세요.");
     	profileItem.focus();
+    	return;
     } else if (joinDateItem.val() == "") {
     	chkJoinDateItem.html("팀 결성일을 입력해주세요!");
     	joinDateItem.focus();
+    	return;
     }
 }
 
@@ -631,56 +692,6 @@ if ($("input[name='genres']:checked").val() == null) {
 }
 
 var formData = new FormData(formDataItem[0]);
-    $.ajax('../json/member/add', {
-        data: formData,
-        dataType: 'json',
-        method: 'POST',
-        processData: false,
-        contentType: false,
-        success: () => {
-            location.href='list.html';
-        },
-        error: () => {
-            alert("서버 입력 오류!");
-        }
-    });
-});
-
-
-updateBtn.click(() => {
-
-if (emailItem.val() == "" || 
-        passwordItem.val() == "" || 
-            nickNameItem.val() == "") {
-    alert("이메일, 비밀번호, 닉네임은 필수 입력 항목입니다.")
-}
-
-if ($("input[name='messageFlag']:checked").val() == '1') {
-    if (messageIdItem.val() == "") {
-    alert("메시지 수신 아이디를 입력해주세요.")
-   return;
-   }
-}
-
-if ($("input[name='type']:checked").val() == '일반회원') {
-    joinDateItem.removeAttr('name');
-}
-
-if ($("input[name='type']:checked").val() == '아티스트') {
-     if (artistNameItem.val() == "" || artistMemberItem.val() == ""
-        || profileItem.val() == "" || joinDateItem.val() == "") {
-    alert("아티스트의 회원의 *표시 항목은 필수 입력입니다.")
-    return;
-    }
-}
-
-if ($("input[name='areas']:checked").val() == null || 
-        $("input[name='genres']:checked").val() == null) {
-   alert("관심 장르와 지역은 반드시 1개 이상 체크해주세요.")
-   return;
-}
-
-var formData = new FormData(formDataItem[0]);
     $.ajax('../json/member/update', {
         data: formData,
         dataType: 'json',
@@ -688,14 +699,13 @@ var formData = new FormData(formDataItem[0]);
         processData: false,
         contentType: false,
         success: () => {
-            location.href='list.html';
+        	location.href="../index.html";
         },
         error: () => {
-            alert("회원 정보 변경 중 서버 입력 오류!");
+            alert("서버 입력 오류!");
         }
     });
 });
-
 
 
 deleteBtn.click(() => {
