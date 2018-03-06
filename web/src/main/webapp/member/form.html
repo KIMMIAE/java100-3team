@@ -8,12 +8,39 @@
     <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link rel='stylesheet' href='../css/member/cropit.css'>
     <link rel='stylesheet' href='../css/member/memberForm.css'>
+    <link rel='stylesheet' href='../css/style1.css'>
     <!-- <link rel='stylesheet' href='../css/member/memberFormCheckbox.css'> -->
 </head>
-
 <body>
-
-
+<header>
+       <div class="main-nav">
+            <a href="../index.html"><img class="logo-img" src="../index-image/play-button.png"></a>
+            <div class="nav-right" id="nav-right">
+            <a href="../member/form.html">회원가입</a>
+            <a href="../auth/loginform.html">로그인</a>
+            </div>
+            <div class="nav-text" id="nav-text">
+                <a href="../performance/list.html">
+                <img src="../index-image/text/text_01.png" alt="">
+                </a>
+                <a href="../performanceReview/list.html">
+                <img src="../index-image/text/text_02.png" alt="">
+                </a>
+                <a href="../performanceReview/list.html">
+                <img src="../index-image/text/text_03.png" alt="">
+                </a>
+                <a href="../performance/form.html">
+                <img src="../index-image/text/text_04.png" alt="">
+                </a>
+                <a href="../grape/list.html">
+                <img src="../index-image/text/text_05.png" alt="">
+                </a>
+<!--                <a href="../request/form.html">공연요청</a>-->
+            </div>
+            </div>
+            <div class="clearfix">
+        </div>
+</header>
 <div class="joinbox">
   <h1>Registration</h1>
 
@@ -42,7 +69,7 @@
   <div id="personalInfoDiv">
   
   <div id="emailDiv">
-    <label id="icon" for="email"><i class="icon-envelope "></i></label>
+    <label id="icon" for="email"><i class="icon-envelope"></i></label>
     <input type="email" id='email' name="email" onkeyup="checkEmail()" placeholder="example@email.com" required/>
     <div class="checkMessages" id="chkEmailMsg"></div>
   </div>
@@ -95,7 +122,8 @@
   <div class="checkMessages" id="chkProfile"></div>
 
   <label id="icon" for='joinDate'><i class="icon-male"></i></label>
-  <input id='joinDate' type='date' name='artist.joinDate' value="" placeholder="팀 결성 날짜">
+  <input id='joinDate' type='date' placeholder="팀 결성 날짜">
+  <!-- name='artist.joinDate' -->
   <div class="checkMessages" id="chkJoinDate"></div>
 
   </div>
@@ -107,28 +135,28 @@
   <div id="areasDiv">
   
     <input type='checkbox' id='areas1' name='areas' value='홍대'>
-    <label for='areas'>홍대</label>
+    <label for='areas1' class="checkbox">홍대</label>
     
     <input type='checkbox' id='areas2' name='areas' value='대학로'>
-    <label for='areas'>대학로</label>
+    <label for='areas2' class="checkbox">대학로</label>
     
     <input type='checkbox' id='areas3' name='areas' value='신촌'>
-    <label for='areas'>신촌</label>
+    <label for='areas3' class="checkbox">신촌</label>
     
     <input type='checkbox' id='areas4' name='areas' value='건대'>
-    <label for='areas'>건대</label>
+    <label for='areas4' class="checkbox">건대</label>
     
     <input type='checkbox' id='areas5' name='areas' value='한강공원'>
-    <label for='areas'>한강공원</label>
+    <label for='areas5' class="checkbox">한강공원</label>
     
     <input type='checkbox' id='areas6' name='areas' value='뚝섬유원지'>
-    <label for='areas'>뚝섬유원지</label>
+    <label for='areas6' class="checkbox">뚝섬유원지</label>
     
     <input type='checkbox' id='areas7' name='areas' value='보라매'>
-    <label for='areas'>보라매</label>
+    <label for='areas7' class="checkbox">보라매</label>
     
     <input type='checkbox' id='areas8' name='areas' value='신림역'>
-    <label for='areas'>신림역</label>
+    <label for='areas8' class="checkbox">신림역</label>
     
     <div class="checkMessages" id="chkAreas" style="color:red;"></div>
   </div>
@@ -140,28 +168,28 @@
   <div id="genresDiv">
   
     <input type='checkbox' id='genre1' name='genres' value='솔로'>
-    <label for='genres'>솔로</label>
+    <label for='genre1' class="checkbox">솔로</label>
     
     <input type='checkbox' id='genre2' name='genres' value='그룹'>
-    <label for='genres'>그룹</label>
+    <label for='genre2' class="checkbox">그룹</label>
     
     <input type='checkbox' id='genre3' name='genres' value='발라드'>
-    <label for='genres'>발라드</label>
+    <label for='genre3' class="checkbox">발라드</label>
     
     <input type='checkbox' id='genre4' name='genres' value='R & B'>
-    <label for='genres'>R & B</label>
+    <label for='genre4' class="checkbox">R & B</label>
     
     <input type='checkbox' id='genre5' name='genres' value='락'>
-    <label for='genres'>락</label>
+    <label for='genre5' class="checkbox">락</label>
     
     <input type='checkbox' id='genre6' name='genres' value='랩'>
-    <label for='genres'>랩</label>
+    <label for='genre6' class="checkbox">랩</label>
     
     <input type='checkbox' id='genre7' name='genres' value='개그'>
-    <label for='genres'>개그</label>
+    <label for='genre7' class="checkbox">개그</label>
     
     <input type='checkbox' id='genre8' name='genres' value='마술'>
-    <label for='genres'>마술</label>
+    <label for='genre8' class="checkbox">마술</label>
 <div class="checkMessages" id="chkGenres" style="color:red;"></div>
 </div>
 </div>
@@ -171,7 +199,7 @@
    <button id="addBtn" type="button">회원 가입</button>
   </form>
 </div>
-
+<footer></footer>
 <!-- 크로핏용 제이쿼리 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
@@ -189,6 +217,6 @@
 <script src="../node_modules/cropit/dist/jquery.cropit.js"></script>
 
 <!-- 메인 스크립트 -->
-<script src="../js/memberForm.js"></script>
+<script src="../js/member/memberForm.js"></script>
 </body>
 </html>

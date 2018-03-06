@@ -1,8 +1,5 @@
 var formDataItem = $('#formData'),
     addBtn = $('#addBtn'),
-    updateBtn = $('#updateBtn'),
-    deleteBtn = $('#deleteBtn'),
-    
     cuttingBtn = $('#cuttingBtn'),
     
     /* input의 id 변수들 */
@@ -48,19 +45,7 @@ var formDataItem = $('#formData'),
     nickNameCount = null,
     conPw = null,
     completConfirm = null;
-    
-    /* 크로핏 기본 이미지용 변수 */
-    
-   
-     
-    /*,
-    interestAreasItem = $("input:checkbox[name=checkParam]:checked");
-    interestgenresItem = []; */
-    
-    
 
-    
-      
 $('footer').load('../footer.html');
 
 imageCropperItem.cropit({
@@ -107,144 +92,17 @@ $("#type2").click(function(){
 
 var index = location.href.indexOf('?');
 
-if (index != -1) { // 기존 데이터를 조회할 경우,
-    var qs = location.href.substr(index + 1);
-    var arr = qs.split('=');
-   
-    $('.my-new').css('display', 'none');
-    $(() => {
-        $.ajax('../json/member/' + arr[1], {
-            dataType: 'json',
-            success: (result) => {
-                noItem.val(result.member.no);
-                emailItem.val(result.member.email);
-                /* passwordItem.val(result.member.password); */
-                nickNameItem.val(result.member.nickName);
+if (index != -1) {
 
-                if (result.member.messageFlag == '1') {
-                    messageFlag1Item.prop("checked", true);
-                    $("#messageIdDiv").show();
-                } else {
-                    messageFlag2Item.prop("checked", true);
-                    $("#messageIdDiv").hide();
-                }
+window.alert("잘못된 요청입니다.");
 
-                messageIdItem.val(result.member.messageId);
+location.href='form.html';
 
-                if (result.member.type == "아티스트") {
-                    type2Item.prop("checked", true);
-                    $("#artistInfoDiv").show();
-                    artistNameItem.val(result.member.artist.artistName);
-                    artistMemberItem.val(result.member.artist.artistMember);
-                    profileItem.val(result.member.artist.profile);
-                    joinDateItem.val(formatDate(result.member.artist.joinDate));
-
-                } else {
-                    type1Item.prop("checked", true);
-                }
-
-
-                var areas = [];
-                var i = 0;
-                for (var info of result.arealist) {
-                    areas[i++] = info.areaName;
-
-                    var objAreas = document.getElementsByName("areas");
-                    for (i = 0; i < objAreas.length; i++) {
-                        for (j = 0; j < areas.length; j++) {
-                            if (objAreas[i].value == "홍대" && areas[j] == "홍대") {
-                                objAreas[i].checked = true;
-                            }
-                            if (objAreas[i].value == "대학로" && areas[j] == "대학로") {
-                                objAreas[i].checked = true;
-                            }
-                            if (objAreas[i].value == "신촌" && areas[j] == "신촌") {
-                                objAreas[i].checked = true;
-                            }
-                            if (objAreas[i].value == "건대" && areas[j] == "건대") {
-                                objAreas[i].checked = true;
-                            }
-                            if (objAreas[i].value == "한강공원" && areas[j] == "한강공원") {
-                                objAreas[i].checked = true;
-                            }
-                            if (objAreas[i].value == "뚝섬유원지" && areas[j] == "뚝섬유원지") {
-                                objAreas[i].checked = true;
-                            }
-                            if (objAreas[i].value == "보라매" && areas[j] == "보라매") {
-                                objAreas[i].checked = true;
-                            }
-                            if (objAreas[i].value == "신림역" && areas[j] == "신림역") {
-                                objAreas[i].checked = true;
-                            }
-                        }
-                    }
-                }
-
-                var genres = [];
-                i = 0;
-
-                for (var info of result.genrelist) {
-                    genres[i++] = info.genreName;
-                    var objGenre = document.getElementsByName("genres");
-                    
-                    for (i = 0; i < objGenre.length; i++) {
-                        
-                        for (j = 0; j < genres.length; j++) {
-                            if (objGenre[i].value == "솔로" && genres[j] == "솔로") {
-                                objGenre[i].checked = true;
-                            }
-                            if (objGenre[i].value == "그룹" && genres[j] == "그룹") {
-                                objGenre[i].checked = true;
-                            }
-                            if (objGenre[i].value == "발라드" && genres[j] == "발라드") {
-                                objGenre[i].checked = true;
-                            }
-                            if (objGenre[i].value == "R & B" && genres[j] == "R & B") {
-                                objGenre[i].checked = true;
-                            }
-                            if (objGenre[i].value == "락" && genres[j] == "락") {
-                                objGenre[i].checked = true;
-                            }
-                            if (objGenre[i].value == "랩" && genres[j] == "랩") {
-                                objGenre[i].checked = true;
-                            }
-                            if (objGenre[i].value == "개그" && genres[j] == "개그") {
-                                objGenre[i].checked = true;
-                            }
-                            if (objGenre[i].value == "마술" && genres[j] == "마술") {
-                                objGenre[i].checked = true;
-                            }
-                        }
-                    }
-                }
-            },
-            error: () => {
-                window.alert('서버 실행 오류!');
-            }
-        });
-    });
-
-} else { // 신규 데이터 입력일 경우,
-    $('.my-view').css('display', 'none');
-}
-
-function formatDate(json) {
-    var jsonDate = new Date(json);
-    return jsonDate.getFullYear() + '-' +
-    pad((jsonDate.getMonth() + 1), 2) + '-' +
-    pad(jsonDate.getDate(), 2);
-}
-
-function pad(n, width) {
-    n = n + '';
-    return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
 }
 
 var re_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 var re_password = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,18}/;
 var re_nickName = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/;
-
-
 
 function checkEmail() {
     $.ajax({
@@ -254,8 +112,6 @@ function checkEmail() {
             email: emailItem.val()
         },
         success: function (count) {
-        	console.log(count);
-        	
             if (count == 0 && re_email.test(emailItem.val()) == true) {
             	chkEmailMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 이메일입니다.</p>');
             	emailCount = count;
@@ -295,6 +151,10 @@ function confirmPassword() {
         chkPwMsgItem.html('<p class="checkMessages" style="color:blue;">비밀번호 확인 일치!</p>');
         completConfirm = true;
         return completConfirm;
+    } else if (re_password.test(pwConfirmItem.val()) == false) {
+        chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호는 영문/숫자/특수문자 조합 6~18자입니다.</p>');
+        completConfirm = false;
+        return completConfirm;
     } else {
         chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호 확인 불일치!</p>');
         completConfirm = false;
@@ -330,7 +190,10 @@ function checkNickName() {
     });
 };
 
-
+function pad(n, width) {
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+}
 
 
 addBtn.click(() => {
@@ -358,7 +221,6 @@ if (nickNameItem.val() == "") {
 	nickNameItem.focus();
     return;
 } else if (nickNameCount == 1) {
-    console.log(nickNameCount);
     nickNameItem.focus();
     return;
 }
@@ -424,6 +286,11 @@ if ($("input[name='genres']:checked").val() == null) {
 }
 
 var formData = new FormData(formDataItem[0]);
+	
+	if (joinDateItem.val() != "") {
+		formData.append("artist.joinDate", joinDateItem.val() + " 00:00");
+	}
+	
     $.ajax('../json/member/add', {
         data: formData,
         dataType: 'json',

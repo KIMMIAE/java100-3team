@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,8 @@ public class MemberController {
     @Autowired ServletContext servletContext;
     @Autowired ServletRequest pageContext;
     @Autowired MemberService memberService;
+    
+    static Logger logger = Logger.getLogger(MemberController.class);
     
     @RequestMapping("list")
     public Object list(
@@ -95,6 +98,8 @@ public class MemberController {
             @RequestParam(value="base64Image",required=false) String base64Image,
                        @RequestParam(value="areas", required=false) List<String> areas,
                        @RequestParam(value="genres", required=false) List<String> genres) throws Exception {
+        
+        logger.debug("debug.....");
         
         if (!base64Image.isEmpty()) {
             
@@ -174,9 +179,9 @@ public class MemberController {
             
             member.setPhoto(filename);
             
-            ThumbnailMaker.thumbnailMaker(100, 100, uploadDir, filename, "t1");
-            ThumbnailMaker.thumbnailMaker(200, 200, uploadDir, filename, "t2");
-            ThumbnailMaker.thumbnailMaker(300, 300, uploadDir, filename, "t3");
+            ThumbnailMaker.thumbnailMaker(70, 70, uploadDir, filename, "70");
+            ThumbnailMaker.thumbnailMaker(150, 150, uploadDir, filename, "150");
+            ThumbnailMaker.thumbnailMaker(200, 200, uploadDir, filename, "200");
         }
         
         /*if (!file.isEmpty()) {
