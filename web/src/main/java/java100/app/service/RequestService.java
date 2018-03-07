@@ -15,7 +15,7 @@ import java100.app.domain.request.Request;
 //가능한 업무 용어를 사용한다.
 //
 public interface RequestService {
-    List<Request> list(int pageNo, int pageSize, Map<String,Object> options);
+    List<Request> list(int no,int pageNo, int pageSize, Map<String,Object> options);
     Request get(int no);
     int getTotalCount();
     int add(Request request);
