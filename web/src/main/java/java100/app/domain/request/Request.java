@@ -9,7 +9,6 @@ public class Request {
     protected String title;
     protected String detailDesc;
     protected String genre;
-    /*protected Date entryDate;*/
     protected String entryDate;
     protected String location;
     protected String specialDesc;

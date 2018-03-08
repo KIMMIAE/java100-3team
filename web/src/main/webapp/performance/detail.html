@@ -17,8 +17,17 @@
 body * {
   box-sizing: border-box;
 }
+
+
+
+.imglist {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+}
+
 span{margin: 20px;}
-.w3-third{width:500px;}
+.w3-third{width:400px;}
 .w3-twothird{width:400px;}
 #detail-td1{width:100px;}
 #detail-td1{width:100px;}
@@ -235,55 +244,28 @@ span{margin: 20px;}
     
         <div class='css3-tab-content tab-one'>
             <div class='w3-third' style='border: 2px solid white'> 
-                <div id='map_canvas' style='width:400px; height:350px; border: 2px solid white'></div>
+                <div id='map_canvas' style='width:350px; height:300px; border: 2px solid white'></div>
             </div>
         
         </div>
         <div class='css3-tab-content tab-two'></div>
         <div class='css3-tab-content tab-three'></div>
         <div class='css3-tab-content tab-four'>
-
-            <form id="formjjim">
-            
-            <div class='form-group row my-jjim jjim'>
-            <label class='col-sm-2 col-form-label'></label>
-            <div class='col-sm-10'>
-                <button id='jjim' type="button" class='btn btn-primary btn-sm jjim'>찜하기</button>
-                <span></span>
-                
-                <button id='share' type="button" class='btn btn-primary btn-sm jjim'>공유하기</button>
-                <span></span>
-                
-                <label for='rating' class='col-sm-2 col-form-label rating'></label>
-                <input class='col-sm-2 rating' type='number' min="-10" max="100" id='rating' name='rating' value=''>
-                <button id="ratingBtn"type="button" class='btn btn-primary btn-sm rating'>점수주기</button>
-                
-            </div>
-            </div>
-            
-            
-            <!-- <div id="rating" class="form-row">
-                <div class="col">
-                <input class='"form-control mb-2 mr-sm-2 rating' id='rating' type='number' min="-10" max="100" name='rating' value=''>
-                </div>
-                <div class="col">
-                <button id="ratingBtn"type="button" class='btn btn-primary btn-sm rating'>점수주기</button>
-                </div>
-            </div> -->
-            
-            <!-- <div class='form-group row ripple'>
-            <label for='ripple' class='col-sm-2 col-form-label'>댓글</label>
-            <div class='col-sm-10'>
-            <textarea class='form-control' id='ripple' name='ripple' value=''></textarea>
-            <button id="rippleBtn"type="button" class='btn btn-primary btn-sm'>등록</button>
-            </div>
-            </div> -->
-            
-            </form>
-            
             
             
             <div id="comment" data-role="collapsible">
+                
+                <form id="formjjim">
+                <div class='form-control' style="border:1px solid #eee; height:80px; padding-top:20px; background-color: #eee">
+                    <button id='jjimBtn' type="button" class='btn btn-primary btn-sm' style="width:75px;" name='jjim' >찜하기</button>
+                    <button id='shareBtn' type="button" class='btn btn-primary btn-sm' name='share'>공유하기</button>
+                    
+                    <label for='rating' class='col-sm-2 col-form-label rating'></label>
+                    <input class='col-sm-2 rating' type='number' min="-10" max="100" id='rating' name='rating' value=''>
+                    <button id="ratingBtn" type="button" class='btn btn-primary btn-sm rating'>점수주기</button>
+                </div>
+                </form>
+                
                 <h3>댓글</h3>
             
                 <!-- <form id="comment_new_form" method="post" action="https://opentutorials.org/comment/add_ajax" data-ajax="true"> -->
@@ -317,8 +299,8 @@ span{margin: 20px;}
                             <!-- <input type="hidden" name="course_id" value="0">
                             <input type="hidden" name="module_id" value="1976">
                             <input type="hidden" name="topic_id" value="0"> -->
+                            <button id="rippleBtn"type="button" class='btn btn-primary btn-sm' style="float:left">댓글달기</button>
             
-                            <button id="rippleBtn"type="button" class='btn btn-primary btn-sm' style="float:right">댓글달기</button>
                         </div>
                     </div>
                 </form>
@@ -360,9 +342,12 @@ var performInfo = {},
     noItem = $('#no'),
     mediatable = $('#media-table');
     detailtable = $('#detail-table');
+    sponsorBtn = $('#sponsorBtn'),
     updateBtn = $('#updateBtn'),
     deleteBtn = $('#deleteBtn'),
+    jjimBtn = $('#jjimBtn'),
     rippleBtn = $('#rippleBtn'),
+    ratingBtn = $('#ratingBtn'),
     jjimItem = $('#jjim'),
     ratingItem = $('#rating'),
     rippleItem = $('#ripple'),
@@ -398,18 +383,19 @@ function load() {
                 async : false,
                 success: (result) => {
                     
-	                // 다른 함수에서 사용
-	                performInfo = result.data;
-	                    
+                    // 다른 함수에서 사용
+                    performInfo = result.data;
+                    console.log(performInfo);
+                        
                     var filename;
-	                for(var media of performInfo.medias) {
-	                    if (media.filename == null) {
-	                        filename = 'no_img.jpg';
-	                    } else {
-	                        filename = media.filename;
-	                    }
-	                };
-	                
+                    for(var media of performInfo.medias) {
+                        if (media.filename == null) {
+                            filename = 'no_img.jpg';
+                        } else {
+                            filename = media.filename;
+                        }
+                    };
+                    
                     for (var data of performInfo.medias) {
                         if (data.filename != null) {
                             //mediasItem.append("<img src='../download/" + data.filename + "' height=100>");
@@ -425,7 +411,7 @@ function load() {
                     //imagetable
                     mediatable.html("");
                     $('<tr>').html(
-                        "<img src='../download/" + filename + "'style='width:400px'>"
+                        "<img src='../download/" + filename + "'style='width:350px'>"
                         //"<img src='../download/no_img.jpg' style='width:300px'>" +
                     ).appendTo(mediatable);
 
@@ -443,7 +429,7 @@ function load() {
                     
                     $('<tr>').html(
                             "<td id='detail-td1'>" + "공연 날짜" + "</td>" +
-                            "<td id='detail-td2'>" + formatDate(performInfo.entryDate, 2) + "</td>"
+                            "<td id='detail-td2'>" + formatDate(performInfo.entryDate, 3) + "</td>"
                     ).appendTo(detailtable);
                     
                     $('<tr>').html(
@@ -491,8 +477,7 @@ function load() {
                     
                     $('.tab-two').append(
                         "<div class='w3-third' style='width:400px'>" +
-                        "<img src='../download/" + performInfo.writer.photo + "' width=200><br>" +
-                        //"<img src='../download/no_img.jpg' style='width:300px'>" +
+                        "<img src='../download/" + performInfo.writer.photo + "' width=300><br>" +
                         "</div>" +
                         "<div class='w3-twothird'>" +
                         "<table id='detail-table' class='w3-table w3-striped w3-white'>" +
@@ -510,8 +495,11 @@ function load() {
                         "</tr>" +
                         "<tr>" +
                         "<td id='detail-td1' style='background:white'>" + "결성일" + "</td>" +
-                        "<td id='detail-td2' style='background:white'>" + formatDate(performInfo.artist.joinDate, 0) + "</td>" +
+                        "<td id='detail-td2' style='background:white'>" + formatDate(performInfo.artist.joinDate, 2) + "</td>" +
                         "</tr>" +
+                        "<td>" +
+                        "<button id='sponsorBtn' type='button' class='btn btn-primary btn-sm my-view'>후원하기</button>" +
+                        "</td>" +
                         "</table>" +
                         "</div>"
                     );
@@ -529,63 +517,83 @@ function load() {
                         //"<p>" + performInfo.specialDesc
                     );
                     
+                    // 찜
+                    $.ajax('../json/performance/viewjjim', {
+                        data: {
+                            //performanceNo: noItem.val()
+                            performanceNo: pagearr[1]
+                        },
+                        dataType: 'json',
+                        method: 'POST',
+                        success: (result) => {
+                            if (result.jjimFlag == '1') {
+                                jjimBtn.text("찜");
+                            } else {
+                                jjimBtn.text("찜하기");
+                            }
+                        },
+                        error: () => {
+                            window.alert('viewjjim 서버 실행 오류!');
+                        }
+                    });
+                    
+                    // 평점
+                    $.ajax('../json/performance/checkrating', {
+                        data: {
+                            //performanceNo: noItem.val()
+                            performanceNo: pagearr[1]
+                        },
+                        dataType: 'json',
+                        method: 'POST',
+                        success: (result) => {
+                            if (result.rating == 1) {
+                                $('.rating').css('display', 'none');
+                            }
+                        },
+                        error: () => {
+                            window.alert('checkrating 서버 실행 오류!');
+                        }
+                    });
+                    
+                    // 리플
+                    $.ajax('../json/performance/viewripple', {
+                        data: {
+                            //performanceNo: noItem.val(),performInfo.no
+                            performanceNo: pagearr[1]
+                        },
+                        dataType: 'json',
+                        method: 'POST',
+                        success: (result) => {
+                            
+                            ripplelist.html("");
+                            
+                            for (var data of result.list) {
+                                $('<tr>').html(
+                                    "<td>" + 
+                                        "<img class='imglist' src='../download/" + data.writer.photo + "' height=30px>" + "</td>" +
+                                    "<td>"  + data.writer.nickName + "<span>"+ formatDate(data.regDate, 1) + "</spna>" +
+                                        "<div>" + data.ripple +
+                                    "</td>"
+                                ).appendTo(ripplelist);
+                            }
+                        },
+                        error: () => {
+                            window.alert('viewripple 서버 실행 오류!');
+                        }
+                    });
+                    
+                    
                     
                     if (loginUser.no != result.data.writer.no ) {
                         $('.my-view').css('display', 'none');
                     }
                     $('#formData').css('display', 'none');
+
                 },
                 error: () => {
                     window.alert('view 서버 실행 오류!');
                 }
             });
-        });
-        
-        
-        
-
-        // 리플
-        $.ajax('../json/performance/viewripple', {
-            data: {
-                //performanceNo: noItem.val(),performInfo.no
-                performanceNo: pagearr[1]
-            },
-            dataType: 'json',
-            method: 'POST',
-            success: (result) => {
-                
-                ripplelist.html("");
-                
-                for (var data of result.list) {
-                    
-                    $('<tr>').
-                        html(
-                            "<td>" + 
-                                "<img src='../download/" + data.writer.photo + "' height=50>" + "</td>" +
-                            "<td>"  + data.writer.nickName + "<span>"+ formatDate(data.regDate, 3) + "</spna>" +
-                                "<div>" + data.ripple +
-                            "</td>"
-                        ).appendTo(ripplelist);
-                    /* $('.tab-four').append(
-                            "<tr>" +
-                            "<td>" + 
-                                "<img src='../download/" + data.writer.photo + "' height=50>" + "</td>" +
-                            "<td>"  + data.writer.nickName + "<span>"+ formatDateTime(data.regDate) + "</spna>" +
-                                "<div>" + data.ripple +
-                            "</td>" +
-                            "</tr>"
-                    ); */
-                    
-                    /* $('<tr>').html("<hr>").appendTo(ripplelist);
-                    $('<p>').html("</p>").appendTo(ripplelist);
-                    $('<tr>').html(data.writer.nickName + "</tr>").appendTo(ripplelist);
-                    $('<tr>').html(data.ripple + "</tr>").appendTo(ripplelist);
-                    $('<tr>').html(formatDateTime(data.regDate) + "</tr>").appendTo(ripplelist); */
-                }
-            },
-            error: () => {
-                window.alert('viewripple 서버 실행 오류!');
-            }
         });
         
         
@@ -626,6 +634,11 @@ addBtn.click(() => {
     });
 });
 # form */
+
+/* sponsorBtn.click(() => { */
+$(document).on("click","#sponsorBtn",function() {
+    location.href = "../sponsor/form.html?no="+ performInfo.no;
+});
 
 
 updateBtn.click(() => {
@@ -671,24 +684,34 @@ updateBtn.click(() => {
 });
 
 
-$('#jjim').click(function() {
+$('#jjimBtn').click(function() {
     var flag;
     
-    if($(this).is(':checked')) {
+    /* if($(this).is(':checked')) {
         flag = '1';
     } else {
         flag = '0';
+    } */
+    
+    if (jjimBtn.text() == "찜하기") {
+        flag = "1";
+    } else {
+        flag = "0";
     }
     
     $.ajax('../json/performance/jjim', {
         data: {
             performanceNo: noItem.val(),
-            //memberNo: memberNoItem.val(),
-            jjimFlag: flag,
+            memberNo: loginUser.no,
+            jjimFlag: flag
         },
         dataType: 'json',
         success: (result) => {
-            //location.href = "list.html";
+            if (jjimBtn.text() == "찜하기") {
+                jjimBtn.text("찜");
+            } else {
+                jjimBtn.text("찜하기");
+            }
         },
         error: () => {
             window.alert('서버 실행 오류!');
@@ -700,7 +723,7 @@ ratingBtn.click(() => {
     $.ajax('../json/performance/addrating', {
         data: {
             performanceNo: noItem.val(),
-            //memberNo: memberNoItem.val(),
+            memberNo: loginUser.no,
             score: ratingItem.val()
         },
         dataType: 'json',
@@ -720,7 +743,7 @@ rippleBtn.click(() => {
     $.ajax('../json/performance/addripple', {
         data: {
             performanceNo: noItem.val(),
-            //memberNo: memberNoItem.val(),
+            memberNo: loginUser.no,
             ripple: rippleItem.val()
         },
         dataType: 'json',
@@ -731,7 +754,7 @@ rippleBtn.click(() => {
             $.ajax('../json/performance/viewripple', {
                 data: {
                     performanceNo: noItem.val(),
-                    //memberNo: memberNoItem.val()
+                    //memberNo: loginUser.no,
                 },
                 dataType: 'json',
                 method: 'POST',
@@ -757,8 +780,6 @@ rippleBtn.click(() => {
                     window.alert('viewripple 서버 실행 오류!');
                 }
             });
-            
-            window.alert('addripple 서버 실행 성공!');
         },
         error: () => {
             window.alert('addripple 서버 실행 오류!');
@@ -772,49 +793,56 @@ function formatDate(jason, typedt) {
     var strval;
     
     if (typedt == 0) {
-        strval = jasondate.getFullYear() + '년' + 
-                 (jasondate.getMonth() + 1) + '월' + 
-                 jasondate.getDate() + '일';
-    }
-    else if (typedt == 1) {
-        if (jasondate.getMinutes() == 0) {
-            strval = jasondate.getFullYear() + '년' + 
-                     (jasondate.getMonth() + 1) + '월' + 
-                     jasondate.getDate() + "일<br/>" +
-                     jasondate.getHours() + '시';
-        } else {
-            strval = jasondate.getFullYear() + '년' + 
-            (jasondate.getMonth() + 1) + '월' +  
-            jasondate.getDate() + "일<br/>" +
-            jasondate.getHours() + '시' +
-            jasondate.getMinutes() + '분';
-        }
-    }
-    else if (typedt == 2) {
-        if (jasondate.getMinutes() == 0) {
-            strval = jasondate.getFullYear() + '년' + 
-                     (jasondate.getMonth() + 1) + '월' + 
-                     jasondate.getDate() + "일 " +
-                     jasondate.getHours() + '시';
-        } else {
-            strval = jasondate.getFullYear() + '년' + 
-            (jasondate.getMonth() + 1) + '월' +  
-            jasondate.getDate() + "일 " +
-            jasondate.getHours() + '시' +
-            jasondate.getMinutes() + '분';
-        }
-    }
-    else if (typedt = 3) {
+        strval = jasondate.getFullYear() + '-' + 
+                 pad((jasondate.getMonth() + 1), 2) + '-' + 
+                 pad(jasondate.getDate(), 2);
+    } else if (typedt == 1) {
         strval = jasondate.getFullYear() + '-' +
-        pad((jasondate.getMonth() + 1), 2) + '-' +
-        pad(jasondate.getDate(), 2) + ' ' +
-        pad(jasondate.getHours(), 2) + ':' +
-        pad(jasondate.getMinutes(), 2) + ':' +
-        pad(jasondate.getSeconds(), 2);
+                 pad((jasondate.getMonth() + 1), 2) + '-' +
+                 pad(jasondate.getDate(), 2) + ' ' +
+                 pad(jasondate.getHours(), 2) + ':' +
+                 pad(jasondate.getMinutes(), 2);
+    } else if (typedt == 2) {
+        strval = jasondate.getFullYear() + '년' + 
+                 pad((jasondate.getMonth() + 1), 2) + '월' + 
+                 pad(jasondate.getDate(), 2) + '일';
+    } else if (typedt == 3) {
+        if (jasondate.getMinutes() == 0) {
+            strval = jasondate.getFullYear() + '년' + 
+                     pad((jasondate.getMonth() + 1), 2) + '월' + 
+                     pad(jasondate.getDate(), 2) + "일 " +
+                     pad(jasondate.getHours(), 2) + '시';
+        } else {
+            strval = jasondate.getFullYear() + '년' + 
+                     pad((jasondate.getMonth() + 1), 2) + '월' + 
+                     pad(jasondate.getDate(), 2) + "일 " +
+                     pad(jasondate.getHours(), 2) + '시'+
+                     pad(jasondate.getMinutes(), 2) + '분';
+        }
+    } else if (typedt == 4) {
+        if (jasondate.getMinutes() == 0) {
+            strval = jasondate.getFullYear() + '년' + 
+                     pad((jasondate.getMonth() + 1), 2) + '월' + 
+                     pad(jasondate.getDate(), 2) + "일<br/>" +
+                     pad(jasondate.getHours(), 2) + '시';
+        } else {
+            strval = jasondate.getFullYear() + '년' + 
+                     pad((jasondate.getMonth() + 1), 2) + '월' + 
+                     pad(jasondate.getDate(), 2) + "일<br/>" +
+                     pad(jasondate.getHours(), 2) + '시' +
+                     pad(jasondate.getMinutes(), 2) + '분';
+        }
+    } else {
+        strval = jasondate.getFullYear() + '-' +
+                 pad((jasondate.getMonth() + 1), 2) + '-' +
+                 pad(jasondate.getDate(), 2) + ' ' +
+                 pad(jasondate.getHours(), 2) + ':' +
+                 pad(jasondate.getMinutes(), 2);
     }
     
     return strval;
 }
+
 
 function pad(n, width) {
     n = n + '';
@@ -828,9 +856,8 @@ function pad(n, width) {
 
 <script>
 function initMap() {
-    var latlng = new google.maps.LatLng(37.49929098029149, 127.0289699802915);
     var map = new google.maps.Map(document.getElementById("map_canvas"), {
-         center: latlng, //{lat: 37.49929098029149, lng: 127.0289699802915},
+         center: { lat: 37.497912049682526, lng: 127.0276288757841 },
          zoom: 15
     });
   
@@ -838,7 +865,7 @@ function initMap() {
 
   
     var marker = new google.maps.Marker({
-        position: latlng, //{lat: 37.49929098029149, lng: 127.0289699802915},
+        position: { lat: 37.497912049682526, lng: 127.0276288757841 },
         map: map,
         title: "performInfo.name",
         //draggable: true,

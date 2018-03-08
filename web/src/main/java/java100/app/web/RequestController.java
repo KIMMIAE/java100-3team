@@ -62,7 +62,7 @@ public class RequestController {
         // view 컴포넌트가 사용할 값을 Model에 담는다.
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("lastPageNo", lastPageNo);
-        model.addAttribute("list", requestService.list(pageNo, pageSize, options));
+        /*model.addAttribute("list", requestService.list(pageNo, pageSize, options));*/
         return "request/list";
     }
 

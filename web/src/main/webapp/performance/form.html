@@ -126,9 +126,9 @@
  
 <div class='form-group row'>
 <div class='col-sm-10'>
-<button id="addBtn" type="button" class='btn btn-primary btn-sm my-new'>공연 추가</button>
+<button id="addBtn" type="button" class='btn btn-primary btn-sm my-new'>공연 등록</button>
 <button id="updateBtn" type="button" class='btn btn-primary btn-sm my-view'>수정 저장</button>
-<button id="deleteBtn" type="button" class='btn btn-primary btn-sm my-view'>수정 취소</button>
+<button id="cancelBtn" type="button" class='btn btn-primary btn-sm'>취소</button>
 </div>
 </div>
 
@@ -152,7 +152,7 @@ var performInfo = {},
     pagearr,
     addBtn = $('#addBtn'),
     updateBtn = $('#updateBtn'),
-    deleteBtn = $('#deleteBtn'),
+    cancelBtn = $('#cancelBtn'),
     noItem = $('#no'),
     nameItem = $('#name'),
     genreItem = $('#genre'),
@@ -227,12 +227,12 @@ function load() {
             });
         });
         $('h1').html("공연 수정");
-        //$('#general-view').css('display', 'none');
+        cancelBtn.text("취소");
         $('.my-new').css('display', 'none');
         
     } else {
         $('h1').html("공연 등록");
-        //$('#general-view').css('display', 'none');
+        cancelBtn.text("취소");
         $('.my-view').css('display', 'none');
     }
 }
@@ -284,22 +284,26 @@ updateBtn.click(() => {
     }
 });
 
-deleteBtn.click(() => {
+cancelBtn.click(() => {
+
+    if (index == -1) {
+        location.href = "list.html";
+    } else {
+        location.href = "detail.html?no="+ performInfo.no;
+    }
     
-    location.href = "detail.html?no="+ performInfo.no;
-    
-    /* if (deleteBtn.text() == "수정 취소") {
+    /* if (cancelBtn.text() == "수정 취소") {
 
         $('h1').html("공연 정보");
         
         $('#formData').css('display', 'none');
         $('#formList').css('display', '');
-        //$('#deleteBtn').css('display', 'none');
+        //$('#cancelBtn').css('display', 'none');
         $('#formjjim').css('display', '');
         $('#comment').css('display', '');
         $('#ripplelist').css('display', '');
         updateBtn.text("공연 수정"); 
-        deleteBtn.text("공연 삭제");
+        cancelBtn.text("공연 삭제");
         
         
         $(() => {

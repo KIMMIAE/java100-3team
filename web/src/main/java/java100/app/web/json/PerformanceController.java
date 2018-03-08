@@ -45,9 +45,9 @@ public class PerformanceController {
             pageNo = 1;
         }
         
-        if (pageSize < 5 || pageSize > 15) {
+        /*if (pageSize < 5 || pageSize > 15) {
             pageSize = 5;
-        }
+        }*/
 
         HashMap<String,Object> options = new HashMap<>();
         if (words != null && words[0].length() > 0) {
