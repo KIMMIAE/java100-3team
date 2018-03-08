@@ -477,7 +477,7 @@ function load() {
                     
                     $('.tab-two').append(
                         "<div class='w3-third' style='width:400px'>" +
-                        "<img src='../download/" + performInfo.writer.photo + "' width=400><br>" +
+                        "<img src='../download/" + performInfo.writer.photo + "' width=300><br>" +
                         "</div>" +
                         "<div class='w3-twothird'>" +
                         "<table id='detail-table' class='w3-table w3-striped w3-white'>" +
@@ -497,8 +497,10 @@ function load() {
                         "<td id='detail-td1' style='background:white'>" + "결성일" + "</td>" +
                         "<td id='detail-td2' style='background:white'>" + formatDate(performInfo.artist.joinDate, 2) + "</td>" +
                         "</tr>" +
+                        "<td>" +
+                        "<button id='sponsorBtn' type='button' class='btn btn-primary btn-sm my-view'>후원하기</button>" +
+                        "</td>" +
                         "</table>" +
-                        "<button id='sponsorBtn' type='button' class='btn btn-primary btn-sm my-view'>공연 후원하기</button>" +
                         "</div>"
                     );
                     
