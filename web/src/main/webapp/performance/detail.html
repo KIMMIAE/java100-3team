@@ -342,6 +342,7 @@ var performInfo = {},
     noItem = $('#no'),
     mediatable = $('#media-table');
     detailtable = $('#detail-table');
+    sponsorBtn = $('#sponsorBtn'),
     updateBtn = $('#updateBtn'),
     deleteBtn = $('#deleteBtn'),
     jjimBtn = $('#jjimBtn'),
@@ -497,6 +498,7 @@ function load() {
                         "<td id='detail-td2' style='background:white'>" + formatDate(performInfo.artist.joinDate, 2) + "</td>" +
                         "</tr>" +
                         "</table>" +
+                        "<button id='sponsorBtn' type='button' class='btn btn-primary btn-sm my-view'>공연 후원하기</button>" +
                         "</div>"
                     );
                     
@@ -584,6 +586,7 @@ function load() {
                         $('.my-view').css('display', 'none');
                     }
                     $('#formData').css('display', 'none');
+
                 },
                 error: () => {
                     window.alert('view 서버 실행 오류!');
@@ -629,6 +632,11 @@ addBtn.click(() => {
     });
 });
 # form */
+
+/* sponsorBtn.click(() => { */
+$(document).on("click","#sponsorBtn",function() {
+    location.href = "../sponsor/form.html?no="+ performInfo.no;
+});
 
 
 updateBtn.click(() => {
@@ -846,9 +854,8 @@ function pad(n, width) {
 
 <script>
 function initMap() {
-    var latlng = new google.maps.LatLng(37.49929098029149, 127.0289699802915);
     var map = new google.maps.Map(document.getElementById("map_canvas"), {
-         center: latlng, //{lat: 37.49929098029149, lng: 127.0289699802915},
+         center: { lat: 37.497912049682526, lng: 127.0276288757841 },
          zoom: 15
     });
   
@@ -856,7 +863,7 @@ function initMap() {
 
   
     var marker = new google.maps.Marker({
-        position: latlng, //{lat: 37.49929098029149, lng: 127.0289699802915},
+        position: { lat: 37.497912049682526, lng: 127.0276288757841 },
         map: map,
         title: "performInfo.name",
         //draggable: true,
