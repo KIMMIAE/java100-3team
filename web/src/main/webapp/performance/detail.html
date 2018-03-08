@@ -386,7 +386,12 @@ function load() {
                     // 다른 함수에서 사용
                     performInfo = result.data;
                     console.log(performInfo);
-                        
+                    
+                    // google map
+                    console.log(performInfo.mapLatitude);
+                    console.log(performInfo.mapLongitude);
+                    initMap()
+                    
                     var filename;
                     for(var media of performInfo.medias) {
                         if (media.filename == null) {
@@ -858,19 +863,23 @@ function pad(n, width) {
 function initMap() {
     var map = new google.maps.Map(document.getElementById("map_canvas"), {
          center: { lat: 37.497912049682526, lng: 127.0276288757841 },
+         scrollwheel: true,
          zoom: 15
     });
   
     //var infoWindow = new google.maps.InfoWindow({map: map});
 
-  
+                    console.log(performInfo.mapLatitude);
+                    console.log(performInfo.mapLongitude);
     var marker = new google.maps.Marker({
-        position: { lat: 37.497912049682526, lng: 127.0276288757841 },
+        position: { lat: performInfo.mapLatitude, lng: performInfo.mapLongitude },
         map: map,
-        title: "performInfo.name",
+        title: "공연위치",
         //draggable: true,
         animation: google.maps.Animation.DROP
     });
+
+    map.setCenter(marker.position);
 }
 
 </script>

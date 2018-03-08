@@ -146,13 +146,13 @@ function initAutocomplete() {
                 });
                 
                 google.maps.event.addListener(marker, 'dragend', function (event) {
-                    marker.setMap(null);
-                    marker = new google.maps.Marker({
+                    marker.setMap(map);
+                    /* marker = new google.maps.Marker({
                         position: event.latLng,//uluru,
                         map: map,
                         draggable: true,
                         //animation: google.maps.Animation.DROP
-                    });
+                    }); */
                     
                     map.setCenter(event.latLng);
                     console.log("Drag = >  lat : " + event.latLng.lat() + "   lng : " + event.latLng.lng());

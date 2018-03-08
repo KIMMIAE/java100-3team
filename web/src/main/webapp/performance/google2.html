@@ -129,31 +129,34 @@ function initAutocomplete() {
     
     
     // marker mouse drag
-    marker.addListener('dragend', function (event) {
-        marker.setMap(null);
-        marker = new google.maps.Marker({
-            position: event.latLng,
-            map: map,
-            draggable: true,
-            //animation: google.maps.Animation.DROP
-        });
-        
-        map.setCenter(event.latLng);
-        console.log("Drag = >  lat : " + event.latLng.lat() + "   lng : " + event.latLng.lng());
-        
-        var geocoder = new google.maps.Geocoder();
-        
-        geocoder.geocode({ 'latLng': event.latLng }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                if (results[0]) {
-                    console.log(results);
-                    console.log(results[3].formatted_address);
-                    //만약 반환된 결과값이 비어있지 않으면 innerHTML을 이용해 결과값을 출력합니다.
-                }
-            } else {
-                alert("Geocoder failed due to: " + status);
+    marker.addListener('dragend', onMarkerDragend);
+}
+   
+function onMarkerDragend(event) {
+    marker.setMap(map);
+    /* marker = new google.maps.Marker({
+        position: event.latLng,
+        map: map,
+        draggable: true,
+        //animation: google.maps.Animation.DROP
+    });
+    marker.addListener('dragend', onMarkerDragend); */
+    
+    map.setCenter(event.latLng);
+    console.log("Drag = >  lat : " + event.latLng.lat() + "   lng : " + event.latLng.lng());
+    
+    var geocoder = new google.maps.Geocoder();
+    
+    geocoder.geocode({ 'latLng': event.latLng }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+                console.log(results);
+                console.log(results[3].formatted_address);
+                //만약 반환된 결과값이 비어있지 않으면 innerHTML을 이용해 결과값을 출력합니다.
             }
-        });
+        } else {
+            alert("Geocoder failed due to: " + status);
+        }
     });
 }
 
