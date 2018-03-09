@@ -13,6 +13,8 @@
         <result column="pfmgnr"     property="genre"/>
         <result column="pfmdt"      property="entryDate"/>
         <result column="pfmloc"     property="location"/>
+        <result column="mapx"     property="mapLatitude"/>
+        <result column="mapy"     property="mapLongitude"/>
         <result column="pfmdesc"    property="detailDesc"/>
         <result column="spcldesc"   property="specialDesc"/>
         <result column="viewcnt"    property="viewCount"/>
@@ -129,6 +131,8 @@
             t001.pfmgnr,
             t001.pfmdt,
             t001.pfmloc,
+            t001.mapx,
+            t001.mapy,
             t001.pfmdesc,
             t001.spcldesc,
             t001.viewcnt,
@@ -147,8 +151,8 @@
     
     <insert id="insert" parameterType="performance"
         useGeneratedKeys="true" keyColumn="no" keyProperty="no">
-        insert into tb_prfrminfo(artno, pfmnm, pfmgnr, pfmdt, pfmloc, pfmdesc, spcldesc, viewcnt, regdt)
-        values(#{writer.no}, #{name}, #{genre}, #{entryDate}, #{location}, #{detailDesc}, #{specialDesc}, 0, now())
+        insert into tb_prfrminfo(artno, pfmnm, pfmgnr, pfmdt, pfmloc, mapx, mapy, pfmdesc, spcldesc, viewcnt, regdt)
+        values(#{writer.no}, #{name}, #{genre}, #{entryDate}, #{location}, #{mapLatitude}, #{mapLongitude}, #{detailDesc}, #{specialDesc}, 0, now())
     </insert>
     
     <update id="update" parameterType="performance">
@@ -157,6 +161,8 @@
             pfmgnr=#{genre},
             pfmdt=#{entryDate},
             pfmloc=#{location},
+            mapx=#{mapLatitude},
+            mapy=#{mapLongitude},
             pfmdesc=#{detailDesc},
             spcldesc=#{specialDesc},
             regdt=now()
