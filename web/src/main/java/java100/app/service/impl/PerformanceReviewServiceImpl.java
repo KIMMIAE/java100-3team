@@ -91,17 +91,22 @@ public class PerformanceReviewServiceImpl implements PerformanceReviewService {
 
 
 	@Override
-	public void addReviewFiles(List<ReviewFile> reviewFiles, int reviewNo) {
-		  for (ReviewFile reviewMedia : reviewFiles) {
-	            System.out.println(reviewMedia.toString());
-	            reviewMedia.setReviewNo(reviewNo);
-	            reviewFileDao.insert(reviewMedia);
-	        }
-		
+	public List<PerformanceReview> findByArtNo(int no) {
+		return performanceReviewDao.findByArtNo(no);
 	}
 
 
 
+
+    @Override
+    public void addReviewFiles(List<ReviewFile> reviewFiles, int reviewNo) {
+          for (ReviewFile reviewMedia : reviewFiles) {
+                System.out.println(reviewMedia.toString());
+                reviewMedia.setReviewNo(reviewNo);
+                reviewFileDao.insert(reviewMedia);
+            }
+        
+    }
 
 
 

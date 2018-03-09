@@ -129,6 +129,16 @@ public class PerformanceReviewController {
        result.put("loginUser", member);
        return result;
     }
+    
+    
+    @RequestMapping("artNo")
+    public Object findByArtNo(int artNo) throws Exception {
+       
+       HashMap<String, Object> result = new HashMap<>();
+       result.put("list", performanceReviewService.findByArtNo(artNo));
+       return result;
+    }
+    
 
    @RequestMapping("update")
     public Object update(

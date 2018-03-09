@@ -48,7 +48,6 @@
 											<th>번호</th>
 											<th>공연명</th>
 											<th>아티스트명</th>
-											<th>공연장소</th>
 											<th>공연날짜</th>
 										</tr>
 									</thead>
@@ -106,13 +105,6 @@
 					</div>
 				</div>
 
-				<div class='form-group row'>
-					<label for='location' class='col-sm-2 col-form-label'>공연장소</label>
-					<div class='col-sm-10'>
-						<input class='form-control' readonly id='location' type='text'
-							name='performance.location' value=''>
-					</div>
-				</div>
 
 				<div class='form-group row'>
 					<label for='genre' class='col-sm-2 col-form-label'>공연장르</label>
@@ -260,7 +252,6 @@ function save(no){
   performanceNoItem.val(result.data.no),
   $('#name').val(result.data.name),
   $('#artistName').val(result.data.artist.artistName),
-  $('#location').val(result.data.location),
   $('#genre').val(result.data.genre),
   $('#entryDate').val(formatDate(result.data.entryDate)),
   closeBtn.click();
@@ -300,7 +291,6 @@ function search(pageNo, options) {
                           "<img src='../download/" + filename + "' height=50>" + 
                           "<div>" + data.name + "</a></td>" +
                       "<td>" + data.artist.artistName + "</td>" +
-                      "<td>" + data.location + "</td>" +
                       "<td>" + formatDate(data.entryDate) + "</td>")
                   .appendTo(tbody);
           }

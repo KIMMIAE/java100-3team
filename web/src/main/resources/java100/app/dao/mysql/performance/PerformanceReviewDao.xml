@@ -38,10 +38,7 @@
             <result column="filenm"   property="reviewFilename"/>
             <result column="rvwno"   property="reviewNo"/>
         </collection>
-
     </resultMap>
-
-
 
     <insert id="insert" parameterType="performanceReview" 
     useGeneratedKeys="true" keyColumn="rvwno" keyProperty="reviewNo">
@@ -142,6 +139,34 @@
              left join tb_artist r005 on r003.artno=r005.artno
         where r001.rvwno=#{value}
     </select>
+    
+    
+    
+    
+     <select id="findByArtNo" resultMap="PerformanceReviewMap" parameterType="int">
+        select 
+            r001.rvwno,
+            r001.pfmno,
+            r001.regdt,
+            r001.rvwdesc,
+            r002.nicknm,
+            r002.mmbno as m_no,
+            r003.pfmnm,
+            r003.pfmloc,
+            r003.pfmgnr,
+            r003.pfmdt,
+            r003.pfmno as p_no,
+            r004.rvwno as r_no,
+            r004.filenm,
+            r005.artnm
+        from tb_prfrmrvw r001
+             left join tb_memb r002 on r001.mmbno=r002.mmbno
+             left join tb_prfrminfo r003 on r001.pfmno=r003.pfmno
+             left join tb_rvwfile r004 on r001.rvwno=r004.rvwno
+             left join tb_artist r005 on r003.artno=r005.artno
+        where r005.artno=#{value}
+    </select>
+    
     
     <update id="update" parameterType="performanceReview">
         update tb_prfrmrvw set 
