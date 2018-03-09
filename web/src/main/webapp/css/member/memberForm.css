@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, 
-pre, form, fieldset, input, textarea, p, blockquote, th, td { 
+pre, form, fieldset, input, p, blockquote, th, td { 
   padding:0;
   margin:0;}
 
@@ -16,6 +16,7 @@ select {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   color: #4c4c4c;
+  
 }
 
 p {
@@ -24,13 +25,21 @@ p {
   margin-left: 22px;
 }
 
-h1 {
+h2#registration {
   font-size: 32px;
-  font-weight: 300;
+  font-weight: 500;
   color: #4c4c4c;
   text-align: center;
   padding-top: 10px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
+}
+
+p#guidance {
+  font-size: 15px;
+  font-weight: 800;
+  color: red;
+  padding-top: 10px;
+  margin-left: 30px; 
 }
 
 html{
@@ -52,9 +61,9 @@ html{
 
 }
 
-form{
+/* form{
   margin: 0 30px;
-}
+} */
 
 /* 라디오 꾸미기 */
 
@@ -73,7 +82,7 @@ label.radio {
 
 
 label.radio:before {
-  background: #3a57af;
+  background: #1a1c26;
   content:'';
   position: absolute;
   top:2px;
@@ -104,62 +113,18 @@ label.radio:after {
     transform: rotate(-45deg);
 }
 
+label#icon {
+  width: 28px;
+}
+
+i.icon-male {
+  margin-left:2px;
+}
 
 
 input[type=radio]:checked + label:after {
     opacity: 1;
 }
-
-/* 체크박스 꾸미기 */
-
-input[type=checkbox] {
-  visibility: hidden;
-}
-
-label.checkbox {
-  cursor: pointer;
-  text-indent: 35px;
-  overflow: visible;
-  display: inline-block;
-  position: relative;
-  margin-bottom: 15px;
-}
-
-label.checkbox:before {
-  background: #3a57af;
-  content:'';
-  position: absolute;
-  top:2px;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: 100%;
-}
-
-label.checkbox:after {
-    opacity: 0;
-    content: '';
-    position: absolute;
-    width: 0.5em;
-    height: 0.25em;
-    background: transparent;
-    top: 7.5px;
-    left: 4.5px;
-    border: 3px solid #ffffff;
-    border-top: none;
-    border-right: none;
-
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-}
-
-input[type=checkbox]:checked + label:after {
-    opacity: 1;
-}
-
 
 hr{
   color: #a9a9a9;
@@ -167,13 +132,13 @@ hr{
 }
 
 
-input[type=text], input[type=password], input[type=email], input[type=date], textarea {
+input[type=text], input[type=password], input[type=email], input[type=date] {
   width: 240px; 
   height: 39px; 
   -webkit-border-radius: 0px 4px 4px 0px/5px 5px 4px 4px; 
   -moz-border-radius: 0px 4px 4px 0px/0px 0px 4px 4px; 
   border-radius: 0px 4px 4px 0px/5px 5px 4px 4px; 
-  background-color: #fff; 
+  background-color: #fff;
   -webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
   -moz-box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
   box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
@@ -186,38 +151,27 @@ input[type=text], input[type=password], input[type=email], input[type=date], tex
 
 input[type=range] {
   width: 270px; 
-  height: 40px; 
-  margin: 0px 30px; 
+  height: 30px; 
+  margin: 4px 30px; 
   
 }
 
-
-#email::-webkit-input-placeholder{
-  color: red;
+#profile::-webkit-input-placeholder{
+  font-size: 18px;
+  margin-left: 100px;
 }
 
-input[type=password]::-webkit-input-placeholder{
-  color: red;
-}
 
-#nickName::-webkit-input-placeholder{
-  color: red;
-}
 
 input[type=file] {
   margin: 10px 0px 10px 40px ;
 }
 
-
-/* #pwConfirm {
-  margin-bottom: 10px;
-} */
-
 #icon {
   display: inline-block;
   width: 30px;
   height: 23px;
-  background-color: #3a57af;
+  background-color: #1a1c26;
   padding: 10px 0px 7px 15px;
   margin-left: 15px;
   -webkit-border-radius: 4px 0px 0px 4px; 
@@ -236,7 +190,7 @@ input[type=file] {
 }
 
 .accounttype{
-  margin-left: 8px;
+  margin-left: 15px;
   margin-top: 20px;
 }
 
@@ -253,7 +207,7 @@ a.button {
   -webkit-border-radius: 5px; 
   -moz-border-radius: 5px; 
   border-radius: 5px; 
-  background-color: #3a57af; 
+  background-color: #1a1c26; 
   -webkit-box-shadow: 0 3px rgba(58,87,175,.75); 
   -moz-box-shadow: 0 3px rgba(58,87,175,.75); 
   box-shadow: 0 3px rgba(58,87,175,.75);
@@ -276,20 +230,31 @@ a.button:hover {
   font-weight: 800;
   color: white;
   padding: 6px 25px 0px 20px;
-  margin: 10px 8px 0px 13px;
+  margin: 100px 8px 0px 230px;
   display: inline-block;
   text-decoration: none;
   width: 300px; height: 40px; 
   -webkit-border-radius: 5px; 
   -moz-border-radius: 5px; 
   border-radius: 5px; 
-  background-color: #3a57af; 
+  background-color: #1a1c26; 
   -webkit-box-shadow: 0 3px rgba(58,87,175,.75); 
   -moz-box-shadow: 0 3px rgba(58,87,175,.75); 
   box-shadow: 0 3px rgba(58,87,175,.75);
   transition: all 0.1s linear 0s; 
   top: 0px;
   position: relative;
+  
+}
+
+div#messageFlagDiv {
+  margin-top: 5px;
+  margin-bottom: 0px;
+  
+}
+
+div#messageIdDiv {
+	margin-top: -10px; 
 }
 
 #addBtn:hover {
@@ -312,7 +277,7 @@ a.button:hover {
   -webkit-border-radius: 5px; 
   -moz-border-radius: 5px; 
   border-radius: 5px; 
-  background-color: #3a57af; 
+  background-color: #1a1c26; 
   -webkit-box-shadow: 0 3px rgba(58,87,175,.75); 
   -moz-box-shadow: 0 3px rgba(58,87,175,.75); 
   box-shadow: 0 3px rgba(58,87,175,.75);
@@ -344,7 +309,11 @@ label#interestAreas, label#interestgenres {
   display: block;
 }
 
-#interestAreasDiv, #areasDiv, #genresDiv, #interestgenresDiv {
+#interestAreasDiv {
+	margin-top: 50px;
+}
+
+#areasDiv, #genresDiv, #interestgenresDiv {
 	margin-top: 10px;
 }
 

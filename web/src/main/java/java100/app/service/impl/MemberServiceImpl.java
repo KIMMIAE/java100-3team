@@ -109,6 +109,12 @@ public class MemberServiceImpl implements MemberService {
     }
     
     @Override
+    public int getComparePassword() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+    
+    @Override
     public int add(Member member) {
         
         int count = memberDao.insert(member);
@@ -156,7 +162,10 @@ public class MemberServiceImpl implements MemberService {
     
     @Override
     public int updatePassword(Member member) {
-        return 0;
+        
+        int count = memberDao.updatePassword(member);
+        
+        return count;
         
     }
 
@@ -202,6 +211,8 @@ public class MemberServiceImpl implements MemberService {
             interestGenreDao.insert(genre);
         }
     }
+
+
 
 
 

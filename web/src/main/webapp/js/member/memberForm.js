@@ -27,8 +27,8 @@ var formDataItem = $('#formData'),
     /* check div들에 문구를 출력해줄 변수들 */
     
     chkEmailMsgItem = $('#chkEmailMsg'),
-    chkPwMsgItem = $('#chkPwMsg'),
     chkNickMsgItem = $('#chkNickMsg'),
+    chkPwMsgItem = $('#chkPwMsg'),
     chkMessageIdItem = $('#chkMessageId'),
     chkArtistNameItem = $('#chkArtistName'),
     chkArtistMemberItem = $('#chkArtistMember'),
@@ -36,8 +36,12 @@ var formDataItem = $('#formData'),
     chkJoinDateItem = $('#chkJoinDate'),
     chkAreasItem = $('#chkAreas'),
     chkGenresItem = $('#chkGenres'),
-    
     chkImageItem = $('#chkImageMsg'),
+    
+    /* 보이고 숨길 div 태그 변수들 */
+    
+    messageIdDivItem = $("#messageIdDiv"),
+    artistInfoDivItem = $("#artistInfoDiv"),
     
     /* 검증용 변수 */
     
@@ -48,60 +52,66 @@ var formDataItem = $('#formData'),
 
 $('footer').load('../footer.html');
 
-imageCropperItem.cropit({
+var test = imageCropperItem.cropit({
     imageBackground:true, 
     imageBackgroundBorderWidth: 15,
     allowDragNDrop:true,
-    imageState: { src: "../images/dragNdrop.jpg" }
+    smallImage:"allow", 
 });
 
 cuttingBtn.click(function(){
     var imageData = imageCropperItem.cropit('export', {
         type: 'image/jpeg',
-        quality: .9,
+        quality: 1,
         originalSize: true
     });
     
     hiddenImageData.val(imageData);
     
     if (hiddenImageData.val() != "") {
+        $('fakeChkImageMsg').hide;
         chkImageItem.html('<p class="checkMessages" id="cutPhoto">사진 편집이 완료 되었습니다.</p>')
     }
 });
 
-$("#messageFlag1").click(function(){
+$("#artistInfoDiv").hide();
+
+messageFlag1Item.click(function(){
     $("#messageIdDiv").show();
 });
     
-$("#messageFlag2").click(function(){
+messageFlag2Item.click(function(){
     $("#messageIdDiv").hide();
 });
 
-$("#artistInfoDiv").hide();
 
-$("#type1").click(function(){
+
+type1Item.click(function(){
     $("#artistInfoDiv").hide();
+    $("#mainDiv").css("height", "880px");
+    
 });
 
-$("#type2").click(function(){
+type2Item.click(function(){
+	$("#mainDiv").css("height", "1200px");
     $("#artistInfoDiv").show();
+    $("#replacePicture").hide();
 });
 
 
 
-
+/* form으로 view 요청이 왔을 경우 view 페이지로 보냄 */
 var index = location.href.indexOf('?');
 
 if (index != -1) {
     var qs = location.href.substr(index + 1);
     var arr = qs.split('=');
-
-window.alert("잘못된 요청입니다.");
-
+    
 location.href='view.html?no=' + arr[1];
 
 }
 
+/* 검사용 정규표현식 */
 var re_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 var re_password = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,18}/;
 var re_nickName = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/;
@@ -129,7 +139,7 @@ function checkEmail() {
             } 
         },
         error: function () {
-            alert("이메일 체크 중 서버 에러");
+            alert("이메일 중복 체크 중 서버와의 연결 에러");
         }
     });
 };
@@ -187,7 +197,7 @@ function checkNickName() {
             }
         },
         error: function () {
-            alert("닉네임 체크 중 서버 에러");
+            alert("닉네임 중복 체크 중 서버와의 연결 에러");
         }
     });
 };
@@ -198,7 +208,10 @@ function pad(n, width) {
 }
 
 
+
 addBtn.click(() => {
+
+cuttingBtn.trigger('click');
 
 // 이메일 검증
 if (emailItem.val() == "") {
@@ -263,29 +276,32 @@ if ($("input[name='type']:checked").val() == '아티스트') {
     	chkArtistMemberItem.html('<p class="checkMessages" style="color:red;">팀 구성원을 입력해주세요.</p>');
     	artistMemberItem.focus();
     	return;
-    } else if (profileItem.val() == "") {
-    	chkProfileItem.html('<p class="checkMessages" style="color:red;">프로필을 입력해주세요.</p>');
-    	profileItem.focus();
-    	return;
     } else if (joinDateItem.val() == "") {
     	chkJoinDateItem.html('<p class="checkMessages" style="color:red;">팀 결성일을 입력해주세요!</p>');
     	joinDateItem.focus();
     	return;
+    } else if (profileItem.val() == "") {
+    	chkProfileItem.html('<p class="checkMessages" style="color:red;">프로필을 입력해주세요.</p>');
+    	profileItem.focus();
+    	return;
     }
 }
 
-// 관심 장르와 지역 반드시 입력
+// 관심 지역과 장르 반드시 입력
 if ($("input[name='areas']:checked").val() == null) {
-	chkAreasItem.html("관심 장르를 체크해주세요");
+	chkAreasItem.html('<p class="checkMessages" style="color:red;">관심 장르를 체크해주세요.</p>');
 	areasDivItem.focus();
    return;
 }
 
+
 if ($("input[name='genres']:checked").val() == null) {
-	chkGenresItem.html("관심 지역을 체크해주세요.");
+	chkGenresItem.html('<p class="checkMessages" style="color:red;">관심 지역을 체크해주세요.</p>');
 	genresDivItem.focus();
    return;
 }
+
+
 
 var formData = new FormData(formDataItem[0]);
 	
@@ -300,7 +316,8 @@ var formData = new FormData(formDataItem[0]);
         processData: false,
         contentType: false,
         success: () => {
-            location.href='../index.html';
+            alert("회원가입을 완료했습니다!");
+            location.href='../auth/loginform.html';
         },
         error: () => {
             alert("서버 입력 오류!");
