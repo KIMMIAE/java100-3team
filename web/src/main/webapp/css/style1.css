@@ -9,58 +9,26 @@
 a { text-decoration: none; color: #222;}
 body { 
     background-color: #fff; 
-    font-family: 'Nanum Gothic', sans-serif;
-    color: #222;
-/*     font-size: 12px; */
+    font-family: 'Noto Sans','Nanum Gothic';
+    color: #222; 
+}
+header{
+    background-color: black;
+    border: 1px solid black;
+    margin-bottom : 20px;
 }
 .container{
-	width:70%;
-	height: 1000px;
+    width:70%;
+    height: 1000px;
 }
-/** 헤더 수정전
-.main-nav{
-    clear:both;
-    border-bottom: 1px solid lightgray;
-    height: 60px;    
-}
-.main-nav img {
-    width: 100px;
-    margin-top:10px;
-    margin-left:10px;
-    float: left;
-}
-.main-nav {
-    margin: 10px;
-}
-
-.nav-right{
-    width:200px;
-    padding:10px;
-    margin-top:10px;
-    float: right;
-    text-align:right;
-}
-
-.nav-text{
-    margin: auto;
-    width: 600px;
-    padding-top: 10px;
-}
-.main-nav div a{
-    font-size: 16px;
-    padding: 0 10px;
-}
-
-**/
 
 .main-nav{
     clear:both;
-    border-bottom: 1px solid lightgray;
     height: 60px;    
 }
 .logo-img{
-    width: 120px;
-    margin-left:5px;
+    width:150px;
+    margin-top: 5px;
     float: left;
 }
 .main-nav {
@@ -68,13 +36,9 @@ body {
 }
 .nav-right{
     width:200px;
-    margin-top:5px;
+    padding:10px;
     float: right;
     text-align:right;
-}
-.nav-right a:hover{
-	text-decoration: none;
-    color: crimson;
 }
 .nav-right span{
     font-size: 15px;
@@ -82,97 +46,21 @@ body {
     font-weight: bold;
 }
 .nav-right a{
+    color: white;
     font-size: 15px;
     font-weight: bold;
     margin: 5px;
+}
+.nav-right a:hover{
+    color: crimson;
 }
 
 .nav-text{
     margin: auto;
     width: 600px;
-    padding-top: 10px;
+    padding-top: 15px;
 }
 .main-nav div img{
     width: 13%;
     padding: 0 10px;
 }
-
-
-/* 푸터 */
-/* 
-footer {
-	position:absolute;
-    bottom: 0;
-    display:inline-block;
-    background-color: #191919;
-    color: gray;
-    width:100%;
-    padding: 60px;
-    
-}
-.footer-box {
-    width: 800px;
-    hegiht:200px;
-    margin: auto;
-}
-.branch-link {
-    float: left;
-}
-.branch-link a {
-    color: #fff;
-    display: inline-block;
-    font-weight: bold;
-    margin-right: 30px;
-}
-.branch-link a:hover {
-    color: gray;
-}
-.link-sns {
-    overflow: hidden;
-    border-bottom: 1px solid gray;
-    padding-bottom: 20px;
-}
-.sns {
-    float: right;
-}
-.sns a {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    background-color: dimgray;
-    border-radius: 50%;
-    font-size: 14px;
-    margin: 0 5px;
-}
-.sns a:hover {
-    background-color: lightgray;
-}
-.sns i {
-    padding-top: 3px;
-}
-.copyright {
-    margin-top: 10px; 
-}
-.copyright div:nth-child(1) {
-    float: left;
-    margin-top: 10px;
-}
-.copyright div:nth-child(2) {
-    float: right;
-    margin-top: 10px;
-}
-.copyright div:nth-child(1) a {
-    color: #fff
-}
-.copyright div:nth-child(2) a {
-    color: gray;
-    font-size: 11px;
-    display: inline-block;
-    margin: 0 5px;
-    
-}
-.copyright div:nth-child(2) a:hover {
-    color: #fff;
-}
-*/

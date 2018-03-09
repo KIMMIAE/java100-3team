@@ -24,9 +24,6 @@
 <!--                <a href="../request/form.html">공연요청</a>-->
             </div>
             </div>
-            <div class="clearfix">
-        </div>
-
 <script type="text/javascript">
 
 $('#nav-text').find('img').hover(function(){
@@ -39,7 +36,7 @@ $(this).attr("src",$(this).attr("src").replace("-hover_","_"));
 var loginUser = {};
 
 function userInfo(){
-    location.href="../member/form.html?no=" + loginUser.no;
+    location.href="../member/view.html?no=" + loginUser.no;
 }
 
 

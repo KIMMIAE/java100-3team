@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>공연 후기</title>
+<link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../css/style1.css'>
+<link rel='stylesheet' href='../css/review.css'>
+</head>
+<style>
+.list_first {
+    background-color: yellow;
+    border: 1px solid red;
+    padding:30px;
+}
+.Info {
+background-color: gray;
+    margin-bottom:30px;
+    border: 1px solid blue;
+    
+}
+.Info_img {
+/* position: relative;
+top: 60px; */
+width:70px; 
+height:70px;
+border: 1px solid gray;
+border-radius: 70px;
+-moz-border-radius: 70px;
+-khtml-border-radius: 70px;
+-webkit-border-radius: 70px;
+}
+.Info figcaption  {
+display:inline-block; /* position:relative; top:110px; */ right:60px; font-size:17px; line-height:0; font-weight: bold;
+}
+
+</style>
+<body>
+    <div class='container'>
+        <header></header>
+
+        <h1>공연 후기</h1>
+
+        <nav class="navbar navbar-light justify-content-between blackLine"
+         style="margin-bottom: -4px;">
+            <a href='form.html' class='btn btn-primary btn-sm'>추가</a>
+            <form class="form-inline">
+                <input id="words" name="words"
+                    class="form-control form-control-sm mr-sm-2" type="search"
+                    placeholder="검색" aria-label="Search">
+                <button id="searchBtn"
+                    class="btn btn-sm btn-outline-success my-2 my-sm-0" type="button">Search</button>
+            </form>
+        </nav>
+
+<div id="list" class="list_first">
+<div></div>
+</div>
+
+         <footer></footer> 
+<!-- </div> -->
+
+    </div>
+    <script src='../node_modules/jquery/dist/jquery.min.js'></script>
+    <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+    <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+
+    <script type="text/javascript">
+
+var words = $('#words'),
+    searchBtn = $('#searchBtn'),
+    tbody = $('#list > div'),
+    currPageNo = 1;
+
+        load(1)
+    
+function load(pageNo, options) {
+
+if (options == undefined) options = {};
+options.pn = pageNo;
+
+$.ajax('../json/member/list', {
+    method: 'GET',
+    data: options, 
+    dataType: 'json',
+    success: (result) => {
+        tbody.html(""); 
+        var photo;
+        for (var data of result.list) {
+            
+           if(data.type != "아티스트"){
+              return;
+           }
+           
+                if (data.photo == null) {
+                    photo= 'no_img.jpg';
+                }else {
+                    photo = data.photo;
+                }
+                
+              
+            $("<div class='Info artist'>").html("<img class='Info_img' src='../download/" + photo + "'>" +
+                      "<figcaption>" + data.artist.artistName+ "</figcaption></div>" ).appendTo(tbody);
+            }
+        },
+    
+    error: () => {
+        window.alert('서버 실행 오류!');
+    } 
+ });
+
+
+
+function reviewlist(no){
+$.ajax('../json/performanceReview/'+no, {
+    dataType: 'json',
+    success: (result) => {
+       console.log(result.reviewNo)
+    },
+    error: () => {
+    window.alert('서버 실행 오류!');
+        } 
+    });
+       
+    }
+
+
+
+
+function formatDate(json) {
+    var jasondate = new Date(json) 
+
+    return jasondate.getFullYear() + '년 ' + 
+      (jasondate.getMonth() + 1) + '월 ' + 
+      jasondate.getDate() + '일 '  
+    }
+
+
+}
+
+
+
+</script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+

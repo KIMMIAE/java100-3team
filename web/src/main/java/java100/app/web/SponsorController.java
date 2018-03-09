@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java100.app.domain.member.Member;
@@ -21,8 +22,12 @@ public class SponsorController {
     @Autowired SponsorService sponsorService;
     
     @RequestMapping("list")
-    public String list(@ModelAttribute(value="loginUser") Member loginUser,Model model) throws Exception {
-        model.addAttribute("list", sponsorService.list(loginUser.getNo()));
+    public String list( @RequestParam(value="pn", defaultValue="1") int pageNo,
+            @RequestParam(value="ps", defaultValue="5") int pageSize,
+            @RequestParam(value="words", required=false) String[] words,
+            @RequestParam(value="oc", required=false) String orderColumn,
+            @RequestParam(value="al", required=false) String align,@ModelAttribute(value="loginUser") Member loginUser,Model model) throws Exception {
+//        model.addAttribute("list", sponsorService.list(loginUser.getNo()));
         return "sponsor/list";
     }
     
@@ -34,16 +39,12 @@ public class SponsorController {
 
     @RequestMapping(value="add", method=RequestMethod.POST)
     public String add(Sponsor sponsor) throws Exception {
-        System.out.println(sponsor.getMemberNo());
         sponsorService.add(sponsor);
         return "redirect:list";
     }
     
     @RequestMapping("{sponsorNo}")
     public String view(@PathVariable int sponsorNo, Model model) throws Exception {
-        System.out.println(sponsorNo);
-        
-        System.out.println(sponsorService.get(sponsorNo).getSponsorNo());
         model.addAttribute("sponsor", sponsorService.get(sponsorNo));
         return "sponsor/view";
     }

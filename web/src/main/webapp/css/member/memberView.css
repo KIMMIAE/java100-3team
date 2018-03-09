@@ -16,65 +16,28 @@ body {
 .container {
     width: 70%;
     margin: auto;
-    margin-top: 100px;
-}
-
-/** 헤더 **/
-.main-nav{
-    clear:both;
-    border-bottom: 1px solid lightgray;
-    height: 60px;    
-}
-.logo-img{
-    width: 120px;
-    margin-left:5px;
-    float: left;
-}
-.main-nav {
-    margin: 10px;
-}
-.nav-right{
-    width:200px;
-    margin-top:5px;
-    float: right;
-    text-align:right;
-}
-.nav-right a:hover{
-    color: crimson;
-}
-
-.nav-right span{
-    font-size: 15px;
-    color:crimson;
-    font-weight: bold;
-}
-.nav-right a{
-    font-size: 15px;
-    font-weight: bold;
-    margin: 5px;
-}
-.nav-text{
-    margin: auto;
-    width: 600px;
-    padding-top: 10px;
-}
-.main-nav div img{
-    width: 13%;
-    padding: 0 10px;
 }
 
 
+/* left */
+.ul-nav > li{
+    font-size: 25px;
+    padding-bottom: 10px;
+    
+}
+.left-nav li{
+    list-style: none;
+    padding-left: 15px;
+}
 hr{
     width: 700px;
-    margin: auto;
+    margin: 25px auto;
+     
 }
-/* left */
-.left-nav{
-    border-bottom: 1px solid lightgray;
-}
-
 .sub-nav{
     padding-left: 15px;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 15px;
 }
 
 .left-nav{
@@ -86,13 +49,27 @@ hr{
     width:1050px;
     padding-left:50px;
 }
+.table-box{
+    width:700px;
+    margin: auto;
+}
 
+.margin-active{
+    margin-bottom: 330px;
+}
+
+.button-margin{
+    margin-left: 70px;
+}
+
+/*
 .form-group{
     width:700px;
     margin: auto;
 }
 
 .form-control{
-    width:700px;
+    width:500px;
     margin: 5px;
 }
+*/

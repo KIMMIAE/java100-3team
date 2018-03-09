@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>공연 후기</title>
+<link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../css/style1.css'>
+<link rel='stylesheet' href='../css/review.css'>
+</head>
+<style>
+em {font-style:normal;}
+.box1 {
+  width:auto; 
+  height:310px;
+}
+.box1 figure {
+display:inline-block; position:relative; top:0px; font-size:15px; line-height:0; margin-bottom:-20px;
+}
+.box1 figcaption  {
+display:inline-block; position:relative; top:110px; right:60px; font-size:17px; line-height:0; font-weight: bold;
+}
+.box1 ul {
+  position:relative; 
+  list_style:none;
+  margin-top:-66px;
+ }
+.box1 ul li {
+  list-style: none; 
+  border-bottom-width : 0.1px;
+  border-bottom-style : solid;
+  border-bottom-color : gray;  }
+.box1 ul li:after   {display:block; clear:both; content:"";}
+.box1 .info {float:left; width:300px;  list-style: none; margin-left:75px; padding:55px 0px 20px 20px;}
+.box1 .info a   {color:#222; font-size:12px; line-height:24px;} 
+.box1 .info a:hover, .box1 .info a:hover .date  {color:#e64e5d; text-decoration: none;}
+.box1 .info em, .box1 .info span    {display:block; word-wrap:break-word;}
+.box1 .info .tit01  {font-size:26px; line-height:32px;}
+.box1 .info .tit02  {margin-top:12px; width:280px;}
+.box1 .info .date   {display:block; margin-top:10px; color:#909090; font-size:14px; margin-right:-26px;}
+.box1 .thumbnail img {  float:right; 
+  width:734px; 
+  height:300px;
+  display: block;
+  }
+
+.blackLine {
+  width:auto;
+  border-bottom-width : 0.2em;
+  border-bottom-style : solid;
+  border-bottom-color : #151515;
+  position: relative;
+}
+.box1_img {
+position: relative;
+top: 60px;
+width:70px; 
+height:70px;
+border: 1px solid gray;
+border-radius: 70px;
+-moz-border-radius: 70px;
+-khtml-border-radius: 70px;
+-webkit-border-radius: 70px;
+}
+.paging {margin-top:100px;}
+
+
+
+
+</style>
+<body>
+    <div class='container'>
+
+
+                <h1>공연 후기</h1>
+
+        <nav class="navbar navbar-light justify-content-between blackLine"
+         style="margin-bottom: -4px;">
+            <a href='form.html' class='btn btn-primary btn-sm'>추가</a>
+            <form class="form-inline">
+                <input id="words" name="words"
+                    class="form-control form-control-sm mr-sm-2" type="search"
+                    placeholder="검색" aria-label="Search">
+                <button id="searchBtn"
+                    class="btn btn-sm btn-outline-success my-2 my-sm-0" type="button">Search</button>
+            </form>
+        </nav>
+<div id="list" class="box1">
+<div></div>
+</div>
+
+
+         <footer></footer> 
+</div>
+    <script src='../node_modules/jquery/dist/jquery.min.js'></script>
+    <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+    <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+
+    <script type="text/javascript">
+
+var words = $('#words'),
+    searchBtn = $('#searchBtn'),
+    prevBtn = $('#prevBtn'),
+    currBtn = $('#currBtn'),
+    nextBtn = $('#nextBtn'),
+    tbody = $('#list > div'),
+    currPageNo = 1;
+    
+  load(1);
+    
+
+
+    searchBtn.click(() => {
+        //event.preventDefault();
+        load(1, {
+            "words": $('#words').val()
+        })
+    });
+
+    prevBtn.click(() => {
+        load(currPageNo - 1)
+    });
+
+    nextBtn.click(() => {
+        load(currPageNo + 1)
+    });
+
+    
+    
+function load(pageNo, options) {
+
+if (options == undefined) options = {};
+options.pn = pageNo;
+
+$.ajax('../json/member/list', {
+    method: 'GET',
+    data: options, 
+    dataType: 'json',
+    success: (result) => {
+        
+        var photo;
+        
+        for (var data of result.list) {
+        	reviewlist(data.no)
+        	if(data.type != "아티스트"){
+        		return;
+        	}
+        	
+                if (data.photo == null) {
+                    photo= 'no_img.jpg';
+                }else {
+                    photo = data.photo;
+                }
+                
+                
+              
+            $("#list")
+            .append(
+                    "<div><img class='box1_img' src='../download/" + photo + "'>" +
+                    "<figcaption>" + data.artist.artistName+ "</figcaption></div>" )
+            }
+        },
+    
+    error: () => {
+        window.alert('서버 실행 오류!');
+    } 
+ });
+        
+
+/* 
+$.ajax('../json/performanceReview/list', {
+    method: 'GET',
+    data: options,
+    dataType: 'json',
+    success: (result) => {
+        tbody.html(""); // <tbody> 콘텐츠를 지운다.
+        var reviewFilename;
+        for (var data of result.list) {
+            for (var reviewMedia of data.reviewFiles) {
+                if (reviewMedia.reviewFilename == null) {
+                    reviewFilename = 'no_img.jpg';
+                }else {
+                    reviewFilename = reviewMedia.reviewFilename;
+                }
+            }
+        
+                $("#list")
+                .html(  
+                        "<img class='box1_img' src='../download/" + data.writer.photo + "_t1.jpg'>" +
+                        "<figcaption>" + data.writer.nickName + "</figcaption>" +
+                        "</figure>" + "<ul>" + "<li>" + "<div class='info'>" + "<a href='form.html?no=" + data.reviewNo +  "'>" 
+                                + "<em class='tit01'>" + data.performance.name + "</em>" +
+                        "<p class='date'>" + formatDate(data.performance.entryDate) + "</p>" +
+                        "<em class='tit02'>" + data.reviewDescription + "</em></a></div>" +
+                        "<span class='thumbnail'>" + "<a href='form.html?no=" + data.reviewNo + "'>"
+                                + "<img src='../download/" + reviewFilename + "_reviewT1.jpg'>" + '</a></span></li></ul>')
+                      .appendTo(tbody);
+            
+        }
+        
+        currPageNo = result.pageNo;
+        currBtn.html(currPageNo);
+        
+        if (result.pageNo == 1) {
+            $(prevBtn.parent()).addClass("disabled");
+        } else {
+            $(prevBtn.parent()).removeClass("disabled");
+        }
+        
+        if (result.lastPageNo == result.pageNo) {
+            $(nextBtn.parent()).addClass("disabled");
+        } else {
+            $(nextBtn.parent()).removeClass("disabled");
+        }
+    },
+    error: () => {
+        window.alert('서버 실행 오류!');
+    } 
+});
+*/
+function formatDate(json) {
+    var jasondate = new Date(json) 
+
+    return jasondate.getFullYear() + '년 ' + 
+      (jasondate.getMonth() + 1) + '월 ' + 
+      jasondate.getDate() + '일 '  
+    }
+
+
+}
+function reviewlist(no){
+$.ajax('../json/performanceReview/'+no, {
+    dataType: 'json',
+    success: (result) => {
+    	console.log(result.reviewNo)
+    },
+    error: () => {
+    window.alert('서버 실행 오류!');
+        } 
+    });
+    	
+    }
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
