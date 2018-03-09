@@ -71,6 +71,11 @@
                          open="(" close=")" separator=",">
                     #{word}
                 </foreach>
+                or t002.artnm in
+                <foreach collection="words" item="word" 
+                         open="(" close=")" separator=",">
+                    #{word}
+                </foreach>
 	        </where>
             and t001.cancelfl = '0'
         </if>

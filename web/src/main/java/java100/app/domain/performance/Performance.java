@@ -13,6 +13,8 @@ public class Performance {
     protected String genre;
     protected Date entryDate;
     protected String location;
+    protected String mapLatitude;
+    protected String mapLongitude;
     protected String detailDesc;
     protected String specialDesc;
     protected int viewCount;
@@ -24,9 +26,9 @@ public class Performance {
     @Override
     public String toString() {
         return "Performance [no=" + no + ", name=" + name + ", genre=" + genre + ", entryDate=" + entryDate
-                + ", location=" + location + ", detailDesc=" + detailDesc + ", specialDesc=" + specialDesc
-                + ", viewCount=" + viewCount + ", writer=" + writer + ", artist=" + artist + ", medias=" + medias
-                + ", regDate=" + regDate + "]";
+                + ", location=" + location + ", mapLatitude=" + mapLatitude + ", mapLongitude=" + mapLongitude
+                + ", detailDesc=" + detailDesc + ", specialDesc=" + specialDesc + ", viewCount=" + viewCount
+                + ", writer=" + writer + ", artist=" + artist + ", medias=" + medias + ", regDate=" + regDate + "]";
     }
 
     public int getNo() {
@@ -52,7 +54,7 @@ public class Performance {
     public void setGenre(String genre) {
         this.genre = genre;
     }
-    
+
     public Date getEntryDate() {
         return entryDate;
     }
@@ -67,6 +69,22 @@ public class Performance {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getMapLatitude() {
+        return mapLatitude;
+    }
+
+    public void setMapLatitude(String mapLatitude) {
+        this.mapLatitude = mapLatitude;
+    }
+
+    public String getMapLongitude() {
+        return mapLongitude;
+    }
+
+    public void setMapLongitude(String mapLongitude) {
+        this.mapLongitude = mapLongitude;
     }
 
     public String getDetailDesc() {
@@ -124,6 +142,8 @@ public class Performance {
     public void setRegDate(Date regDate) {
         this.regDate = regDate;
     }
+    
+    
     
 
 }

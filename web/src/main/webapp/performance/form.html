@@ -1,27 +1,90 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
 <title>공연정보</title>
 
 <link rel='stylesheet' href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link rel='stylesheet' href='../../css/style1.css'>
 
-<!-- 댓글 관련 -->
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- <link rel="stylesheet" href="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.min.css">
+<link rel="stylesheet" href="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.min.css">
 
-<style> 
-    span{margin: 20px;}
-    .w3-third{width:500px;}
-    .w3-twothird{margin-left:50px;width:500px;}
-    #detail-td1{width:500px;} 
-    #detail-td2{width:900px;}
-    html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
-    
+
+
+<style>
+  /* Always set the map height explicitly to define the size of the div
+   * element that contains the map. */
+  #map {
+    width: 500px;
+    height: 500px;
+    border: 1px solid;
+    background-color: #fff;;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+  }
+  /* Optional: Makes the sample page fill the window. */
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .controls {
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  #pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 300px;
+  }
+
+  #pac-input:focus {
+    border-color: #4d90fe;
+  }
+
+  .pac-container {
+    font-family: Roboto;
+  }
+
+  #type-selector {
+    color: #fff;
+    background-color: #4d90fe;
+    padding: 5px 11px 0px 11px;
+  }
+
+  #type-selector label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+  }
+  #target {
+    width: 345px;
+  }
+  
+  
+  .modal-dialog .modal-fullsize {
+     width: 180%;
+     height: 100%;
+     margin: 0;
+     padding: 0; }
 </style>
+
+
+
 </head>
 <body>
 <div class='container'>
@@ -80,8 +143,26 @@
 
 <div class='form-group row'>
 <label for='location' class='col-sm-2 col-form-label'>공연장소</label>
+<div class='col-sm-8'>
+<input class='form-control' id='location' type='text' name='location' style='display: inline;' value=''>
+</div>
+<span><button type="button" id="modalBtn" class="btn btn-primary btn-sm" style="margin-left:20px" 
+         data-toggle="modal" data-target="#exampleModalCenter" >위치 지정</button>
+</span>
+</div>
+
+<div class='form-group row my-hidden'>
+<label for='name' class='col-sm-2 col-form-label'>위도</label>
 <div class='col-sm-10'>
-<input class='form-control' id='location' type='text' name='location' value=''>
+<input class='form-control' id='mapLatitude' type='text' name='mapLatitude' value=''>
+</div>
+</div>
+
+
+<div class='form-group row my-hidden'>
+<label for='name' class='col-sm-2 col-form-label'>경도</label>
+<div class='col-sm-10'>
+<input class='form-control' id='mapLongitude' type='text' name='mapLongitude' value=''>
 </div>
 </div>
 
@@ -123,12 +204,40 @@
 </form>
 
 
- 
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-fullsize modal-dialog-centered" role="document">
+    <div class="modal-content modal-fullsize">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">지도 위치</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        
+        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+        <div id="map"></div>
+        
+        
+      </div>
+      <div class="modal-footer">
+        <button id="mapsaveBtn" type="button" class="btn btn-primary" data-dismiss="modal">위치 지정</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
 <div class='form-group row'>
 <div class='col-sm-10'>
-<button id="addBtn" type="button" class='btn btn-primary btn-sm my-new'>공연 추가</button>
+<button id="addBtn" type="button" class='btn btn-primary btn-sm my-new'>공연 등록</button>
 <button id="updateBtn" type="button" class='btn btn-primary btn-sm my-view'>수정 저장</button>
-<button id="deleteBtn" type="button" class='btn btn-primary btn-sm my-view'>수정 취소</button>
+<button id="cancelBtn" type="button" class='btn btn-primary btn-sm'>취소</button>
 </div>
 </div>
 
@@ -145,6 +254,137 @@
 
 
 
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBl2qPIVMyVVmfA4F43i0cCk3g6vf2RRZI&libraries=places&callback=initAutocomplete"
+     async defer></script>
+
+
+<script>
+var map;
+var marker;
+var maplat, maplng;
+
+
+$('#modalBtn').click(() => { 
+    if ((mapLatitudeItem.val() == '') && (mapLongitudeItem.val() == '')) {
+        maplat = 37.497912049682526;
+        maplng = 127.0276288757841;
+    } else {
+        maplat = mapLatitudeItem.val();
+        maplng = mapLongitudeItem.val();
+    }
+
+    maplatlng = new google.maps.LatLng(maplat, maplng); 
+    map.setCenter(maplatlng);
+    marker.setPosition(maplatlng);
+});
+
+$('#mapsaveBtn').click(() => {
+    mapLatitudeItem.val(maplat);
+    mapLongitudeItem.val(maplng);
+    /* $('#mapLatitude').attr('value', maplat);
+    $('#mapLongitude').attr('value', maplng); */
+});
+
+function initAutocomplete() {
+    
+    var maplatlng
+
+    if ((mapLatitudeItem.val() == '') && (mapLongitudeItem.val() == '')) {
+        /* maplat = 37.497912049682526;
+        maplng = 127.0276288757841; */
+        maplatlng = new google.maps.LatLng(37.497912049682526, 127.0276288757841);  // 초기 위치 강남역
+    } else {
+        maplat = mapLatitudeItem.val();
+        maplng = mapLongitudeItem.val();
+        maplatlng = new google.maps.LatLng(maplat, maplng); 
+    }
+    
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: maplatlng,
+        //center: {lat: 37.497912049682526, lng: 127.0276288757841},
+        zoom: 15,
+        scrollwheel: true,
+        mapTypeId: 'roadmap'
+    });
+    
+    marker = new google.maps.Marker({
+        position: map.center,
+        map: map,
+        draggable: true,
+        //animation: google.maps.Animation.DROP
+    });
+    
+    
+    
+    // Create the search box and link it to the UI element.
+    var input = document.getElementById('pac-input');
+    var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    
+    
+    // mouse click
+    //google.maps.event.addListener(map, 'click', function (event) {
+    /* map.addListener('click', onMapClick); */
+    
+    
+    // marker mouse drag
+    /* marker.addListener('dragend', onMarkerDragend); */
+    
+    google.maps.event.addListener(map, 'click', function (event) {
+        map.setCenter(event.latLng);
+        marker.setPosition(event.latLng);
+        
+        console.log("Click = >  mapLatitude : " + event.latLng.lat() + "   mapLongitude : " + event.latLng.lng());
+        
+        var geocoder = new google.maps.Geocoder();
+        
+        geocoder.geocode({ 'latLng': event.latLng }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                if (results[0]) {
+                    console.log(results);
+                    console.log(results[0].formatted_address);
+                    /* $('#mapLatitude').attr('value', event.latLng.lat());
+                    $('#mapLongitude').attr('value', event.latLng.lng()); */
+
+                    maplat = event.latLng.lat();
+                    maplng = event.latLng.lng();
+                }
+            } else {
+                alert("Geocoder failed due to: " + status);
+            }
+        });
+    });
+    
+    /* google.maps.event.addListener(marker, 'dragend', function (event) { */
+    marker.addListener('dragend', onMarkerDragend);
+}
+
+function onMarkerDragend(event) {
+    map.setCenter(event.latLng);
+    console.log("Drag = >  mapLatitude : " + event.latLng.lat() + "   mapLongitude : " + event.latLng.lng());
+    
+    var geocoder = new google.maps.Geocoder();
+    
+    geocoder.geocode({ 'latLng': event.latLng }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+                console.log(results);
+                console.log(results[0].formatted_address);
+                /* $('#mapLatitude').attr('value', event.latLng.lat());
+                $('#mapLongitude').attr('value', event.latLng.lng()); */
+
+                maplat = event.latLng.lat();
+                maplng = event.latLng.lng();
+            }
+        } else {
+            alert("Geocoder failed due to: " + status);
+        }
+    });
+}
+</script>
+
+
 <script type="text/javascript">
 
 
@@ -152,18 +392,19 @@ var performInfo = {},
     pagearr,
     addBtn = $('#addBtn'),
     updateBtn = $('#updateBtn'),
-    deleteBtn = $('#deleteBtn'),
+    cancelBtn = $('#cancelBtn'),
     noItem = $('#no'),
     nameItem = $('#name'),
     genreItem = $('#genre'),
     entryDateItem = $('#entryDate'),
     locationItem = $('#location'),
+    mapLatitudeItem  = $('#mapLatitude'),
+    mapLongitudeItem  = $('#mapLongitude'),
     detailDescItem = $('#detailDesc'),
     specialDescItem = $('#specialDesc'),
     mediasItem = $('#medias'),
     file1Item = $('#file1'),
     infolist = $('#infolist > tbody');
-
 
 
 //$('#entryDate').datetimepicker();
@@ -200,7 +441,6 @@ function load() {
                 dataType: 'json',
                 async : false,
                 success: (result) => {
-                    
                     // 다른 함수에서 사용
                     performInfo = result.data;
                     
@@ -218,8 +458,11 @@ function load() {
                     genreItem.append('<option selected>' + performInfo.genre + '</option>')
                     entryDateItem.val(formatDateTime(performInfo.entryDate));
                     locationItem.val(performInfo.location);
+                    mapLatitudeItem.val(performInfo.mapLatitude);
+                    mapLongitudeItem.val(performInfo.mapLongitude);
                     detailDescItem.val(performInfo.detailDesc);
                     specialDescItem.val(performInfo.specialDesc);
+                    
                 },
                 error: () => {
                     window.alert('view 서버 실행 오류!');
@@ -227,12 +470,12 @@ function load() {
             });
         });
         $('h1').html("공연 수정");
-        //$('#general-view').css('display', 'none');
+        cancelBtn.text("취소");
         $('.my-new').css('display', 'none');
         
     } else {
         $('h1').html("공연 등록");
-        //$('#general-view').css('display', 'none');
+        cancelBtn.text("취소");
         $('.my-view').css('display', 'none');
     }
 }
@@ -273,7 +516,7 @@ updateBtn.click(() => {
            //cache: false,
            method: 'POST',
            success: function(result) {
-               location.href = "list.html";
+               location.href = "detail.html?no="+ performInfo.no;
            },
            error: () => {
                window.alert('서버 실행 오류!');
@@ -284,72 +527,12 @@ updateBtn.click(() => {
     }
 });
 
-deleteBtn.click(() => {
-    
-    location.href = "detail.html?no="+ performInfo.no;
-    
-    /* if (deleteBtn.text() == "수정 취소") {
-
-        $('h1').html("공연 정보");
-        
-        $('#formData').css('display', 'none');
-        $('#formList').css('display', '');
-        //$('#deleteBtn').css('display', 'none');
-        $('#formjjim').css('display', '');
-        $('#comment').css('display', '');
-        $('#ripplelist').css('display', '');
-        updateBtn.text("공연 수정"); 
-        deleteBtn.text("공연 삭제");
-        
-        
-        $(() => {
-            
-            // 공연정보
-            $.ajax('../json/performance/' + pagearr[1], {
-                dataType: 'json',
-                async : false,
-                success: (result) => {
-                    
-                    // 다른 함수에서 사용
-                    performInfo = result.data;
-                    
-                    //for (var i = 0; i < result.data.medias.length; i++) {
-                    for (var data of performInfo.medias) {
-                        if (data.filename != null) {
-                            mediasItem.append("<img src='../download/" + data.filename + "' height=100>");
-                            //mediasItem.append("<a href='/download/" + data.filename + "'>" + data.filename + "</a><br>");
-                        }
-                    };
-                    
-                    // formData
-                    noItem.val(performInfo.no);
-                    nameItem.val(performInfo.name);
-                    genreItem.append('<option selected>' + performInfo.genre + '</option>')
-                    entryDateItem.val(formatDate(performInfo.entryDate));
-                    locationItem.val(performInfo.location);
-                    detailDescItem.val(performInfo.detailDesc);
-                    specialDescItem.val(performInfo.specialDesc);
-                },
-                error: () => {
-                    window.alert('view 서버 실행 오류!');
-                }
-            });
-        });
-        
+cancelBtn.click(() => {
+    if (index == -1) {
+        location.href = "list.html";
     } else {
-	    $.ajax('../json/performance/delete', {
-	        data: {
-	            no: noItem.val()
-	        },
-	        dataType: 'json',
-	        success: (result) => {
-	            location.href = "list.html";
-	        },
-	        error: () => {
-	            window.alert('서버 실행 오류!');
-	        }
-	    });
-    } */
+        location.href = "detail.html?no="+ performInfo.no;
+    }
 });
 
 function formatDate(jason) {
