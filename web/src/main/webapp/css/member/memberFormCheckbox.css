@@ -1,15 +1,13 @@
 @charset "UTF-8";
 
+/* 체크박스 꾸미기 */
+
 input[type=checkbox] {
   visibility: hidden;
 }
 
-form{
-  margin: 0 30px;
-}
-
 label.checkbox {
-    cursor: pointer;
+  cursor: pointer;
   text-indent: 35px;
   overflow: visible;
   display: inline-block;
@@ -18,7 +16,7 @@ label.checkbox {
 }
 
 label.checkbox:before {
-  background: #3a57af;
+  background: #1a1c26;
   content:'';
   position: absolute;
   top:2px;
@@ -51,4 +49,3 @@ label.checkbox:after {
 input[type=checkbox]:checked + label:after {
     opacity: 1;
 }
-

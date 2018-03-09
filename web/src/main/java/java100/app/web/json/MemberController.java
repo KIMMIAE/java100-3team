@@ -1,7 +1,5 @@
 package java100.app.web.json;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import java100.app.domain.member.InterestArea;
 import java100.app.domain.member.InterestGenre;
@@ -48,7 +45,7 @@ public class MemberController {
         //
         if (pageNo < 1) {
             pageNo = 1;
-        }
+            }
         
         if (pageSize < 5 || pageSize > 15) {
             pageSize = 5;
@@ -120,9 +117,9 @@ public class MemberController {
             
             member.setPhoto(filename);
             
-            ThumbnailMaker.thumbnailMaker(100, 100, uploadDir, filename, "t1");
-            ThumbnailMaker.thumbnailMaker(200, 200, uploadDir, filename, "t2");
-            ThumbnailMaker.thumbnailMaker(300, 300, uploadDir, filename, "t3");
+            ThumbnailMaker.thumbnailMaker(100, 100, uploadDir, filename, "100");
+            ThumbnailMaker.thumbnailMaker(200, 200, uploadDir, filename, "200");
+            ThumbnailMaker.thumbnailMaker(300, 300, uploadDir, filename, "300");
         }
         
         if (areas != null && areas.size() > 0) {
@@ -281,12 +278,12 @@ public class MemberController {
         
         return filename.substring(dotPosition);
     }
-    
+/*    
     private String writeUploadFile(MultipartFile part, String path) throws IOException {
         
         String filename = getNewFilename(part.getOriginalFilename());
         part.transferTo(new File(path + "/" + filename));
         return filename;
     }
-
+*/
 }
