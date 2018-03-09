@@ -13,8 +13,8 @@ public class Performance {
     protected String genre;
     protected Date entryDate;
     protected String location;
-    protected float mapLatitude;
-    protected float mapLongitude;
+    protected String mapLatitude;
+    protected String mapLongitude;
     protected String detailDesc;
     protected String specialDesc;
     protected int viewCount;
@@ -71,19 +71,19 @@ public class Performance {
         this.location = location;
     }
 
-    public float getMapLatitude() {
+    public String getMapLatitude() {
         return mapLatitude;
     }
 
-    public void setMapLatitude(float mapLatitude) {
+    public void setMapLatitude(String mapLatitude) {
         this.mapLatitude = mapLatitude;
     }
 
-    public float getMapLongitude() {
+    public String getMapLongitude() {
         return mapLongitude;
     }
 
-    public void setMapLongitude(float mapLongitude) {
+    public void setMapLongitude(String mapLongitude) {
         this.mapLongitude = mapLongitude;
     }
 

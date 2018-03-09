@@ -146,7 +146,7 @@
 <div class='col-sm-8'>
 <input class='form-control' id='location' type='text' name='location' style='display: inline;' value=''>
 </div>
-<span><button type="button" class="btn btn-primary btn-sm" style="margin-left:20px" 
+<span><button type="button" id="modalBtn" class="btn btn-primary btn-sm" style="margin-left:20px" 
          data-toggle="modal" data-target="#exampleModalCenter" >위치 지정</button>
 </span>
 </div>
@@ -222,7 +222,7 @@
         
       </div>
       <div class="modal-footer">
-        <button id="saveBtn" type="button" class="btn btn-primary" data-dismiss="modal">위치 지정</button>
+        <button id="mapsaveBtn" type="button" class="btn btn-primary" data-dismiss="modal">위치 지정</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
       </div>
     </div>
@@ -263,16 +263,52 @@
 var map;
 var marker;
 var maplat, maplng;
+
+
+$('#modalBtn').click(() => { 
+    if ((mapLatitudeItem.val() == '') && (mapLongitudeItem.val() == '')) {
+        maplat = 37.497912049682526;
+        maplng = 127.0276288757841;
+    } else {
+        maplat = mapLatitudeItem.val();
+        maplng = mapLongitudeItem.val();
+    }
+
+    maplatlng = new google.maps.LatLng(maplat, maplng); 
+    map.setCenter(maplatlng);
+    marker.setPosition(maplatlng);
+});
+
+$('#mapsaveBtn').click(() => {
+    mapLatitudeItem.val(maplat);
+    mapLongitudeItem.val(maplng);
+    /* $('#mapLatitude').attr('value', maplat);
+    $('#mapLongitude').attr('value', maplng); */
+});
+
 function initAutocomplete() {
     
+    var maplatlng
+
+    if ((mapLatitudeItem.val() == '') && (mapLongitudeItem.val() == '')) {
+        /* maplat = 37.497912049682526;
+        maplng = 127.0276288757841; */
+        maplatlng = new google.maps.LatLng(37.497912049682526, 127.0276288757841);  // 초기 위치 강남역
+    } else {
+        maplat = mapLatitudeItem.val();
+        maplng = mapLongitudeItem.val();
+        maplatlng = new google.maps.LatLng(maplat, maplng); 
+    }
+    
     map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: 37.497912049682526, lng: 127.0276288757841 },
+        center: maplatlng,
+        //center: {lat: 37.497912049682526, lng: 127.0276288757841},
         zoom: 15,
         scrollwheel: true,
         mapTypeId: 'roadmap'
     });
     
-    var marker = new google.maps.Marker({
+    marker = new google.maps.Marker({
         position: map.center,
         map: map,
         draggable: true,
@@ -308,8 +344,11 @@ function initAutocomplete() {
                 if (results[0]) {
                     console.log(results);
                     console.log(results[0].formatted_address);
-                    $('#mapLatitude').attr('value', event.latLng.lat());
-                    $('#mapLongitude').attr('value', event.latLng.lng());
+                    /* $('#mapLatitude').attr('value', event.latLng.lat());
+                    $('#mapLongitude').attr('value', event.latLng.lng()); */
+
+                    maplat = event.latLng.lat();
+                    maplng = event.latLng.lng();
                 }
             } else {
                 alert("Geocoder failed due to: " + status);
@@ -332,8 +371,11 @@ function onMarkerDragend(event) {
             if (results[0]) {
                 console.log(results);
                 console.log(results[0].formatted_address);
-                $('#mapLatitude').attr('value', event.latLng.lat());
-                $('#mapLongitude').attr('value', event.latLng.lng());
+                /* $('#mapLatitude').attr('value', event.latLng.lat());
+                $('#mapLongitude').attr('value', event.latLng.lng()); */
+
+                maplat = event.latLng.lat();
+                maplng = event.latLng.lng();
             }
         } else {
             alert("Geocoder failed due to: " + status);
@@ -363,7 +405,6 @@ var performInfo = {},
     mediasItem = $('#medias'),
     file1Item = $('#file1'),
     infolist = $('#infolist > tbody');
-
 
 
 //$('#entryDate').datetimepicker();
@@ -400,7 +441,6 @@ function load() {
                 dataType: 'json',
                 async : false,
                 success: (result) => {
-                    
                     // 다른 함수에서 사용
                     performInfo = result.data;
                     
@@ -422,6 +462,7 @@ function load() {
                     mapLongitudeItem.val(performInfo.mapLongitude);
                     detailDescItem.val(performInfo.detailDesc);
                     specialDescItem.val(performInfo.specialDesc);
+                    
                 },
                 error: () => {
                     window.alert('view 서버 실행 오류!');
@@ -475,7 +516,7 @@ updateBtn.click(() => {
            //cache: false,
            method: 'POST',
            success: function(result) {
-               location.href = "list.html";
+               location.href = "detail.html?no="+ performInfo.no;
            },
            error: () => {
                window.alert('서버 실행 오류!');
