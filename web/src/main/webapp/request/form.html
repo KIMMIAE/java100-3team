@@ -28,7 +28,7 @@
 .map_wrap {
 	position: relative;
 	width: 100%;
-	height: 500px;
+	height:600px;
 }
 
 #menu_wrap {
@@ -428,6 +428,11 @@ function load() {
                     position: new naver.maps.Point(result.data.mapx, result.data.mapy),
                     map: map,
                     });
+                
+                if (result.data.artno == loginUser.no) {
+                    $('.my-view').css('display', 'none');
+                }
+                
             },
             error: () => {
                 window.alert('서버 실행 오류!');
@@ -436,7 +441,7 @@ function load() {
     });
 } else {
     $('.my-view').css('display', 'none');
-}
+    }
 } 
     
 
