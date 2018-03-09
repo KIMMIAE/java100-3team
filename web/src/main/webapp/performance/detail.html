@@ -2,6 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <title>공연정보</title>
 
 <link rel='stylesheet' href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
@@ -257,12 +259,18 @@ span{margin: 20px;}
                 
                 <form id="formjjim">
                 <div class='form-control' style="border:1px solid #eee; height:80px; padding-top:20px; background-color: #eee">
-                    <button id='jjimBtn' type="button" class='btn btn-primary btn-sm' style="width:75px;" name='jjim' >찜하기</button>
-                    <button id='shareBtn' type="button" class='btn btn-primary btn-sm' name='share'>공유하기</button>
+                    
+                    <button id='jjimBtn' type="button" class='btn btn-primary btn-sm' style="width:80px;" name='jjim' >찜하기</button>
+                    <!-- <button id='shareBtn' type="button" class='btn btn-primary btn-sm' name='share'>공유하기</button> -->
+                    
+                    <a id="kakao-link-btn" href="javascript:sendLink()">
+                    <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width:40px; height:40px">
+                    </a>
                     
                     <label for='rating' class='col-sm-2 col-form-label rating'></label>
                     <input class='col-sm-2 rating' type='number' min="-10" max="100" id='rating' name='rating' value=''>
                     <button id="ratingBtn" type="button" class='btn btn-primary btn-sm rating'>점수주기</button>
+                    
                 </div>
                 </form>
                 
@@ -334,8 +342,58 @@ span{margin: 20px;}
 <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?region=KR&key=AIzaSyBl2qPIVMyVVmfA4F43i0cCk3g6vf2RRZI&callback=initMap"></script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBl2qPIVMyVVmfA4F43i0cCk3g6vf2RRZI&callback=initMap"></script>
+
+
+
+<script type='text/javascript'>
+  //<![CDATA[
+    // // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('cd6568a772de5b0d11cf334911557f3a');
+    // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+    function sendLink() {
+      Kakao.Link.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: performInfo.name,
+          description: "#" + performInfo.location + " #" + formatDate(performInfo.entryDate, 2),
+          /* imageUrl: 'http://t3.java100.com:9999/download/1519276961521_0.jpg', */
+          imageUrl: 'http://allnewframe.com/web/product/big/201605/735_shop1_940873.jpg',
+          link: {
+            mobileWebUrl: 'http://t3.java100.com:9999/performance/list.html',
+            webUrl: 'http://t3.java100.com:9999/performance/list.html'
+          }
+        },
+        social: {
+          likeCount: 286,
+          commentCount: 45,
+          sharedCount: 845
+        },
+        buttons: [
+          {
+            title: '웹으로 보기',
+            link: {
+              mobileWebUrl: 'http://t3.java100.com:9999/performance/list.html',
+              webUrl: 'http://t3.java100.com:9999/performance/list.html'
+            }
+          },
+          {
+            title: '앱으로 보기',
+            link: {
+              mobileWebUrl: 'http://t3.java100.com:9999/performance/list.html',
+              webUrl: 'http://t3.java100.com:9999/performance/list.html'
+            }
+          }
+        ]
+      });
+    }
+  //]]>
+</script>
+
+
+
 
 <script>
 function initMap() {
