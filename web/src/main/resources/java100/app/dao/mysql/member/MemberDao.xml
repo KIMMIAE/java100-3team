@@ -200,6 +200,8 @@
         where cancelfl = '0'
     </select>
     
+    
+    
     <insert id="insert" parameterType="member" useGeneratedKeys="true" keyColumn="no" keyProperty="no">
         insert into tb_memb(photo,email,pwd,nicknm,type,msgfl,msgid,cancelfl,regdt)
         values(#{photo},lower(#{email}),password(lower(#{password})),lower(#{nickName}),#{type},#{messageFlag},lower(#{messageId}),'0',now())
