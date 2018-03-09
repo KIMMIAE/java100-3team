@@ -172,16 +172,6 @@ public class MemberController {
         return count;
     }
     
-    @RequestMapping("updatePassword")
-    public Object updatePassword(String password) {
-        
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("status", "success");
-        
-        return result;
-    }; 
-    
-    
     @RequestMapping("update")
     public Object update(Member member, 
             @RequestParam(value="base64Image",required=false) String base64Image,
@@ -190,8 +180,6 @@ public class MemberController {
                           HttpSession session) throws Exception {
         
         Member loginUser = (Member) session.getAttribute("loginUser");
-        
-        System.out.println(loginUser.getPhoto());
         
         HashMap<String, Object> result = new HashMap<>();
 
@@ -242,6 +230,34 @@ public class MemberController {
         return result;
     }
 
+    
+    
+/*    @RequestMapping("updatePassword")
+    public Object updatePassword(Member member, String oldPassword, HttpSession session) {
+        
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        HashMap<String, Object> result = new HashMap<>();
+        
+        if (loginUser.getNo() == member.getNo()) {
+            
+            if (comparePassword(oldPassword, session) == 1) {
+            
+            memberService.updatePassword(member);
+            
+            result.put("status", "success");
+            
+            return result;
+            }
+        } else {
+
+            result.put("status", "fail");
+            
+            return result;
+        }
+        
+    }; */
+    
+    
     @RequestMapping("delete")
     public Object delete(int no) throws Exception {
 
@@ -252,6 +268,14 @@ public class MemberController {
         
         return result;
     }
+    
+/*    private int comparePassword(String oldPassword, HttpSession session) {
+        
+        int count = memberService.getComparePassword();
+        
+        return count;
+    }
+    */
     
     
     long prevMillis = 0;

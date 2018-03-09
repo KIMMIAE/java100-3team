@@ -52,7 +52,7 @@ var formDataItem = $('#formData'),
 
 $('footer').load('../footer.html');
 
-imageCropperItem.cropit({
+var test = imageCropperItem.cropit({
     imageBackground:true, 
     imageBackgroundBorderWidth: 15,
     allowDragNDrop:true,
@@ -208,7 +208,10 @@ function pad(n, width) {
 }
 
 
+
 addBtn.click(() => {
+
+cuttingBtn.trigger('click');
 
 // 이메일 검증
 if (emailItem.val() == "") {
@@ -313,6 +316,7 @@ var formData = new FormData(formDataItem[0]);
         processData: false,
         contentType: false,
         success: () => {
+            alert("회원가입을 완료했습니다!");
             location.href='../auth/loginform.html';
         },
         error: () => {
