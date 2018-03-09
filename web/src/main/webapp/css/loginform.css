@@ -70,6 +70,10 @@ body {
     text-align: right;
 }
 
+.fb-button{
+	height:150px;
+}
+
 /* 오른쪽 커버 사진 시작*/
 .cover{
     width: 50%;
