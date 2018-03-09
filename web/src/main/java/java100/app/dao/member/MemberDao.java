@@ -16,6 +16,7 @@ public interface MemberDao {
     int countAll();
     int insert(Member member);
     int update(Member member);
+    int updatePassword(Member member);
     int delete(int no);
 }
 
