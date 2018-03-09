@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>공연 후기</title>
-<link rel='stylesheet'
-    href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link rel='stylesheet' href='../../css/style1.css'>
+
 </head>
 <body>
 <div class='container'>
@@ -118,7 +118,7 @@ type='text' placeholder="내용을 입력하세요" name='reviewDescription' val
 <div id=fileDiv class='col-sm-10'>
 <input type="file" class="form-control-file" id="reviewFiles1" name="files" value=''>
 </div>
-</div> 
+</div>
 
 <div class='form-group row'>
 <label for='reviewFiles2' class='col-sm-2 col-form-label'>파일2</label>
@@ -259,6 +259,7 @@ nextBtn.click (() => {
     load(currPageNo + 1)
 });
 
+
 //검색한 공연 정보 받아오기
 function save(no){
      
@@ -333,7 +334,19 @@ function search(pageNo, options) {
     });
 }
 
-
+//공연정보 유효성 검사
+function checkPerformanceNo() {
+    var re_performanceInfo = result;
+    if (re_password.test(passwordItem.val()) == true) {
+        chkPwMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 비밀번호입니다.</p>');
+        conPw = true;
+        return conPw;
+    } else if (re_password.test(passwordItem.val()) == false) {
+        chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호는 영문/숫자/특수문자 조합 6~18자입니다.</p>');
+        conPw = false;
+        return conPw;
+    } 
+};
 
 
 
@@ -345,45 +358,45 @@ function load() {
         
 });
     
-   var index = location.href.indexOf('?');
-   if (index != -1) { // 기존 데이터를 조회할 경우,
-       var qs = location.href.substr(index + 1);
-       var arr = qs.split('=');
-       $('.my-new').css('display', 'none');
-       
-       $(() => {
-           $.ajax('../json/performanceReview/' + arr[1], {
-               dataType: 'json',
-               async : false,
-               success: (result) => {
-                   for (var performanceReview of result.performanceReview.reviewFiles) {
-                       if (performanceReview.reviewFilename != null) {
-                           reviewMediasItem.append("<img src='../download/" + performanceReview.reviewFilename + "' height=100>");
-                       }
-                   };
-                   
-                   noItem.val(result.performanceReview.reviewNo);
-                   performanceNoItem.val(result.performanceReview.performance.no);
-                   memberNoItem.val(result.performanceReview.writer.no);
-                   prfrmNameItem.val(result.performanceReview.performance.name);
-                   artistNameItem.val(result.performanceReview.artist.artistName);
-                   locationItem.val(result.performanceReview.performance.location);
-                   genreItem.val(result.performanceReview.performance.genre);
-                   entryDateItem.val(formatDateTime(result.performanceReview.performance.entryDate));
-                   rvwDescItem.val(result.performanceReview.reviewDescription);
-                   viewcntItem.val(result.performanceReview.viewCount);
-                   regdateItem.val(formatDate(result.performanceReview.regDate));
-                   
-               },
-               error: () => {
-                   window.alert('서버 실행 오류!');
-               }
-           });
-       });
-       
-   } else { // 신규 데이터 입력일 경우,
-       $('.my-view').css('display', 'none');
-   }
+var index = location.href.indexOf('?');
+if (index != -1) { // 기존 데이터를 조회할 경우,
+    var qs = location.href.substr(index + 1);
+    var arr = qs.split('=');
+    $('.my-new').css('display', 'none');
+    
+    $(() => {
+        $.ajax('../json/performanceReview/' + arr[1], {
+            dataType: 'json',
+            async : false,
+            success: (result) => {
+                for (var performanceReview of result.performanceReview.reviewFiles) {
+                    if (performanceReview.reviewFilename != null) {
+                        reviewMediasItem.append("<img src='../download/" + performanceReview.reviewFilename + "' height=100>");
+                    }
+                };
+                
+                noItem.val(result.performanceReview.reviewNo);
+                performanceNoItem.val(result.performanceReview.performance.no);
+                memberNoItem.val(result.performanceReview.writer.no);
+                prfrmNameItem.val(result.performanceReview.performance.name);
+                artistNameItem.val(result.performanceReview.artist.artistName);
+                locationItem.val(result.performanceReview.performance.location);
+                genreItem.val(result.performanceReview.performance.genre);
+                entryDateItem.val(formatDateTime(result.performanceReview.performance.entryDate));
+                rvwDescItem.val(result.performanceReview.reviewDescription);
+                viewcntItem.val(result.performanceReview.viewCount);
+                regdateItem.val(formatDate(result.performanceReview.regDate));
+                
+            },
+            error: () => {
+                window.alert('서버 실행 오류!');
+            }
+        });
+    });
+    
+} else { // 신규 데이터 입력일 경우,
+    $('.my-view').css('display', 'none');
+}
 
 
     
@@ -495,7 +508,6 @@ function pad(n, width) {
 
 </body>
 </html>
-
 
 
 

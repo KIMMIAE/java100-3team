@@ -3,126 +3,254 @@
 <head>
 <meta charset="UTF-8">
 <title>공연 요청 게시판</title>
-<link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet'
+	href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link rel='stylesheet' href='../css/style1.css'>
-<link rel="stylesheet" href="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 
 <style>
-.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:230px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
-.bg_white {background:#fff;}
-#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+.map_wrap, .map_wrap * {
+	margin: 0;
+	padding: 0;
+	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+	font-size: 12px;
+}
+
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active {
+	color: #000;
+	text-decoration: none;
+}
+
+.map_wrap {
+	position: relative;
+	width: 100%;
+	height: 500px;
+}
+
+#menu_wrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 230px;
+	margin: 10px 0 30px 10px;
+	padding: 5px;
+	overflow-y: auto;
+	background: rgba(255, 255, 255, 0.7);
+	z-index: 1;
+	font-size: 12px;
+	border-radius: 10px;
+}
+
+.bg_white {
+	background: #fff;
+}
+
+#menu_wrap hr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 2px solid #5F5F5F;
+	margin: 3px 0;
+}
 /* #menu_wrap .option{text-align: center;}  */
-#detailDesc {height:110px; resize:none;}
-#entryDate {position:relative; /* padding-left:50px; */}
-.addon{position:absolute; top:100px; right:10px;}
+#detailDesc {
+	height: 110px;
+	resize: none;
+}
 
+#entryDate {
+	position: relative; /* padding-left:50px; */
+}
 
-
+.addon {
+	position: absolute;
+	top: 110px;
+	right: 10px;
+}
 </style>
- 
+
 </head>
 <body>
-<div class='container'>
-<header></header>
+	<div class='container'>
+		<header></header>
 
-<h1>공연 요청</h1>
+		<h1>공연 요청</h1>
 
-<div class="row">
-    <div class="col-md-7">
-        <div class="map_wrap">
-            <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-                <div id="menu_wrap" class="bg_white">
-                    <div class="option">
-                    <div>
-                    키워드 : <input type="text" value="강남" id="location" name="locName" size="15"> 
-                    <button id="sendBtn" type="button">검색</button> 
-                    <hr>
-                    <table id="searchTable">
-                    <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-
-
-<input class='form-control' readonly id='no' type='hidden' name='no'>
-
-<div class='col-md-5'>
-<div class='form-group'>
-<label for='location'>공연장소</label>
-<input class='form-control' id='mapAddress' type='text' name='location'>
-</div>
-
-<div class='form-group'>
-<label for='entryDate'>공연날짜</label>
-<input class='form-control' readonly id='entryDate' type='text' name='entryDate'>
-<a href='#entryDate'><img class='addon'src='../map-image/cal.png' width='50px' height='50px'></a>
-</div>
-
-<form class="my-form">
-<div class='form-group'>
-<label for='title'>제목</label> 
-<input class='form-control' id='title' type='text' name='title'>
-</div>
-
-<div class='form-group'>
-<label for='genre'>공연장르</label>
-<select class="custom-select" id="genre" name="genre" value=''>
-  <option selected></option>
-  <option value='솔로'>솔로</option>
-  <option value='그룹'>그룹</option>
-  <option value='발라드'>발라드</option>
-  <option value='R & B'>R & B</option>
-  <option value='락'>락</option>
-  <option value='랩'>랩</option>
-  <option value='개그'>개그</option>
-  <option value='마술'>마술</option>
-</select>
-</div>
-
-<div class='form-group'>
-<label for='detailDesc'>내용</label>
-<textarea class='form-control' id='detailDesc' name='detailDesc'></textarea>
-</div>
-
-<!-- datetimepicker 타입 텍스트 처리 -->
-
-<input class='form-control' id='mapx' type='hidden' name='mapx'>
-
-<input class='form-control' id='mapy' type='hidden' name='mapy'>
-
-<input class='form-control' readonly id='regDate' type='hidden' name='regDate'>
-
-<input class='form-control' readonly id='viewCount' type='hidden' name='viewCount'>
-
-<div class='form-group'>
-<button id="addBtn" type="button" class='btn btn-primary btn-sm my-new'>추가</button>
-<button id="updateBtn" type="button" class='btn btn-primary btn-sm my-view'>변경</button>
-<button id="deleteBtn" type="button" class='btn btn-primary btn-sm my-view'>삭제</button>
-</div>
- </form>
-</div>
-</div>
-<footer>
-</footer>
-</div>
+		<div class="row">
+			<div class="col-md-7">
+				<div class="map_wrap">
+					<div id="map"
+						style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
+					<div id="menu_wrap" class="bg_white">
+						<div class="option">
+							<div>
+								키워드 : <input type="text" value="" id="location" name="locName"
+									size="15">
+								<button id="sendBtn" type="button">검색</button>
+								<hr>
+								<table id="searchTable">
+									<tbody></tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 
-<script src='../node_modules/jquery/dist/jquery.min.js'></script>
-<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
-<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
-<script src="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.full.min.js"><charset="UTF-8"></script>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=bFDtO4KnfCKKptaueJAL&submodules=geocoder"></script>
+			<input class='form-control' readonly id='no' type='hidden' name='no'>
+
+			<div class='col-md-5'>
+				<div class='form-group'>
+					<label for='location'>공연장소</label> <input class='form-control'
+						id='mapAddress' type='text' name='location'>
+				</div>
+
+				<div class='form-group'>
+					<label for='entryDate'>공연날짜</label> <input class='form-control'
+						readonly id='entryDate' type='text' name='entryDate'> <a
+						href='#entryDate'><img class='addon'
+						src='../map-image/cal.png' width='50px' height='50px'></a>
+				</div>
+
+				<form class="my-form">
+					<div class='form-group'>
+						<label for='title'>제목</label> <input class='form-control'
+							id='title' type='text' name='title'>
+					</div>
+
+					<form class="my-form">
+						<div class='form-group'>
+							<label for='artistName'>아티스트 이름</label>
+							<button id="findBtn" type="button" class='btn btn-primary btn-sm'
+								data-toggle="modal" data-target="#exampleModalCenter">검색</button>
+							<input class='form-control' readonly id='artistName' type='text'
+								name='artist.name'>
+						</div>
 
 
-<script type="text/javascript">
+
+
+						<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalCenterTitle"
+							aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+
+
+									<div class="modal-body">
+										<h2>아티스트 검색</h2>
+										<nav class="navbar navbar-light justify-content-between">
+											<form class="form-inline">
+												<input id="words" name="words"
+													class="form-control form-control-xs" type="search"
+													style="width: 350px; height: 30px;" placeholder="이름을 입력하세요"
+													aria-label="Search">
+												<!-- mr-xs-2 -->
+												<button id="searchBtn"
+													class="btn btn-sm btn-outline-success my-2 my-sm-0"
+													type="button">Search</button>
+											</form>
+										</nav>
+
+										<table id="list" class='table table-hover'>
+											<thead>
+												<tr>
+													<th>번호</th>
+													<th>사진</th>
+													<th>아티스트명</th>
+												</tr>
+											</thead>
+
+											<tbody></tbody>
+										</table>
+
+										<nav aria-label="Page navigation">
+											<ul class="pagination justify-content-center">
+												<li class="page-item"><a id="prevBtn" class="page-link"
+													tabindex="-1">이전</a></li>
+
+												<li class="page-item"><a id="currBtn" class="page-link"
+													href="#">1</a></li>
+
+												<li class="page-item "><a id="nextBtn"
+													class="page-link" tabindex="0">다음</a></li>
+											</ul>
+										</nav>
+									</div>
+									<div class="modal-footer">
+										<button id="closeBtn" type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class='form-group'>
+							<label for='genre'>공연장르</label> <select class="custom-select"
+								id="genre" name="genre" value=''>
+								<option selected></option>
+								<option value='솔로'>솔로</option>
+								<option value='그룹'>그룹</option>
+								<option value='발라드'>발라드</option>
+								<option value='R & B'>R & B</option>
+								<option value='락'>락</option>
+								<option value='랩'>랩</option>
+								<option value='개그'>개그</option>
+								<option value='마술'>마술</option>
+							</select>
+						</div>
+
+						<div class='form-group'>
+							<label for='detailDesc'>내용</label>
+							<textarea class='form-control' id='detailDesc' name='detailDesc'></textarea>
+						</div>
+
+						<input class='form-control' readonly id='artistNo' type='hidden'
+							name='artist.no'> <input class='form-control' readonly
+							id='mapx' type='hidden' name='mapx'> <input
+							class='form-control' readonly id='mapy' type='hidden' name='mapy'>
+
+						<input class='form-control' readonly id='regDate' type='hidden'
+							name='regDate'> <input class='form-control' readonly
+							id='viewCount' type='hidden' name='viewCount'>
+
+						<div class='form-group'>
+							<button id="addBtn" type="button"
+								class='btn btn-primary btn-sm my-new'>추가</button>
+							<button id="updateBtn" type="button"
+								class='btn btn-primary btn-sm my-view'>변경</button>
+							<button id="deleteBtn" type="button"
+								class='btn btn-primary btn-sm my-view'>삭제</button>
+						</div>
+					</form>
+			</div>
+		</div>
+		<footer> </footer>
+	</div>
+
+
+	<script src='../node_modules/jquery/dist/jquery.min.js'></script>
+	<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+	<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+	<script
+		src="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.full.min.js"><charset="UTF-8"></script>
+	<script type="text/javascript"
+		src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=bFDtO4KnfCKKptaueJAL&submodules=geocoder"></script>
+
+
+	<script type="text/javascript">
 $('#entryDate').datetimepicker({
     step:10,  //분단위 설정
     format: 'Y-m-d H:i'
@@ -210,6 +338,7 @@ function initMap(x,y) {
 var addBtn = $('#addBtn'),
     updateBtn = $('#updateBtn'),
     deleteBtn = $('#deleteBtn'),
+    searchBtn = $('#searchBtn'),
     noItem = $('#no'),
     titleItem = $('#title'),
     detailDescItem = $('#detailDesc'),
@@ -223,8 +352,17 @@ var addBtn = $('#addBtn'),
     sendBtn = $('#sendBtn'),
     searchTableTbody = $('#searchTable > tbody'),
     mapxItem = $('#mapx'),
-    mapyItem = $('#mapy');
-    
+    mapyItem = $('#mapy'),
+    artistNoItem = $('#artistNo'),
+    findBtn = $('#findBtn'),
+    prevBtn = $('#prevBtn'),
+    currBtn = $('#currBtn'),
+    nextBtn = $('#nextBtn'),
+    closeBtn = $('#closeBtn'),
+    listTableTbody = $('#list > tbody'),
+    words = $('#words'),
+    artistNameItem = $('#artistName'),
+    currPageNo = 1;
     
 $(document.body).on('login', (event, obj) => {
     /* console.log('로그인 정보 가져오기:', loginUser.no); */
@@ -232,8 +370,30 @@ $(document.body).on('login', (event, obj) => {
 });
     
 $('header').load('../header.html', () => {
+    load();
 });
 $('footer').load('../footer.html');
+
+findBtn.click(() => {
+    listTableTbody.html("");
+    search(1)
+});
+
+searchBtn.click(() => {
+/*     event.preventDefault(); */
+    search(1, {
+        "words": $('#words').val()
+    })
+});
+
+prevBtn.click (() => {
+    search(currPageNo - 1)
+});
+
+nextBtn.click (() => {
+    search(currPageNo + 1)
+});
+
 
 var index = location.href.indexOf('?');
 
@@ -260,6 +420,9 @@ function load() {
                 viewCountItem.val(result.data.viewCount);
                 mapxItem.val(result.data.mapx);
                 mapyItem.val(result.data.mapy);
+                artistNoItem.val(result.data.artno);
+                artistNameItem.val(result.data.artist.artistName);
+                
                 initMap(result.data.mapx, result.data.mapy);
                 marker = new naver.maps.Marker({
                     position: new naver.maps.Point(result.data.mapx, result.data.mapy),
@@ -271,12 +434,12 @@ function load() {
             }
         });
     });
-    
-} else { // 신규 데이터 입력일 경우,
+} else {
     $('.my-view').css('display', 'none');
 }
+} 
     
-}
+
 
 
 sendBtn.click(()=>{
@@ -340,7 +503,8 @@ addBtn.click(() => {
             location: locationItem.val(),
             specialDesc: specialDescItem.val(),
             mapx: mapxItem.val(),
-            mapy: mapyItem.val()
+            mapy: mapyItem.val(),
+            'artist.no': artistNoItem.val()
         },
         dataType: 'json',
         method: 'POST',
@@ -367,7 +531,8 @@ updateBtn.click(() => {
             location: locationItem.val(),
             specialDesc: specialDescItem.val(),
             mapx: mapxItem.val(),
-            mapy: mapyItem.val()
+            mapy: mapyItem.val(),
+            'artist.no': artistNoItem.val()
         },
         dataType: 'json',
         method: 'POST',
@@ -396,6 +561,8 @@ deleteBtn.click(() => {
     });
 });
 
+
+
 /* function formatDate(jason) {
     var jasondate = new Date(jason);
             
@@ -420,7 +587,13 @@ function pad(n, width) {
     return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
 }
 
-
+function save(no,name){
+    console.log("save success")
+    $('#artistNo').val(no);
+    $('#artistName').val(name);
+    closeBtn.click();
+    
+}
 
 function formatDate(jason) {
     var jasondate = new Date(jason),
@@ -433,9 +606,58 @@ function formatDate(jason) {
     return yyyy +"-"+(mm[1] ? mm : '0'+mm[0])+"-"+(dd[1] ? dd : '0'+dd[0])+" "+(hh[1] ? hh : '0'+hh[0])+":"+(minmin[1] ? minmin : '0'+minmin[0]);
  } 
  
+ 
+
+function search(pageNo, options) {
     
- 
- 
+    if (options == undefined) options = {};
+    options.pn = pageNo;
+    $.ajax('../json/member/list', {
+        /*method: 'GET',*/
+        data: options,
+        dataType: 'json',
+        success: (result) => {
+            listTableTbody.html("");
+            var filename;
+            for (var data of result.list) {
+                console.log(data.type);
+                
+                if(data.type == '아티스트'){
+                    if (data.photo == null) {
+                        filename = 'no_img.jpg';
+                    } else {
+                        filename = data.photo;
+                    }
+                $('<tr>').
+                    html(  
+                        "<td>" + data.no + "</td>" +
+                        "<td><a onclick='save(" + data.no + ',"' + data.artist.artistName + "\")'>"+
+                        "<img src='../download/" + filename + "' height=50></a></td>" + 
+                        "<td>" +  data.artist.artistName + "</td>")
+                    .appendTo(listTableTbody);
+                }
+            }
+            currPageNo = result.pageNo;
+            currBtn.html(currPageNo);
+            
+            if (result.pageNo == 1) {
+                $(prevBtn.parent()).addClass("disabled");
+            } else {
+                $(prevBtn.parent()).removeClass("disabled");
+            }
+            
+            if (result.lastPageNo == result.pageNo) {
+                $(nextBtn.parent()).addClass("disabled");
+            } else { 
+                $(nextBtn.parent()).removeClass("disabled");
+            }
+        },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
+    });
+  }
+
 </script>
 
 

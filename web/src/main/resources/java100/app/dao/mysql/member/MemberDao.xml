@@ -21,10 +21,10 @@
         
         <association property="artist" javaType="artist">
             <id     column="artno"     property="no"/>
-	        <result column="artnm"     property="artistName"/>
-	        <result column="artmmb"    property="artistMember"/>
-	        <result column="profile"   property="profile"/>
-	        <result column="joindt"    property="joinDate"/>
+            <result column="artnm"     property="artistName"/>
+            <result column="artmmb"    property="artistMember"/>
+            <result column="profile"   property="profile"/>
+            <result column="joindt"    property="joinDate"/>
         </association>
         
         <collection property="interestAreas"  ofType="interestArea">
@@ -60,18 +60,21 @@
         from tb_memb t001 left join tb_artist t002
         on t001.mmbno = t002.artno
         <if test="words != null">
-	        <where>
-	            t001.nicknm in
-	            <foreach collection="words" item="word" 
-	                     open="(" close=")" separator=",">
-	                #{word}
-	            </foreach>
-	            or t001.email in
+            <where>
+                t001.nicknm in
                 <foreach collection="words" item="word" 
                          open="(" close=")" separator=",">
                     #{word}
                 </foreach>
-	        </where>
+                or t001.email in
+                <foreach collection="words" item="word" 
+                         open="(" close=")" separator=",">
+                    #{word}
+                </foreach>
+                <foreach collection="words" item="word"> 
+                or t002.artnm like '%${word}%'
+                </foreach>
+            </where>
             and t001.cancelfl = '0'
         </if>
         <if test="words == null">

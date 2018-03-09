@@ -110,6 +110,7 @@ function load(pageNo, options) {
             
             tbody.html(""); // <tbody> 콘텐츠를 지운다.
             
+            
             for (var data of result.list) {
                 if(loginUser.type == '관리자'){
                     $('<tr>')
@@ -122,7 +123,7 @@ function load(pageNo, options) {
                     .appendTo(tbody);
                 }
                 
-                if(data.writer.no == loginUser.no) {
+                if(data.writer.no == loginUser.no || data.artno == loginUser.no) {
                 $('<tr>')
                     .html(
                         "<td>" + data.no + "</td>" + 
@@ -131,7 +132,19 @@ function load(pageNo, options) {
                         "<td>" + data.viewCount + "</td>" +
                         "<td>" + data.writer.nickName + "</td>")
                     .appendTo(tbody);
-                }
+                } 
+                
+               /*  if(data.writer.no == loginUser.no) {
+                    $('<tr>')
+                        .html(
+                            "<td>" + data.no + "</td>" + 
+                            "<td><a href='form.html?no=" + data.no + "'>" + data.title + "</a></td>" + 
+                            "<td>" + formatDate(data.regDate) + "</td>" +
+                            "<td>" + data.viewCount + "</td>" +
+                            "<td>" + data.writer.nickName + "</td>")
+                        .appendTo(tbody);
+                    }  */
+                
             }
             
             currPageNo = result.pageNo;
