@@ -1,4 +1,4 @@
-﻿﻿Eclipse Team Git 사용법
+﻿Eclipse Team Git 사용법
 
 1. Git Staging 탭에서 자신이 수정한 소스들을 확인하고 
    상단의 unstaged changes에서 하단의 staged changes로 옮긴다.
