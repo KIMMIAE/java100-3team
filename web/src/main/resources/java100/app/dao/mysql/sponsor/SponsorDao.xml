@@ -17,31 +17,68 @@
         
     </resultMap>
     
-    <select id="findAll" resultMap="sponsorMap" parameterType="int">
-        select * from tb_spnshstry where mmbno=#{value}
+    <select id="findAll" resultMap="sponsorMap" parameterType="map">
+        select * from tb_spnshstry where mmbno=#{memberNo}
+        
+        <!-- 정렬 조건에 따라 SQL문을 변경한다. -->
+        order by 
+        <choose>
+            <when test="orderColumn == 'spnsdt' and align == 'desc'">
+                spnsdt desc
+            </when>
+            <when test="orderColumn == 'spnsdt' and align == 'asc'">
+                spnsdt asc
+            </when>
+            <otherwise>
+                spnsno desc
+            </otherwise>
+        </choose>
+        
+        <!-- 페이지징 처리 -->
+        limit #{startIndex}, #{size}
+        
     </select>
     
 
     <select id="findBySponNo" resultMap="sponsorMap" parameterType="int">
-        select * from tb_spnshstry where spnsno=#{value}
+        select * from tb_spnshstry where spnsno=#{value} 
     </select>
+            
     
     <insert id="insert" parameterType="Sponsor">
        insert into tb_spnshstry(mmbno,pfmno,ggcnt,spnsdesc,spnsdt) 
        values(#{memberNo},#{performNo},#{ggcnt},#{sponsDesc},now());
     </insert>
     
-     <select id="findByArtistNo" resultMap="sponsorMap" parameterType="int">
+     <select id="findByArtistNo" resultMap="sponsorMap" parameterType="map">
       select * 
         from 
         tb_spnshstry  as t001
         left join 
         tb_prfrminfo as t002
         on t001.pfmno=t002.pfmno
-        where artno=#{value};
+        where artno=#{no}
+        
+        order by 
+        <choose>
+            <when test="orderColumn == 'spnsdt' and align == 'desc'">
+                spnsdt desc
+            </when>
+            <when test="orderColumn == 'spnsdt' and align == 'asc'">
+                spnsdt asc
+            </when>
+            <otherwise>
+                spnsno desc
+            </otherwise>
+        </choose>
+        limit #{startIndex}, #{size}
+    </select>
+        
+    
+    <select id="countAll" resultType="int" parameterType="int">
+        select count(*) from tb_spnshstry where mmbno = #{value}
     </select>
     
-  
 </mapper>  
 
 

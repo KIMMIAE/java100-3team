@@ -19,12 +19,18 @@
         <result column="viewcnt"    property="viewCount"/>
         <result column="mapx"    property="mapx"/>
         <result column="mapy"    property="mapy"/>
+        <result column="artno"    property="artno"/>
         
         <!-- 게시글 작성자 정보를 담을 수 있도록 설정한다. -->
         <association property="writer" javaType="member">
             <id     column="m_no"       property="no"/>
             <result column="m_nicknm"   property="nickName"/>
             <result column="m_email"    property="email"/>
+        </association>
+        
+        <association property="artist" javaType="artist">
+            <id     column="a_artno"       property="no"/>
+            <result column="artnm"   property="artistName"/>
         </association>
         
     </resultMap>
@@ -35,16 +41,20 @@
             pr.pfmtitle,
             pr.regdt,
             pr.viewcnt,
+            pr.artno,
+            a.artnm,
             m.mmbno as m_no,
             m.nicknm as m_nicknm
-        from tb_prfrmrequest as pr join tb_memb as m on pr.mmbno=m.mmbno
+        from tb_prfrmrequest as pr 
+        join tb_memb as m on pr.mmbno=m.mmbno
+        join tb_artist as a on pr.artno=a.artno
 
         <if test="words != null">
-	        <where>
-	            <foreach collection="words" item="word">
-	                or pfmtitle like '%${word}%'
-	            </foreach>
-	        </where>
+            <where>
+                <foreach collection="words" item="word">
+                    or pfmtitle like '%${word}%'
+                </foreach>
+            </where>
         </if>
         
         <!-- 정렬 조건에 따라 SQL문을 변경한다. -->
@@ -85,9 +95,13 @@
             pr.viewcnt,
             pr.mapx,
             pr.mapy,
+            pr.artno,
+            a.artnm,
             m.mmbno as m_no,
             m.nicknm as m_nicknm
-        from tb_prfrmrequest as pr join tb_memb as m on pr.mmbno=m.mmbno
+        from tb_prfrmrequest as pr 
+        join tb_memb as m on pr.mmbno=m.mmbno
+        join tb_artist as a on pr.artno=a.artno
         where reqno=#{value}
     </select>
 
@@ -103,6 +117,7 @@
         useGeneratedKeys="true" keyColumn="reqno" keyProperty="no">
         insert into tb_prfrmrequest(
             mmbno,
+            artno,
             pfmtitle,
             pfmdesc,
             pfmgnr,
@@ -116,6 +131,7 @@
         
         values(
             #{writer.no},
+            #{artist.no},
             #{title},
             #{detailDesc},
             #{genre},
@@ -131,6 +147,7 @@
 
     <update id="update" parameterType="request">
         update tb_prfrmrequest set
+            artno=#{artist.no},
             pfmtitle=#{title}, 
             pfmdesc=#{detailDesc},
             pfmgnr=#{genre},

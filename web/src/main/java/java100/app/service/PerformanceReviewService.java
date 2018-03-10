@@ -16,6 +16,7 @@ public interface PerformanceReviewService {
 	int update(PerformanceReview performanceReview);
 	int delete(int no);
 	void addReviewFiles(List<ReviewFile> reviewFiles, int reviewFileNo);
+	List<PerformanceReview> findByArtNo (int no);
 
 
 

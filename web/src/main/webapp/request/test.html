@@ -19,7 +19,7 @@
 /* #menu_wrap .option{text-align: center;}  */
 #detailDesc {height:110px; resize:none;}
 #entryDate {position:relative; /* padding-left:50px; */}
-.addon{position:absolute; top:100px; right:10px;}
+.addon{position:absolute; top:110px; right:10px;}
 
 
 
@@ -39,7 +39,7 @@
                 <div id="menu_wrap" class="bg_white">
                     <div class="option">
                     <div>
-                    키워드 : <input type="text" value="강남" id="location" name="locName" size="15"> 
+                    키워드 : <input type="text" value="" id="location" name="locName" size="15"> 
                     <button id="sendBtn" type="button">검색</button> 
                     <hr>
                     <table id="searchTable">
@@ -72,6 +72,71 @@
 <input class='form-control' id='title' type='text' name='title'>
 </div>
 
+<form class="my-form">
+<div class='form-group'>
+<label for='artistName'>아티스트 이름</label>
+<button id="findBtn" type="button" class='btn btn-primary btn-sm' data-toggle="modal" data-target="#exampleModalCenter">검색</button>
+<input class='form-control' readonly id='artistName' type='text' name='artist.name'>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        
+        
+      <div class="modal-body">
+                    <h2>아티스트 검색</h2>
+                    <nav class="navbar navbar-light justify-content-between">
+                        <form class="form-inline" >
+                            <input id="words" name="words"
+                                class="form-control form-control-xs" type="search"  style="width:350px; height:30px;"
+                                placeholder="이름을 입력하세요" aria-label="Search">
+                                <!-- mr-xs-2 --> 
+                            <button id="searchBtn"
+                                class="btn btn-sm btn-outline-success my-2 my-sm-0" type="button">Search</button>
+                        </form>
+                    </nav>
+            
+                    <table id="list" class='table table-hover'>
+                        <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>사진</th>
+                                <th>아티스트명</th>
+                            </tr>
+                        </thead>
+            
+                        <tbody></tbody>
+                    </table>
+            
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item"><a id="prevBtn" class="page-link"
+                                tabindex="-1">이전</a></li>
+            
+                            <li class="page-item"><a id="currBtn" class="page-link"
+                                href="#">1</a></li>
+            
+                            <li class="page-item "><a id="nextBtn" class="page-link"
+                                tabindex="0">다음</a></li>
+                        </ul>
+                    </nav>
+      </div>
+      <div class="modal-footer">
+        <button id="closeBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div class='form-group'>
 <label for='genre'>공연장르</label>
 <select class="custom-select" id="genre" name="genre" value=''>
@@ -92,11 +157,11 @@
 <textarea class='form-control' id='detailDesc' name='detailDesc'></textarea>
 </div>
 
-<!-- datetimepicker 타입 텍스트 처리 -->
+<input class='form-control' readonly id='artistNo' type='hidden' name='artist.no'>
 
-<input class='form-control' id='mapx' type='hidden' name='mapx'>
+<input class='form-control' readonly id='mapx' type='hidden' name='mapx'>
 
-<input class='form-control' id='mapy' type='hidden' name='mapy'>
+<input class='form-control' readonly id='mapy' type='hidden' name='mapy'>
 
 <input class='form-control' readonly id='regDate' type='hidden' name='regDate'>
 
@@ -210,6 +275,7 @@ function initMap(x,y) {
 var addBtn = $('#addBtn'),
     updateBtn = $('#updateBtn'),
     deleteBtn = $('#deleteBtn'),
+    searchBtn = $('#searchBtn'),
     noItem = $('#no'),
     titleItem = $('#title'),
     detailDescItem = $('#detailDesc'),
@@ -223,8 +289,17 @@ var addBtn = $('#addBtn'),
     sendBtn = $('#sendBtn'),
     searchTableTbody = $('#searchTable > tbody'),
     mapxItem = $('#mapx'),
-    mapyItem = $('#mapy');
-    
+    mapyItem = $('#mapy'),
+    artistNoItem = $('#artistNo'),
+    findBtn = $('#findBtn'),
+    prevBtn = $('#prevBtn'),
+    currBtn = $('#currBtn'),
+    nextBtn = $('#nextBtn'),
+    closeBtn = $('#closeBtn'),
+    listTableTbody = $('#list > tbody'),
+    words = $('#words'),
+    artistNameItem = $('#artistName'),
+    currPageNo = 1;
     
 $(document.body).on('login', (event, obj) => {
     /* console.log('로그인 정보 가져오기:', loginUser.no); */
@@ -232,8 +307,29 @@ $(document.body).on('login', (event, obj) => {
 });
     
 $('header').load('../header.html', () => {
+    load();
 });
 $('footer').load('../footer.html');
+
+findBtn.click(() => {
+    listTableTbody.html("");
+});
+
+searchBtn.click(() => {
+/*     event.preventDefault(); */
+    search(1, {
+        "words": $('#words').val()
+    })
+});
+
+prevBtn.click (() => {
+    search(currPageNo - 1)
+});
+
+nextBtn.click (() => {
+    search(currPageNo + 1)
+});
+
 
 var index = location.href.indexOf('?');
 
@@ -252,7 +348,7 @@ function load() {
                 titleItem.val(result.data.title);
                 detailDescItem.val(result.data.detailDesc);
                 genreItem.append('<option selected>' + result.data.genre + '</option>')
-                entryDateItem.val(formatDateTime(result.data.entryDate));
+                entryDateItem.val(formatDate(result.data.entryDate));
                 locationItem.val(result.data.location);
                 specialDescItem.val(result.data.specialDesc);
                 regDateItem.val(formatDate(result.data.regDate));
@@ -260,6 +356,9 @@ function load() {
                 viewCountItem.val(result.data.viewCount);
                 mapxItem.val(result.data.mapx);
                 mapyItem.val(result.data.mapy);
+                artistNoItem.val(result.data.artist.no);
+                artistNameItem.val(result.data.artist.artistName);
+                
                 initMap(result.data.mapx, result.data.mapy);
                 marker = new naver.maps.Marker({
                     position: new naver.maps.Point(result.data.mapx, result.data.mapy),
@@ -340,11 +439,13 @@ addBtn.click(() => {
             location: locationItem.val(),
             specialDesc: specialDescItem.val(),
             mapx: mapxItem.val(),
-            mapy: mapyItem.val()
+            mapy: mapyItem.val(),
+            'artist.no': artistNoItem.val()
         },
         dataType: 'json',
         method: 'POST',
         success: (result) => {
+            console.log(entryDate);
             location.href = "list.html";
         },
         error: () => {
@@ -366,7 +467,8 @@ updateBtn.click(() => {
             location: locationItem.val(),
             specialDesc: specialDescItem.val(),
             mapx: mapxItem.val(),
-            mapy: mapyItem.val()
+            mapy: mapyItem.val(),
+            'artist.no': artistNoItem.val()
         },
         dataType: 'json',
         method: 'POST',
@@ -395,16 +497,17 @@ deleteBtn.click(() => {
     });
 });
 
-function formatDate(jason) {
+
+
+/* function formatDate(jason) {
     var jasondate = new Date(jason);
             
     return jasondate.getFullYear() + '-' +
     pad((jasondate.getMonth() + 1), 2) + '-' +
     pad(jasondate.getDate(), 2);
-}
+} */
 
-
-function formatDateTime(jason) {
+/* function formatDateTime(jason) {
     var jasondate = new Date(jason);
             
     return jasondate.getFullYear() + '-' +
@@ -413,15 +516,22 @@ function formatDateTime(jason) {
     pad(jasondate.getHours(), 2) + ':' +
     pad(jasondate.getMinutes(), 2);
     //pad(jasondate.getSeconds(), 2);
-}
+} */
 
 function pad(n, width) {
     n = n + '';
     return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
 }
 
+function save(no,name){
+    console.log("save success")
+    $('#artistNo').val(no);
+    $('#artistName').val(name);
+    closeBtn.click();
+    
+}
 
-/* function formatDate(jason) {
+function formatDate(jason) {
     var jasondate = new Date(jason),
         yyyy=jasondate.getFullYear().toString(),
         mm = (jasondate.getMonth() + 1).toString(),
@@ -430,11 +540,63 @@ function pad(n, width) {
         minmin = jasondate.getMinutes().toString();
         
     return yyyy +"-"+(mm[1] ? mm : '0'+mm[0])+"-"+(dd[1] ? dd : '0'+dd[0])+" "+(hh[1] ? hh : '0'+hh[0])+":"+(minmin[1] ? minmin : '0'+minmin[0]);
- } */
+ } 
  
+ 
+
+function search(pageNo, options) {
     
- 
- 
+    if (options == undefined) options = {};
+    options.pn = pageNo;
+    $.ajax('../json/member/list', {
+        /*method: 'GET',*/
+        data: options,
+        dataType: 'json',
+        success: (result) => {
+            listTableTbody.html("");
+            var filename;
+            var total;
+            for (var data of result.list) {
+                console.log(data.type);
+                
+                if(data.type == '아티스트'){
+                    
+                    if (data.photo == null) {
+                        filename = 'no_img.jpg';
+                    } else {
+                        filename = data.photo;
+                    }
+                $('<tr>').
+                    html(  
+                        "<td>" + data.no + "</td>" +
+                        "<td><a onclick='save(" + data.no + ',"' + data.artist.artistName + "\")'>"+
+                        "<img src='../download/" + filename + "' height=50></a></td>" + 
+                        "<td>" +  data.artist.artistName + "</td>")
+                    .appendTo(listTableTbody);
+                }
+            }
+            
+            currPageNo = result.pageNo;
+            currBtn.html(currPageNo);
+            
+            if (result.pageNo == 1) {
+                $(prevBtn.parent()).addClass("disabled");
+            } else {
+                $(prevBtn.parent()).removeClass("disabled");
+            }
+            
+            if (result.lastPageNo == result.pageNo) {
+                $(nextBtn.parent()).addClass("disabled");
+            } else { 
+                $(nextBtn.parent()).removeClass("disabled");
+            }
+        },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
+    });
+  }
+
 </script>
 
 

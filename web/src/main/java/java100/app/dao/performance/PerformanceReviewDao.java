@@ -14,7 +14,7 @@ public interface PerformanceReviewDao {
 	int insert(PerformanceReview performanceReview);
 	int update(PerformanceReview performanceReview);
 	int delete(int no);
-
+	List<PerformanceReview> findByArtNo (int no);
 
 }
 

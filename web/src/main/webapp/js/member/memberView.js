@@ -73,6 +73,7 @@ cuttingBtn.click(function(){
     
 $('header').load('../header.html');
 $('footer').load('../footer.html');
+$('.left-nav').load('../left-nav.html');
     
 $("#messageFlag1").click(function(){
     $("#messageIdDiv").show();
@@ -102,12 +103,12 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
         $.ajax('../json/member/' + arr[1], {
             dataType: 'json',
             success: (result) => {
-            	
-            	if (result.status == 'fail') {
-            	  window.alert("잘못된 접근입니다.");
-            	  return location.href='view.html?no=' + result.realUserNo;
-            	}
-            	
+                
+                if (result.status == 'fail') {
+                  window.alert("잘못된 접근입니다.");
+                  return location.href='view.html?no=' + result.realUserNo;
+                }
+                
                 noItem.val(result.member.no);
                 emailItem.val(result.member.email);
                 nickNameItem.val(result.member.nickName);
@@ -258,15 +259,15 @@ function checkEmail() {
         },
         success: function (count) {
             if (count == 0 && re_email.test(emailItem.val()) == true) {
-            	chkEmailMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 이메일입니다.</p>');
-            	emailCount = count;
+                chkEmailMsgItem.html('<p class="checkMessages" style="color:blue;">사용 가능한 이메일입니다.</p>');
+                emailCount = count;
                 return emailCount;
             } else if (re_email.test(emailItem.val()) == false) {
                 chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이메일 형식이 맞지 않습니다.</p>');
                 emailCount = count;
                 return emailCount;
             } else if (count == 1) {
-            	chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이미 가입한 이메일입니다.</p>');
+                chkEmailMsgItem.html('<p class="checkMessages" style="color:red;">이미 가입한 이메일입니다.</p>');
                 emailCount = count;
                 return emailCount;
             } 
@@ -350,17 +351,17 @@ if (re_email.test(emailItem.val()) == false || emailCount == 1) {
 
 // 비밀번호 검사
 if (passwordItem.val() !== "") {
-	if (re_password.test(passwordItem.val()) == false) {
-	    passwordItem.focus();
-	    return;
-	} else if (completConfirm == false) {
-		pwConfirmItem.focus();
-	    return;
-	} else if (pwConfirmItem.val() == "") {
-	    chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호 확인을 입력해 주세요.</p>');
-	    pwConfirmItem.focus();
-	    return;
-	}
+    if (re_password.test(passwordItem.val()) == false) {
+        passwordItem.focus();
+        return;
+    } else if (completConfirm == false) {
+        pwConfirmItem.focus();
+        return;
+    } else if (pwConfirmItem.val() == "") {
+        chkPwMsgItem.html('<p class="checkMessages" style="color:red;">비밀번호 확인을 입력해 주세요.</p>');
+        pwConfirmItem.focus();
+        return;
+    }
 } 
 
 // 닉네임 검사
@@ -369,7 +370,7 @@ if (nickNameItem.val() == "") {
     nickNameItem.focus();
     return;
 } else if (re_nickName.test(nickNameItem.val()) == false) {
-	nickNameItem.focus();
+    nickNameItem.focus();
     return;
 } else if (nickNameCount == 1) {
     console.log(nickNameCount);
@@ -382,7 +383,7 @@ if (nickNameItem.val() == "") {
 if ($("input[name='messageFlag']:checked").val() == 
         '1' && messageIdItem.val() == "") {
     chkMessageIdItem.html('<p class="checkMessages" style="color:red;">메세지를 수신 받을 카카오톡 ID를 입력해주세요.</p>');
-	messageIdItem.focus();
+    messageIdItem.focus();
    return;
 } 
 
@@ -393,30 +394,30 @@ if ($("input[name='type']:checked").val() == '아티스트') {
         artistNameItem.focus();
         return;
     } else if (artistMemberItem.val() == "") {
-    	chkArtistMemberItem.html("팀 구성원을 입력해주세요.");
-    	artistMemberItem.focus();
-    	return;
+        chkArtistMemberItem.html("팀 구성원을 입력해주세요.");
+        artistMemberItem.focus();
+        return;
     } else if (profileItem.val() == "") {
-    	chkProfileItem.html("프로필을 입력해주세요.");
-    	profileItem.focus();
-    	return;
+        chkProfileItem.html("프로필을 입력해주세요.");
+        profileItem.focus();
+        return;
     } else if (joinDateItem.val() == "") {
-    	chkJoinDateItem.html("팀 결성일을 입력해주세요!");
-    	joinDateItem.focus();
-    	return;
+        chkJoinDateItem.html("팀 결성일을 입력해주세요!");
+        joinDateItem.focus();
+        return;
     }
 }
 
 // 관심 장르와 지역 반드시 입력
 if ($("input[name='genres']:checked").val() == null) {
-	chkGenresItem.html("관심 지역을 체크해주세요.");
-	genresDivItem.focus();
+    chkGenresItem.html("관심 지역을 체크해주세요.");
+    genresDivItem.focus();
    return;
 }
 
 if ($("input[name='areas']:checked").val() == null) {
-	chkAreasItem.html("관심 장르를 체크해주세요");
-	areasDivItem.focus();
+    chkAreasItem.html("관심 장르를 체크해주세요");
+    areasDivItem.focus();
    return;
 }
 
@@ -427,17 +428,17 @@ if (joinDateItem.val() != "") {
 }
 
 if (passwordItem.val() != "") {
-	formData.append("password", passwordItem.val());
+    formData.append("password", passwordItem.val());
 }
 
 if (passwordItem.val() != "") {
-	formData.append("password", passwordItem.val());
+    formData.append("password", passwordItem.val());
 }
 
 console.log(hiddenImageData.val());
 
 if (hiddenImageData.val() != "") {
-	formData.append("base64Image", hiddenImageData.val());
+    formData.append("base64Image", hiddenImageData.val());
 }
     $.ajax('../json/member/update', {
         data: formData,
@@ -446,7 +447,7 @@ if (hiddenImageData.val() != "") {
         processData: false,
         contentType: false,
         success: () => {
-        	location.href="../index.html";
+            location.href="../index.html";
         },
         error: () => {
             alert("서버 입력 오류!");

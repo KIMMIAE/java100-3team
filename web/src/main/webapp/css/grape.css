@@ -34,17 +34,16 @@ clearfix{
     padding-left: 15px;
 }
 hr{
-    width: 600px;
-    margin: 50px auto;
+    width: 700px;
+    margin: 25px auto;
      
 }
 /* left */
-.left-nav{
-    border-bottom: 1px solid lightgray;
-}
 
 .sub-nav{
     padding-left: 15px;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 15px;
 }
 
 .left-nav{
@@ -63,10 +62,10 @@ hr{
 }
 
 .table-box form a {
-	margin-left: 35	0px;
+    margin-left: 35 0px;
 }
 
 .grape-cnt{
-	margin-left: 500px;
-	margin-top: 50px;
+    margin-left: 500px;
+    margin-top: 50px;
 }

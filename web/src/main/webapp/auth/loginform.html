@@ -42,13 +42,10 @@
                 <div class="button-inner">
                     <button id='loginBtn' type="button" class="btn btn-dark">로그인</button>
                     <button id='joinBtn' type="button" class="btn btn-dark">회원가입</button>
-                </div>
-                <div class="button-inner">
-                <!-- 페이스북 로그인 버튼 -->
-                    <fb:login-button scope="public_profile,email" 
-                        onlogin="checkLoginState();">
+                    <fb:login-button class="fb-button" scope="public_profile,email" onlogin="checkLoginState();">
                     </fb:login-button>
                 </div>
+               
             </div>
         </div>
         </form>

@@ -1,8 +1,8 @@
 package java100.app.service;
 
 import java.util.List;
+import java.util.Map;
 
-import java100.app.domain.sponsor.GreenGrape;
 import java100.app.domain.sponsor.Sponsor;
 
 // => "역할"을 강조할 때는 "객체(object)"라는 말보다는 
@@ -18,8 +18,9 @@ public interface SponsorService {
     
     int add(Sponsor sponsor);
     Sponsor get(int no);
-    List<Sponsor> list(int no);
-    List<Sponsor> findSpons(int no);
+    List<Sponsor> list(int pageNo, int pageSize, Map<String,Object> options, int memberNo);
+    List<Sponsor> findSpons(int pageNo, int pageSize, Map<String,Object> options,int no);
+    int getTotalCount(int no);
     /*int deleteByMemberNo(int no);*/
     
     

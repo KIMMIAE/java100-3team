@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,10 +24,6 @@ public class SponsorController {
     
     @Autowired SponsorService sponsorService;
     
-
-    Logger logger = Logger.getLogger(SponsorController.class);
-    
-    
     @RequestMapping("list")
     public Object list(@RequestParam(value="pn", defaultValue="1") int pageNo,
             @RequestParam(value="ps", defaultValue="5") int pageSize,
@@ -38,13 +33,8 @@ public class SponsorController {
             HttpSession session, Model model) throws Exception {
         
         
-        logger.fatal("fatal....");
-        logger.error("error...");
-        logger.warn("warn...");
-        logger.info("info...");
-        logger.debug("debug...");
-        logger.trace("trace...");
-        
+        Member member = (Member)session.getAttribute("loginUser");
+        HashMap<String, Object> options = new HashMap<>();
         
         if (pageNo < 1) {
             pageNo = 1;
@@ -54,7 +44,6 @@ public class SponsorController {
             pageSize = 5;
         }
         
-        HashMap<String, Object> options = new HashMap<>();
         if(words != null && words[0].length()>0) {
             options.put("words", words);
         }
@@ -63,22 +52,22 @@ public class SponsorController {
         options.put("align", align);
         
         
-        /*
-        int totalCount = SponsorService.getTotalCount();\
+        int totalCount = sponsorService.getTotalCount(member.getNo());
              
         int lastPageNo = totalCount / pageSize;
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;
-       }*/
+       }
         
         
-        Member member = (Member)session.getAttribute("loginUser");
+        
         HashMap <String, Object> result = new HashMap<>();
     
         
         result.put("pageNo", pageNo);
-        result.put("list", sponsorService.list(member.getNo()));
-        
+        result.put("lastPageNo", lastPageNo);
+        result.put("list", sponsorService.list(pageNo, pageSize, options, member.getNo()));
+
         return result;
     }
     
@@ -107,10 +96,46 @@ public class SponsorController {
     }
     
     @RequestMapping("get")
-    public Object get(HttpSession session) throws Exception {
+    public Object get(@RequestParam(value="pn", defaultValue="1") int pageNo,
+            @RequestParam(value="ps", defaultValue="5") int pageSize,
+            @RequestParam(value="words", required=false) String[] words,
+            @RequestParam(value="oc", required=false) String orderColumn,
+            @RequestParam(value="al", required=false) String align,
+            HttpSession session) throws Exception {
+       
+        
         Member member = (Member)session.getAttribute("loginUser");
         HashMap<String,Object> result = new HashMap<>();
-        result.put("get", sponsorService.findSpons(member.getNo()));
+        HashMap<String, Object> options = new HashMap<>();
+        
+        
+        if (pageNo < 1) {
+            pageNo = 1;
+        }
+
+        if (pageSize < 5 || pageSize > 15) {
+            pageSize = 5;
+        }
+        
+        if(words != null && words[0].length()>0) {
+            options.put("words", words);
+        }
+        
+        options.put("orderColumn", orderColumn);
+        options.put("align", align);
+        
+        
+        int totalCount = sponsorService.getTotalCount(member.getNo());
+             
+        int lastPageNo = totalCount / pageSize;
+        if ((totalCount % pageSize) > 0) {
+            lastPageNo++;
+       }
+        
+        result.put("pageNo", pageNo);
+        result.put("lastPageNo", lastPageNo);
+        result.put("get", sponsorService.findSpons(pageNo, pageSize, options,member.getNo()));
+        System.out.println("======> sponsor");
         return result;
     }
 
