@@ -42,8 +42,6 @@ function userInfo(){
     location.href="../member/form.html?no=" + loginUser.no;
 }
 
-
-
 $.getJSON('../json/auth/loginUser', function(result) {
     if (result.status == 'fail') {
         location.href = '../auth/loginform.html';

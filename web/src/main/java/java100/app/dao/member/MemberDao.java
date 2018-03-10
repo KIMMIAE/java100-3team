@@ -14,6 +14,7 @@ public interface MemberDao {
     int countEmail(String email);
     int countNickName(String nickName);
     int countAll();
+    int countComparePassword();
     int insert(Member member);
     int update(Member member);
     int updatePassword(Member member);

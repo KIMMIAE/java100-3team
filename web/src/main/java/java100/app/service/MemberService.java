@@ -25,20 +25,15 @@ public interface MemberService {
     int getGenreCnt(int no);
     List<InterestGenre> getInterestGenre(int no);
     Member get(String email, String password);
-    public Member get(String email);
+    Member get(String email);
     int getEmailCount(String email);
     int getNickNameCount(String nickName);
     int getTotalCount();
+    int getComparePassword();
     int add(Member member);
     int update(Member member);
     int updatePassword(Member member);
     int delete(int no);
     public void addInterestAreas(int memberNo, List<InterestArea> areas);
     public void addInterestGenres(int memberNo, List<InterestGenre> genres);
-    int getComparePassword();
 }
-
-
-
-
-

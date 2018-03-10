@@ -200,7 +200,9 @@
         where cancelfl = '0'
     </select>
     
-    
+    <select id="countComparePassword" parameterType="member" resultType="int">
+        select * from tb_memb where mmbno=#{no} and pwd=password(#{password});
+    </select>
     
     <insert id="insert" parameterType="member" useGeneratedKeys="true" keyColumn="no" keyProperty="no">
         insert into tb_memb(photo,email,pwd,nicknm,type,msgfl,msgid,cancelfl,regdt)

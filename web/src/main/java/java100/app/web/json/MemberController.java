@@ -232,10 +232,11 @@ public class MemberController {
 
     
     
-/*    @RequestMapping("updatePassword")
+    @RequestMapping("updatePassword")
     public Object updatePassword(Member member, String oldPassword, HttpSession session) {
         
         Member loginUser = (Member) session.getAttribute("loginUser");
+        
         HashMap<String, Object> result = new HashMap<>();
         
         if (loginUser.getNo() == member.getNo()) {
@@ -247,7 +248,14 @@ public class MemberController {
             result.put("status", "success");
             
             return result;
+            
+            } else {
+                
+                result.put("status", "compare_fail");
+                
+                return result;
             }
+            
         } else {
 
             result.put("status", "fail");
@@ -255,7 +263,7 @@ public class MemberController {
             return result;
         }
         
-    }; */
+    };
     
     
     @RequestMapping("delete")
@@ -269,13 +277,13 @@ public class MemberController {
         return result;
     }
     
-/*    private int comparePassword(String oldPassword, HttpSession session) {
+    private int comparePassword(String oldPassword, HttpSession session) {
         
         int count = memberService.getComparePassword();
         
         return count;
     }
-    */
+    
     
     
     long prevMillis = 0;
