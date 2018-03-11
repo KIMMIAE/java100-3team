@@ -35,7 +35,6 @@
                 <a href="../grape/list.html">
                 <img src="index-image/text/text_05.png" alt="">
                 </a>
-<!--                <a href="../request/form.html">공연요청</a>-->
             </div>
             </div>
             <div class="clearfix">
@@ -70,6 +69,8 @@
                 <h1>버스킹버스킹 인기공연</h1>
                 <div class="hover01 column"></div>
             </div>
+            <img id='prevBtn'  class='button prev' src='../index-image/left-arrow.png'>
+            <img id='nextBtn'  class='button next'  src='../index-image/right-arrow.png'>
         </section>
         <section class="blank">
             <img src="index-image/blank.png">
@@ -82,7 +83,12 @@
 <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script type="text/javascript">
-$('footer').load('footer.html');
+
+var currPageNo = 1,
+prevBtn = $('#prevBtn'),
+nextBtn = $('#nextBtn');
+
+$('footer').load('main-footer.html');
 //메뉴 마우스 오버시 색변경
 $('#nav-text').find('img').hover(function(){
     $(this).attr("src",$(this).attr("src").replace("_","-hover_"));
@@ -125,7 +131,24 @@ $.ajax('../json/notice/list', {
 
 
 
+
+performanceLoad(1)
+
+prevBtn.click (() => {
+    	performanceLoad(currPageNo - 1)    
+});
+
+nextBtn.click (() => {
+		performanceLoad(currPageNo + 1)    
+});
+
+
+function performanceLoad(pageNo, options){
+	if (options == undefined) options = {};
+	options.pn = pageNo;
+	
 $.ajax('../json/performance/list', {
+	data : options,
     dataType: 'json',
     success: (result) => {
         var filename;
@@ -145,17 +168,29 @@ $.ajax('../json/performance/list', {
                 "<span class='more'><strong>" + data.location + "</strong></span>" +
                 "<span class='desc'>" +
                 "<strong>" + data.name + "</strong>" +
-                "건대 홍대" + "<br/>" + formatDate(data.entryDate, 2) + "<br/>" +
-                "</span>" +
-                "</div>"
+                "건대 홍대" + "<br/>" + formatDate(data.entryDate, 2) + "<br/></span></div>"
             );
+        }
+            currPageNo = result.pageNo;
+            
+            if (result.pageNo == 1) {
+                $(prevBtn.parent()).addClass("disabled");
+            } else {
+                $(prevBtn.parent()).removeClass("disabled");
+            }
+            
+            if (result.lastPageNo == result.pageNo) {
+                $(nextBtn.parent()).addClass("disabled");
+            } else {
+                $(nextBtn.parent()).removeClass("disabled");
+          
         }
     },
     error: () => {
         window.alert('서버 실행 오류!');
     }
 });
-
+}
 
 
 $(function(){

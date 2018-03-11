@@ -72,12 +72,29 @@
 	top: 110px;
 	right: 10px;
 }
+
+.artistInput{
+    position: relative;
+}
+
+.searchBtn{
+    position: absolute;
+    bottom: 3px;
+    right: 5px;
+}
+
+.buttonlist{
+    position: absolute;
+    right: 15px;
+}
+
 </style>
 
 </head>
 <body>
+<header></header>
 	<div class='container'>
-		<header></header>
+		
 
 		<h1>공연 요청</h1>
 
@@ -118,19 +135,18 @@
 						src='../map-image/cal.png' width='50px' height='50px'></a>
 				</div>
 
-				<form class="my-form">
 					<div class='form-group'>
 						<label for='title'>제목</label> <input class='form-control'
 							id='title' type='text' name='title'>
 					</div>
 
-					<form class="my-form">
-						<div class='form-group'>
+					
+						<div class='form-group artistInput'>
 							<label for='artistName'>아티스트 이름</label>
-							<button id="findBtn" type="button" class='btn btn-primary btn-sm'
-								data-toggle="modal" data-target="#exampleModalCenter">검색</button>
 							<input class='form-control' readonly id='artistName' type='text'
 								name='artist.name'>
+								<button id="findBtn" type="button" class='btn btn-dark btn-sm searchBtn'
+                                data-toggle="modal" data-target="#exampleModalCenter">검색</button>
 						</div>
 
 
@@ -226,13 +242,13 @@
 							name='regDate'> <input class='form-control' readonly
 							id='viewCount' type='hidden' name='viewCount'>
 
-						<div class='form-group'>
-							<button id="addBtn" type="button"
-								class='btn btn-primary btn-sm my-new'>추가</button>
+						<div class='form-group buttonlist'>
 							<button id="updateBtn" type="button"
-								class='btn btn-primary btn-sm my-view'>변경</button>
+								class='btn btn-dark btn-sm my-view'>변경</button>
 							<button id="deleteBtn" type="button"
-								class='btn btn-primary btn-sm my-view'>삭제</button>
+								class='btn btn-dark btn-sm my-view'>삭제</button>
+								<button id="addBtn" type="button"
+                                class='btn btn-dark btn-sm my-new'>추가</button>
 						</div>
 					</form>
 			</div>

@@ -16,7 +16,7 @@
         <association property="writer" javaType="member">
             <id     column="m_no"       property="no"/>
             <result column="nicknm"     property="nickName"/>
-            <result column="photo"     property="photo"/>
+            
         </association>
         
         <association property="performance" javaType="performance">
@@ -26,6 +26,7 @@
             <result column="pfmdt"     property="entryDate"/>
             <result column="pfmloc"     property="location"/>
             <result column="artno"     property="artist.no"/>
+            <result column="photo"     property="writer.photo"/>
         </association>
         
         <association property="artist" javaType="artist">
@@ -144,27 +145,23 @@
     
     
      <select id="findByArtNo" resultMap="PerformanceReviewMap" parameterType="int">
-        select 
-            r001.rvwno,
-            r001.pfmno,
-            r001.regdt,
-            r001.rvwdesc,
-            r002.nicknm,
-            r002.mmbno as m_no,
-            r003.pfmnm,
-            r003.pfmloc,
-            r003.pfmgnr,
-            r003.pfmdt,
-            r003.pfmno as p_no,
-            r004.rvwno as r_no,
-            r004.filenm,
-            r005.artnm
-        from tb_prfrmrvw r001
-             left join tb_memb r002 on r001.mmbno=r002.mmbno
-             left join tb_prfrminfo r003 on r001.pfmno=r003.pfmno
-             left join tb_rvwfile r004 on r001.rvwno=r004.rvwno
-             left join tb_artist r005 on r003.artno=r005.artno
-        where r005.artno=#{value}
+      select 
+			r001.rvwno,
+			r001.pfmno,
+			r001.regdt,
+			r002.pfmnm,
+			r002.pfmloc,
+			r002.pfmno as p_no,
+			r003.rvwno as r_no,
+			r003.filenm,
+			r004.artnm,
+			r005.photo
+			from tb_prfrmrvw r001
+				left join tb_prfrminfo r002 on r001.pfmno=r002.pfmno
+				left join tb_rvwfile r003 on r001.rvwno=r003.rvwno
+				left join tb_artist r004 on r002.artno=r004.artno
+				left join tb_memb r005 on r004.artno=r005.mmbno
+			where r005.mmbno=#{value}
     </select>
     
     

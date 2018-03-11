@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>청포도 충전</title>
+    <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel='stylesheet' href='../css/grapechrg2.css'>
+</head>
+<body>
+    <div class="container">
+            <div class="grape-container">
+                   <h1>청포도 후원</h1>
+                    <div class="grape-cnt">
+                        <div></div>
+                        <div>청포도<span>10</span>알
+                        
+                        <button onclick="select(10)" type="button" class='btn btn-dark btn-sm'>선택</button>
+                        </div>
+                        <div></div>
+                        <div>청포도<span>30</span>알
+                        
+                        <button onclick="select(30)" type="button" class='btn btn-dark btn-sm'>선택</button>
+                        </div>
+                    </div>
+                    <div class="grape-cnt2">
+                        <div></div>
+                        <div>청포도<span>50</span>알
+                        
+                        <button onclick="select(50)" type="button" class='btn btn-dark btn-sm'>선택</button>
+                        </div>
+                        <div></div>
+                            <div>청포도<span>100</span>알
+                        
+                        <button onclick="select(100)" id="selectBtn" type="button" class='btn btn-dark btn-sm'>선택</button>
+                        </div>
+                    </div>
+                </div>
+                
+            <form class="clear-fix">
+                <div class='form-group row'>
+                <label for='chrCount' class='form-label'>후원갯수</label>
+                    <div class='form-group col'>
+                        <input type="text" class='form-control' id='chrCount' name='chrCount'>
+                    </div>
+                     <label for='chrAmount' class='form-label'>후원금액</label>
+                <div class='form-group col'>
+                    <input class='form-control' readonly id='chrAmount' type='text'
+                        name='chrAmount' >
+                </div>
+                    <button id="addBtn" type="button" class='btn btn-dark btn-sm my-new'>후원</button>
+                </div>
+               </form>
+    </div>
+    <script src='../node_modules/jquery/dist/jquery.min.js'></script>
+    <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+    <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+
+
+<script type="text/javascript">
+"use strict"
+
+var addBtn = $('#addBtn'),
+    payBtn = $('#payBtn'),
+    chrCountItem = $('#chrCount'),
+    chrAmountItem = $('#chrAmount'),
+    chrMethodItem = $('#chrMethod'),
+    testBtn = $('#testBtn'),
+    access_Token;
+    
+
+
+$('#chrCount').on('input',() => {
+     $('#chrAmount').val($('#chrCount').val() * 110)
+});
+
+window.opener.sponsorNo
+
+
+function select(value){
+    $('#chrCount').val(value);
+    $('#chrAmount').val($('#chrCount').val() * 110);
+}
+        
+
+addBtn.click(() => {
+    $.ajax('../json/sponsor/add', {
+        data: {
+            performNo: window.opener.sponsorNo,
+            ggcnt: $('#chrCount').val(),
+            sponsDesc : "임시"
+        },
+        dataType: 'json',
+        method: 'POST',
+        success: (result) => {
+            location.href = "../grape/list.html";
+        },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
+    });
+});
+
+
+
+</script>
+
+
+
+
+</body>
+</html>
+
+

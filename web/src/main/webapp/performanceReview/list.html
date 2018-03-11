@@ -8,65 +8,22 @@
 <link rel='stylesheet' href='../css/review.css'>
 </head>
 <style>
-/* .list_thumbnail02   {overflow:hidden; border-top:2px solid #151515;}
-.list_thumbnail02 h2    {display:inline-block; position:relative; top:80px; font-size:0; line-height:0;}
-.list_thumbnail02 ul    {position:relative; margin-top:-34px; border-bottom:1px solid #151515;}
-.list_thumbnail02 ul li {border-top:1px solid #e9e9e9;}
-.list_thumbnail02 ul li:after   {display:block; clear:both; content:"";}
-.list_thumbnail02 .info {float:left; width:272px; padding:75px 52px 0 124px;}
-.list_thumbnail02 .info a   {color:#222; font-size:16px; line-height:24px;}
-.list_thumbnail02 .info a:hover, .list_thumbnail02 .info a:hover .date  {color:#e64e5d}
-.list_thumbnail02 .info em, .list_thumbnail02 .info span    {display:block; word-wrap:break-word;}
-.list_thumbnail02 .info .tit01  {font-size:26px; line-height:32px;}
-.list_thumbnail02 .info .tit02  {margin-top:12px;}
-.list_thumbnail02 .info .date   {display:block; margin-top:20px; color:#909090; font-size:14px;}
-.list_thumbnail02 .thumbnail    {display:block;}
-.list_thumbnail02 .thumbnail img    {width:736px; height:320px; vertical-align:top;} */
-em {font-style:normal;}
-.box1 {
-  width:auto; 
-  height:310px;
+.list_first {
+    padding:30px;
 }
-.box1 figure {
-display:inline-block; position:relative; top:0px; font-size:15px; line-height:0; margin-bottom:-20px;
-}
-.box1 figcaption  {
-display:inline-block; position:relative; top:110px; right:60px; font-size:17px; line-height:0; font-weight: bold;
-}
-.box1 ul {
-  position:relative; 
-  list_style:none;
-  margin-top:-66px;
- }
-.box1 ul li {
-  list-style: none; 
-  border-bottom-width : 0.1px;
-  border-bottom-style : solid;
-  border-bottom-color : gray;  }
-.box1 ul li:after   {display:block; clear:both; content:"";}
-.box1 .info {float:left; width:300px;  list-style: none; margin-left:75px; padding:55px 0px 20px 20px;}
-.box1 .info a   {color:#222; font-size:12px; line-height:24px;} 
-.box1 .info a:hover, .box1 .info a:hover .date  {color:#e64e5d; text-decoration: none;}
-.box1 .info em, .box1 .info span    {display:block; word-wrap:break-word;}
-.box1 .info .tit01  {font-size:26px; line-height:32px;}
-.box1 .info .tit02  {margin-top:12px; width:280px;}
-.box1 .info .date   {display:block; margin-top:10px; color:#909090; font-size:14px; margin-right:-26px;}
-.box1 .thumbnail img {  float:right; 
-  width:734px; 
-  height:300px;
-  display: block;
-  }
 
-.blackLine {
-  width:auto;
-  border-bottom-width : 0.2em;
-  border-bottom-style : solid;
-  border-bottom-color : #151515;
-  position: relative;
+.Info {
+    margin-bottom:30px;
 }
-.box1_img {
-position: relative;
-top: 60px;
+
+.artist{
+    height: 230px;
+    width: 800px;
+    border-bottom : 2px solid lightgray;
+}
+
+.Info_img {
+top: 60px; */
 width:70px; 
 height:70px;
 border: 1px solid gray;
@@ -75,17 +32,79 @@ border-radius: 70px;
 -khtml-border-radius: 70px;
 -webkit-border-radius: 70px;
 }
-.paging {margin-top:100px;}
+
+.Info figcaption  {
+display:inline-block; 
+right:60px; 
+font-size:17px; 
+line-height:0; 
+font-weight: bold;
+margin-left : 20px;
+}
+
+/* 리뷰박스 */
+.review-Info {
+height:120px;
+width:120px;
+margin:20px 10px 10px 10px;
+float: left;
+position:relative;
+}
+
+.review-img {
+width: 100px;
+height: 100px;
+}
+.more {
+   position: absolute;
+   left: 10px;
+   top: 10px;
+   font-size: 15px;
+   font-family:tahoma;
+   color: white; /* #fff; */
+   background: red; /*#000;*/
+   padding: 5px 10px;
+}
+
+
+.desc {   
+    display: none; 
+}
+
+.review-Info:hover .desc{ /*캡션 텍스트*/
+   display: block;
+   font-size: 13px;
+   font-family:돋움;
+   letter-spacing:-1px;
+   line-height:140%;
+   padding: 10px 10px;
+   background: #111;
+   filter:alpha(opacity=70);/*익스용 투명도 필터*/
+   opacity:.70;
+   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)"; /*--익스8용 투명도 필터--*/
+   color: white; /* #fff; */
+   position: absolute;
+   bottom: 5px; /* 5px; */
+   left: 0px;
+   margin: 0;
+   width: 100px; /*이미지 사이즈에서 -20뺀 값*/
+   border-top: 1px solid #999;
+}
+.review-info:hover .desc strong {  /*캡션 제목 텍스트*/
+   color:#00FFFF;
+   display: block;
+   margin-bottom: 5px;
+   font-size:16px;
+   font-family:dotum;
+   font-weight:bold;
+}
+
+
 </style>
 <body>
+<header></header>
     <div class='container'>
-
-
-
-        <header></header>
-
         <h1>공연 후기</h1>
-
         <nav class="navbar navbar-light justify-content-between blackLine"
          style="margin-bottom: -4px;">
             <a href='form.html' class='btn btn-primary btn-sm'>추가</a>
@@ -97,116 +116,14 @@ border-radius: 70px;
                     class="btn btn-sm btn-outline-success my-2 my-sm-0" type="button">Search</button>
             </form>
         </nav>
-<!--        <a href="#">
-                <figure class="snip1273">
-  <img src="../index-image/config1%20(2).jpg" alt="sample72"/>
-  <figcaption>
-    <h3>Fletch Skinner</h3>
-    <p>I don't need to compromise my principles, because they don't have the slightest bearing on what happens to me anyway. </p>
-  </figcaption>
-  <a href="#"></a>
-</figure>
-        </a> -->
-
-
-<!-- <div class="list_thumbnail02">
-<ul>
-<li>
-<div class="info">
-<a href="javascript:goView('1711', 'TOBE');">
-<em class="tit01">The Selby House</em>
-<em class="tit02">The Selby House : #즐거운_나의_집</em>
-<span class="date">2017.04.27&nbsp;-&nbsp;2017.10.29</span>
-</a>
-</div>
-<span class="thumbnail">
-<a href="javascript:goView('1711', 'TOBE');">
-<img src="../index-image/config1%20(1).jpg" alt="The Selby House" />
-</a>
-</span>
-</li>
-</ul> -->
-
-
-
-
-
-<div id="list" class="box1">
-
+<div class="list_first">
+<div id="list">
 <div></div>
-
-<!-- <div class="box1">
-<figure>
-<img class="box1_img" src="../index-image/text/text_01.png"  alt="" >
-<figcaption>닉네임</figcaption>
-</figure>
-<ul>
-<li>
-<div class="info">
-<a href="#">
-<em class="tit01">****공연 후기</em>
-<span class="date">2018.02.18</span>
-<em class="tit02"> The Selby House : #즐거운_나의_집 오늘 본 공연은 정말 멋있었고 다시 못할 경험을 했다고 생각한다 언제나 좋은 공연을 준비해주는 아티스트 여러분께... </em>
-</a>
 </div>
-<span class="thumbnail">
-<a href="">
-<img src="../index-image/config1%20(3).jpg" alt="" />
-</a>
-</span>
-</li>
-</ul>
 </div>
 
-<div class="box1">
-<figure>
-<img class="box1_img" src="../index-image/text/text_01.png"  alt="" >
-<figcaption>닉네임</figcaption>
-</figure>
-<ul>
-<li>
-<div class="info">
-<a href="#">
-<em class="tit01">****공연 후기</em>
-<span class="date">2018.02.18</span>
-<em class="tit02"> The Selby House : #즐거운_나의_집 오늘 본 공연은 정말 멋있었고 다시 못할 경험을 했다고 생각한다 언제나 좋은 공연을 준비해주는 아티스트 여러분께... </em>
-</a>
-</div>
-<span class="thumbnail">
-<a href="">
-<img src="../index-image/config1%20(4).jpg" alt="" />
-</a>
-</span>
-</li>
-</ul>
-</div>
-       -->
-  
 
 
-
- 
-<!-- <div id="list" class="row">
-
-<figure></figure>
-<div></div>
-</div> -->
-
-
-<!--         <table id="list" class='table table-hover'>
-            <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>닉네임</th>
-                    <th>후기내용</th>
-                    <th>조회수</th>
-                    <th>등록일</th>
-                </tr>
-            </thead> 
-
-            <tbody></tbody>
-        </table>
-            -->
 
        <nav id="Btn" aria-label="Page navigation">
             <ul class="pagination justify-content-center" style="margin-top:30px;">
@@ -221,9 +138,8 @@ border-radius: 70px;
             </ul>
         </nav>
 
-
          <footer></footer> 
-</div>
+<!-- </div> -->
 
     </div>
     <script src='../node_modules/jquery/dist/jquery.min.js'></script>
@@ -237,23 +153,18 @@ var words = $('#words'),
     prevBtn = $('#prevBtn'),
     currBtn = $('#currBtn'),
     nextBtn = $('#nextBtn'),
-    tbody = $('#list > div'),
+    listDiv = $('#list > div'),
+    artistNoItem = $('#artistNo'),
     currPageNo = 1;
-
-    $('header').load('../header.html', () => {
-        load(1);
-    });
-
-    $('footer').load('../footer.html');
-
-
+    load(1);
+    $('header').load('../header.html');
     searchBtn.click(() => {
         //event.preventDefault();
         load(1, {
             "words": $('#words').val()
         })
     });
-
+    
     prevBtn.click(() => {
         load(currPageNo - 1)
     });
@@ -264,60 +175,89 @@ var words = $('#words'),
 
     
     
-function load(pageNo, options) {
-
-if (options == undefined) options = {};
-options.pn = pageNo;
-
-$.ajax('../json/performanceReview/list', {
-    /*method: 'GET',*/
-    data: options,
-    dataType: 'json',
-    success: (result) => {
-        tbody.html(""); // <tbody> 콘텐츠를 지운다.
-        var reviewFilename;
-        for (var data of result.list) {
-            for (var reviewMedia of data.reviewFiles) {
-                if (reviewMedia.reviewFilename == null) {
-                    reviewFilename = 'no_img.jpg';
-                }else {
-                    reviewFilename = reviewMedia.reviewFilename;
+    function load(pageNo, options) {
+        
+        if (options == undefined) options = {};
+        options.pn = pageNo;
+        
+        $.ajax('../json/member/list', {
+            /*method: 'GET',*/
+            data: options,
+            dataType: 'json',
+            success: (result) => {
+                
+                for (var data of result.list) {
+                    if (data.type != "아티스트") {
+                        continue;
+                    } 
+                    if (data.photo == null) {
+                        photo= 'no_img.jpg';
+                    }else {
+                        photo = data.photo;
+                    }
+                    reviewList(data.no,data.artist.artistName,photo);
                 }
+                
+                currPageNo = result.pageNo;
+                currBtn.html(currPageNo);
+                
+                if (result.pageNo == 1) {
+                    $(prevBtn.parent()).addClass("disabled");
+                } else {
+                    $(prevBtn.parent()).removeClass("disabled");
+                }
+                
+                if (result.lastPageNo == result.pageNo) {
+                    $(nextBtn.parent()).addClass("disabled");
+                } else {
+                    $(nextBtn.parent()).removeClass("disabled");
+                }
+            },
+            error: () => {
+                window.alert('서버 실행 오류!');
             }
+        });
         
-                $("<figure>")
-                .html(  
-                        "<img class='box1_img' src='../download/" + data.writer.photo + "_t1.jpg'>" +
-                        "<figcaption>" + data.writer.nickName + "</figcaption>" +
-                        "</figure>" + "<ul>" + "<li>" + "<div class='info'>" + "<a href='form.html?no=" + data.reviewNo +  "'>" 
-                                + "<em class='tit01'>" + data.performance.name + "</em>" +
-                        "<p class='date'>" + formatDate(data.performance.entryDate) + "</p>" +
-                        "<em class='tit02'>" + data.reviewDescription + "</em></a></div>" +
-                        "<span class='thumbnail'>" + "<a href='form.html?no=" + data.reviewNo + "'>"
-                                + "<img src='../download/" + reviewFilename + "_reviewT1.jpg'>" + '</a></span></li></ul>')
-                      .appendTo(tbody);
-            
-        }
-        
-        currPageNo = result.pageNo;
-        currBtn.html(currPageNo);
-        
-        if (result.pageNo == 1) {
-            $(prevBtn.parent()).addClass("disabled");
-        } else {
-            $(prevBtn.parent()).removeClass("disabled");
-        }
-        
-        if (result.lastPageNo == result.pageNo) {
-            $(nextBtn.parent()).addClass("disabled");
-        } else {
-            $(nextBtn.parent()).removeClass("disabled");
-        }
-    },
-    error: () => {
-        window.alert('서버 실행 오류!');
+      
     }
-});
+
+
+    
+
+    function reviewList(no,name,photo){
+        listDiv.html(""); // <tbody> 콘텐츠를 지운다.
+    	  $.ajax('../json/performanceReview/artNo', {
+              data: {
+                  artNo: no 
+              },
+              dataType: 'json',
+              success: (result) => {
+            	  
+            	  if(result) {
+            		  $("<div id='"+ no+ "' class='Info artist'>").html("<img class='Info_img' src='../download/" + photo + "'>" +
+                              "<figcaption>" + name+ "</figcaption><div></div>").appendTo(listDiv); 
+            	  }
+                  
+                 for(var data of result.list){
+                     if(!(data.reviewFiles[0].reviewFilename)){
+                         data.reviewFiles[0].reviewFilename = 'no_img.jpg'
+                     }
+                     
+                     var reviewBox = $('#'+no+'> div')
+                     $("<div class='review-Info'><figure>").html("<img class='review-img' src='../download/" + data.reviewFiles[0].reviewFilename + "'>" +
+                            "</figure><span class='desc'>" +
+                             "<br><strong>" + data.artist.artistName+ "</strong>" +
+                             "<br>" + formatDate(data.regDate, 2) + "<br></span></div>").appendTo(reviewBox);
+                     }    
+                 
+              },
+              error: () => {
+              window.alert('서버 실행 오류!');
+                  } 
+              });
+    }
+    
+
 
 function formatDate(json) {
     var jasondate = new Date(json) 
@@ -328,7 +268,7 @@ function formatDate(json) {
     }
 
 
-}
+
 
 
 
@@ -337,12 +277,4 @@ function formatDate(json) {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
 
