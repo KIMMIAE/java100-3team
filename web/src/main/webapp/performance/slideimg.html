@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<head>
+<meta charset=utf-8 />
+<title>TinyFader - JavaScript Slideshow</title>
+
+<script src='../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?region=KR&key=AIzaSyBl2qPIVMyVVmfA4F43i0cCk3g6vf2RRZI"></script>
+
+<link rel="stylesheet" href="../performance/slidestyle.css" />
+<script src="../performance/tinyfader.js"></script>
+
+</head>
+<body>
+<div id="wrapper">
+    <div>
+        <div id="slideshow">
+            <ul id='slides'>
+                <li id='content'>
+                    <h1>TinyFader - Simple JavaScript Slideshow</h1>
+                    <p>This super lightweight (1.3 KB) fading JavaScript slideshow script can easily be customized to ie and an active class on a navigation list if applicable.</p>
+                    <p><em>For complete details visitleigeber.com</em></p>
+                </li>
+                <li><img src="../download/1520816960893_0.jpg" width="500" height="300" alt="Sea turtle" /></li>
+                <li><img src="../download/1520816960895_0.jpg" width="500" height="300" alt="Coral Reef" /></li>
+                <li><img src="../download/1520816960895_0.jpg" width="500" height="300" alt="Blue Fish" /></li>
+            </ul>
+        </div>
+    </div>
+    <ul id="pagination" class="pagination">
+        <li onclick="slideshow.pos(0)">1</li>
+        <li onclick="slideshow.pos(1)">2</li>
+        <li onclick="slideshow.pos(2)">3</li>
+        <li onclick="slideshow.pos(3)">4</li>
+    </ul>
+</div>
+<script type="text/javascript">
+var slideshow=new TINY.fader.fade('slideshow',{
+    id:'slides',
+    auto:3,
+    resume:true,
+    navid:'pagination',
+    activeclass:'current',
+    visible:true,
+    position:0
+});
+</script>
+</body>
+</html>
