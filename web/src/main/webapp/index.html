@@ -95,7 +95,7 @@ $.getJSON('../json/auth/loginUser', function(result) {
       loginUser = result.loginUser;
       $('#nav-right').html(" ");
       $('#nav-right').html("<span id='username'></span><span>님 환영합니다</span><br>"+
-      "<a href='../member/form.html?no=" + result.loginUser.no +"'>회원정보</a>"+
+      "<a href='../member/view.html?no=" + result.loginUser.no +"'>회원정보</a>"+
       "<a onclick='logoutBtn()' id='logoutBtn'>로그아웃</a>");
       $('#username').html(result.loginUser.nickName);
       }

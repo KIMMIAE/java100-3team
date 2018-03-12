@@ -39,7 +39,9 @@ function userInfo(){
     location.href="../member/view.html?no=" + loginUser.no;
 }
 
-
+function userPasswordInfo(){
+    location.href="../member/chgpwd.html?no=" + loginUser.no;
+}
 
 $.getJSON('../json/auth/loginUser', function(result) {
     if (result.status == 'fail') {

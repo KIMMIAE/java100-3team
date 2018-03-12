@@ -3,98 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../css/style1.css'>
+<link rel='stylesheet' href='../css/member/memberView.css'>
 </head>
 <body>
-<form id="formData" method="post">
+<header></header>
+<div class="container">
+     <div class="left-nav">
+     </div>
+<div class="right-content">
+<form id='formData' class="table-box">
+<h5>비밀번호 변경</h5>
 <input id="loginUserNo" name="no" type="hidden" value="">
-<div id="popLayWrap_v3" style="width:430px;">
-<div id="popHead_v3">
-<div class="popHeadEnd_v3">
-<h1>비밀번호 변경</h1>
+
+<div class='form-group row'>
+<label for='oldPassword' class='col-sm-2 col-form-label'>기존 비밀번호</label>
+<div class='col-sm-6'>
+<input class='form-control' id='oldPassword' name="oldPassword" type='password' 
+placeholder="기존 비밀번호" value="">
+<div class="checkMessages" id="chkOldPwMsg">
+<p></p>
 </div>
 </div>
-<div class="popbody_con">
-    <div class="pop_loginwrap">
-        <div class="info_wrap">
-            <div class="info_middle">
-                <span><em><strong>비밀번호는 영문/숫자/특수문자 조합 6~18자입니다.</strong></em></span>
-            </div>
-        </div>
-        <div class="login_wrap">
-            <dl class="btn_list">
-                <dt>기존 비밀번호 입력</dt>
-                <dd><input title="password" id="oldPassword" name="oldPassword" type="password" class="input_txt" value=""></dd>
-                <dt>새 비밀번호 입력</dt>
-                <dd><input title="password" id="newPassword" name="password" type="password" class="input_txt" value=""></dd>
-                <dt>새 비밀번호 확인</dt>
-                <dd><input title="password" id="newPwConfirm" type="password" class="input_txt" value="" onkeypress="javascript:if (event.keyCode == 13) {modifyPwd(); return false;};"></dd>
-                    </dl>
-                </div>  
-            </div>
-        </div>
-    </div>
-<button class="button" id="addBtn" type="button" style="text-align: center;">비밀번호 변경</button>
+</div>
+
+<div class='form-group row'>
+<label for='newPassword' class='col-sm-2 col-form-label'>새 비밀번호</label>
+<div class='col-sm-6'>
+<input class='form-control' id='newPassword' type='password' onkeyup="checkNewPassword()" 
+placeholder="영문/숫자/특수문자 조합 6~18자" name="password" value="">
+<div class="checkMessages">
+</div>
+</div>
+</div>
+
+<div class='form-group row'>
+<label for='pwConfirm' class='col-sm-2 col-form-label'>새 비밀번호 확인</label>
+<div class='col-sm-6'>
+<input class='form-control' id='newPwConfirm' type='password' onkeyup="confirmNewPassword()" 
+placeholder="비밀번호 재입력" value="">
+<div class="checkMessages" id="chkPwMsg">
+<p></p>
+</div>
+</div>
+</div>
+
+<div id="btnDiv" style="text-align: center;">
+<button class="button" id="addBtn" type="button">비밀번호 변경</button>
+</div>
+
 </form>
-
+</div>
+</div>
 <script src='../node_modules/jquery/dist/jquery.min.js'></script>
-<script type="text/javascript">
-var loginUserNoItem = $('#loginUserNo'),
-    formDataItem = $('#formData'),
-    addBtn = $('#addBtn');
-
-var index = location.href.indexOf('?');
-if (index != -1) {
-    var qs = location.href.substr(index + 1);
-    var arr = qs.split('=');
-    $(window).ready(function() {
-        $.ajax({
-            url: '../json/member/' + arr[1],
-            dataType: 'json',
-            success: (result) => {
-            
-              if (result.status == 'fail') {
-                window.alert("잘못된 접근입니다.");
-                return location.href='chgpwd.html?no=' + result.realUserNo;
-              }
-              loginUserNoItem.val(result.member.no);
-           },
-           error: function () {
-             alert("회원 정보를 확인할 수 없습니다.");
-             location.href='../auth/loginform.html';
-           }
-       });
-   });
-}
-
-addBtn.click(() => {
-var formData = new FormData(formDataItem[0]);
-
-$.ajax('../json/member/comparePassword', {
-    data: formData,
-    dataType: 'json',
-    method: 'POST',
-    processData: false,
-    contentType: false,
-    success: (result) => {
-    	
-    	if (result.status == 'success') {
-    	$.getJSON('../json/auth/logout', (result) => {
-    	        console.log(result);
-    	        location.href='../auth/loginform.html';
-    	    });
-    	}
-    	
-    	if (result.status == 'fail') {
-    		alert("기존 비밀번호가 일치하지 않습니다.");
-    		return;
-    	}
-    },
-    error: () => {
-        alert("서버 입력 오류!");
-    }
-});
-});
-
-</script>
+<script src='../js/member/chgpwd.js'></script>
 </body>
 </html>

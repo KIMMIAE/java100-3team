@@ -477,7 +477,7 @@ function onMarkerDragend(event) {
 
 
 
-        function deleteImageAction(index) {
+         function deleteImageAction(index) {
             console.log("index : "+index);
             console.log("sel length : "+sel_files.length);
 
@@ -627,8 +627,17 @@ updateBtn.click(() => {
     if (updateBtn.text() == "수정 저장") {
         var formData = new FormData($("#formData")[0]);
     
+        for(var i=0, len=sel_files.length; i<len; i++) {
+            formData.append('files', sel_files[i]);
+        }
+        
+        if(sel_files.length < 1) {
+            alert("한개이상의 파일을 선택해주세요.");
+            return;
+        }
+        
         $.ajax({
-           url: '../json/performance/update',
+           url: '../json/performance2/update',
            data: formData,
            dataType: 'json',
            processData: false,
