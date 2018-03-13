@@ -1,5 +1,6 @@
 package java100.app.dao.member;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ public interface MemberDao {
     int countEmail(String email);
     int countNickName(String nickName);
     int countAll();
-    int countComparePassword();
+    int countComparePassword(HashMap<String, Object> parameters);
     int insert(Member member);
     int update(Member member);
     int updatePassword(Member member);

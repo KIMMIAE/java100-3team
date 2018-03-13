@@ -16,6 +16,7 @@ import java100.app.domain.request.Request;
 //
 public interface RequestService {
     List<Request> list(int no,int pageNo, int pageSize, Map<String,Object> options);
+    List<Request> listByArtNo(int no,int pageNo, int pageSize, Map<String,Object> options);
     Request get(int no);
     int getTotalCount();
     int add(Request request);

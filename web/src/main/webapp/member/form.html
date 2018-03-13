@@ -11,10 +11,11 @@
     <link rel='stylesheet' href='../css/style1.css'>
 <style type="text/css">
 
+
 #mainDiv{
   margin: 20px auto;
   width: 770px; 
-  height: 880px;
+  height: 930px;
   -webkit-border-radius: 8px/7px; 
   -moz-border-radius: 8px/7px; 
   border-radius: 8px/7px; 
@@ -23,6 +24,29 @@
   -moz-box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
   box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
   border: solid 1px #cbc9c9;
+  
+}
+
+.title{
+    width: 500px;
+    margin-top: 30px;
+    margin-left: 300px;
+}
+
+.title span{
+    font-size: 24px;
+    font-wight: bolder;
+}
+
+.title span{
+    font-size: 24px;
+    font-wight: bolder;
+}
+
+
+.profile {
+    margin-top: 40px;
+
 }
 
 div.photoPositioning {
@@ -141,11 +165,15 @@ textarea {
         </div>
 </header>
 
-
-<div id="mainDiv">
-<h2 id="registration">Registration</h2>
 <form id='formData'>
-
+<div id="mainDiv">
+<div class="title">
+	<span id="registration">Registration</span>
+	<input type="radio" value="일반회원" id="type1" name="type" checked="checked"/>
+	<label for="type1" class="radio">일반회원</label>
+	<input type="radio" value="아티스트" id="type2" name="type"/>
+	<label for="type2" class="radio">아티스트</label>  
+</div>
 <div id="formDivOne">
 <div id="divOne">
 
@@ -154,15 +182,12 @@ textarea {
   <div class="photoPositioning">
   
   <div class="accounttype">
-  <h4 style="margin-bottom: 10px">가입 유형</h4>
-  <input type="radio" value="일반회원" id="type1" name="type" checked="checked"/>
-  <label for="type1" class="radio">일반회원</label>
-  <input type="radio" value="아티스트" id="type2" name="type"/>
-  <label for="type2" class="radio">아티스트</label>
+  
   </div>
   
   <div id="image-cropper">
-  <div class="cropit-preview"></div>
+  <h4>프로필 이미지</h4>
+  <div class="cropit-preview profile"></div>
   <input type="file" class="cropit-image-input">
   <input id="cropit-range" type="range" class="cropit-image-zoom-input">
   <button id="cuttingBtn" type="button" style="display: inline-block;">사진 자르기</button>
@@ -380,9 +405,9 @@ textarea {
 
 </div>
       <button class="button" id="addBtn" type="button" style="text-align: center;">회원 가입</button>
-  </form>
-</div>
 
+</div>
+</form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
 <!-- 최신 제이쿼리 -->

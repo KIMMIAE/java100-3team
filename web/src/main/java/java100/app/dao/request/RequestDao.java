@@ -7,6 +7,7 @@ import java100.app.domain.request.Request;
 
 public interface RequestDao {
     List<Request> findAll(Map<String,Object> params);
+    List<Request> findByArtNo(Map<String,Object> params);
     Request findByNo(int no);
     Request findByNo2(int no);
     int countAll();

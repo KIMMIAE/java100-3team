@@ -31,12 +31,13 @@ body {
 /*왼쪽 로그인 폼 시작*/
 .left-inner{
     width: 50% ;
-    height: 500px;
+    height: 600px;
     float:left;
     padding-top: 50px;
     border: 1px solid lightgray;
     box-sizing: border-box;
     box-shadow: 5px 5px 3px #aaaaaa;
+    position: relative
     
 }
 .text {
@@ -66,8 +67,12 @@ body {
     margin-left: 130px;
 }
 .button-inner{
+	position: absolute;
     padding:10px;
     text-align: right;
+    bottom : 0;
+    right:130px;
+    
 }
 
 .fb-button{
@@ -77,7 +82,7 @@ body {
 /* 오른쪽 커버 사진 시작*/
 .cover{
     width: 50%;
-    height: 500px;
+    height: 600px;
     overflow: hidden;
     background-image: url(../index-image/login.jpg);
     background-size: cover;
@@ -88,7 +93,7 @@ body {
     width: 200px;
     height: 200px;
     margin: auto;
-    margin-top: 100px;
+    margin-top: 150px;
     background-color: rgba(0, 0, 0, 0.9);
     border-radius: 20px;
 }

@@ -241,7 +241,12 @@ public class MemberController {
         
         if (loginUser.getNo() == member.getNo()) {
             
-            if (comparePassword(oldPassword, session) == 1) {
+            HashMap<String, Object> parameters = new HashMap<>();
+            
+            parameters.put("no", member.getNo());
+            parameters.put("oldPassword", oldPassword);
+            
+            if (comparePassword(parameters) == 1) {
             
             memberService.updatePassword(member);
             
@@ -277,9 +282,9 @@ public class MemberController {
         return result;
     }
     
-    private int comparePassword(String oldPassword, HttpSession session) {
+    private int comparePassword(HashMap<String, Object> parameters) {
         
-        int count = memberService.getComparePassword();
+        int count = memberService.getComparePassword(parameters);
         
         return count;
     }

@@ -30,6 +30,22 @@ public class RequestServiceImpl implements RequestService {
         
         return requestDao.findAll(params);
     }
+    
+    @Override
+    public List<Request> listByArtNo(int no, int pageNo, int pageSize, Map<String, Object> options) {
+        
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("artistNo", no);
+        params.put("startIndex", (pageNo - 1) * pageSize);
+        params.put("size", pageSize);
+        if (options != null) {
+            params.putAll(options);
+        }
+        
+        return requestDao.findByArtNo(params);
+    }
+    
+    
 
     @Override
     public Request get(int no) {

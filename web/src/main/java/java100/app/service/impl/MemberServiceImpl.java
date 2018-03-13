@@ -109,9 +109,8 @@ public class MemberServiceImpl implements MemberService {
     }
     
     @Override
-    public int getComparePassword() {
-        
-        return memberDao.countComparePassword();
+    public int getComparePassword(HashMap<String, Object> parameters) {
+        return memberDao.countComparePassword(parameters);
     }
     
     @Override
@@ -211,8 +210,6 @@ public class MemberServiceImpl implements MemberService {
             interestGenreDao.insert(genre);
         }
     }
-
-
 
 
 

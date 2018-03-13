@@ -17,8 +17,8 @@
   /* Always set the map height explicitly to define the size of the div
    * element that contains the map. */
   #map {
-    width: 500px;
-    height: 500px;
+    width: 450px;
+    height: 450px;
     border: 1px solid;
     background-color: #fff;;
     margin-left: 12px;
@@ -49,7 +49,7 @@
     margin-left: 12px;
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
-    width: 300px;
+    width: 280px;
   }
 
   #pac-input:focus {
@@ -114,12 +114,13 @@
             margin-left: 10px;
             margin-right: 10px;
         }
-     
+        
 </style>
 </head>
 <body>
-<div class='container'>
 <header></header>
+<div class='container'>
+
 
 <h1></h1>
 
@@ -263,7 +264,7 @@
         
         
         <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-        <div id="map"></div>
+        <div class="map-box" id="map"></div>
         
         
       </div>
@@ -616,7 +617,7 @@ addBtn.click(() => {
         //cache: false,
         method: 'POST',
         success: function(result) {
-            location.href = "list.html";
+            location.href = "list4.html";
         },
         error: () => {
             window.alert('서버 실행 오류!');
@@ -645,7 +646,7 @@ updateBtn.click(() => {
            }
         });
     } else {
-        location.href = "detail.html?no="+ performInfo.no;
+        location.href = "detail2.html?no="+ performInfo.no;
     }
 });
 

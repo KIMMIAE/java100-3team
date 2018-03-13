@@ -1,5 +1,6 @@
 package java100.app.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public interface MemberService {
     int getEmailCount(String email);
     int getNickNameCount(String nickName);
     int getTotalCount();
-    int getComparePassword();
+    int getComparePassword(HashMap<String, Object> parameters);
     int add(Member member);
     int update(Member member);
     int updatePassword(Member member);

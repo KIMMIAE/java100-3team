@@ -150,7 +150,7 @@ body * {
 }
 
 .header {
-  background-color: black;
+  background-color: #3a72a9;
   color: white;
   font-size: 1.5em;
   padding: 1rem;
@@ -191,7 +191,7 @@ table td:nth-child(10n+2) {
 }
 table th {
   color: white;
-  background-color: #19181c;
+  background-color: #73c3e3;
   font-weight: 300;
   text-align: center;
   vertical-align: middle;
@@ -200,7 +200,7 @@ table tr:nth-child(10n+2) {
   text-align: left;
 }
 table tr:nth-child(2n) {
-  background-color: #8392ab;
+  background-color: #c0ecec;
 }
 table tr:nth-child(2n+1) {
   background-color: white;
@@ -316,7 +316,9 @@ table tr:nth-child(2n+1) {
     box-shadow: none;
     overflow: visible;
   }
-}
+  
+  
+  
 </style>
 
 </head>
@@ -360,7 +362,7 @@ table tr:nth-child(2n+1) {
 
 
 
-<div class='form-group' style="position: relative; left:50px;">
+<div class='form-group'>
     <nav class="navbar navbar-light justify-content-between">
     <!-- <button id="addBtn" type="button" class='btn btn-primary btn-sm my-view'>공연등록</button> -->
       <form class="form-inline">
@@ -543,9 +545,9 @@ function load(pageNo, options) {
                         }
                     }
                     $('<tr>').html(
-                        "<td><a href='detail.html?no=" + data.no + "'>" + 
+                        "<td><a href='detail2.html?no=" + data.no + "'>" + 
                             "<img class='imglist' src='../download/" + filename + "' height=50></a></td>" + 
-                        "<td><a href='detail.html?no=" + data.no + "'>" + data.name + "</a></td>" +
+                        "<td><a href='detail2.html?no=" + data.no + "'>" + data.name + "</a></td>" +
                         "<td>" + data.artist.artistName + "</td>" +
                         "<td>" + data.genre + "</td>" +
                         "<td>" + formatDate(data.entryDate, 4) + "</td>" +
@@ -672,7 +674,7 @@ function imgadjust() {
 }
 
 function imgclick(no) {
-    location.href="detail.html?no=" + no;
+    location.href="detail2.html?no=" + no;
 }
 
 

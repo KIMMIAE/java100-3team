@@ -88,12 +88,12 @@ messageFlag2Item.click(function(){
 
 type1Item.click(function(){
     $("#artistInfoDiv").hide();
-    $("#mainDiv").css("height", "880px");
+    $("#mainDiv").css("height", "930px");
     
 });
 
 type2Item.click(function(){
-	$("#mainDiv").css("height", "1200px");
+	$("#mainDiv").css("height", "1250px");
     $("#artistInfoDiv").show();
     $("#replacePicture").hide();
 });

@@ -72,6 +72,55 @@ public class RequestController {
       
         return result;
     }
+    
+    
+    @RequestMapping("listByArtNo")
+    public Object listByArtNo(
+            @RequestParam(value="pn", defaultValue="1") int pageNo,
+            @RequestParam(value="ps", defaultValue="5") int pageSize,
+            @RequestParam(value="words", required=false) String[] words,
+            @RequestParam(value="oc", required=false) String orderColumn,
+            @RequestParam(value="al", required=false) String align,
+            HttpSession session) throws Exception {
+
+        // UI 제어와 관련된 코드는 이렇게 페이지 컨트롤러에 두어야 한다.
+        //
+        if (pageNo < 1) {
+            pageNo = 1;
+        }
+        
+        if (pageSize < 5 || pageSize > 15) {
+            pageSize = 5;
+        }
+        
+        HashMap<String,Object> options = new HashMap<>();
+        
+        if (words != null && words[0].length() > 0) {
+            options.put("words", words);
+        }
+        
+        options.put("orderColumn", orderColumn);
+        options.put("align", align);
+        
+        int totalCount = requestService.getTotalCount();
+        int lastPageNo = totalCount / pageSize;
+        if ((totalCount % pageSize) > 0) {
+            lastPageNo++;
+        }
+        HashMap<String,Object> result = new HashMap<>();
+
+        result.put("pageNo", pageNo);
+        result.put("lastPageNo", lastPageNo);
+        Member member = (Member) session.getAttribute("loginUser");
+        result.put("list", requestService.listByArtNo(member.getNo(), pageNo, pageSize, options));
+      
+        return result;
+    }
+
+    
+    
+    
+    
 
     @RequestMapping("{no}")
     public Object view(@PathVariable int no) throws Exception {

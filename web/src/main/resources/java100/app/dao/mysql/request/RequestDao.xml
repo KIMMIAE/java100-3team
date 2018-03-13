@@ -48,15 +48,51 @@
         from tb_prfrmrequest as pr 
         join tb_memb as m on pr.mmbno=m.mmbno
         join tb_artist as a on pr.artno=a.artno
-
-        <if test="words != null">
-            <where>
-                <foreach collection="words" item="word">
-                    or pfmtitle like '%${word}%'
-                </foreach>
-            </where>
-        </if>
+        where m.mmbno=#{memberGetNo}
+      
         
+        <!-- 정렬 조건에 따라 SQL문을 변경한다. -->
+        order by 
+        <choose>
+            <when test="orderColumn == 'regdt' and align == 'desc'">
+                regdt desc
+            </when>
+            <when test="orderColumn == 'regdt' and align == 'asc'">
+                regdt asc
+            </when>
+            <when test="orderColumn == 'vwcnt' and align == 'desc'">
+                viewcnt desc
+            </when>
+            <when test="orderColumn == 'vwcnt' and align == 'asc'">
+                viewcnt asc
+            </when>
+            <otherwise>
+                reqno desc
+            </otherwise>
+        </choose>
+        
+        <!-- 페이지징 처리 -->
+        limit #{startIndex}, #{size}
+    </select>
+    
+    
+    
+    
+    <select id="findByArtNo" resultMap="requestMap" parameterType="map">
+        select 
+            pr.reqno,
+            pr.pfmtitle,
+            pr.regdt,
+            pr.viewcnt,
+            pr.artno,
+            a.artnm,
+            m.mmbno as m_no,
+            m.nicknm as m_nicknm
+        from tb_prfrmrequest as pr 
+        join tb_memb as m on pr.mmbno=m.mmbno
+        join tb_artist as a on pr.artno=a.artno
+        where a.artno=#{artistNo}
+      
         <!-- 정렬 조건에 따라 SQL문을 변경한다. -->
         order by 
         <choose>

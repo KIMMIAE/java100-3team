@@ -17,9 +17,9 @@
 }
 
 .artist{
-    height: 230px;
+    height: 300px;
     width: 800px;
-    border-bottom : 2px solid lightgray;
+    border-bottom : 1px solid lightgray;
 }
 
 .Info_img {
@@ -44,16 +44,16 @@ margin-left : 20px;
 
 /* 리뷰박스 */
 .review-Info {
-height:120px;
-width:120px;
+height:180px;
+width:180px;
 margin:20px 10px 10px 10px;
 float: left;
 position:relative;
 }
 
 .review-img {
-width: 100px;
-height: 100px;
+width: 150px;
+height: 150px;
 }
 .more {
    position: absolute;
@@ -84,10 +84,10 @@ height: 100px;
    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)"; /*--익스8용 투명도 필터--*/
    color: white; /* #fff; */
    position: absolute;
-   bottom: 5px; /* 5px; */
+   bottom: 30px; /* 5px; */
    left: 0px;
    margin: 0;
-   width: 100px; /*이미지 사이즈에서 -20뺀 값*/
+   width: 150px; /*이미지 사이즈에서 -20뺀 값*/
    border-top: 1px solid #999;
 }
 .review-info:hover .desc strong {  /*캡션 제목 텍스트*/
@@ -195,7 +195,7 @@ var words = $('#words'),
                     }else {
                         photo = data.photo;
                     }
-                    reviewList(data.no,data.artist.artistName,photo);
+                    reviewList(data.no,data.artist.artistName,data.photo);
                 }
                 
                 currPageNo = result.pageNo;

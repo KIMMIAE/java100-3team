@@ -21,10 +21,10 @@
         
         <association property="artist" javaType="artist">
             <id     column="artno"     property="no"/>
-	        <result column="artnm"     property="artistName"/>
-	        <result column="artmmb"    property="artistMember"/>
-	        <result column="profile"   property="profile"/>
-	        <result column="joindt"    property="joinDate"/>
+            <result column="artnm"     property="artistName"/>
+            <result column="artmmb"    property="artistMember"/>
+            <result column="profile"   property="profile"/>
+            <result column="joindt"    property="joinDate"/>
         </association>
         
         <collection property="interestAreas"  ofType="interestArea">
@@ -47,6 +47,7 @@
     <select id="findAll" resultMap="memberMap" parameterType="map">
         select 
             t001.mmbno,
+            t001.photo,
             t001.nicknm,
             t001.email,
             t001.type,
@@ -60,13 +61,13 @@
         from tb_memb t001 left join tb_artist t002
         on t001.mmbno = t002.artno
         <if test="words != null">
-	        <where>
-	            t001.nicknm in
-	            <foreach collection="words" item="word" 
-	                     open="(" close=")" separator=",">
-	                #{word}
-	            </foreach>
-	            or t001.email in
+            <where>
+                t001.nicknm in
+                <foreach collection="words" item="word" 
+                         open="(" close=")" separator=",">
+                    #{word}
+                </foreach>
+                or t001.email in
                 <foreach collection="words" item="word" 
                          open="(" close=")" separator=",">
                     #{word}
@@ -74,7 +75,7 @@
                 <foreach collection="words" item="word"> 
                 or t002.artnm like '%${word}%'
                 </foreach>
-	        </where>
+            </where>
             and t001.cancelfl = '0'
         </if>
         <if test="words == null">
@@ -200,8 +201,8 @@
         where cancelfl = '0'
     </select>
     
-    <select id="countComparePassword" parameterType="member" resultType="int">
-        select * from tb_memb where mmbno=#{no} and pwd=password(#{password});
+    <select id="countComparePassword" parameterType="map" resultType="int">
+        select count(*) from tb_memb where mmbno=#{no} and pwd=password(#{oldPassword});
     </select>
     
     <insert id="insert" parameterType="member" useGeneratedKeys="true" keyColumn="no" keyProperty="no">
@@ -235,4 +236,3 @@
     </delete>
     
 </mapper>
-

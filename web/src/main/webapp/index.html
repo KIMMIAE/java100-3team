@@ -16,24 +16,24 @@
        <div class="main-nav">
             <a href="../index.html"><img class="logo-img" src="../index-image/play-button.png"></a>
             <div class="nav-right" id="nav-right">
-            <a href="../member/form.html">회원가입</a>
+            <a href="../member/form2.html">회원가입</a>
             <a href="../auth/loginform.html">로그인</a>
             </div>
             <div class="nav-text" id="nav-text">
-                <a href="../performance/list.html">
-                <img src="index-image/text/text_01.png" alt="">
+               <a href="../performance/list.html">
+                <img src="../index-image/text/text_01.png" alt="">
                 </a>
-                <a href="../performance/form.html">
-                <img src="index-image/text/text_02.png" alt="">
+                <a href="../performance/form_multiple.html">
+                <img src="../index-image/text/text_02.png" alt="">
                 </a>
                 <a href="../performanceReview/list.html">
-                <img src="index-image/text/text_03.png" alt="">
+                <img src="../index-image/text/text_03.png" alt="">
                 </a>
                 <a href="../request/form.html">
-                <img src="index-image/text/text_04.png" alt="">
+                <img src="../index-image/text/text_04.png" alt="">
                 </a>
                 <a href="../grape/list.html">
-                <img src="index-image/text/text_05.png" alt="">
+                <img src="../index-image/text/text_05.png" alt="">
                 </a>
             </div>
             </div>
@@ -101,7 +101,7 @@ $.getJSON('../json/auth/loginUser', function(result) {
       loginUser = result.loginUser;
       $('#nav-right').html(" ");
       $('#nav-right').html("<span id='username'></span><span>님 환영합니다</span><br>"+
-      "<a href='../member/form.html?no=" + result.loginUser.no +"'>회원정보</a>"+
+      "<a href='../member/view.html?no="  + result.loginUser.no +"'>회원정보</a>"+
       "<a onclick='logoutBtn()' id='logoutBtn'>로그아웃</a>");
       $('#username').html(result.loginUser.nickName);
       }
@@ -165,7 +165,6 @@ $.ajax('../json/performance/list', {
                 "<div class='imgteaser'  style='width:200px; height:200px;' onclick='imgclick(" + data.no + ")'>" +
                 "<figure><img src='../download/" + filename + "'>" + 
                 "</figure>" +
-                "<span class='more'><strong>" + data.location + "</strong></span>" +
                 "<span class='desc'>" +
                 "<strong>" + data.name + "</strong>" +
                 "건대 홍대" + "<br/>" + formatDate(data.entryDate, 2) + "<br/></span></div>"
