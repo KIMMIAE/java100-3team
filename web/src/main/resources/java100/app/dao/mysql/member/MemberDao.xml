@@ -21,10 +21,10 @@
         
         <association property="artist" javaType="artist">
             <id     column="artno"     property="no"/>
-            <result column="artnm"     property="artistName"/>
-            <result column="artmmb"    property="artistMember"/>
-            <result column="profile"   property="profile"/>
-            <result column="joindt"    property="joinDate"/>
+	        <result column="artnm"     property="artistName"/>
+	        <result column="artmmb"    property="artistMember"/>
+	        <result column="profile"   property="profile"/>
+	        <result column="joindt"    property="joinDate"/>
         </association>
         
         <collection property="interestAreas"  ofType="interestArea">

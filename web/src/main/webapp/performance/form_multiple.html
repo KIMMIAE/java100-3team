@@ -630,8 +630,17 @@ updateBtn.click(() => {
     if (updateBtn.text() == "수정 저장") {
         var formData = new FormData($("#formData")[0]);
     
+        for(var i=0, len=sel_files.length; i<len; i++) {
+            formData.append('files', sel_files[i]);
+        }
+        
+        if(sel_files.length < 1) {
+            alert("한개이상의 파일을 선택해주세요.");
+            return;
+        }
+        
         $.ajax({
-           url: '../json/performance/update',
+           url: '../json/performance2/update',
            data: formData,
            dataType: 'json',
            processData: false,
@@ -646,7 +655,7 @@ updateBtn.click(() => {
            }
         });
     } else {
-        location.href = "detail2.html?no="+ performInfo.no;
+        location.href = "detail.html?no="+ performInfo.no;
     }
 });
 
