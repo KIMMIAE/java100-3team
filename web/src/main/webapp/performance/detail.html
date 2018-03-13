@@ -29,8 +29,8 @@ body * {
 }
 
 #my-span{margin: 20px;}
-.w3-third{width:400px;}
-.w3-twothird{width:400px;}
+.w3-third{width:300px;}
+.w3-twothird{width:300px; padding-left: 50px}
 #detail-td1{width:100px;}
 #detail-td1{width:100px;}
 
@@ -246,7 +246,7 @@ body * {
     
         <div class='css3-tab-content tab-one'>
             <div class='w3-third' style='border: 2px solid white'> 
-                <div id='map_canvas' style='width:350px; height:300px; border: 2px solid white'></div>
+                <div id='map_canvas' style='width:300px; height:300px; border: 2px solid white'></div>
             </div>
         
         </div>
@@ -260,15 +260,13 @@ body * {
                 <form id="formjjim">
                 <div class='form-control' style="border:1px solid #eee; height:80px; padding-top:20px; background-color: #eee">
                     
-                    
-                    <div style="float:left">
+                    <div style="float:left; padding-left:50px">
                     <a id="kakao-link-btn" href="javascript:sendLink()">
                     <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width:32px; height:32px">
                     </a>
                     </div>
                     
                     
-
                     <div style="float:left">
                     <span id="my-span">
                         <img src="../download/line_button.png" width="32" 
@@ -557,7 +555,7 @@ function load() {
                     //imagetable
                     mediatable.html("");
                     $('<tr>').html(
-                        "<img src='../download/" + filename + "'style='width:350px'>"
+                        "<img src='../download/" + filename + "'style='width:300px'>"
                         //"<img src='../download/no_img.jpg' style='width:300px'>" +
                     ).appendTo(mediatable);
 
@@ -609,6 +607,18 @@ function load() {
                         "<td id='detail-td1' style='background:white'>" + "공연 장르" + "</td>" +
                         "<td id='detail-td2' style='background:white'>" + performInfo.genre + "</td>" +
                         "</tr>" +
+                        
+                        "<tr>" +
+                        "<td id='detail-td1' style='background:white'>" + "공연 날짜" + "</td>" +
+                        "<td id='detail-td2'>" + formatDate(performInfo.entryDate, 3) + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<td id='detail-td1' style='background:white'>" + "공연 장소" + "</td>" +
+                        "<td id='detail-td2' style='background:white'>" + performInfo.location + "</td>" +
+                        "</tr>" +
+                        
+                        
+                        
                         "<tr>" +
                         "<td id='detail-td1' style='background:white'>" + "공연 내용" + "</td>" +
                         "<td id='detail-td2' style='background:white'>" + performInfo.detailDesc + "</td>" +
@@ -636,7 +646,7 @@ function load() {
                     marker.setPosition(maplatlng);
                     
                     $('.tab-two').append(
-                        "<div class='w3-third' style='width:400px'>" +
+                        "<div class='w3-third' style='width:300px'>" +
                         "<img src='../download/" + performInfo.writer.photo + "' width=300><br>" +
                         "</div>" +
                         "<div class='w3-twothird'>" +
