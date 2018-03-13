@@ -20,16 +20,24 @@
         group by pfmno
     </select>
     
-    <select id="check" resultType="int" parameterType="rating">
+    <select id="checkRating" resultType="int" parameterType="map">
         select count(*)
         from tb_rating
-        where pfmno=#{performanceNo}
-          and mmbno=#{memberNo}
+        where pfmno=#{performno}
+          and mmbno=#{memberno}
+              
+    </select>
+    
+    <select id="getAverage" resultType="float" parameterType="int">
+        select avg(rating)
+        from tb_rating
+        where pfmno=#{value}
+        group by pfmno
     </select>
     
     <insert id="insert" parameterType="rating">
-        insert into tb_rating(pfmno, mmbno, rating, regdt) 
-        values(#{performanceNo}, #{memberNo},#{score}, now())
+        insert into tb_rating(pfmno, mmbno, rating) 
+        values(#{performanceNo}, #{memberNo},#{score})
     </insert>
     
     <delete id="delete" parameterType="int">

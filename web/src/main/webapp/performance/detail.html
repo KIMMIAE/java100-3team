@@ -28,7 +28,7 @@ body * {
   width: 60px;
 }
 
-span{margin: 20px;}
+#my-span{margin: 20px;}
 .w3-third{width:400px;}
 .w3-twothird{width:400px;}
 #detail-td1{width:100px;}
@@ -270,15 +270,14 @@ span{margin: 20px;}
                     
 
                     <div style="float:left">
-                    <span id="line">
+                    <span id="my-span">
                         <img src="../download/line_button.png" width="32" 
                              onclick='linemsg()'>
                     </span>
                     
                     </div>
                     
-                    
-                    <div style="float:left; top:-20px" class="fb-share-button" 
+                    <div style="float:left;" class="fb-share-button" 
                          data-href="http://allnewframe.com/web/product/big/201605/735_shop1_940873.jpg" 
                          data-layout="button" data-size="large" 
                          data-mobile-iframe="false">
@@ -286,24 +285,32 @@ span{margin: 20px;}
                          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" 
                          class="fb-xfbml-parse-ignore"></a>
                     </div>
-                    
+                         
                     <div style="float:left">
+                    <span id="my-span">
                     <button id='jjimBtn' type="button" class='btn btn-primary btn-sm' style="width:80px;" name='jjim' >찜하기</button>
                     <!-- <button id='shareBtn' type="button" class='btn btn-primary btn-sm' name='share'>공유하기</button> -->
+                    </span>
                     </div>
                     
                     
                     <div style="float:left;">
-                    <span>
+                    <span id="my-span">
                     <button id='sponsorBtn' type='button' class='btn btn-primary btn-sm' style="width:80px">후원하기</button>
                     </span>
                     </div>
                     
-                    <div style="float:left;">
-                    <span>
+                    <div id="rating-view" style="float:left;">
+                    <span id="my-span">
                     <input class='col-sm-7 rating' type='number' min="-10" max="100" id='rating' name='rating' value=''>
                     <button id="ratingBtn" type="button" class='btn btn-primary btn-sm rating'>점수주기</button>
                     </span>
+                    </div>
+                         
+                    <div id="star-view" style="float:left">
+                    <!-- <span id="my-span">
+                        <img src='../download/별점1000.png' height=30 />
+                    </span> -->
                     </div>
                     
                 </div>
@@ -739,8 +746,33 @@ function load() {
                         dataType: 'json',
                         method: 'POST',
                         success: (result) => {
-                            if (result.rating == 1) {
-                                $('.rating').css('display', 'none');
+                            if (result.checkrating == 1) {
+                                $.ajax('../json/performance/getaver', {
+                                    data: {
+                                        //performanceNo: noItem.val(),performInfo.no
+                                        performanceNo: pagearr[1]
+                                    },
+                                    dataType: 'json',
+                                    method: 'POST',
+                                    success: (result) => {
+                                        console.log("result.rating");
+                                        $('#rating-view').css('display', 'none');
+                                        if (result.aver < 7) filename = "별점_6.png";
+                                        if (result.aver >= 7 && result.aver < 8) filename = "별점_7.png";
+                                        if (result.aver >= 8 && result.aver < 9) filename = "별점_8.png";
+                                        if (result.aver >=9) filename = "별점_9.png";
+
+                                        console.log(filename);
+                                        $('#star-view').append(
+                                            "<span id='my-span'>" +
+                                                "<img src='../download/" + filename + "' height=30 />" +
+                                            "</span>"
+                                        );
+                                    },
+                                    error: () => {
+                                        window.alert('getaver 서버 실행 오류!');
+                                    }
+                              });
                             }
                         },
                         error: () => {
@@ -764,7 +796,7 @@ function load() {
                                 $('<tr>').html(
                                     "<td width=100>" + 
                                         "<img class='imglist' src='../download/" + data.writer.photo + "' height=30px>" + "</td>" +
-                                    "<td>"  + data.writer.nickName + "<span>"+ formatDate(data.regDate, 1) + "</spna>" +
+                                    "<td>"  + data.writer.nickName + "<span id='my-span'>"+ formatDate(data.regDate, 1) + "</spna>" +
                                         "<div>" + data.ripple +
                                     "</td>"
                                 ).appendTo(ripplelist);
@@ -857,7 +889,18 @@ ratingBtn.click(() => {
         dataType: 'json',
         method: 'POST',
         success: (result) => {
-            $('.rating').css('display', 'none');
+                $('#rating-view').css('display', 'none');
+                var filename;
+                if (noItem.val() < 7) filename = "별점_6.png";
+                if (noItem.val() >= 7 && noItem.val() < 8) filename = "별점_7.png";
+                if (noItem.val() >= 8 && noItem.val() < 9) filename = "별점_8.png";
+                if (noItem.val() >=9) filename = "별점_9.png";
+
+                $('#star-view').append(
+                    "<span id='my-span'>" +
+                        "<img src='../download/" + filename + "' height=30 />" +
+                    "</span>"
+                );
         },
         error: () => {
             window.alert('서버 실행 오류!');
@@ -898,7 +941,7 @@ rippleBtn.click(() => {
                             html(
                                 "<td>" + 
                                     "<img src='../download/" + data.writer.photo + "' height=50>" + "</td>" +
-                                "<td>"  + data.writer.nickName + "<span>"+ formatDate(data.regDate, 3) + "</spna>" +
+                                "<td>"  + data.writer.nickName + "<span id='my-span'>"+ formatDate(data.regDate, 3) + "</spna>" +
                                     "<div>" + data.ripple +
                                 "</td>"
                             ).appendTo(ripplelist);

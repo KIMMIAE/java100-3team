@@ -119,7 +119,17 @@ public class PerformanceServiceImpl implements PerformanceService {
     
     @Override
     public int checkRating(Rating rating) {
-        return ratingDao.check(rating);
+        
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("performno", rating.getPerformanceNo());
+        params.put("memberno", rating.getMemberNo());
+        
+        return ratingDao.checkRating(params);
+    }
+    
+    @Override
+    public float getAverage(Rating rating) {
+        return ratingDao.getAverage(rating.getPerformanceNo());
     }
     
     @Override

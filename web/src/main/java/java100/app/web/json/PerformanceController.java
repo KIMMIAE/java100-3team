@@ -8,6 +8,7 @@ import java.util.HashMap;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +29,12 @@ import java100.app.service.PerformanceService;
 @RestController
 @RequestMapping("/performance")
 @SessionAttributes("loginUser")
+
 public class PerformanceController {
     
     @Autowired ServletContext servletContext;
     @Autowired PerformanceService performanceService;
+    static Logger logger = Logger.getLogger(MemberController.class);
     
     @RequestMapping("list")
     public Object list(
@@ -62,6 +65,9 @@ public class PerformanceController {
             lastPageNo++;
         }
 
+        logger.debug("pageNo" + pageNo);
+        logger.debug("pageSize" + pageSize);
+        
         HashMap<String,Object> result = new HashMap<>();
         result.put("pageNo", pageNo);
         result.put("lastPageNo", lastPageNo);
@@ -197,14 +203,30 @@ public class PerformanceController {
     @RequestMapping("checkrating")
     public Object chekcRating(Rating rating, HttpSession session) throws Exception {
         
+        Member member = (Member)session.getAttribute("loginUser");
+        rating.setMemberNo(member.getNo());
+
         System.out.println("Controller.chekcRating =>  " + rating.toString());
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("checkrating",  performanceService.checkRating(rating));
+        
+        System.out.println("Controller.chekcRating =>  " + performanceService.checkRating(rating));
+        return result;
+    }
+
+    @RequestMapping("getaver")
+    public Object getaver(Rating rating, HttpSession session) throws Exception {
         
         Member member = (Member)session.getAttribute("loginUser");
         rating.setMemberNo(member.getNo());
+
+        System.out.println("Controller.getaver =>  " + rating.toString());
         
         HashMap<String,Object> result = new HashMap<>();
-        result.put("rating",  performanceService.checkRating(rating));
+        result.put("aver",  performanceService.getAverage(rating));
         
+        System.out.println("Controller.getaver =>  " + performanceService.getAverage(rating));
         return result;
     }
     
