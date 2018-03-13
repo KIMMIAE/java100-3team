@@ -316,11 +316,20 @@ var formData = new FormData(formDataItem[0]);
         processData: false,
         contentType: false,
         success: () => {
-            alert("회원가입을 완료했습니다!");
-            location.href='../auth/loginform.html';
+        	swal('감사합니다!',
+        		 '회원가입이 완료되었습니다.',
+        	     'success'
+        		).then(function() {
+        			window.location.href = '../auth/loginform.html';
+        			});
+            /*location.href='../auth/loginform.html';*/
         },
         error: () => {
-            alert("서버 입력 오류!");
+        	swal({
+        		  type: 'error',
+        		  title: '회원가입 실패!',
+        		  text: '회원가입 요청 중에 문제가 발생하였습니다.'
+        		});
         }
     });
 });
