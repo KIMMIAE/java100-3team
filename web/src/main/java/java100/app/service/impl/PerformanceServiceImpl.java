@@ -94,8 +94,7 @@ public class PerformanceServiceImpl implements PerformanceService {
 
     @Override
     public int delete(int no) {
-        //return performanceDao.delete(no);
-        return 0;
+        return performanceDao.delete(no);
     }
     
     @Override

@@ -149,12 +149,16 @@ public class PerformanceController {
         return result;
     }
 
-    /*@RequestMapping("delete")
-    public String delete(int no) throws Exception {
-
+    @RequestMapping("delete")
+    public Object delete(int no) throws Exception {
+        System.out.println(no);
         performanceService.delete(no);
-        return "redirect:list";
-    }*/
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("status", "success");
+        
+        return result;
+    }
 
     @RequestMapping("jjim")
     public Object jjim(Jjim jjim, HttpSession session) throws Exception {

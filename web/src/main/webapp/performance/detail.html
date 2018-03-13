@@ -30,9 +30,9 @@ body * {
 
 #my-span{margin: 20px;}
 .w3-third{width:300px;}
-.w3-twothird{width:300px; padding-left: 50px}
-#detail-td1{width:100px;}
-#detail-td1{width:100px;}
+.w3-twothird{width:400px; padding-left: 50px}
+#detail-td1{width:150px;}
+#detail-td2{width:350px;}
 
 /* 
 @media (max-width: 1000px) {
@@ -456,11 +456,14 @@ function linemsg() {
 
 
 <script>
+
+var map, marker;
+
 function initMap() {
     map = new google.maps.Map(document.getElementById("map_canvas"), {
          center: { lat: 37.497912049682526, lng: 127.0276288757841 },
          scrollwheel: true,
-         zoom: 17
+         zoom: 16
     });
   
     //var infoWindow = new google.maps.InfoWindow({map: map});
@@ -478,8 +481,6 @@ function initMap() {
 </script>
 
 <script type="text/javascript">
-
-var map, marker;
 
 var performInfo = {},
     pagearr,
@@ -857,6 +858,22 @@ updateBtn.click(() => {
     } else {
         return
     }
+});
+
+deleteBtn.click(() => {
+    console.log(noItem.val());
+    $.ajax('../json/performance/delete', {
+        data: {
+            no: noItem.val()
+        },
+        dataType: 'json',
+        success: (result) => {
+            location.href = "list.html";
+        },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
+    });
 });
 
 

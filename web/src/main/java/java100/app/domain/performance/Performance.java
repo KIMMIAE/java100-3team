@@ -21,6 +21,7 @@ public class Performance {
     protected Member writer;
     protected Artist artist;
     protected List<PerformanceFile> medias;
+    protected String deleteTag;
     protected Date regDate;
     
     @Override
@@ -28,7 +29,8 @@ public class Performance {
         return "Performance [no=" + no + ", name=" + name + ", genre=" + genre + ", entryDate=" + entryDate
                 + ", location=" + location + ", mapLatitude=" + mapLatitude + ", mapLongitude=" + mapLongitude
                 + ", detailDesc=" + detailDesc + ", specialDesc=" + specialDesc + ", viewCount=" + viewCount
-                + ", writer=" + writer + ", artist=" + artist + ", medias=" + medias + ", regDate=" + regDate + "]";
+                + ", writer=" + writer + ", artist=" + artist + ", medias=" + medias + ", deleteTag=" + deleteTag
+                + ", regDate=" + regDate + "]";
     }
 
     public int getNo() {
@@ -135,6 +137,14 @@ public class Performance {
         this.medias = medias;
     }
 
+    public String getDeleteTag() {
+        return deleteTag;
+    }
+
+    public void setDeleteTag(String deleteTag) {
+        this.deleteTag = deleteTag;
+    }
+
     public Date getRegDate() {
         return regDate;
     }
@@ -142,7 +152,6 @@ public class Performance {
     public void setRegDate(Date regDate) {
         this.regDate = regDate;
     }
-    
     
     
 
