@@ -36,8 +36,8 @@
     </select>
     
     <insert id="insert" parameterType="rating">
-        insert into tb_rating(pfmno, mmbno, rating) 
-        values(#{performanceNo}, #{memberNo},#{score})
+        insert into tb_rating(pfmno, mmbno, rating, regdt) 
+        values(#{performanceNo}, #{memberNo}, #{score}, now())
     </insert>
     
     <delete id="delete" parameterType="int">

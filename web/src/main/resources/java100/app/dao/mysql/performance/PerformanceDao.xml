@@ -83,6 +83,7 @@
 	            </foreach>
 	        </where>
         </if>
+        group by t001.pfmno
         
         <!-- 정렬 조건에 따라 SQL문을 변경한다.-->
         order by 

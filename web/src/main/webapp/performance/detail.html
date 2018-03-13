@@ -302,7 +302,7 @@ body * {
                     
                     <div id="rating-view" style="float:left;">
                     <span id="my-span">
-                    <input class='col-sm-7 rating' type='number' min="-10" max="100" id='rating' name='rating' value=''>
+                    <input class='col-sm-6 rating' type='number' min="1" max="10" id='rating' name='rating' value=''>
                     <button id="ratingBtn" type="button" class='btn btn-primary btn-sm rating'>점수주기</button>
                     </span>
                     </div>
@@ -889,18 +889,32 @@ ratingBtn.click(() => {
         dataType: 'json',
         method: 'POST',
         success: (result) => {
-                $('#rating-view').css('display', 'none');
-                var filename;
-                if (noItem.val() < 7) filename = "별점_6.png";
-                if (noItem.val() >= 7 && noItem.val() < 8) filename = "별점_7.png";
-                if (noItem.val() >= 8 && noItem.val() < 9) filename = "별점_8.png";
-                if (noItem.val() >=9) filename = "별점_9.png";
+            $.ajax('../json/performance/getaver', {
+                data: {
+                    //performanceNo: noItem.val(),performInfo.no
+                    performanceNo: pagearr[1]
+                },
+                dataType: 'json',
+                method: 'POST',
+                success: (result) => {
+                    console.log("result.rating");
+                    $('#rating-view').css('display', 'none');
+                    if (result.aver < 7) filename = "별점_6.png";
+                    if (result.aver >= 7 && result.aver < 8) filename = "별점_7.png";
+                    if (result.aver >= 8 && result.aver < 9) filename = "별점_8.png";
+                    if (result.aver >=9) filename = "별점_9.png";
 
-                $('#star-view').append(
-                    "<span id='my-span'>" +
-                        "<img src='../download/" + filename + "' height=30 />" +
-                    "</span>"
-                );
+                    console.log(filename);
+                    $('#star-view').append(
+                        "<span id='my-span'>" +
+                            "<img src='../download/" + filename + "' height=30 />" +
+                        "</span>"
+                    );
+                },
+                error: () => {
+                    window.alert('getaver 서버 실행 오류!');
+                }
+            });
         },
         error: () => {
             window.alert('서버 실행 오류!');
