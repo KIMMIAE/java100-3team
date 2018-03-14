@@ -31,7 +31,7 @@
     background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#fe6), to(#f6ef97), color-stop(.6,#f5da41));
     background:-moz-linear-gradient(top, #fe6, #f5da41, #f6ef97); */
     position:relative;
-    float:left; width:320px; height:350px; margin-top: 0px; margin-left: 30px; background-image:url(../download/page-bg.jpg);
+    float:left; width:320px; height:330px; margin-top: 0px; margin-left: 30px; background-image:url(../download/page-bg.jpg);
     text-shadow:0 1px 0 #F6EF97;
     box-shadow:0 0 5px rgba(0,0,0,.2);
     -webkit-box-shadow:0 0 5px rgba(0,0,0,.2);
@@ -79,16 +79,16 @@
 #stickynote h10:before {
     content:'';
     display:block;
-    width:150px;
-    height:60px;
+    width:90px;
+    height:50px;
     position:absolute;
-    top:-30px;
-    left:80px;
+    top:-20px;
+    left:100px;
     /* background-color:rgba(255,255,255,.25); */
-    background-color:rgba(255,0,0,.25);
-    -o-transform:rotate(-5deg);
-    -webkit-transform:rotate(-5deg);
-    -moz-transform:rotate(-5deg);
+    background-color:rgba(0,255,0,.25);
+    -o-transform:rotate(-40deg);
+    -webkit-transform:rotate(-40deg);
+    -moz-transform:rotate(-40deg);
     box-shadow:0 0 2px rgba(0,0,0,.15);
     -webkit-box-shadow:0 0 2px rgba(0,0,0,.15);
     -moz-box-shadow:0 0 2px rgba(0,0,0,.15);
@@ -773,7 +773,7 @@ function load() {
                             //    "<div><img style='width:30px;' src='../index-image/blank.png'></div>";
                         }
                         strAppend = strAppend +
-                            "<div id='stickynote'>" + 
+                            "<div id='stickynote' style='margin-top:55px;'>" + 
                             "<h10></h10>" +
                              "<img style='width:300px;' src='../download/" + filename + "'>" +
                              "</div>";
@@ -794,7 +794,7 @@ function load() {
                        "<div>" +
                        "<iframe width='670' height='315' style='margin-left:30px' src='https://www.youtube.com/embed/ODgTa_3UxYQ' frameborder='2' allow='autoplay; encrypted-media' allowfullscreen></iframe>" +
                        "</div>" +
-                       "<div style='height:70px'><span></span></div>" +
+                       "<div style='height:30px'><span></span></div>" +
                         strAppend
                     );
                     
