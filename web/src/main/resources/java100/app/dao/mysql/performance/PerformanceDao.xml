@@ -30,7 +30,7 @@
         <association property="artist" javaType="artist">
             <id     column="artno"       property="no"/>
             <result column="artnm"      property="artistName"/>
-            <result column="artnmmb"    property="artistMember"/>
+            <result column="artmmb"    property="artistMember"/>
             <result column="profile"    property="profile"/>
             <result column="joindt"     property="joinDate"/>
         </association>
@@ -121,6 +121,7 @@
         select 
             t002.email,
             t001.pfmno,
+            t001.deltag,
             t001.artno,
             t002.mmbno,
             t002.nicknm,
@@ -145,7 +146,6 @@
              left join tb_artist t003 on t001.artno=t003.artno
              left join tb_prfrmfile t004 on t001.pfmno=t004.pfmno
         where t001.pfmno=#{value}
-          and deltag='0'
     </select>
     
     <select id="countAll" resultType="int">
@@ -168,7 +168,7 @@
             mapy=#{mapLongitude},
             pfmdesc=#{detailDesc},
             spcldesc=#{specialDesc},
-            deltag=#{specialDesc},
+            <!-- deltag=#{deleteTag}, -->
             regdt=now()
         where pfmno=#{no}
     </update>
