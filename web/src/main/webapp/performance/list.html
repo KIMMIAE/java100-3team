@@ -451,7 +451,7 @@ addBtn.click (() => {
 searchBtn.click (() => {
     //event.preventDefault();
     load(1, {
-        "words": words.value
+        "words": words.val()
     })
 });
 
@@ -469,11 +469,10 @@ function load(pageNo, options) {
     if (options == undefined) options = {};
     if (options.oc == undefined) options.oc = null;
     options.pn = pageNo;
-    
+
+    console.log(options);
     if (options.oc == null) {
 
-        console.log(options.oc);
-        console.log(options.pn);
         $.ajax('../json/performance/list', {
             data: options,
             dataType: 'json',
@@ -572,7 +571,6 @@ function load(pageNo, options) {
    
     }
     
-
     setInterval(()=>{
         imgadjust();
     }, 1000);
