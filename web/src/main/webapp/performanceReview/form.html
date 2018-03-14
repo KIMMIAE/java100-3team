@@ -6,37 +6,42 @@
 <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link rel='stylesheet' href='../../css/style1.css'>
 <style>
-        input[type=file] {
-            display: none;
-        }
+  
+  input[type=file] {
+      display: none;
+  }
 
-        .my_button {
-            display: inline-block;
-            width: 200px;
-            text-align: center;
-            padding: 10px;
-            background-color: #006BCC;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-
-
-        .imgs_wrap {
-
-            border: 2px solid #A8A8A8;
-            margin-top: 30px;
-            margin-bottom: 30px;
-            padding-top: 10px;
-            padding-bottom: 10px;
-
-        }
-        .imgs_wrap img {
-            max-width: 150px;
-            margin-left: 10px;
-            margin-right: 10px;
-        }
+  .my_button {
+      display: inline-block;
+      width: 120px;
+      height: 34px;
+      text-align: center;
+      padding: 5px;
+      background-color: #006BFF;
+      color: white;
+      font-size:14px;
+      text-decoration: none;
+      border-radius: 5px;
+  }
+  .my_button:hover {
+      background-color: #006BCC;
+      color: white;
+      text-decoration: none;
+  }
+  
+  .imgs_wrap {
+      border: 2px solid #A8A8A8;
+      margin-top: 10px;
+      margin-bottom: 30px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  .imgs_wrap img {
+      max-width: 150px;
+      margin-left: 10px;
+      margin-right: 10px;
+  }
+  
 </style>
 </head>
 <body>
@@ -44,16 +49,19 @@
 <div class='container'>
 
 
-<h1>후기 등록</h1>
+<h3>후기 등록</h3>
 
 <form id='formData'>
+
+<div style='margin-top:30px'></div>
+
 <div class='form-group row my-view'>
 <label for='reviewNo' class='col-sm-2 col-form-label'>번호</label>
 <div class='col-sm-10'>
 <input class='form-control' readonly id='reviewNo' type='number' name='reviewNo' value='0'>
 </div>
 </div>
-            
+
 <div class='form-group row' hidden="hidden">
 <label for='no' class='col-sm-2 col-form-label'>회원번호</label>
 <div class='col-sm-10'>
@@ -145,18 +153,22 @@ type='text' placeholder="내용을 입력하세요" name='reviewDescription' val
 </div>
 </div>
 
-<div>
-        <h2><b>이미지 미리보기</b></h2>
-        <div class="input_wrap">
-            <a href="javascript:" onclick="fileUploadAction();" class="my_button">파일 업로드</a>
-            <input type="file" id="input_imgs" multiple/>
-        </div>
-    </div>
 
-    <div>
-        <div class="imgs_wrap">
-            <img id="img" />
-        </div>
+<div class='form-group row'>
+<label for='media' class='col-sm-2 col-form-label'>공연미디어</label>
+<div class='col-sm-10'>
+<a href="javascript:" onclick="fileUploadAction();" class="my_button">파일 업로드</a>
+</div>
+</div>
+
+<div class='form-group row'>
+<label for='input_imgs' class='col-sm-2 col-form-label'>미리보기</label>
+<div class='col-sm-10'>
+    <input type="file" id="input_imgs" multiple/>
+    <div class="imgs_wrap" >
+       <img id="img" />
+    </div>
+</div>
 </div>
 
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -328,11 +340,11 @@ searchBtn.click(() => {
 });
 
 prevBtn.click (() => {
-    search(currPageNo - 1)
+    load(currPageNo - 1)
 });
 
 nextBtn.click (() => {
-    search(currPageNo + 1)
+    load(currPageNo + 1)
 });
 
 
