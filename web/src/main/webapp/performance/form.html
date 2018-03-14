@@ -89,13 +89,20 @@
 
   .my_button {
       display: inline-block;
-      width: 200px;
+      width: 120px;
+      height: 34px;
       text-align: center;
-      padding: 10px;
+      padding: 5px;
       background-color: #006BFF;
-      color: #fff;
+      color: white;
+      font-size:14px;
       text-decoration: none;
       border-radius: 5px;
+  }
+  .my_button:hover {
+      background-color: #006BCC;
+      color: white;
+      text-decoration: none;
   }
   
   .imgs_wrap {
@@ -498,7 +505,6 @@ function onMarkerDragend(event) {
                 
             });
         }
-
 
 
         function deleteImageAction(index) {
