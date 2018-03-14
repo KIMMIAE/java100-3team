@@ -1,8 +1,8 @@
 ﻿﻿﻿<html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/> -->
 <title>공연정보</title>
 
 <link rel='stylesheet' href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
@@ -14,7 +14,15 @@
 <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
-<link rel="stylesheet" href="../performance/slidestyle.css" />
+
+
+<style>
+.polaroid { float:left; width:320px; height:376px; margin-top: 30px; margin-left: 30px; background-image:url(../download/page-bg.jpg); }
+.polaroid img { width:400px; height:275px; margin:25px 0 0 15px; }
+</style>
+
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<!-- <script type="text/javascript" src="http://www.blueb.co.kr/data/201010/IJ12873401975764/script.js"></script> -->
 
 <style>
 body * {
@@ -189,28 +197,6 @@ body * {
 </div>
 </div>
 
-<!-- 
-<div id='general-view'>
-
-   <div class="w3-panel">
-    <div class="w3-row-padding">  style="margin:0 -16px">
-      <div class="w3-third" style='border: 1px solid black'>
-        <h5>관련 영상</h5>
-            <div style='border: 1px solid black'>
-            <img class="img" src="../download/no_img.jpg" style="width:400px">
-                <iframe class="embed-responsive-item" id="video" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" ></iframe>
-            </div>
-      </div>
-      <div class="w3-third" style='border: 1px solid black'>
-        <h5>상세 정보</h5>
-        <table id="detail-table" class="w3-table w3-striped w3-white"></table>
-      </div>
-    </div>
-  </div>
-
-</div> 
--->
-
 <div class='form-group row'>
     <div class='css3-tab'>
         <div class="w3-third">
@@ -377,8 +363,20 @@ body * {
     <footer></footer>
 </div>
 
+
+<script src='../node_modules/jquery/dist/jquery.min.js'></script>
+
+<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?region=KR&key=AIzaSyBl2qPIVMyVVmfA4F43i0cCk3g6vf2RRZI"></script>
+
+
+
+
 <!-- Load Facebook SDK for JavaScript -->
-<div id="fb-root"></div>
+<!-- <div id="fb-root"></div> -->
 <script type='text/javascript'>
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -398,15 +396,11 @@ function linemsg() {
 </script>
 
 
-<script src='../node_modules/jquery/dist/jquery.min.js'></script>
-<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
-<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script>
+function imgslide() {
+}
+</script>
 
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?region=KR&key=AIzaSyBl2qPIVMyVVmfA4F43i0cCk3g6vf2RRZI"></script>
-
-
-<script src="../performance/tinyfader.js"></script>
 
 <script type='text/javascript'>
   //<![CDATA[
@@ -480,6 +474,8 @@ function initMap() {
 
 </script>
 
+
+
 <script type="text/javascript">
 
 var performInfo = {},
@@ -548,7 +544,7 @@ function load() {
                         }
                     };
                     
-                    if (performInfo.artist.artistMember == null) performInfo.artist.artistMember = '없음';
+                    //if (performInfo.artist.artistMember == null) performInfo.artist.artistMember = '없음';
                     
 
                     noItem.val(performInfo.no);
@@ -675,47 +671,21 @@ function load() {
                         "</div>"
                     );
 
-                    var cnt = 0, strAppend1 = "", strAppend2 = "";
+                    var cnt = 0, strAppend= "";
                     for (var media of performInfo.medias) {
-                        if (cnt == 9) {
-                            strAppend1 = strAppend2 + "<li id='content'>" + 
-                            "<h1>TinyFader - Simple JavaScript Slideshow</h1>" +
-                            "<p>This super lightweight fading JavaScrip</p>" + 
-                            "<p><em>For complete details visitleigeber.com</em></p>" +
-                            "</li>"
-
-                            strAppend2 = strAppend2 + 
-                                         "<li onclick='slideshow.pos(" + cnt + ")'>" + cnt + "</li>";
-                        }
                         if (media.filename == null) {
                             filename = 'no_img.jpg';
                         } else {
                             filename = media.filename;
                         }
-                        console.log(media.filename);
-                        strAppend1 = strAppend1 + 
-                                     "<li><img src='../download/" + filename + 
-                                     "' width='500' height='300' alt='Sea turtle' /></li>";
-                        strAppend2 = strAppend2 + "<li onclick='slideshow.pos(" + cnt + ")'>"
-                        cnt++;
-                        strAppend2 = strAppend2 + cnt + "</li>";
+                        strAppend = strAppend +
+                            "<div class='polaroid'>" +
+                             "<img style='width:300px;' src='../download/" + filename + "'>" +
+                             "</div>"
                     }
-                    console.log(strAppend1);
-                    console.log(strAppend2);
+                    console.log(strAppend);
                     $('.tab-three').append(
-                        "<h5>공연 사진</h5>" + 
-                        "<div id='wrapper'>" +
-                        "<div'>" +
-                        "<div id='slideshow'>" +
-                        "<ul id='slides'>" +
-                            strAppend1 +
-                        "</ul>" +
-                        "</div>" +
-                        "</div>" +
-                        //"<ul id='pagination' class='pagination'>" +
-                        //    strAppend2 +
-                        //"<ul>" +
-                        "</div>"
+                        strAppend
                     );
                     
                     //imgslide();
@@ -832,19 +802,6 @@ function load() {
     }
 } 
 
-function imgslide() {
-    console.log("imageslide");
-    var slideshow = new TINY.fader.fade('slideshow',{
-        id:'slides',
-        auto:3,
-        resume:true,
-        navid:'pagination',
-        activeclass:'current',
-        visible:true,
-        position:0
-    });
-}
-
 
 /* sponsorBtn.click(() => { */
 $(document).on("click","#sponsorBtn",function() {
@@ -907,6 +864,10 @@ $('#jjimBtn').click(function() {
 });
 
 ratingBtn.click(() => {
+    if (ratingItem.val() < 1 || ratingItem.val() >10) {
+        window.alert('평점은 1 ~ 10점 까지만 입력하세요.');
+        return;
+    }
     $.ajax('../json/performance/addrating', {
         data: {
             performanceNo: noItem.val(),
@@ -1062,18 +1023,6 @@ function pad(n, width) {
 }
 
 </script>
-
-//<script type="text/javascript">
-/* var slideshow=new TINY.fader.fade('slideshow',{
-    id:'slides',
-    auto:3,
-    resume:true,
-    navid:'pagination',
-    activeclass:'current',
-    visible:true,
-    position:0
-}); */
-//</script>
 
 
 </body>
