@@ -48,6 +48,22 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public List<Member> artistList(int pageNo, int pageSize, Map<String, Object> options) {
+        
+        logger.debug("MemberServiceImpl");
+        
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("startIndex", (pageNo - 1) * pageSize);
+        params.put("size", pageSize);
+        
+        if (options != null) {
+            params.putAll(options);
+        }
+        
+        return memberDao.findAritstAll(params);
+    }
+    
+    @Override
     public Member get(int no) {
         return memberDao.findByNo(no);
     }
@@ -96,6 +112,12 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public int getTotalCount() {
         return memberDao.countAll();
+    }
+    
+    
+    @Override
+    public int getArtistCount() {
+        return memberDao.countArtistAll();
     }
     
     @Override
@@ -210,6 +232,10 @@ public class MemberServiceImpl implements MemberService {
             interestGenreDao.insert(genre);
         }
     }
+
+
+
+
 
 
 

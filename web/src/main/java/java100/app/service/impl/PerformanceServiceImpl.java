@@ -74,7 +74,7 @@ public class PerformanceServiceImpl implements PerformanceService {
         int count = performanceDao.update(performance);
         
         if (performance.getMedias() != null) {
-            //performanceFileDao.deleteAllByPerformanceNo(performance.getNo());
+            performanceFileDao.deleteAllByPerformanceNo(performance.getNo());
             addFiles(performance.getMedias(), performance.getNo());
         }
         

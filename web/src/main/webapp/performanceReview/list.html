@@ -177,14 +177,16 @@ var words = $('#words'),
     
     function load(pageNo, options) {
         
-        if (options == undefined) options = {};
+         if (options == undefined) options = {};
         options.pn = pageNo;
+           console.log(options);
         
-        $.ajax('../json/member/list', {
+        $.ajax('../json/member/artistList', {
             /*method: 'GET',*/
             data: options,
             dataType: 'json',
             success: (result) => {
+                console.log(result);
                 
                 for (var data of result.list) {
                     if (data.type != "아티스트") {
@@ -192,7 +194,7 @@ var words = $('#words'),
                     } 
                     if (data.photo == null) {
                         photo= 'no_img.jpg';
-                    }else {
+                    } else {
                         photo = data.photo;
                     }
                     reviewList(data.no,data.artist.artistName,data.photo);
