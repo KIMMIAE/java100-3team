@@ -89,13 +89,20 @@
 
   .my_button {
       display: inline-block;
-      width: 200px;
+      width: 120px;
+      height: 34px;
       text-align: center;
-      padding: 10px;
+      padding: 5px;
       background-color: #006BFF;
-      color: #fff;
+      color: white;
+      font-size:14px;
       text-decoration: none;
       border-radius: 5px;
+  }
+  .my_button:hover {
+      background-color: #006BCC;
+      color: white;
+      text-decoration: none;
   }
   
   .imgs_wrap {
@@ -117,12 +124,14 @@
 <header></header>
 <div class='container'>
 
-<h1></h1>
+<h3 id='htitle'></h3>
 
 
 
 
 <form id='formData' enctype="multipart/form-data">
+
+<div style='margin-top:30px'></div>
 
 <div class='form-group row my-view' style='background-color:white;'>
 <label for='no' class='col-sm-2 col-form-label'>공연번호</label>
@@ -138,7 +147,7 @@
 </div>
 </div>
 
-<div class='form-group row'>
+<div class='form-group row  my-view'>
 <label class='col-sm-2 col-form-label'>공연사진/영상</label>
 <div class='col-sm-10' id='medias' value=''>
 </div>
@@ -500,7 +509,6 @@ function onMarkerDragend(event) {
         }
 
 
-
         function deleteImageAction(index) {
             console.log("index : "+index);
             console.log("sel length : "+sel_files.length);
@@ -567,7 +575,7 @@ function load() {
     if (index != -1) {
         var qs = location.href.substr(index + 1);
         pagearr = qs.split('=');
-        $('h1').html("공연 정보");
+        $('#htitle').html("공연 정보");
         $('.my-new').css('display', 'none');
         $(() => {
             
@@ -605,12 +613,12 @@ function load() {
                 }
             });
         });
-        $('h1').html("공연 수정");
+        $('#htitle').html("공연 수정");
         cancelBtn.text("취소");
         $('.my-new').css('display', 'none');
         
     } else {
-        $('h1').html("공연 등록");
+        $('#htitle').html("공연 등록");
         cancelBtn.text("취소");
         $('.my-view').css('display', 'none');
     }

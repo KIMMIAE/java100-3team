@@ -76,14 +76,17 @@
              left join tb_memb t002 on t001.artno=t002.mmbno
              left join tb_artist t003 on t001.artno=t003.artno
              left join tb_prfrmfile t004 on t001.pfmno=t004.pfmno
-        where deltag='0'
-        <if test="words != null">
-	        <where>
-	            <foreach collection="words" item="word">
-	                or pfmnm like '%${word}%'
-	            </foreach>
-	        </where>
-        </if>
+        
+        <where>
+            <if test="words == null">
+                 and deltag='0'
+            </if>
+            <if test="words != null">
+                <foreach collection="words" item="word">
+                    deltag='0' and pfmnm like '%${word}%'
+                </foreach>
+            </if>
+        </where>
         group by t001.pfmno
         
         <!-- 정렬 조건에 따라 SQL문을 변경한다.-->
