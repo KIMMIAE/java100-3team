@@ -110,6 +110,76 @@
         limit #{startIndex}, #{size}
     </select>
     
+    
+    <select id="findAritstAll" resultMap="memberMap" parameterType="map">
+        select 
+            t001.mmbno,
+            t001.photo,
+            t001.nicknm,
+            t001.email,
+            t001.type,
+            t001.msgfl,
+            t001.msgid,
+            t002.artnm,
+            t002.artmmb,
+            t002.joindt,
+            t001.cancelfl,
+            t001.regdt
+        from tb_memb t001 left join tb_artist t002
+        on t001.mmbno = t002.artno
+<!--         <if test="words != null">
+            <where>
+                t001.nicknm in
+                <foreach collection="words" item="word" 
+                         open="(" close=")" separator=",">
+                    #{word}
+                </foreach>
+                or t001.email in
+                <foreach collection="words" item="word" 
+                         open="(" close=")" separator=",">
+                    #{word}
+                </foreach>
+                <foreach collection="words" item="word"> 
+                or t002.artnm like '%${word}%'
+                </foreach>
+            </where>
+            and t001.cancelfl = '0'
+        </if>
+        <if test="words == null"> -->
+            where t001.cancelfl = '0'
+            and t001.type = '아티스트'
+<!--         </if> -->
+        
+        
+        <!-- 정렬 조건에 따라 SQL문을 변경한다.-->
+        order by 
+        <choose>
+            <when test="orderColumn == 'email' and align == 'asc'">
+                t001.email asc
+            </when>
+            <when test="orderColumn == 'email' and align == 'desc'">
+                t001.email desc
+            </when>
+            <when test="orderColumn == 'regdt' and align == 'asc'">
+                t001.regdt asc
+            </when>
+            <when test="orderColumn == 'regdt' and align == 'desc'">
+                t001.regdt desc
+            </when>
+            <when test="orderColumn == 'nicknm' and align == 'desc'">
+                t001.nicknm desc
+            </when>
+            <otherwise>
+                t001.mmbno desc
+            </otherwise>
+        </choose>
+        
+        <!-- 페이지징 처리 -->
+        limit #{startIndex}, #{size}
+    </select>
+    
+    
+    
     <select id="findByNo" resultMap="memberMap" parameterType="int">
         select 
             t001.photo,

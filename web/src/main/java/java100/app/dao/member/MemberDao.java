@@ -8,6 +8,7 @@ import java100.app.domain.member.Member;
 
 public interface MemberDao {
     List<Member> findAll(Map<String,Object> params);
+    List<Member> findAritstAll(Map<String,Object> params);
     Member findByNo(int no);
     String findPhotoByMemberNo(int no);
     Member findByEmailAndPassword(Map<String,Object> params);
