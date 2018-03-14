@@ -17,7 +17,7 @@
 
 <style>
 .polaroid { float:left; width:320px; height:350px; margin-top: 30px; margin-left: 30px; background-image:url(../download/page-bg.jpg); }
-#stickynote img { width:400px; height:300; margin:20px 0 0 10px; }
+#stickynote img { width:400px; margin:20px 0 0 10px; }
 </style>
 
 
@@ -120,7 +120,7 @@ body * {
 
 #my-span{margin: 20px;}
 .w3-third{width:300px;}
-.w3-twothird{width:400px; padding-left: 50px}
+.w3-twothird{width:400px; padding-left: 80px}
 #detail-td1{width:150px;}
 #detail-td2{width:350px;}
 
@@ -633,7 +633,7 @@ function load() {
                     mediatable.html("");
                     $('<tr>').html(
                         "<div style='height:15px'><span></span></div>" +
-                        "<img src='../download/" + filename + "'style='width:300px'>"
+                        "<img src='../download/" + filename + "'style='width:350px'>"
                         //"<img src='../download/no_img.jpg' style='width:300px'>" +
                     ).appendTo(mediatable);
 
@@ -759,6 +759,8 @@ function load() {
                     );
 
                     var cnt = 0, strAppend= "";
+
+                    //strAppend = strAppend + "<div style='width:800px;height:600px;background-image:url(../download/page-bg.jpg)'>";
                     for (var media of performInfo.medias) {
                         if (media.filename == null) {
                             filename = 'no_img.jpg';
@@ -767,8 +769,8 @@ function load() {
                         }
                         
                         if(cnt % 2 == 0) {
-                            strAppend = strAppend + "<div>" +
-                                "<div><img style='width:30px;' src='../index-image/blank.png'></div>";
+                            //strAppend = strAppend + "<div style='background-image:url(../download/page-bg.jpg)'>" +
+                            //    "<div><img style='width:30px;' src='../index-image/blank.png'></div>";
                         }
                         strAppend = strAppend +
                             "<div id='stickynote'>" + 
@@ -777,7 +779,7 @@ function load() {
                              "</div>";
                              
                         if(cnt % 2 == 1) {
-                            strAppend = strAppend + "</div>"
+                            //strAppend = strAppend + "</div>"
                         }
                         //if (cnt != 0) {
                              //strAppend = strAppend +
@@ -785,13 +787,14 @@ function load() {
                         //}
                         cnt++;
                     }
+                    //strAppend = strAppend + "</div>"
                     console.log(strAppend);
                     $('.tab-three').append(
                        "<div style='height:30px'><span></span></div>" +
                        "<div>" +
                        "<iframe width='670' height='315' style='margin-left:30px' src='https://www.youtube.com/embed/ODgTa_3UxYQ' frameborder='2' allow='autoplay; encrypted-media' allowfullscreen></iframe>" +
                        "</div>" +
-                       "<div style='height:50px'><span></span></div>" +
+                       "<div style='height:70px'><span></span></div>" +
                         strAppend
                     );
                     

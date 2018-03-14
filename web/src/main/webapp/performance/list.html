@@ -43,6 +43,7 @@ h2 span {
 .column div:first-child {
    margin-left: 0;
 }
+
 figure {
    width: 200px;
    height: 200px;
@@ -51,8 +52,6 @@ figure {
    background: #fff;
    overflow: hidden;
 }
-
-
 
 /* Zoom In #1 */
 .hover01 figure img {
@@ -69,7 +68,6 @@ figure {
 
       
 <style>
-
 .vertalign {position: absolute;}
 .imgteaser {
    margin: 0;
@@ -555,8 +553,8 @@ function load(pageNo, options) {
                     
                     $('.column').append(
                         "<div class='imgteaser'  style='width:200px; height:200px;' onclick='imgclick(" + data.no + ")'>" +
-                        "<figure style='width:200px; height:200px;'>" +
-                        "<img src='../download/" + filename + "'>" + 
+                        "<figure style='width:200px;'>" +
+                        "<img style='width:200px;' src='../download/" + filename + "'>" + 
                         "</figure>" +
                         "<span class='more'><strong>" + data.location + "</strong></span>" +
                         "<span class='desc'>" +
