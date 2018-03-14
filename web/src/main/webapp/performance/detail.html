@@ -83,7 +83,7 @@
     height:50px;
     position:absolute;
     top:-20px;
-    left:100px;
+    left:120px;
     /* background-color:rgba(255,255,255,.25); */
     background-color:rgba(0,255,0,.25);
     -o-transform:rotate(-40deg);
@@ -767,32 +767,19 @@ function load() {
                         } else {
                             filename = media.filename;
                         }
-                        
-                        if(cnt % 2 == 0) {
-                            //strAppend = strAppend + "<div style='background-image:url(../download/page-bg.jpg)'>" +
-                            //    "<div><img style='width:30px;' src='../index-image/blank.png'></div>";
-                        }
                         strAppend = strAppend +
                             "<div id='stickynote' style='margin-top:55px;'>" + 
                             "<h10></h10>" +
                              "<img style='width:300px;' src='../download/" + filename + "'>" +
                              "</div>";
-                             
-                        if(cnt % 2 == 1) {
-                            //strAppend = strAppend + "</div>"
-                        }
-                        //if (cnt != 0) {
-                             //strAppend = strAppend +
-                             //"<div style='height:50px'><span></span></div>";
-                        //}
-                        cnt++;
+                         
                     }
                     //strAppend = strAppend + "</div>"
                     console.log(strAppend);
                     $('.tab-three').append(
                        "<div style='height:30px'><span></span></div>" +
                        "<div>" +
-                       "<iframe width='560' height='315' src='https://www.youtube.com/embed/l0eYM8tJGZg' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>" +
+                       "<iframe width='560' height='315' style='margin-left:30px' src='https://www.youtube.com/embed/l0eYM8tJGZg' frameborder='2' allow='autoplay; encrypted-media' allowfullscreen></iframe>" +
                        "</div>" +
                        "<div style='height:30px'><span></span></div>" +
                         strAppend
