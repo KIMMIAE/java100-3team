@@ -31,6 +31,7 @@ public interface MemberService {
     int getEmailCount(String email);
     int getNickNameCount(String nickName);
     int getTotalCount();
+    int getArtistCount();
     int getComparePassword(HashMap<String, Object> parameters);
     int add(Member member);
     int update(Member member);

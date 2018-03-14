@@ -98,7 +98,7 @@ public class MemberController {
         options.put("orderColumn", orderColumn);
         options.put("align", align);
         
-        int totalCount = memberService.getTotalCount();
+        int totalCount = memberService.getArtistCount();
         int lastPageNo = totalCount / pageSize;
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;

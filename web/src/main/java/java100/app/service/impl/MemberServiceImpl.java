@@ -114,6 +114,12 @@ public class MemberServiceImpl implements MemberService {
         return memberDao.countAll();
     }
     
+    
+    @Override
+    public int getArtistCount() {
+        return memberDao.countArtistAll();
+    }
+    
     @Override
     public int getEmailCount(String email) {
         return memberDao.countEmail(email);

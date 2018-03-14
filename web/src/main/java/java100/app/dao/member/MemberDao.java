@@ -16,6 +16,7 @@ public interface MemberDao {
     int countEmail(String email);
     int countNickName(String nickName);
     int countAll();
+    int countArtistAll();
     int countComparePassword(HashMap<String, Object> parameters);
     int insert(Member member);
     int update(Member member);

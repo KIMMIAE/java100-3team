@@ -177,8 +177,9 @@ var words = $('#words'),
     
     function load(pageNo, options) {
         
-        if (options == undefined) options = {};
+         if (options == undefined) options = {};
         options.pn = pageNo;
+           console.log(options);
         
         $.ajax('../json/member/artistList', {
             /*method: 'GET',*/
