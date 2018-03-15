@@ -19,6 +19,7 @@ import java100.app.domain.member.Member;
 //
 public interface MemberService {
     List<Member> list(int pageNo, int pageSize, Map<String,Object> options);
+    List<Member> artistList(int pageNo, int pageSize, Map<String,Object> options);
     Member get(int no);
     String getPhoto(int no);
     int getAreaCnt(int no);
@@ -30,6 +31,7 @@ public interface MemberService {
     int getEmailCount(String email);
     int getNickNameCount(String nickName);
     int getTotalCount();
+    int getArtistCount();
     int getComparePassword(HashMap<String, Object> parameters);
     int add(Member member);
     int update(Member member);
