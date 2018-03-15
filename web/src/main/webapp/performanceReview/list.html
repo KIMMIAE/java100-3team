@@ -104,7 +104,7 @@ height: 150px;
 <body>
 <header></header>
     <div class='container'>
-        <h3>공연 후기</h3>
+        <h1>공연 후기</h1>
         <nav class="navbar navbar-light justify-content-between blackLine"
          style="margin-bottom: -4px;">
             <a href='form.html' class='btn btn-primary btn-sm'>추가</a>
@@ -177,14 +177,16 @@ var words = $('#words'),
     
     function load(pageNo, options) {
         
-        if (options == undefined) options = {};
+         if (options == undefined) options = {};
         options.pn = pageNo;
+           console.log(options);
         
-        $.ajax('../json/member/list', {
+        $.ajax('../json/member/artistList', {
             /*method: 'GET',*/
             data: options,
             dataType: 'json',
             success: (result) => {
+                console.log(result);
                 
                 for (var data of result.list) {
                     if (data.type != "아티스트") {
@@ -192,7 +194,7 @@ var words = $('#words'),
                     } 
                     if (data.photo == null) {
                         photo= 'no_img.jpg';
-                    }else {
+                    } else {
                         photo = data.photo;
                     }
                     reviewList(data.no,data.artist.artistName,data.photo);
