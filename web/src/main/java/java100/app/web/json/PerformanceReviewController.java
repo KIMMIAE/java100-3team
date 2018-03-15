@@ -21,6 +21,7 @@ import java100.app.domain.member.Member;
 import java100.app.domain.performance.PerformanceReview;
 import java100.app.domain.performance.ReviewFile;
 import java100.app.service.PerformanceReviewService;
+import java100.app.service.PerformanceService;
 import java100.app.web.util.ThumbnailMaker;
 
 @RestController
@@ -30,6 +31,7 @@ public class PerformanceReviewController {
     
     @Autowired ServletContext servletContext;
     @Autowired PerformanceReviewService performanceReviewService;
+    @Autowired PerformanceService performanceService;
     
     @RequestMapping("list")
     public Object list(
@@ -67,6 +69,54 @@ public class PerformanceReviewController {
         result.put("pageNo", pageNo);
         result.put("lastPageNo", lastPageNo);
         result.put("list", performanceReviewService.list(pageNo, pageSize, options));
+        
+        // view 컴포넌트가 사용할 값을 Model에 담는다.
+        return result;
+    }
+    
+    @RequestMapping("search")
+    public Object search(
+            @RequestParam(value="pn", defaultValue="1") int pageNo,
+            @RequestParam(value="ps", defaultValue="5") int pageSize,
+            @RequestParam(value="words", required=false) String[] words,
+            @RequestParam(value="oc", required=false) String orderColumn,
+            @RequestParam(value="al", required=false) String align) throws Exception {
+        
+        // UI 제어와 관련된 코드는 이렇게 페이지 컨트롤러에 두어야 한다.
+        //
+        if (pageNo < 1) {
+            pageNo = 1;
+        }
+        
+        if (pageSize < 5 || pageSize > 15) {
+            pageSize = 5;
+        }
+        
+        HashMap<String,Object> options = new HashMap<>();
+        if (words != null && words[0].length() > 0) {
+            options.put("words", words);
+        }
+        options.put("orderColumn", orderColumn);
+        options.put("align", align);
+        
+        int totalCount = performanceReviewService.getSearchCount(options);
+        int lastPageNo = totalCount / pageSize;
+        if(lastPageNo == 0) {
+            lastPageNo=1;
+        }
+        
+        if ((totalCount % pageSize) > 0) {
+            lastPageNo++;
+        }
+        
+        
+        
+        HashMap<String, Object> result = new HashMap<>();
+        
+        result.put("pageNo", pageNo);
+        result.put("lastPageNo", lastPageNo);
+        result.put("list", performanceService.list(pageNo, pageSize, options));
+        
         
         // view 컴포넌트가 사용할 값을 Model에 담는다.
         return result;

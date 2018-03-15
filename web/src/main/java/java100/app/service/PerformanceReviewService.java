@@ -17,7 +17,7 @@ public interface PerformanceReviewService {
 	int delete(int no);
 	void addReviewFiles(List<ReviewFile> reviewFiles, int reviewFileNo);
 	List<PerformanceReview> findByArtNo (int no);
-
+    int getSearchCount(Map<String, Object> options);
 
 
 }
