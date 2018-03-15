@@ -186,7 +186,9 @@ nextBtn2.click(() => {
 });
 
 
-function grapeList(options){
+function grapeList(pageNo,options){
+if (options == undefined) options = {};
+options.pn = pageNo;
 $.ajax('../json/grape/list', {
     data: options,
     method: 'GET',
@@ -217,7 +219,7 @@ $.ajax('../json/grape/list', {
     });
 }
 
-function sponsorList(options){
+function sponsorList(pageNo,options){
 
 $.ajax('../json/sponsor/list', {
     data: options,
@@ -249,7 +251,7 @@ $.ajax('../json/sponsor/list', {
 }
 
 
-function sponsorGet(options){
+function sponsorGet(pageNo,options){
 $.ajax('../json/sponsor/get', {
     data: options,
     method: 'GET',
@@ -281,12 +283,10 @@ $.ajax('../json/sponsor/get', {
 
 
 function load(pageNo, options) {
-    if (options == undefined) options = {};
-    options.pn = pageNo;
-    
-    grapeList(options);
-    sponsorList(options);
-    sponsorGet(options);
+  
+    grapeList(pageNo,options);
+    sponsorList(pageNo,options);
+    sponsorGet(pageNo,options);
     
 }
 
