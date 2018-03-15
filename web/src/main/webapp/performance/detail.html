@@ -186,7 +186,7 @@ body * {
 <header></header>
 <div class='container'>
 
-<h1></h1>
+<h3></h3>
 
 
 
@@ -514,7 +514,7 @@ function load() {
     if (index != -1) { // 기존 데이터를 조회할 경우,
         var qs = location.href.substr(index + 1);
         pagearr = qs.split('=');
-        //$('h1').html("공연 정보");
+        //$('h3').html("공연 정보");
         $('.my-new').css('display', 'none');
         $(() => {
             
@@ -692,9 +692,9 @@ function load() {
                     
                     
                     $('.tab-four').append(
-                        //"<h1'>" + "공연 내용" + "</h1>" +
+                        //"<h3'>" + "공연 내용" + "</h3>" +
                         //"<p>" + performInfo.detailDesc +"</p><hr>" +
-                        //"<h1'>" + "특이 사항" + "</h1>" +
+                        //"<h3'>" + "특이 사항" + "</h3>" +
                         //"<p>" + performInfo.specialDesc
                     );
                     

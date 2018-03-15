@@ -121,7 +121,7 @@
 <header></header>
 <div class='container'>
 
-<h1></h1>
+<h3></h3>
 
 
 
@@ -542,7 +542,7 @@ function load() {
     if (index != -1) {
         var qs = location.href.substr(index + 1);
         pagearr = qs.split('=');
-        $('h1').html("공연 정보");
+        $('h3').html("공연 정보");
         $('.my-new').css('display', 'none');
         $(() => {
             
@@ -579,12 +579,12 @@ function load() {
                 }
             });
         });
-        $('h1').html("공연 수정");
+        $('h3').html("공연 수정");
         cancelBtn.text("취소");
         $('.my-new').css('display', 'none');
         
     } else {
-        $('h1').html("공연 등록");
+        $('h3').html("공연 등록");
         cancelBtn.text("취소");
         $('.my-view').css('display', 'none');
     }
