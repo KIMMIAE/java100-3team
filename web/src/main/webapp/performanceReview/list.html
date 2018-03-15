@@ -246,7 +246,7 @@ var words = $('#words'),
                      }
                      
                      var reviewBox = $('#'+no+'> div')
-                     $("<div class='review-Info'><figure>").html("<img class='review-img' src='../download/" + data.reviewFiles[0].reviewFilename + "'>" +
+                     $("<div class='review-Info'><figure>").html("<a href='form.html?no="+data.reviewNo+"'><img class='review-img' src='../download/" + data.reviewFiles[0].reviewFilename + "'></a>" +
                             "</figure><span class='desc'>" +
                              "<br><strong>" + data.artist.artistName+ "</strong>" +
                              "<br>" + formatDate(data.regDate, 2) + "<br></span></div>").appendTo(reviewBox);
