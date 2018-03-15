@@ -309,6 +309,8 @@ function checkNickName() {
 
 
 updateBtn.click(() =>  {
+    
+    cuttingBtn.trigger('click');
 console.log("업데이트 버튼");
 // 이메일 검증
 if (emailItem.val() == "") {

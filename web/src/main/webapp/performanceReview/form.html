@@ -204,7 +204,7 @@ type='text' placeholder="내용을 입력하세요" name='reviewDescription' val
                         <tbody></tbody>
                     </table>
             
-                    <nav aria-label="Page navigation">
+                    <nav aria-label="Page navigation" id="pageNavView">
                         <ul class="pagination justify-content-center">
                             <li class="page-item"><a id="prevBtn" class="page-link"
                                 tabindex="-1">이전</a></li>
@@ -243,6 +243,8 @@ type='text' placeholder="내용을 입력하세요" name='reviewDescription' val
 <script src='../node_modules/jquery/dist/jquery.min.js'></script>
 <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<!-- sweetalert2 -->
+<script src='../node_modules/sweetalert2/dist/sweetalert2.all.min.js'></script>
 
 <script type="text/javascript">
 /* 이미지 정보들을 담을 배열 */
@@ -329,9 +331,25 @@ $('header').load('../header.html');
 
 $('footer').load('../footer.html');
 
+load();
+
+$('#pageNavView').hide();
 
 searchBtn.click(() => {
     //event.preventDefault();
+    
+if ($('#words').val() == "") {
+    swal({
+        title: '주의!',
+        text: '검색어를 입력해주세요!',
+        type: 'warning',
+        confirmButtonText: '확인'
+      });
+    return;
+}
+    
+$('#pageNavView').show();
+    
     search(1, {
         "words": $('#words').val()
     })
