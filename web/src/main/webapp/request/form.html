@@ -96,7 +96,7 @@
       <header></header>
    <div class='container'>
 
-      <h1>공연 요청</h1>
+      <h3>공연 요청</h3>
 
       <div class="row">
          <div class="col-md-7">
@@ -417,7 +417,7 @@ function load() {
     if (index != -1) {
         var qs = location.href.substr(index + 1);
         var arr = qs.split('=');
-        $('h1').html("공연 정보");
+        $('h3').html("공연 정보");
         $('.my-new').css('display', 'none');
         $(() => {  
         $.ajax('../json/request/' + arr[1], {
