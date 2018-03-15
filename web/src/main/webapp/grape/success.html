@@ -47,6 +47,7 @@ $.ajax('../json/grape/approve',{
 			        dataType: 'json',
 			        method: 'POST',
 			        success: () => {
+			            opener.location = 'list.html';
 		                close();
 			        },
  		// 추가 후 새창 종료 			   
