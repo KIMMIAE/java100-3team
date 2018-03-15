@@ -356,11 +356,17 @@ $('#pageNavView').show();
 });
 
 prevBtn.click (() => {
-    search(currPageNo - 1)
+    search(currPageNo - 1,{
+        "words": $('#words').val()
+    })
+    
 });
 
 nextBtn.click (() => {
-    search(currPageNo + 1)
+    search(currPageNo + 1,{
+        "words": $('#words').val()
+    })
+    
 });
 
 
@@ -391,7 +397,8 @@ function search(pageNo, options) {
     
     if (options == undefined) options = {};
     options.pn = pageNo;
-    $.ajax('../json/performance/list', {
+    console.log(options);
+    $.ajax('../json/performanceReview/search', {
         /*method: 'GET',*/
         data: options,
         dataType: 'json',
