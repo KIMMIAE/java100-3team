@@ -1,3 +1,4 @@
+﻿
 ﻿﻿﻿<html>
 <head>
 <meta charset="UTF-8">
@@ -110,7 +111,7 @@
 body * {
   box-sizing: border-box;
 }
-
+ 
 
 .imglist {
   border-radius: 50%;
@@ -120,7 +121,7 @@ body * {
 
 #my-span{margin: 20px;}
 .w3-third{width:300px;}
-.w3-twothird{width:400px; padding-left: 80px}
+.w3-twothird{width:420px; padding-left: 80px}
 #detail-td1{width:150px;}
 #detail-td2{width:350px;}
 
@@ -535,7 +536,7 @@ function imgslide() {
 
 var map, marker;
 
-function initMap() {
+/* function initMap() {
     map = new google.maps.Map(document.getElementById("map_canvas"), {
          center: { lat: 37.497912049682526, lng: 127.0276288757841 },
          scrollwheel: true,
@@ -553,7 +554,7 @@ function initMap() {
 
     map.setCenter(marker.position);
 }
-
+ */
 </script>
 
 
@@ -591,7 +592,28 @@ var index = location.href.indexOf('?');
 //$(document.body).on('login', (event, obj) => {
 
 function load() {
-    initMap();
+
+    map = new google.maps.Map(document.getElementById("map_canvas"), {
+         center: { lat: 37.497912049682526, lng: 127.0276288757841 },
+         scrollwheel: true,
+         zoom: 16
+    });
+  
+    //var infoWindow = new google.maps.InfoWindow({map: map});
+    marker = new google.maps.Marker({
+        position: map.center,
+        map: map,
+        title: "공연위치",
+        //draggable: true,
+        animation: google.maps.Animation.DROP
+    });
+
+    map.setCenter(marker.position);
+    
+    
+    //initMap();
+    
+    
     $('.my-hidden').css('display', 'none');
     if (index != -1) { // 기존 데이터를 조회할 경우,
         var qs = location.href.substr(index + 1);
