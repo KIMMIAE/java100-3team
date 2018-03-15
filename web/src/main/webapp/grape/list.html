@@ -135,7 +135,9 @@ currBtn2 = $('#currBtn2'),
 nextBtn2 = $('#nextBtn2'),
 
 tbody = $('#list > tbody'),
-currPageNo = 1, 
+currPageNo = 1,
+currPageNo1 = 1,
+currPageNo2 = 1,
 template1Src = $('#template1').html(),
 template1Engine = Handlebars.compile(template1Src),
 template2Src =  $('#template2').html(),
@@ -158,118 +160,133 @@ $('.left-nav').load('../left-nav.html');
 load(1);
 
 prevBtn.click(() => {
-  load(currPageNo - 1)
+    grapeList(currPageNo - 1)
 });
 
 nextBtn.click(() => {
-  load(currPageNo + 1)
+    grapeList(currPageNo + 1)
 });
 
 
 prevBtn1.click(() => {
-    load(currPageNo - 1)
+    load(currPageNo1 - 1)
 });
 
 nextBtn1.click(() => {
-    load(currPageNo + 1)
+    load(currPageNo1 + 1)
 });
 
 
 prevBtn2.click(() => {
-    load(currPageNo - 1)
+    load(currPageNo2 - 1)
 });
 
 nextBtn2.click(() => {
-    load(currPageNo + 1)
+    load(currPageNo2 + 1)
 });
 
 
-function load(pageNo, options) {
-    if (options == undefined) options = {};
-    options.pn = pageNo;
+function grapeList(pageNo,options){
+if (options == undefined) options = {};
+options.pn = pageNo;
+$.ajax('../json/grape/list', {
+    data: options,
+    method: 'GET',
+    dataType: 'json',
+    success: (result) => {
+        $('#grapechrg').html(template1Engine(result));
+         $('#grapeSum').val(result.sum) 
+        
+        
+            currPageNo = result.pageNo;
+            currBtn.html(currPageNo);
+            
+            if (result.pageNo == 1) {
+                $(prevBtn.parent()).addClass("disabled");
+            } else {
+                $(prevBtn.parent()).removeClass("disabled");
+            }
+            
+            if (result.lastPageNo == result.pageNo) {
+                $(nextBtn.parent()).addClass("disabled");
+            } else {
+                $(nextBtn.parent()).removeClass("disabled");
+            }
+        },
+        error: () => {
+            /*window.alert('서버 실행 오류!');*/
+        }
+    });
+}
 
- 
-    $.ajax('../json/grape/list', {
-        method: 'GET',
-        dataType: 'json',
-        success: (result) => {
-            $('#grapechrg').html(template1Engine(result));
-             $('#grapeSum').val(result.sum) 
+function sponsorList(pageNo,options){
+
+$.ajax('../json/sponsor/list', {
+    data: options,
+    method: 'GET',
+    dataType: 'json',
+    success: (result) => {
+        $('#sponsor').html(template2Engine(result));
+        
+            currPageNo1 = result.pageNo;
+            currBtn1.html(currPageNo1);
             
-            
-                currPageNo = result.pageNo;
-                currBtn.html(currPageNo);
-                
-                if (result.pageNo == 1) {
-                    $(prevBtn.parent()).addClass("disabled");
-                } else {
-                    $(prevBtn.parent()).removeClass("disabled");
-                }
-                
-                if (result.lastPageNo == result.pageNo) {
-                    $(nextBtn.parent()).addClass("disabled");
-                } else {
-                    $(nextBtn.parent()).removeClass("disabled");
-                }
-            },
-            error: () => {
-                /*window.alert('서버 실행 오류!');*/
+            if (result.pageNo == 1) {
+                $(prevBtn1.parent()).addClass("disabled");
+            } else {
+                $(prevBtn1.parent()).removeClass("disabled");
             }
-    });
-    
-    
-    $.ajax('../json/sponsor/list', {
-        method: 'GET',
-        dataType: 'json',
-        success: (result) => {
-            $('#sponsor').html(template2Engine(result));
             
-                currPageNo = result.pageNo;
-                currBtn1.html(currPageNo);
-                
-                if (result.pageNo == 1) {
-                    $(prevBtn1.parent()).addClass("disabled");
-                } else {
-                    $(prevBtn1.parent()).removeClass("disabled");
-                }
-                
-                if (result.lastPageNo == result.pageNo) {
-                    $(nextBtn1.parent()).addClass("disabled");
-                } else {
-                    $(nextBtn1.parent()).removeClass("disabled");
-                }
-            },
-            error: () => {
-                /*window.alert('서버 실행 오류!');*/
+            if (result.lastPageNo == result.pageNo) {
+                $(nextBtn1.parent()).addClass("disabled");
+            } else {
+                $(nextBtn1.parent()).removeClass("disabled");
             }
+        },
+        error: () => {
+            /*window.alert('서버 실행 오류!');*/
+        }
     });
-    
-    
-    $.ajax('../json/sponsor/get', {
-        method: 'GET',
-        dataType: 'json',
-        success: (result) => {
-            $('#sponsored').html(template3Engine(result));
+
+}
+
+
+function sponsorGet(pageNo,options){
+$.ajax('../json/sponsor/get', {
+    data: options,
+    method: 'GET',
+    dataType: 'json',
+    success: (result) => {
+        $('#sponsored').html(template3Engine(result));
+        
+            currPageNo2 = result.pageNo;
+            currBtn2.html(currPageNo2);
             
-                currPageNo = result.pageNo;
-                currBtn2.html(currPageNo);
-                
-                if (result.pageNo == 1) {
-                    $(prevBtn2.parent()).addClass("disabled");
-                } else {
-                    $(prevBtn2.parent()).removeClass("disabled");
-                }
-                
-                if (result.lastPageNo == result.pageNo) {
-                    $(nextBtn2.parent()).addClass("disabled");
-                } else {
-                    $(nextBtn2.parent()).removeClass("disabled");
-                }
-            },
-            error: () => {
-                /*window.alert('서버 실행 오류!');*/
+            if (result.pageNo == 1) {
+                $(prevBtn2.parent()).addClass("disabled");
+            } else {
+                $(prevBtn2.parent()).removeClass("disabled");
             }
-    });
+            
+            if (result.lastPageNo == result.pageNo) {
+                $(nextBtn2.parent()).addClass("disabled");
+            } else {
+                $(nextBtn2.parent()).removeClass("disabled");
+            }
+        },
+        error: () => {
+            /*window.alert('서버 실행 오류!');*/
+        }
+        });
+}
+
+
+
+function load(pageNo, options) {
+  
+    grapeList(pageNo,options);
+    sponsorList(pageNo,options);
+    sponsorGet(pageNo,options);
     
 }
 

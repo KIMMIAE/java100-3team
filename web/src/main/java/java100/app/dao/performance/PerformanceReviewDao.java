@@ -15,6 +15,7 @@ public interface PerformanceReviewDao {
 	int update(PerformanceReview performanceReview);
 	int delete(int no);
 	List<PerformanceReview> findByArtNo (int no);
+	int countSearch(Map<String, Object> params);
 
 }
 

@@ -14,7 +14,6 @@ import java100.app.service.PerformanceReviewService;
 
 @Service
 public class PerformanceReviewServiceImpl implements PerformanceReviewService {
-
     @Autowired PerformanceReviewDao performanceReviewDao;
     @Autowired ReviewFileDao reviewFileDao;
 
@@ -109,8 +108,17 @@ public class PerformanceReviewServiceImpl implements PerformanceReviewService {
     }
 
 
-
-
+    @Override
+    public int getSearchCount(Map<String, Object> options) {
+        HashMap<String,Object> params = new HashMap<>();
+        
+        if (options != null) {
+            params.putAll(options);
+        }
+        
+        
+        return performanceReviewDao.countSearch(params);
+    }
 
 
     

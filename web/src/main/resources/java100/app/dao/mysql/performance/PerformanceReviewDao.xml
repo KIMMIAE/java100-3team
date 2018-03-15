@@ -107,6 +107,17 @@
         select count(*) from tb_prfrmrvw
     </select>
     
+     <select id="countSearch" resultType="int" parameterType="map">
+        select count(*) from tb_prfrminfo  
+          <if test="words != null">
+            <where>
+                <foreach collection="words" item="word">
+                    or pfmnm like '%${word}%'
+                </foreach>
+            </where>
+        </if>
+    </select>
+    
     <!-- 
     <select id="findByNo" resultMap="performanceMap" parameterType="int">
         <include refid="select1"/>
