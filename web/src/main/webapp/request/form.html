@@ -632,7 +632,7 @@ function search(pageNo, options) {
     
     if (options == undefined) options = {};
     options.pn = pageNo;
-    $.ajax('../json/member/list', {
+    $.ajax('../json/member/artistList', {
         /*method: 'GET',*/
         data: options,
         dataType: 'json',
